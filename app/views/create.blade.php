@@ -5,7 +5,7 @@
         <h1>Crear nou soci</h1>
     </div>
 
-    <form action="{{ action('SociController@handleCreate') }}" method="post" role="form">
+    <form action="{{ action('SocisController@handleCreate') }}" method="post" role="form">
     @foreach(array('cognom1' => 'Cognom 1',
 		   'cognom2' => 'Cognom 2',
 		   'nom' => 'Nom',
@@ -30,6 +30,6 @@
         </div>
     @endforeach
         <input type="submit" value="Crear" class="btn btn-primary" />
-        <a href="{{ action('SociController@index') }}" class="btn btn-link">Cancelar</a>
+        <a href="{{ action('SocisController@index') }}" class="btn btn-link">Cancelar</a>
     </form>
 @stop

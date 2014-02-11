@@ -7,7 +7,7 @@
 
     <div class="panel panel-default">
         <div class="panel-body">
-            <a href="{{ action('SociController@create', $socis->id) }}" class="btn btn-primary">Nou soci</a>
+            <a href="{{ action('SocisController@create', $soci->id) }}" class="btn btn-primary">Nou soci</a>
         </div>
     </div>
 
@@ -63,8 +63,8 @@
                     <td>{{ $soci->alta }}</td>
                     <td>{{ $soci->sexe }}</td>
                     <td>
-                        <a href="{{ action('SociController@edit', $soci->id) }}" class="btn btn-default">Editar</a>
-                        <a href="{{ action('SociController@delete', $soci->id) }}" class="btn btn-danger">Esborrar</a>
+                        <a href="{{ action('SocisController@edit', $soci->id) }}" class="btn btn-default">Editar</a>
+                        <a href="{{ action('SocisController@delete', $soci->id) }}" class="btn btn-danger">Esborrar</a>
                     </td>
                 </tr>
                 @endforeach

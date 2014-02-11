@@ -1,6 +1,6 @@
 <?php
 
-class SociController extends BaseController
+class SocisController extends BaseController
 {
     public function index()
     {

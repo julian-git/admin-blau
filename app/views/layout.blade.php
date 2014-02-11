@@ -9,7 +9,7 @@
     <div class="container">
         <nav class="navbar navbar-default" role="navigation">
             <div class="navbar-header">
-                <a href="{{ action('SociController@index') }}" class="navbar-brand">Socis</a>
+                <a href="{{ action('SocisController@index') }}" class="navbar-brand">Socis</a>
             </div>
         </nav>
         @yield('content')

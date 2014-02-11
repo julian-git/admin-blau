@@ -16,12 +16,12 @@
 Route::model('socis', 'Soci');
 
 // Show pages.
-Route::get('/', 'SociController@index');
-Route::get('/create', 'SociController@create');
-Route::get('/edit/{soci}', 'SociController@edit');
-Route::get('/delete/{soci}', 'SociController@delete');
+Route::get('/', 'SocisController@index');
+Route::get('/create', 'SocisController@create');
+Route::get('/edit/{soci}', 'SocisController@edit');
+Route::get('/delete/{soci}', 'SocisController@delete');
 
 // Handle form submissions.
-Route::post('/create', 'SociController@handleCreate');
-Route::post('/edit', 'SociController@handleEdit');
-Route::post('/delete', 'SociController@handleDelete');
+Route::post('/create', 'SocisController@handleCreate');
+Route::post('/edit', 'SocisController@handleEdit');
+Route::post('/delete', 'SocisController@handleDelete');
