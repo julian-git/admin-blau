@@ -44,7 +44,7 @@
                 <tr>
                     <td>{{ $soci->id }}</td>
                     <td>{{ $soci->cognom1 }}</td>
-                    <td>{{ $soci->cognom1 }}</td>
+                    <td>{{ $soci->cognom2 }}</td>
                     <td>{{ $soci->nom }}</td>
                     <td>{{ $soci->mot }}</td>
                     <td>{{ $soci->naixement }}</td>
