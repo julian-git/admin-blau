@@ -11,7 +11,17 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+
+// Bind route parameters.
+Route::model('socis', 'Soci');
+
+// Show pages.
+Route::get('/', 'SociController@index');
+Route::get('/create', 'SociController@create');
+Route::get('/edit/{soci}', 'SociController@edit');
+Route::get('/delete/{soci}', 'SociController@delete');
+
+// Handle form submissions.
+Route::post('/create', 'SociController@handleCreate');
+Route::post('/edit', 'SociController@handleEdit');
+Route::post('/delete', 'SociController@handleDelete');
