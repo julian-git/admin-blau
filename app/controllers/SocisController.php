@@ -21,6 +21,23 @@ class SocisController extends BaseController
 				     'whatsapp' => 'Whatsapp',
 				     'sexe' => 'Sexe');
 
+    protected $validation_rules = array('cognom1' => 'required|alpha',
+					'cognom2' => 'alpha',
+					'nom' => 'required|alpha',
+					'mot' => 'required|alpha',
+					'naixement' => 'date',
+					'dni' => 'alpha_num|max:12',
+					'email' => 'email',
+					'cp' => 'alpha_num',
+					'telefon1' => 'alpha_num',
+					'telefon2' => 'alpha_num',
+					'mobil1' => 'alpha_num',
+					'mobil2' => 'alpha_num',
+					'twitter' => 'alpha_num',
+					'whatsapp' => 'alpha_num',
+					'sexe' => 'in:H,D');
+
+
     public function index()
     {
         // Show a listing of socis.
@@ -41,8 +58,14 @@ class SocisController extends BaseController
 	foreach (array_keys($this->member_fields) as $field) 
 	    $soci->$field = Input::get($field); 
 
-	$soci->save();
-	return Redirect::action('SocisController@index');
+	$validator = Validator::make(array_keys($this->member_fields), $this->validation_rules);
+
+	if ($validator->passes()) {
+	    $soci->save();
+	    return Redirect::action('SocisController@index');
+	}
+
+	return Redirect::to('/create')->withErrors($validator);
     }
 
     public function edit(Soci $soci)
