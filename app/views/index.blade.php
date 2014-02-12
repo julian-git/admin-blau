@@ -7,7 +7,7 @@
 
     <div class="panel panel-default">
         <div class="panel-body">
-            <a href="{{ action('SocisController@create', $soci->id) }}" class="btn btn-primary">Nou soci</a>
+            <a href="{{ action('SocisController@create') }}" class="btn btn-primary">Nou soci</a>
         </div>
     </div>
 

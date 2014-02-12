@@ -99,6 +99,6 @@
         </div>
 
         <input type="submit" value="Desar" class="btn btn-primary" />
-        <a href="{{ action('GamesController@index') }}" class="btn btn-link">Cancel.lar</a>
+        <a href="{{ action('SocisController@index') }}" class="btn btn-link">Cancel.lar</a>
     </form>
 @stop

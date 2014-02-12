@@ -24,14 +24,15 @@ class CreateSocis extends Migration {
 		    $table->string('cp', 8);
 		    $table->string('poblacio', 50);
 		    $table->string('provincia', 30);
-		    $table->string('telefon 1', 12);
-		    $table->string('telefon 2', 12);
-		    $table->string('mobil 1', 12);
-		    $table->string('mobil 2', 12);
+		    $table->string('telefon1', 12);
+		    $table->string('telefon2', 12);
+		    $table->string('mobil1', 12);
+		    $table->string('mobil2', 12);
 		    $table->string('twitter', 20);
 		    $table->string('whatsapp', 20);
 		    $table->date('alta');
 		    $table->string('sexe', 1);
+		    $table->timestamps();
 		});
 	}
 
