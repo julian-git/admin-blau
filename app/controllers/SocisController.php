@@ -65,7 +65,7 @@ class SocisController extends BaseController
 	    return Redirect::action('SocisController@index');
 	}
 
-	return Redirect::to('/create')->withErrors($validator);
+	return Redirect::to('/create')->withErrors($validator)->withInput();
     }
 
     public function edit(Soci $soci)
