@@ -39,7 +39,8 @@ class CreateCastellers extends Migration {
 		    $table->string('whatsapp', 20);
 		    $table->date('alta')->index();
 		    $table->string('sexe', 1);
-		    $table->integer('quota_id')->foreign()->references('id')->on('quotes')->nullable();
+		    $table->integer('quota_id_fk')->unsigned();
+		    $table->foreign('quota_id_fk')->references('id')->on('quotes')->nullable();
 		    $table->timestamps();
 		});
 
@@ -51,8 +52,10 @@ class CreateCastellers extends Migration {
 		});
 
 	    Schema::create('families_x_castellers', function($table) {
-		    $table->integer('familia_id')->foreign()->references('id')->on('families');
-		    $table->integer('casteller_id')->foreign()->references('id')->on('castellers');
+		    $table->integer('familia_id_fk')->unsigned();
+		    $table->integer('casteller_id_fk')->unsigned();
+		    $table->foreign('familia_id_fk')->references('id')->on('families');
+		    $table->foreign('casteller_id_fk')->references('id')->on('castellers');
 		});
 	    
 	    Schema::create('tipus_activitat', function($table) {
@@ -64,7 +67,8 @@ class CreateCastellers extends Migration {
 	    Schema::create('activitats', function($table) {
 		    $table->increments('id');
 		    $table->string('titol')->index();
-		    $table->integer('tipus')->foreign()->references('id')->on('tipus_activitat');
+		    $table->integer('tipus_fk')->unsigned();
+		    $table->foreign('tipus_fk')->references('id')->on('tipus_activitat');
 		    $table->date('data')->index();
 		    $table->date('fi')->nullable();
 		    $table->string('descripcio', 200);
@@ -72,8 +76,10 @@ class CreateCastellers extends Migration {
 		});
 
 	    Schema::create('castellers_x_activitats', function($table) {
-		    $table->integer('casteller_id')->foreign()->references('id')->on('castellers');
-		    $table->integer('activitat_id')->foreign()->references('id')->on('activitats');
+		    $table->integer('casteller_id_fk')->unsigned();
+		    $table->integer('activitat_id_fk')->unsigned();
+		    $table->foreign('casteller_id_fk')->references('id')->on('castellers');
+		    $table->foreign('activitat_id_fk')->references('id')->on('activitats');
 		});
 
 	}
