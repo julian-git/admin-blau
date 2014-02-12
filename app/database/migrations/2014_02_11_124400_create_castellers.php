@@ -11,12 +11,19 @@ class CreateCastellers extends Migration {
 	 */
 	public function up()
 	{
+	    Schema::create('quotes', function($table) {
+		    $table->increments('id');
+		    $table->string('tipus', 20);
+		    $table->decimal('cantitat');
+		    $table->timestamps();
+		});
+
 	    Schema::create('castellers', function($table) {
 		    $table->increments('id');
-		    $table->string('cognom1', 50);
+		    $table->string('cognom1', 50)->index();
 		    $table->string('cognom2', 50);
-		    $table->string('nom', 50);
-		    $table->string('mot', 50);
+		    $table->string('nom', 50)->index();
+		    $table->string('mot', 50)->index();
 		    $table->date('naixement');
 		    $table->string('dni', 15);
 		    $table->string('email', 50);
@@ -30,8 +37,9 @@ class CreateCastellers extends Migration {
 		    $table->string('mobil2', 12);
 		    $table->string('twitter', 20);
 		    $table->string('whatsapp', 20);
-		    $table->date('alta');
+		    $table->date('alta')->index();
 		    $table->string('sexe', 1);
+		    $table->integer('quota_id')->foreign()->references('id')->on('quotes')->nullable();
 		    $table->timestamps();
 		});
 
@@ -43,9 +51,31 @@ class CreateCastellers extends Migration {
 		});
 
 	    Schema::create('families_x_castellers', function($table) {
-		    $table->integer('familia')->index();
-		    $table->integer('casteller')->index();
+		    $table->integer('familia_id')->foreign()->references('id')->on('families');
+		    $table->integer('casteller_id')->foreign()->references('id')->on('castellers');
 		});
+	    
+	    Schema::create('tipus_activitat', function($table) {
+		    $table->increments('id');
+		    $table->string('tipus', 50)->index();
+		    $table->string('descripcio', 200);
+		});
+
+	    Schema::create('activitats', function($table) {
+		    $table->increments('id');
+		    $table->string('titol')->index();
+		    $table->integer('tipus')->foreign()->references('id')->on('tipus_activitat');
+		    $table->date('data')->index();
+		    $table->date('fi')->nullable();
+		    $table->string('descripcio', 200);
+		    $table->string('contacte', 200);		    
+		});
+
+	    Schema::create('castellers_x_activitats', function($table) {
+		    $table->integer('casteller_id')->foreign()->references('id')->on('castellers');
+		    $table->integer('activitat_id')->foreign()->references('id')->on('activitats');
+		});
+
 	}
 
 	/**
