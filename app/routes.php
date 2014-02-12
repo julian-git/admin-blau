@@ -13,7 +13,7 @@
 
 
 // Bind route parameters.
-Route::model('socis', 'Soci');
+Route::model('soci', 'Soci');
 
 // Show pages.
 Route::get('/', 'SocisController@index');

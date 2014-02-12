@@ -6,8 +6,9 @@ class SocisController extends BaseController
     {
         // Show a listing of socis.
 	$socis = Soci::all();
-	return View::make('index', compact('socis'));
-    }
+	return View::make('index', compact('socis')); 
+	//return View::make('index');
+   }
 
     public function create()
     {
