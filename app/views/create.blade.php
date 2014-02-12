@@ -1,4 +1,4 @@
-@extends('layout')
+<@extends('layout')
 
 @section('content')
     <div class="page-header">
@@ -30,6 +30,6 @@
         </div>
     @endforeach
         <input type="submit" value="Crear" class="btn btn-primary" />
-        <a href="{{ action('SocisController@index') }}" class="btn btn-link">Cancelar</a>
+        <a href="{{ action('SocisController@index') }}" class="btn btn-link">Cancel.lar</a>
     </form>
 @stop
