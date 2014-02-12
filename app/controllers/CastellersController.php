@@ -1,6 +1,6 @@
 <?php
 
-class SocisController extends BaseController
+class CastellersController extends BaseController
 {
     protected $member_fields = array('cognom1' => 'Cognom 1',
 				     'cognom2' => 'Cognom 2',
@@ -39,14 +39,14 @@ class SocisController extends BaseController
 
     public function index()
     {
-        // Show a listing of socis.
-	$socis = Soci::all();
-	return View::make('index', compact('socis')); 
+        // Show a listing of castellers.
+	$castellers = Casteller::all();
+	return View::make('index', compact('castellers')); 
     }
 
     public function create()
     {
-        // Show the create socis form.
+        // Show the create castellers form.
         return View::make('create');
     }
 
@@ -57,46 +57,46 @@ class SocisController extends BaseController
 	    return Redirect::to('/create')->withErrors($validator)->withInput();
 	}
 
-	$soci = new Soci;
+	$casteller = new Casteller;
 	foreach (array_keys($this->member_fields) as $field) {
-	    $soci->$field = Input::get($field); 
+	    $casteller->$field = Input::get($field); 
 	}
-	$soci->save();
+	$casteller->save();
 
-	return Redirect::action('SocisController@index');
+	return Redirect::action('CastellersController@index');
 
     }
 
-    public function edit(Soci $soci)
+    public function edit(Casteller $casteller)
     {
         // Show the edit game form.
-        return View::make('edit', compact('soci'));
+        return View::make('edit', compact('casteller'));
     }
 
     public function handleEdit()
     {
         // Handle edit form submission.
-	$soci = Soci::findOrFail(Input::get('id'));
+	$casteller = Casteller::findOrFail(Input::get('id'));
 
 	foreach (array_keys($this->member_fields) as $field) 
-	    $soci->$field = Input::get($field); 
+	    $casteller->$field = Input::get($field); 
 
-	$soci->save();
-	return Redirect::action('SocisController@index');
+	$casteller->save();
+	return Redirect::action('CastellersController@index');
     }
 
-    public function delete(Soci $soci)
+    public function delete(Casteller $casteller)
     {
         // Show delete confirmation page.
-        return View::make('delete', compact('soci'));
+        return View::make('delete', compact('casteller'));
     }
 
     public function handleDelete()
     {
         // Handle the delete confirmation.
-	$soci = Soci::findOrFail(Input::get('soci'));
-	$soci->delete();
-	return Redirect::action('SocisController@index');
+	$casteller = Casteller::findOrFail(Input::get('casteller'));
+	$casteller->delete();
+	return Redirect::action('CastellersController@index');
     }
 }
  ?>

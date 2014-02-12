@@ -13,15 +13,15 @@
 
 
 // Bind route parameters.
-Route::model('soci', 'Soci');
+Route::model('casteller', 'Casteller');
 
 // Show pages.
-Route::get('/', 'SocisController@index');
-Route::get('/create', 'SocisController@create');
-Route::get('/edit/{soci}', 'SocisController@edit');
-Route::get('/delete/{soci}', 'SocisController@delete');
+Route::get('/', 'CastellersController@index');
+Route::get('/create', 'CastellersController@create');
+Route::get('/edit/{casteller}', 'CastellersController@edit');
+Route::get('/delete/{casteller}', 'CastellersController@delete');
 
 // Handle form submissions.
-Route::post('/create', 'SocisController@handleCreate');
-Route::post('/edit', 'SocisController@handleEdit');
-Route::post('/delete', 'SocisController@handleDelete');
+Route::post('/create', 'CastellersController@handleCreate');
+Route::post('/edit', 'CastellersController@handleEdit');
+Route::post('/delete', 'CastellersController@handleDelete');

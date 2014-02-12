@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSocis extends Migration {
+class CreateCastellers extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,7 +11,7 @@ class CreateSocis extends Migration {
 	 */
 	public function up()
 	{
-	    Schema::create('socis', function($table) {
+	    Schema::create('castellers', function($table) {
 		    $table->increments('id');
 		    $table->string('cognom1', 50);
 		    $table->string('cognom2', 50);
@@ -34,6 +34,18 @@ class CreateSocis extends Migration {
 		    $table->string('sexe', 1);
 		    $table->timestamps();
 		});
+
+	    Schema::create('families', function($table) {
+		    $table->increments('id');
+		    $table->string('cognom1', 50);
+		    $table->string('cognom2', 50);
+		    $table->timestamps();
+		});
+
+	    Schema::create('families_x_castellers', function($table) {
+		    $table->integer('familia')->index();
+		    $table->integer('casteller')->index();
+		});
 	}
 
 	/**
@@ -43,7 +55,8 @@ class CreateSocis extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('socis');
+	    Schema::drop('castellers');
+	    Schema::drop('families');
 	}
 
 }

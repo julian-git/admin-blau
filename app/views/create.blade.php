@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="page-header">
-        <h1>Crear nou soci</h1>
+        <h1>Crear nou casteller</h1>
     </div>
 
-    <form action="{{ action('SocisController@handleCreate') }}" method="post" role="form">
+    <form action="{{ action('CastellersController@handleCreate') }}" method="post" role="form">
 
     <?php $member_fields = array('cognom1' => 'Cognom 1',
 				     'cognom2' => 'Cognom 2',
@@ -33,6 +33,6 @@
     </div>
 @endforeach
         <input type="submit" value="Crear" class="btn btn-primary" />
-        <a href="{{ action('SocisController@index') }}" class="btn btn-link">Cancel.lar</a>
+        <a href="{{ action('CastellersController@index') }}" class="btn btn-link">Cancel.lar</a>
     </form>
 @stop
