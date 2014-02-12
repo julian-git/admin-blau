@@ -37,13 +37,12 @@ class SocisController extends BaseController
 					'whatsapp' => 'alpha_num',
 					'sexe' => 'in:H,D');
 
-
     public function index()
     {
         // Show a listing of socis.
 	$socis = Soci::all();
 	return View::make('index', compact('socis')); 
-   }
+    }
 
     public function create()
     {
@@ -53,19 +52,19 @@ class SocisController extends BaseController
 
     public function handleCreate()
     {
-	$soci = new Soci;
-
-	foreach (array_keys($this->member_fields) as $field) 
-	    $soci->$field = Input::get($field); 
-
-	$validator = Validator::make(array_keys($this->member_fields), $this->validation_rules);
-
-	if ($validator->passes()) {
-	    $soci->save();
-	    return Redirect::action('SocisController@index');
+	$validator = Validator::make(Input::all(), $this->validation_rules);
+	if ($validator->fails()) {
+	    return Redirect::to('/create')->withErrors($validator)->withInput();
 	}
 
-	return Redirect::to('/create')->withErrors($validator)->withInput();
+	$soci = new Soci;
+	foreach (array_keys($this->member_fields) as $field) {
+	    $soci->$field = Input::get($field); 
+	}
+	$soci->save();
+
+	return Redirect::action('SocisController@index');
+
     }
 
     public function edit(Soci $soci)
