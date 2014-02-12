@@ -27,17 +27,17 @@ create user 'admin_blau'@'localhost' identified by 'admin_blau'
 grant all on admin_blau.* to 'admin_blau'@'localhost'
 ```
 
-3. Clone the Laravel framework
-    git clone https://github.com/laravel/laravel.git myadmin-blau/
+3. Clone the Laravel framework via ```git clone https://github.com/laravel/laravel.git myadmin-blau/```
 
 4. Install PHP Composer from (https://getcomposer.org/download/)
 
-5. Run
-    php /path/to/composer.phar install 
+5. Run ```php /path/to/composer.phar install```
 
 6. Rename git origins:
+```
     git remote rename origin laravel
     git remote add origin git@github.com:julian-git/admin-blau.git
+```
 
 7. Edit ```.git/config``` to say
 ```
@@ -46,14 +46,12 @@ grant all on admin_blau.* to 'admin_blau'@'localhost'
         merge = master
 ```
 
-8. ```rm composer.lock```
+8. Say ```rm composer.lock```
 
-9. ```git pull```
+9. Say ```git pull```
 
 10. Fix merge conflicts in ```app/routes.php, app/lang/en/validation.php, app/config/database.php, app/config/app.php, .gitignore``` leaving always the part between ```========``` and ```>>>>>>>>>```
 
 
-To use the app, open a shell and say 
-    php artisan serve
-
+To use the app, open a shell and say ```php artisan serve```, 
 then open your browser to ```http://localhost:8000```
