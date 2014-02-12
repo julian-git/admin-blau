@@ -85,8 +85,13 @@ class CreateCastellers extends Migration {
 	 */
 	public function down()
 	{
+	    Schema::drop('quotes');
 	    Schema::drop('castellers');
 	    Schema::drop('families');
+	    Schema::drop('families_x_castellers');
+	    Schema::drop('tipus_activitat');
+	    Schema::drop('activitats');
+	    Schema::drop('castellers_x_activitats');
 	}
 
 }
