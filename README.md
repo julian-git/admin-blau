@@ -15,24 +15,24 @@ L'Admin Blau és programari lliure, llicenciat amb la llicència [GPL v3](https:
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 
 
-## INSTALLATION
+## Installation
 
-This installation process is adapted from (http://daylerees.com/codebright/getting-started).
+This installation process is adapted from http://daylerees.com/codebright/getting-started .
 
 * Install git, php, mysql.
 
 * Create a mysql user. Log into mysql using ```mysql -u root -p``` and say
 ```
-create user 'admin_blau'@'localhost' identified by 'admin_blau'
-grant all on admin_blau.* to 'admin_blau'@'localhost'
+create user 'admin_blau'@'localhost' identified by 'admin_blau';
+grant all on admin_blau.* to 'admin_blau'@'localhost';
 create database admin_blau;
 ```
 
 * Clone the Laravel framework via ```git clone https://github.com/laravel/laravel.git admin-blau/```
 
-* Install PHP Composer from (https://getcomposer.org/download/)
+* Install [PHP Composer](https://getcomposer.org/download/)
 
-* Inside ```admin_blau```, run ```php /path/to/composer.phar install```
+* Inside ```admin_blau/```, run ```php /your/path/to/composer.phar install```
 
 * Rename git origins:
 ```
@@ -65,5 +65,8 @@ php artisan migrate:install
 php artisan migrate
 ```
 
-To use the app, open a new shell and say ```php artisan serve```, 
+* To use the app, open a new shell and say 
+```
+php artisan serve
+``` 
 then open your browser to ```http://localhost:8000```
