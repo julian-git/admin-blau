@@ -17,7 +17,7 @@
 */
 
 
-class Quota extends Eloquent
+class Quote extends Eloquent
 {
 
 }

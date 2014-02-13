@@ -11,7 +11,18 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		// $this->call('UserTableSeeder');
+		$this->call('QuotesSeeder');
+		$this->command->info('Quotes table seeded');
 	}
+
+}
+
+class QuotesSeeder extends Seeder {
+
+    public function run() {
+	DB::table('quotes')->delete();
+
+	Quote::create(array('id' => 1, 'banc' => 'sense quota'));
+    }
 
 }

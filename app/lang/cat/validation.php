@@ -16,9 +16,9 @@ return array(
 	"accepted"         => "The :attribute must be accepted.",
 	"active_url"       => "The :attribute is not a valid URL.",
 	"after"            => "The :attribute must be a date after :date.",
-	"alpha"            => "El camp :attribute nom&eacute;s pot contenir lletres.",
+	"alpha"            => "El camp :attribute nom&eacute;s pot contenir lletres, sense espais.",
 	"alpha_dash"       => "The :attribute may only contain letters, numbers, and dashes.",
-	"alpha_num"        => "El camp :attribute nom&eacute;s pot contenir lletres i n&uacute;meros.",
+	"alpha_num"        => "El camp :attribute nom&eacute;s pot contenir lletres i n&uacute;meros, sense espais.",
 	"array"            => "The :attribute must be an array.",
 	"before"           => "The :attribute must be a date before :date.",
 	"between"          => array(

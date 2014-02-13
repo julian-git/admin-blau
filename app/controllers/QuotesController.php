@@ -38,8 +38,8 @@ class QuotasController extends BaseController
     public function index()
     {
         // Show a listing of quotas.
-	$quotas = Quota::all();
-	return View::make('index', compact('quotas')); 
+	$quotes = Quota::all();
+	return View::make('index', compact('quotes')); 
     }
 
     public function create()

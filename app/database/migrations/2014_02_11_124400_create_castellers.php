@@ -62,8 +62,8 @@ class CreateCastellers extends Migration {
 		    $table->string('whatsapp', 20);
 		    $table->date('alta')->index();
 		    $table->string('sexe', 1);
-		    $table->integer('quota_id_fk')->unsigned();
-		    $table->foreign('quota_id_fk')->references('id')->on('quotes')->nullable();
+		    $table->integer('quota_id_fk')->unsigned()->default(1);
+		    $table->foreign('quota_id_fk')->references('id')->on('quotes');
 		    $table->timestamps();
 		});
 
