@@ -29,8 +29,6 @@
         </div>
     </div>
 
-    <?php require_once(dirname(__FILE__) . '/../models/Casteller.php'); ?>
-
     @if ($castellers->isEmpty())
         <p>No hi ha cap casteller de moment.</p>
     @else

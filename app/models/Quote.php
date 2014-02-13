@@ -19,6 +19,22 @@
 
 class Quote extends Eloquent
 {
+    public static $member_fields = array('banc' => 'Banc',
+					 'codi_banc' => 'Codi Banc',
+					 'oficina' => 'Oficina',
+					 'digit_control' => 'Digit Control',
+					 'compte' => 'N&uacute;mero de Compte',
+					 'import' => 'Import',
+					 'periodicitat' => 'Periodicitat');
+
+    public static $validation_rules = array('banc' => 'required|alpha',
+					    'codi_banc' => 'required|integer',
+					    'oficina' => 'required|alpha',
+					    'digit_control' => 'required|integer',
+					    'compte' => 'required|alpha_num',
+					    'import' => 'required|numeric',
+					    'periodicitat' => 'required|alpha_num');
+
 
 }
 
