@@ -30,7 +30,9 @@ class CreateCastellers extends Migration {
 	    Schema::create('quotes', function($table) {
 		    $table->increments('id');
 		    $table->string('banc', 50);
-		    $table->string('codi_banc', 4); // Laravel doesn't seem to allow to specify int(4)
+		    // Laravel doesn't seem to allow to specify int(4),
+		    // so we define the following fields as strings and validate on input
+		    $table->string('codi_banc', 4); 
 		    $table->string('oficina', 4);
 		    $table->string('digit_control', 2);
 		    $table->string('compte', 10);
