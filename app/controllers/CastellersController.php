@@ -86,7 +86,7 @@ class CastellersController extends BaseController
 
     public function edit(Casteller $casteller)
     {
-        // Show the edit game form.
+        // Show the edit casteller form.
         return View::make('edit', compact('casteller'));
     }
 
