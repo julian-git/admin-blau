@@ -16,44 +16,10 @@
     GNU General Public License for more details.
 */
 
+require_once(dirname(__FILE__) . '/../models/Casteller.php');
 
 class CastellersController extends BaseController
 {
-    protected $member_fields = array('cognom1' => 'Cognom 1',
-				     'cognom2' => 'Cognom 2',
-				     'nom' => 'Nom',
-				     'mot' => 'Mot',
-				     'naixement' => 'Data de naixement',
-				     'dni' => 'DNI',
-				     'email' => 'email',
-				     'direccio' => 'Direcció',
-				     'cp' => 'CP',
-				     'poblacio' => 'Població',
-				     'provincia' => 'Provincia',
-				     'telefon1' => 'Telèfon 1',
-				     'telefon2' => 'Telèfon 2',
-				     'mobil1' => 'Mòvil 1',
-				     'mobil2' => 'Mòvil 2',
-				     'twitter' => 'Twitter',
-				     'whatsapp' => 'Whatsapp',
-				     'sexe' => 'Sexe');
-
-    protected $validation_rules = array('cognom1' => 'required|alpha',
-					'cognom2' => 'alpha',
-					'nom' => 'required|alpha',
-					'mot' => 'required|alpha',
-					'naixement' => 'date',
-					'dni' => 'alpha_num|max:12',
-					'email' => 'email',
-					'cp' => 'alpha_num',
-					'telefon1' => 'alpha_num',
-					'telefon2' => 'alpha_num',
-					'mobil1' => 'alpha_num',
-					'mobil2' => 'alpha_num',
-					'twitter' => 'alpha_num',
-					'whatsapp' => 'alpha_num',
-					'sexe' => 'in:H,D');
-
     public function index()
     {
         // Show a listing of castellers.
@@ -69,14 +35,15 @@ class CastellersController extends BaseController
 
     public function handleCreate()
     {
-	$validator = Validator::make(Input::all(), $this->validation_rules);
+	$validator = Validator::make(Input::all(), Casteller::validation_rules);
 	if ($validator->fails()) {
 	    return Redirect::to('/create')->withErrors($validator)->withInput();
 	}
 
 	$casteller = new Casteller;
-	foreach (array_keys($this->member_fields) as $field) {
-	    $casteller->$field = Input::get($field); 
+	foreach (array_keys(Casteller::member_fields) as $field) {
+	    if ($field != 'id')
+		$casteller->$field = Input::get($field); 
 	}
 	$casteller->save();
 
@@ -95,8 +62,9 @@ class CastellersController extends BaseController
         // Handle edit form submission.
 	$casteller = Casteller::findOrFail(Input::get('id'));
 
-	foreach (array_keys($this->member_fields) as $field) 
-	    $casteller->$field = Input::get($field); 
+	foreach (array_keys(Casteller::member_fields) as $field) 
+	    if ($field != 'id')
+		$casteller->$field = Input::get($field); 
 
 	$casteller->save();
 	return Redirect::action('CastellersController@index');
