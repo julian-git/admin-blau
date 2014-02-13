@@ -66,13 +66,15 @@ class CreateCastellers extends Migration {
 
 	    Schema::create('activitats', function($table) {
 		    $table->increments('id');
-		    $table->string('titol')->index();
+		    $table->string('titol', 50)->index();
 		    $table->integer('tipus_fk')->unsigned();
 		    $table->foreign('tipus_fk')->references('id')->on('tipus_activitat');
 		    $table->date('data')->index();
 		    $table->date('fi')->nullable();
-		    $table->string('descripcio', 200);
-		    $table->string('contacte', 200);		    
+		    $table->string('descripcio', 200)->nullable();
+		    $table->string('contacte', 200)->nullable();		    
+		    $table->decimal('cost_estimat')->nullable();
+		    $table->decimal('cost_real')->nullable();
 		});
 
 	    Schema::create('castellers_x_activitats', function($table) {
