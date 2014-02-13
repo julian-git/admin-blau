@@ -29,13 +29,14 @@ class CVGController extends BaseController
         // Show a listing.
 	$CSN = $this->ClassSingularName;
 	$listing = $CSN::all();
-	return View::make('index', array(strtolower($CSN) . 's' => $listing)); 
+	return View::make(strtolower($CSN) . '/index', array(strtolower($CSN) . 's' => $listing)); 
     }
 
     public function create()
     {
         // Show the create form.
-        return View::make('create');
+	$CSN = $this->ClassSingularName;
+        return View::make(strtolower($CSN) . '/create');
     }
 
     public function handleCreate()
@@ -43,7 +44,7 @@ class CVGController extends BaseController
 	$CSN = $this->ClassSingularName;
 	$validator = Validator::make(Input::all(), $CSN::validation_rules);
 	if ($validator->fails()) {
-	    return Redirect::to('/create')->withErrors($validator)->withInput();
+	    return Redirect::to('/' . strtolower($CSN) . '/create')->withErrors($validator)->withInput();
 	}
 
 	$class_instance = new $CSN;
@@ -60,7 +61,7 @@ class CVGController extends BaseController
     public function edit($class_instance)
     {
         // Show the edit form.
-        return View::make('edit', array(strtolower($this->ClassSingularName) => $class_instance));
+        return View::make(strtolower($CSN) . '/edit', array(strtolower($this->ClassSingularName) => $class_instance));
     }
 
     public function handleEdit()
@@ -80,7 +81,7 @@ class CVGController extends BaseController
     public function delete($class_instance)
     {
         // Show delete confirmation page.
-        return View::make('delete', array(strtolower($this->ClassSingularName) => $class_instance));
+        return View::make(strtolower($CSN) . '/delete', array(strtolower($this->ClassSingularName) => $class_instance));
 			  //        return View::make('delete', compact('casteller'));
     }
 

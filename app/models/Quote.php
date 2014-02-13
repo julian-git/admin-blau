@@ -34,8 +34,6 @@ class Quote extends Eloquent
 					    'compte' => 'required|alpha_num',
 					    'import' => 'required|numeric',
 					    'periodicitat' => 'required|alpha_num');
-
-
 }
 
 ?>
