@@ -25,10 +25,17 @@ class Pinyes extends Migration {
 		    $table->smallInteger('ordre');
 		});
 
+	    Schema::create('posicio_tipus', function($table) {
+		    $table->increments('id');
+		    $table->string('tipus', 15);
+		});
+
 	    Schema::create('posicio', function($table) {
 		    $table->increments('id');
 		    $table->integer('castell_tipus_fk')->unsigned();
 		    $table->foreign('castell_tipus_fk')->references('id')->on('castell_tipus');
+		    $table->integer('posicio_tipus_fk')->unsigned();
+		    $table->foreign('posicio_tipus_fk')->references('id')->on('posicio_tipus');
 		    $table->string('nom', 15);
 		});
 
@@ -52,6 +59,7 @@ class Pinyes extends Migration {
 	{
 	    Schema::drop('pinya');
 	    Schema::drop('posicio');
+	    Schema::drop('posicio_tipus');
 	    Schema::drop('castells');
 	    Schema::drop('castell_tipus');
 	}
