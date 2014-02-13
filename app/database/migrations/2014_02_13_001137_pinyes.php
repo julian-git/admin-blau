@@ -11,7 +11,13 @@ class Pinyes extends Migration {
 	 */
 	public function up()
 	{
-		//
+	    Schema::create('castell', function($table) {
+		    $table->increments('id');
+		    $table->string('tipus', 10);
+		    $table->date('data');
+		    $table->string('lloc', 20);
+		    $table->smallInteger('ordre');
+		});
 	}
 
 	/**
