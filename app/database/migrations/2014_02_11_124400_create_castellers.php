@@ -75,6 +75,7 @@ class CreateCastellers extends Migration {
 		    $table->string('contacte', 200)->nullable();		    
 		    $table->decimal('cost_estimat')->nullable();
 		    $table->decimal('cost_real')->nullable();
+		    $table->timestamps();
 		});
 
 	    Schema::create('castellers_x_activitats', function($table) {
@@ -93,13 +94,13 @@ class CreateCastellers extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('quotes');
-	    Schema::drop('castellers');
-	    Schema::drop('families');
-	    Schema::drop('families_x_castellers');
-	    Schema::drop('tipus_activitat');
-	    Schema::drop('activitats');
 	    Schema::drop('castellers_x_activitats');
+	    Schema::drop('activitats');
+	    Schema::drop('tipus_activitat');
+	    Schema::drop('families_x_castellers');
+	    Schema::drop('families');
+	    Schema::drop('castellers');
+	    Schema::drop('quotes');
 	}
 
 }
