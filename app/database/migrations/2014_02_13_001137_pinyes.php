@@ -27,17 +27,31 @@ class Pinyes extends Migration {
 	 */
 	public function up()
 	{
-	    Schema::create('castell_tipus', function($table) {
+	    Schema::create('actuacio_tipus', function($table) {
 		    $table->increments('id');
 		    $table->string('nom', 10);
 		});
 	    
+
+	    Schema::create('actuacions', function($table) {
+		    $table->increments('id');
+		    $table->integer('tipus_fk')->unsigned();
+		    $table->foreign('tipus_fk')->references('id')->on('actuacio_tipus');
+		    $table->date('data');
+		    $table->string('lloc', 20);
+		}
+	    
+	    Schema::create('castell_tipus', function($table) {
+		    $table->increments('id');
+		    $table->string('nom', 10);
+		});
+
 	    Schema::create('castells', function($table) {
 		    $table->increments('id');
 		    $table->integer('tipus_fk')->unsigned();
 		    $table->foreign('tipus_fk')->references('id')->on('castell_tipus');
-		    $table->date('data');
-		    $table->string('lloc', 20);
+		    $table->integer('actuacio_fk')->unsigned();
+		    $table->foreign('actuacio_fk')->references('id')->on('actuacions');
 		    $table->smallInteger('ordre');
 		});
 
@@ -78,6 +92,8 @@ class Pinyes extends Migration {
 	    Schema::drop('posicio_tipus');
 	    Schema::drop('castells');
 	    Schema::drop('castell_tipus');
+	    Schema::drop('actuacions');
+	    Schema::drop('actuacio_tipus');
 	}
 
 }
