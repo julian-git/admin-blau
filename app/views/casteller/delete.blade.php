@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('casteller/layout')
 <?php
 /*
     (c) 2014 Castellers de la Vila de Gràcia
