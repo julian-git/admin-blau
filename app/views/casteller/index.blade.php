@@ -18,14 +18,18 @@
 */
 ?>
 
+<?php $SCN = 'Casteller'; ?>
+
+<?php include_once(dirname(dirname(dirname(__FILE__))) . "/models/$SCN.php"); ?>
+
 @section('content')
     <div class="page-header">
-        <h1>Castellers</h1>
+    <h1>{{ $SCN . 's' }}</h1>
     </div>
 
     <div class="panel panel-default">
         <div class="panel-body">
-            <a href="{{ action('CastellersController@create') }}" class="btn btn-primary">Nou casteller</a>
+    <a href="{{ action($SCN . 'sController@create') }}" class="btn btn-primary">Nou {{ $SCN }}</a>
         </div>
     </div>
 
