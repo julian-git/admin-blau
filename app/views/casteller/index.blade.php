@@ -34,7 +34,7 @@
     </div>
 
     @if ($castellers->isEmpty())
-        <p>No hi ha cap casteller de moment.</p>
+        <p>De moment no hi ha cap entrada.</p>
     @else
         <table class="table table-striped">
             <thead>
