@@ -1,3 +1,4 @@
+@extends('generic/layout')
 <?php
 /*
     (c) 2014 Castellers de la Vila de Gràcia
@@ -18,11 +19,26 @@
 ?>
 
 @section('content')
+
     <div class="page-header">
-    <h1>Esborrar {{ $$csn->id }} <small>Estas segur/a?</small></h1>
+    <h1> Esborrar
+           <?php 
+             $idf = $CSN::$identifying_fields; 
+             $f = $idf[0];
+	     $instance = $$csn;
+           ?>
+        {{ $instance[$f] }} (
+        @for ($i=1; $i < sizeof($idf); $i++)
+	    <?php 
+  	      $f = $idf[$i];
+	    ?>
+	  {{ $instance[$f] }} &nbsp;
+	@endfor
+						     )
+ <small>Estas segur/a?</small></h1>
     </div>
     <form action="{{ action($CSN . 'sController@handleDelete') }}" method="post" role="form">
-        <input type="hidden" name="{{ $csn }}" value="{{ $$csn->id }}" />
+        <input type="hidden" name="{{ $csn }}" value="{{ 3434 }}" />
         <input type="submit" class="btn btn-danger" value="Yes" />
         <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-default">No, de cap de les maneres!</a>
     </form>

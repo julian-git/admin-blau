@@ -57,6 +57,11 @@ class Casteller extends Eloquent
 					    'sexe' => 'in:H,D');
 
     public static $default_values = array('quota_id_fk' => 1);
+
+    public static $identifying_fields = array('mot', 
+					      'nom',
+					      'cognom1',
+					      'cognom2');
 }
 
 ?>

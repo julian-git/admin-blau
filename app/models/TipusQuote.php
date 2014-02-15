@@ -31,6 +31,8 @@ class TipusQuote extends Eloquent
 
     public static $default_values = array();
 
+    public static $identifying_fields = array('periodicitat',
+					      'primer_cop_al_any');
 }
 
 ?>

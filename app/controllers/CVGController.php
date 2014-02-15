@@ -105,7 +105,11 @@ class CVGController extends BaseController
         // Show delete confirmation page.
 	$CSN = $this->ClassSingularName;
 	$csn = strtolower($CSN);
-        return View::make('generic.delete', $this->layout_data);
+
+	$extended_layout_data = $this->layout_data;
+	$extended_layout_data[$csn] = $class_instance;
+
+        return View::make('generic.delete', $extended_layout_data);
     }
 
     public function handleDelete()

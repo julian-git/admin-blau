@@ -37,6 +37,10 @@ class Quote extends Eloquent
 
     public static $default_values = array('tipus_fk' => 1);
 
+    public static $identifying_fields = array('banc',
+					      'compte',
+					      'import');
+
 }
 
 ?>
