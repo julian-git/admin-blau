@@ -31,6 +31,7 @@ class CVGController extends BaseController
     public function __construct($ClassSingularName) {
 	$this->ClassSingularName = $ClassSingularName;
 	$this->layout_data  = array('CSN' => $ClassSingularName,
+				    'csn' => strtolower($ClassSingularName),
 				    'class_instance_list' => strtolower($ClassSingularName) . 's');
     }
 
@@ -65,7 +66,7 @@ class CVGController extends BaseController
 
 	$class_instance_list = new $CSN;
 	foreach (array_keys($CSN::$member_fields) as $field) {
-	    if ($field != 'id') {
+	    if ($field != 'id') { 
 		$class_instance_list->$field = Input::get($field); 
 	    }
 	    if ($class_instance_list->$field == '' &&
@@ -82,10 +83,7 @@ class CVGController extends BaseController
     public function edit($class_instance_list)
     {
         // Show the edit form.
-	$CSN = $this->ClassSingularName;
-	$csn = strtolower($CSN);
-        return View::make("/$csn/edit", 
-			  array($csn => $class_instance_list));
+        return View::make('generic.create', $this->layout_data);
     }
 
     public function handleEdit()
@@ -107,8 +105,7 @@ class CVGController extends BaseController
         // Show delete confirmation page.
 	$CSN = $this->ClassSingularName;
 	$csn = strtolower($CSN);
-        return View::make("/$csn/delete", array($csn => $class_instance));
-			  //        return View::make('delete', compact('casteller'));
+        return View::make('generic.delete', $this->layout_data);
     }
 
     public function handleDelete()
