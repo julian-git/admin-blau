@@ -28,10 +28,12 @@ class Quote extends Eloquent
 					 'tipus_fk' => 'Tipus de Quota');
 
     public static $validation_rules = array('banc' => 'required|alpha',
-					    'codi_banc' => 'required|integer',
-					    'oficina' => 'required|alpha',
-					    'digit_control' => 'required|integer',
-					    'compte' => 'required|alpha_num',
+					    'codi_banc' => 'integer|size:4',
+					    'oficina' => 'integer|size:4',
+					    'digit_control' => 'integer|size:2',
+					    'compte' => 'alpha_num|size:10',
+					    'BIC' => 'alpha_num', // FIXME: correct size?
+					    'IBAN' => 'alpha_num', // FIXME: correct size?
 					    'import' => 'required|numeric',
 					    'tipus_fk' => 'required|integer');
 

@@ -45,10 +45,12 @@ class CreateCastellers extends Migration {
 		    $table->string('banc', 50);
 		    // Laravel doesn't seem to allow to specify int(4),
 		    // so we define the following fields as strings and validate on input
-		    $table->string('codi_banc', 4); 
-		    $table->string('oficina', 4);
-		    $table->string('digit_control', 2);
-		    $table->string('compte', 10);
+		    $table->string('codi_banc', 4)->nullable(); 
+		    $table->string('oficina', 4)->nullable();
+		    $table->string('digit_control', 2)->nullable();
+		    $table->string('compte', 10)->nullable();
+		    $table->string('BIC', 50)->nullable(); // FIXME: correct size?
+		    $table->string('IBAN', 50)->nullable(); // FIXME: correct size?
 		    $table->decimal('import');
 		    $table->integer('tipus_fk')->unsigned();
 		    $table->foreign('tipus_fk')->references('id')->on('tipus_quotes');

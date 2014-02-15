@@ -80,23 +80,29 @@ class CVGController extends BaseController
 
     }
 
-    public function edit($class_instance_list)
+    public function edit($class_instance)
     {
         // Show the edit form.
-        return View::make('generic.create', $this->layout_data);
+	$CSN = $this->ClassSingularName;
+	$csn = strtolower($CSN);
+
+	$extended_layout_data = $this->layout_data;
+	$extended_layout_data[$csn] = $class_instance;
+
+        return View::make('generic.edit', $extended_layout_data);
     }
 
     public function handleEdit()
     {
         // Handle edit form submission.
 	$CSN = $this->ClassSingularName;
-	$class_instance_list = $CSN::findOrFail(Input::get('id'));
+	$class_instance = $CSN::findOrFail(Input::get('id'));
 
-	foreach (array_keys($CSN::member_fields) as $field) 
+	foreach (array_keys($CSN::$member_fields) as $field) 
 	    if ($field != 'id')
-		$class_instance_list->$field = Input::get($field); 
+		$class_instance->$field = Input::get($field); 
 
-	$class_instance_list->save();
+	$class_instance->save();
 	return Redirect::action($CSN . 'sController@index');
     }
 
