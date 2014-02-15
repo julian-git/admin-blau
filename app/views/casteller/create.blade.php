@@ -44,12 +44,25 @@
 				     'whatsapp' => 'Whatsapp',
 				     'sexe' => 'Sexe');
 ?>
+<table>
+<thead/>
+<tbody> 
 @foreach ($member_fields as $field => $prompt)
-<div class="form-group">
-{{ Form::label($field, $prompt) }} {{ Form::text($field, Input::old($field)) }}
-{{ $errors->first($field, '<span class="error">:message</span>') }}
-    </div>
+  <tr>
+    <td>
+       <div class="form-group">
+       {{ Form::label($field, $prompt) }} 
+       </div>
+    </td>
+    <td>
+       <div class="form-group">
+       {{ Form::text($field, Input::old($field)) }}
+       {{ $errors->first($field, '<span class="error">:message</span>') }}
+       </div>
+    </td>
+  </tr>
 @endforeach
+</table>
         <input type="submit" value="Crear" class="btn btn-primary" />
         <a href="{{ action('CastellersController@index') }}" class="btn btn-link">Cancel.lar</a>
     </form>
