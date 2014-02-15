@@ -57,7 +57,8 @@ class CVGController extends BaseController
 	$CSN = $this->ClassSingularName;
 	$validator = Validator::make(Input::all(), $CSN::$validation_rules);
 	if ($validator->fails()) {
-	    return Redirect::to('generic.create')
+	    return Redirect::to(strtolower($CSN) . '/create')
+		->with($this->layout_data)
 		->withErrors($validator)
 		->withInput();
 	}
