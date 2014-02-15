@@ -56,7 +56,7 @@ class Casteller extends Eloquent
 					    'whatsapp' => 'alpha_num',
 					    'sexe' => 'in:H,D');
 
-
+    public static $default_values = array('quota_id_fk' => 1);
 }
 
 ?>

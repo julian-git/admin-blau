@@ -1,4 +1,3 @@
-@extends('layout')
 <?php
 /*
     (c) 2014 Castellers de la Vila de Gràcia
@@ -19,39 +18,24 @@
 ?>
 
 @section('content')
+
+<?php include_once(dirname(dirname(dirname(__FILE__))) . "/models/$CSN.php"); ?>
+
     <div class="page-header">
-        <h1>Crear nou casteller</h1>
+    <h1>Crear nou {{ $CSN }}</h1>
     </div>
 
-    <form action="{{ action('CastellersController@handleCreate') }}" method="post" role="form">
+    <form action="{{ action($CSN . 'sController@handleCreate') }}" method="post" role="form">
 
-    <?php $member_fields = array('cognom1' => 'Cognom 1',
-				     'cognom2' => 'Cognom 2',
-				     'nom' => 'Nom',
-				     'mot' => 'Mot',
-				     'naixement' => 'Data de naixement',
-				     'dni' => 'DNI',
-				     'email' => 'email',
-				     'direccio' => 'Direcció',
-				     'cp' => 'CP',
-				     'poblacio' => 'Població',
-				     'provincia' => 'Provincia',
-				     'telefon1' => 'Telèfon 1',
-				     'telefon2' => 'Telèfon 2',
-				     'mobil1' => 'Mòvil 1',
-				     'mobil2' => 'Mòvil 2',
-				     'twitter' => 'Twitter',
-				     'whatsapp' => 'Whatsapp',
-				     'sexe' => 'Sexe');
-?>
 <table>
 <thead/>
 <tbody> 
-@foreach ($member_fields as $field => $prompt)
+    @foreach ($CSN::$member_fields as $field => $prompt)
+    @if ($field != 'id')
   <tr>
     <td>
        <div class="form-group">
-       {{ Form::label($field, $prompt) }} 
+         {{ Form::label($field, $prompt) }} 
        </div>
     </td>
     <td>
@@ -61,9 +45,10 @@
        </div>
     </td>
   </tr>
+    @endif
 @endforeach
 </table>
         <input type="submit" value="Crear" class="btn btn-primary" />
-        <a href="{{ action('CastellersController@index') }}" class="btn btn-link">Cancel.lar</a>
+        <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel.lar</a>
     </form>
 @stop

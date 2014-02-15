@@ -50,7 +50,7 @@
 		   @endforeach
                     <td>
                         <a href="{{ action($CSN . 'sController@edit', $instance->id) }}" class="btn btn-default">Editar</a>
-                        <a href="{{ action($SCN . 'sController@delete', $instance->id) }}" class="btn btn-danger">Esborrar</a>
+                        <a href="{{ action($CSN . 'sController@delete', $instance->id) }}" class="btn btn-danger">Esborrar</a>
                     </td>
                 </tr>
                 @endforeach
