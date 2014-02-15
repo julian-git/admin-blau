@@ -34,6 +34,7 @@ class CVGController extends BaseController
 	$listing = $CSN::all();
 	return View::make('/index', 
 			  array($csn . 's' => $listing))
+	    ->with('CSN', $CSN)
 	    ->with('class_instance', $csn . 's'); 
     }
 

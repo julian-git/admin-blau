@@ -29,6 +29,9 @@
             <div class="navbar-header">
                 <a href="{{ action('CastellersController@index') }}" class="navbar-brand">Castellers</a>
             </div>
+            <div class="navbar-header">
+                <a href="{{ action('QuotesController@index') }}" class="navbar-brand">Quotas</a>
+            </div>
         </nav>
         @yield('content')
     </div>

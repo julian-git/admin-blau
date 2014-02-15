@@ -30,7 +30,7 @@
 */
 
 
-foreach(['Casteller'] as $CSN) {  // CSN is a mnemonic for ClassSingularName
+foreach(['Casteller', 'Quote'] as $CSN) {  // CSN is a mnemonic for ClassSingularName
 
     $csn = strtolower($CSN);
 
