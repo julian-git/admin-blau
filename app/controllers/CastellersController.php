@@ -70,14 +70,17 @@ class CastellersController extends BaseController
     public function handleCreate()
     {
 	$validator = Validator::make(Input::all(), $this->validation_rules);
-	if ($validator->fails()) {
+	if ($validator->fails()) 
+	{
 	    return Redirect::to('/create')->withErrors($validator)->withInput();
 	}
 
 	$casteller = new Casteller;
-	foreach (array_keys($this->member_fields) as $field) {
-	    $casteller->$field = Input::get($field); 
+	foreach (array_keys($this->member_fields) as $field) 
+	{
+	    $casteller->$field = Input::get($field);
 	}
+	$casteller->quota_id_fk=1;
 	$casteller->save();
 
 	return Redirect::action('CastellersController@index');
