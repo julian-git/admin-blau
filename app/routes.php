@@ -29,6 +29,10 @@
 |
 */
 
+Route::get('/', function() 
+	   {
+	       return View::make('index');
+	   });
 
 foreach(['Casteller', 'Quote'] as $CSN) {  // CSN is a mnemonic for ClassSingularName
 
