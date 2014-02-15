@@ -18,6 +18,8 @@
 
 class CVGController extends BaseController
 {
+    // this variable will be instantiated to, for example,
+    // 'Casteller' or 'Quote' (the latter is mangled catalan for the singular of "Quotes")
     protected $ClassSingularName;
 
     public function __construct($ClassSingularName) {
@@ -42,13 +44,13 @@ class CVGController extends BaseController
     public function handleCreate()
     {
 	$CSN = $this->ClassSingularName;
-	$validator = Validator::make(Input::all(), $CSN::validation_rules);
+	$validator = Validator::make(Input::all(), $CSN::$validation_rules);
 	if ($validator->fails()) {
 	    return Redirect::to('/' . strtolower($CSN) . '/create')->withErrors($validator)->withInput();
 	}
 
 	$class_instance = new $CSN;
-	foreach (array_keys($CSN::member_fields) as $field) {
+	foreach (array_keys($CSN::$member_fields) as $field) {
 	    if ($field != 'id')
 		$class_instance->$field = Input::get($field); 
 	}
@@ -61,7 +63,8 @@ class CVGController extends BaseController
     public function edit($class_instance)
     {
         // Show the edit form.
-        return View::make(strtolower($CSN) . '/edit', array(strtolower($this->ClassSingularName) => $class_instance));
+        return View::make(strtolower($CSN) . '/edit', 
+			  array(strtolower($this->ClassSingularName) => $class_instance));
     }
 
     public function handleEdit()

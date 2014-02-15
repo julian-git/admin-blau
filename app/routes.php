@@ -30,16 +30,20 @@
 */
 
 
-// Bind route parameters.
-Route::model('casteller', 'Casteller');
+foreach(['Casteller', 'Quote'] as $CSN) {  // CSN is a mnemonic for ClassSingularName
 
-// Show pages.
-Route::get('/casteller', 'CastellersController@index');
-Route::get('/casteller/create', 'CastellersController@create');
-Route::get('/casteller/edit/{casteller}', 'CastellersController@edit');
-Route::get('/casteller/delete/{casteller}', 'CastellersController@delete');
+    $csn = strtolower($CSN);
+    // Bind route parameters.
+    Route::model($csn, $CSN); // e.g., model('casteller', 'Casteller');
 
-// Handle form submissions.
-Route::post('/casteller/create', 'CastellersController@handleCreate');
-Route::post('/casteller/edit', 'CastellersController@handleEdit');
-Route::post('/casteller/delete', 'CastellersController@handleDelete');
+    // Show pages.
+    Route::get("/$csn", "{$CSN}sController@index");
+    Route::get("/$csn/create", "{$CSN}sController@create");
+    Route::get("/$csn/edit/{" . $csn . '}', "{$CSN}sController@edit");
+    Route::get("/$csn/delete/{" . $csn . '}', "{$CSN}sController@delete");
+
+    // Handle form submissions.
+    Route::post("/$csn/create", "{$CSN}sController@handleCreate");
+    Route::post("/$csn/edit", "{$CSN}sController@handleEdit");
+    Route::post("/$csn/delete", "{$CSN}sController@handleDelete");
+}
