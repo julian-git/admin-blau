@@ -19,7 +19,8 @@
 ?>
 
 <?php $SCN = 'Casteller'; ?>
-
+<?php echo "instance: $instance"; ?>
+<br/>
 <?php include_once(dirname(dirname(dirname(__FILE__))) . "/models/$SCN.php"); ?>
 
 @section('content')
