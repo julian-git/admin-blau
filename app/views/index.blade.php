@@ -19,7 +19,7 @@
 ?>
 
 <?php $SCN = 'Casteller'; ?>
-<?php echo "instance: $instance"; ?>
+<?php echo "class_instance: $class_instance"; ?>
 <br/>
 <?php include_once(dirname(dirname(dirname(__FILE__))) . "/models/$SCN.php"); ?>
 
@@ -34,7 +34,7 @@
         </div>
     </div>
 
-    @if ($castellers->isEmpty())
+    @if ($$class_instance->isEmpty())
         <p>De moment no hi ha cap entrada.</p>
     @else
         <table class="table table-striped">
@@ -64,7 +64,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($castellers as $casteller)
+                @foreach($$class_instance as $casteller)
                 <tr>
                     <td>{{ $casteller->id }}</td>
                     <td>{{ $casteller->cognom1 }}</td>
