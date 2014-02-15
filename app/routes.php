@@ -34,7 +34,7 @@
 Route::model('casteller', 'Casteller');
 
 // Show pages.
-Route::get('/', 'CastellersController@index');
+Route::get('/', 'CastellersController@create');
 Route::get('/create', 'CastellersController@create');
 Route::get('/edit/{casteller}', 'CastellersController@edit');
 Route::get('/delete/{casteller}', 'CastellersController@delete');
