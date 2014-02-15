@@ -21,24 +21,20 @@
 @section('content')
 
     <div class="page-header">
+
+    <?php $idf = $CSN::$identifying_fields; ?>
+
     <h1> Esborrar
-           <?php 
-             $idf = $CSN::$identifying_fields; 
-             $f = $idf[0];
-	     $instance = $$csn;
-           ?>
-        {{ $instance[$f] }} (
+        {{ $$csn->$idf[0] }} 
+    (
         @for ($i=1; $i < sizeof($idf); $i++)
-	    <?php 
-  	      $f = $idf[$i];
-	    ?>
-	  {{ $instance[$f] }}
+	  {{ $$csn->$idf[$i] }}
 	@endfor
-						     )
+     )
  <small>Estas segur/a?</small></h1>
     </div>
     <form action="{{ action($CSN . 'sController@handleDelete') }}" method="post" role="form">
-        <input type="hidden" name="{{ $csn }}" value="{{ $instance['id'] }}" />
+        <input type="hidden" name="{{ $csn }}" value="{{ $$csn->id }}" />
         <input type="submit" class="btn btn-danger" value="Yes" />
         <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-default">No, de cap de les maneres!</a>
     </form>

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('generic.layout')
 <?php
 /*
     (c) 2014 Castellers de la Vila de Gràcia
@@ -19,11 +19,14 @@
 ?>
 
 @section('content')
+
     <div class="page-header">
-        <h1>Editar Casteller</h1>
+       <h1>Editar {{ $SCN }}</h1>
     </div>
 
-    <form action="{{ action('CastellersController@handleEdit') }}" method="post" role="form">
+    <?php $instance = $$csn; ?>
+
+    <form action="{{ action($SCN . 'sController@handleEdit') }}" method="post" role="form">
         <input type="hidden" name="id" value="{{ $casteller->id }}">
 
    <div class="form-group">
