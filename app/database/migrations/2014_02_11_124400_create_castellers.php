@@ -27,6 +27,12 @@ class CreateCastellers extends Migration {
 	 */
 	public function up()
 	{
+	    Schema::create('tipus_quote', function($table) {
+		    $table->increments('id');
+		    $table->integer('periodicitat')->unsigned(); // every how many months
+		    $table->date('primer_cop_al_any');
+		});
+	    
 	    Schema::create('quotes', function($table) {
 		    $table->increments('id');
 		    $table->string('banc', 50);
@@ -37,7 +43,8 @@ class CreateCastellers extends Migration {
 		    $table->string('digit_control', 2);
 		    $table->string('compte', 10);
 		    $table->decimal('import');
-		    $table->string('periodicitat', 1);
+		    $table->integer('tipus_fk')->unsigned();
+		    $table->foreign('tipus_fk')->references('id')->on('tipus_quote');
 		    $table->timestamps();
 		});
 
@@ -124,6 +131,7 @@ class CreateCastellers extends Migration {
 	    Schema::drop('families');
 	    Schema::drop('castellers');
 	    Schema::drop('quotes');
+	    Schema::drop('tipus_quote');
 	}
 
 }

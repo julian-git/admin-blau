@@ -25,7 +25,7 @@ class Quote extends Eloquent
 					 'digit_control' => 'Digit Control',
 					 'compte' => 'N&uacute;mero de Compte',
 					 'import' => 'Import',
-					 'periodicitat' => 'Periodicitat');
+					 'tipus_fk' => 'Tipus de Quota');
 
     public static $validation_rules = array('banc' => 'required|alpha',
 					    'codi_banc' => 'required|integer',
@@ -33,9 +33,9 @@ class Quote extends Eloquent
 					    'digit_control' => 'required|integer',
 					    'compte' => 'required|alpha_num',
 					    'import' => 'required|numeric',
-					    'periodicitat' => 'required|alpha_num');
+					    'tipus_fk' => 'required|integer');
 
-    public static $default_values = array();
+    public static $default_values = array('tipus_fk' => 1);
 
 }
 
