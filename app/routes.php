@@ -38,13 +38,13 @@ foreach(['Casteller', 'Quote'] as $CSN) {  // CSN is a mnemonic for ClassSingula
     Route::model($csn, $CSN); // e.g., model('casteller', 'Casteller');
 
     // Show pages.
-    Route::get("/", "{$CSN}sController@index");
-    Route::get("/create", "{$CSN}sController@create");
-    Route::get("/edit/{" . $csn . '}', "{$CSN}sController@edit");
-    Route::get("/delete/{" . $csn . '}', "{$CSN}sController@delete");
+    Route::get("/$csn", "{$CSN}sController@index");
+    Route::get("/$csn/create", "{$CSN}sController@create");
+    Route::get("/$csn/edit/{" . $csn . '}', "{$CSN}sController@edit");
+    Route::get("/$csn/delete/{" . $csn . '}', "{$CSN}sController@delete");
 
     // Handle form submissions.
-    Route::post("/create", "{$CSN}sController@handleCreate");
-    Route::post("/edit", "{$CSN}sController@handleEdit");
-    Route::post("/delete", "{$CSN}sController@handleDelete");
+    Route::post("/$csn/create", "{$CSN}sController@handleCreate");
+    Route::post("/$csn/edit", "{$CSN}sController@handleEdit");
+    Route::post("/$csn/delete", "{$CSN}sController@handleDelete");
 }

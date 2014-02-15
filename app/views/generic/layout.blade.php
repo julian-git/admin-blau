@@ -26,12 +26,13 @@
 <body>
     <div class="container">
         <nav class="navbar navbar-default" role="navigation">
+     @foreach (array('Casteller' => 'Castellers', 
+		     'Quote'     => 'Quotas')
+	       as    $SCN        => $title)
             <div class="navbar-header">
-                <a href="{{ action('CastellersController@index') }}" class="navbar-brand">Castellers</a>
+               <a href="{{ action($SCN . 'sController@index') }}" class="navbar-brand">{{ $title }}</a>
             </div>
-            <div class="navbar-header">
-                <a href="{{ action('QuotesController@index') }}" class="navbar-brand">Quotas</a>
-            </div>
+     @endforeach
         </nav>
         @yield('content')
     </div>

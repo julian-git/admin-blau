@@ -19,8 +19,10 @@
 class CVGController extends BaseController
 {
     // this variable will be instantiated to, for example,
-    // 'Casteller' or 'Quote' (the latter is mangled catalan for the singular of "Quotes")
+    // 'Casteller' or 'Quote' (the latter is mangled catalan for the singular of "Quotes").
     protected $ClassSingularName;
+
+    protected $layout = 'generic.layout';
 
     public function __construct($ClassSingularName) {
 	$this->ClassSingularName = $ClassSingularName;
@@ -32,10 +34,11 @@ class CVGController extends BaseController
 	$CSN = $this->ClassSingularName;
 	$csn = strtolower($CSN);
 	$listing = $CSN::all();
-	return View::make('/index', 
-			  array($csn . 's' => $listing))
-	    ->with('CSN', $CSN)
-	    ->with('class_instance', $csn . 's'); 
+
+	$this->layout->content = View::make("generic.index", 
+					    array($csn . 's' => $listing,
+						  'CSN'      => $CSN,
+						  'class_instance_list' => $csn . 's'));
     }
 
     public function create()
@@ -43,8 +46,8 @@ class CVGController extends BaseController
         // Show the create form.
 	$CSN = $this->ClassSingularName;
 	$csn = strtolower($CSN);
-        return View::make('/create')
-	    ->with('class_instance', $csn . 's');
+        return View::make('/$csn/create')
+	    ->with('class_instance_list', $csn . 's');
     }
 
     public function handleCreate()
@@ -52,47 +55,51 @@ class CVGController extends BaseController
 	$CSN = $this->ClassSingularName;
 	$validator = Validator::make(Input::all(), $CSN::$validation_rules);
 	if ($validator->fails()) {
-	    return Redirect::to('/' . strtolower($CSN) . '/create')
+	    return Redirect::to("/$csn/create")
 		->withErrors($validator)
 		->withInput();
 	}
 
-	$class_instance = new $CSN;
+	$class_instance_list = new $CSN;
 	foreach (array_keys($CSN::$member_fields) as $field) {
 	    if ($field != 'id')
-		$class_instance->$field = Input::get($field); 
+		$class_instance_list->$field = Input::get($field); 
 	}
-	$class_instance->save();
+	$class_instance_list->save();
 
 	return Redirect::action($CSN . 'sController@index');
 
     }
 
-    public function edit($class_instance)
+    public function edit($class_instance_list)
     {
         // Show the edit form.
-        return View::make('/edit', 
-			  array(strtolower($this->ClassSingularName) => $class_instance));
+	$CSN = $this->ClassSingularName;
+	$csn = strtolower($CSN);
+        return View::make("/$csn/edit", 
+			  array($csn => $class_instance_list));
     }
 
     public function handleEdit()
     {
         // Handle edit form submission.
 	$CSN = $this->ClassSingularName;
-	$class_instance = $CSN::findOrFail(Input::get('id'));
+	$class_instance_list = $CSN::findOrFail(Input::get('id'));
 
 	foreach (array_keys($CSN::member_fields) as $field) 
 	    if ($field != 'id')
-		$class_instance->$field = Input::get($field); 
+		$class_instance_list->$field = Input::get($field); 
 
-	$class_instance->save();
+	$class_instance_list->save();
 	return Redirect::action($CSN . 'sController@index');
     }
 
     public function delete($class_instance)
     {
         // Show delete confirmation page.
-        return View::make('/delete', array(strtolower($this->ClassSingularName) => $class_instance));
+	$CSN = $this->ClassSingularName;
+	$csn = strtolower($CSN);
+        return View::make("/$csn/delete", array($csn => $class_instance));
 			  //        return View::make('delete', compact('casteller'));
     }
 

@@ -1,4 +1,3 @@
-@extends('layout')
 <?php
 /*
     (c) 2014 Castellers de la Vila de Gràcia
@@ -18,10 +17,10 @@
 */
 ?>
 
-<br/>
+@section('content')
+
 <?php include_once(dirname(dirname(dirname(__FILE__))) . "/models/$CSN.php"); ?>
 
-@section('content')
     <div class="page-header">
     <h1>{{ $CSN . 's' }}</h1>
     </div>
@@ -32,7 +31,7 @@
         </div>
     </div>
 
-    @if ($$class_instance->isEmpty())
+    @if ($$class_instance_list->isEmpty())
         <p>De moment no hi ha cap entrada.</p>
     @else
         <table class="table table-striped">
@@ -44,14 +43,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($$class_instance as $casteller)
+                @foreach($$class_instance_list as $instance)
                 <tr>
                    @foreach(array_keys($CSN::$member_fields) as $field)
-                      <td>{{ $casteller->$field }}</td>
+                      <td>{{ $instance->$field }}</td>
 		   @endforeach
                     <td>
-                        <a href="{{ action('CastellersController@edit', $casteller->id) }}" class="btn btn-default">Editar</a>
-                        <a href="{{ action('CastellersController@delete', $casteller->id) }}" class="btn btn-danger">Esborrar</a>
+                        <a href="{{ action($CSN . 'sController@edit', $instance->id) }}" class="btn btn-default">Editar</a>
+                        <a href="{{ action($SCN . 'sController@delete', $instance->id) }}" class="btn btn-danger">Esborrar</a>
                     </td>
                 </tr>
                 @endforeach
