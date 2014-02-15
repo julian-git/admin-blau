@@ -32,13 +32,13 @@
 	    <?php 
   	      $f = $idf[$i];
 	    ?>
-	  {{ $instance[$f] }} &nbsp;
+	  {{ $instance[$f] }}
 	@endfor
 						     )
  <small>Estas segur/a?</small></h1>
     </div>
     <form action="{{ action($CSN . 'sController@handleDelete') }}" method="post" role="form">
-        <input type="hidden" name="{{ $csn }}" value="{{ 3434 }}" />
+        <input type="hidden" name="{{ $csn }}" value="{{ $instance['id'] }}" />
         <input type="submit" class="btn btn-danger" value="Yes" />
         <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-default">No, de cap de les maneres!</a>
     </form>
