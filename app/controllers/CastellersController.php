@@ -35,13 +35,13 @@ class CastellersController extends BaseController
 
     public function handleCreate()
     {
-	$validator = Validator::make(Input::all(), Casteller::validation_rules);
+	$validator = Validator::make(Input::all(), Casteller::$validation_rules);
 	if ($validator->fails()) {
 	    return Redirect::to('/create')->withErrors($validator)->withInput();
 	}
 
 	$casteller = new Casteller;
-	foreach (array_keys(Casteller::member_fields) as $field) {
+	foreach (array_keys(Casteller::$member_fields) as $field) {
 	    if ($field != 'id')
 		$casteller->$field = Input::get($field); 
 	}
