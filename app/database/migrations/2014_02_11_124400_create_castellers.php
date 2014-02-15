@@ -29,7 +29,7 @@ class CreateCastellers extends Migration {
 	{
 	    Schema::create('tipus_quotes', function($table) {
 		    $table->increments('id');
-		    $table->integer('periodicitat')->unsigned(); // every how many months
+		    $table->integer('periodicitat_mesos')->unsigned(); // every how many months
 		    $table->date('primer_cop_al_any');
 		    $table->timestamps();
 		});

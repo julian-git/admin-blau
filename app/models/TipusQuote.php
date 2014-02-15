@@ -25,7 +25,7 @@ class TipusQuote extends Eloquent
 					 );
 
     public static $validation_rules = array('id' => 'required|integer',
-					    'periodicitat' => 'required|integer',
+					    'periodicitat_mesos' => 'required|integer',
 					    'primer_cop_al_any' => 'required|date'
 					    );
 
