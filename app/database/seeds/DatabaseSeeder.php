@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder {
 		$this->call('QuotesSeeder');
 		$this->call('FamiliesSeeder');
 		$this->call('CastellersSeeder');
+		$this->call('TipusActivitatsSeeder');
+		$this->call('ActivitatsSeeder');
 	}
 
 }
@@ -111,5 +113,41 @@ class CastellersSeeder extends Seeder {
 				'sexe' => 'D',
 				'quota_id_fk' => 1));
 
+    }
+}
+
+class TipusActivitatsSeeder extends Seeder {
+
+    public function run() {
+	DB::table('tipus_activitats')->delete();
+
+	TipusActivitat::create(array('id' => 1, 
+				      'tipus' => 'Calçotada',
+				      'descripcio' => ''
+				      ));
+
+	TipusActivitat::create(array('id' => 2, 
+				      'tipus' => 'Sopar',
+				      'descripcio' => ''
+				      ));
+    }
+}
+
+class ActivitatsSeeder extends Seeder {
+
+    public function run() {
+	DB::table('activitats')->delete();
+
+	Activitat::create(array('id' => 1, 
+				'titol' => 'Calçotada febrer',
+				'tipus_fk' => 1,
+				'data' => '2014-02-20'
+				      ));
+
+	Activitat::create(array('id' => 2, 
+				'titol' => 'Sopar Festa Major',
+				'tipus_fk' => 2,
+				'data' => '2014-08-20'
+				      ));
     }
 }

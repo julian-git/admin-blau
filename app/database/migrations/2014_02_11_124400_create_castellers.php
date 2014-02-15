@@ -92,7 +92,7 @@ class CreateCastellers extends Migration {
 		    $table->timestamps();
 		});
 
-	    Schema::create('tipus_activitat', function($table) {
+	    Schema::create('tipus_activitats', function($table) {
 		    $table->increments('id');
 		    $table->string('tipus', 50)->index();
 		    $table->string('descripcio', 200);
@@ -103,7 +103,7 @@ class CreateCastellers extends Migration {
 		    $table->increments('id');
 		    $table->string('titol', 50)->index();
 		    $table->integer('tipus_fk')->unsigned();
-		    $table->foreign('tipus_fk')->references('id')->on('tipus_activitat');
+		    $table->foreign('tipus_fk')->references('id')->on('tipus_activitats');
 		    $table->date('data')->index();
 		    $table->date('fi')->nullable();
 		    $table->string('descripcio', 200)->nullable();
@@ -131,7 +131,7 @@ class CreateCastellers extends Migration {
 	{
 	    Schema::drop('castellers_x_activitats');
 	    Schema::drop('activitats');
-	    Schema::drop('tipus_activitat');
+	    Schema::drop('tipus_activitats');
 	    Schema::drop('castellers');
 	    Schema::drop('families');
 	    Schema::drop('quotes');

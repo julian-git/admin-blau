@@ -26,8 +26,13 @@
 <body>
     <div class="container">
         <nav class="navbar navbar-default" role="navigation">
-     @foreach (array('Casteller' => 'Castellers', 
-		     'Quote'     => 'Quotas')
+     @foreach (array('Casteller'  => 'Castellers', 
+		     'Familie'    => 'Families',
+		     'Quote'      => 'Quotes',
+		     'TipusQuote' => 'Tipus de Quotes',
+		     'Activitat'  => 'Activitats',
+		     'TipusActivitat' => "Tipus d'Activitats"
+		     )
 	       as    $SCN        => $title)
             <div class="navbar-header">
                <a href="{{ action($SCN . 'sController@index') }}" class="navbar-brand">{{ $title }}</a>
