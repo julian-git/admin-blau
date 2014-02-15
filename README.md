@@ -37,7 +37,7 @@ create database admin_blau;
 * Rename git origins:
 ```
     git remote rename origin laravel
-    git remote add origin git@github.com:julian-git/admin-blau.git
+    git remote add origin https://github.com/julian-git/admin-blau.git
 ```
 
 * Edit ```.git/config``` to say
