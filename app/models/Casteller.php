@@ -19,6 +19,10 @@
 
 class Casteller extends Eloquent
 {
+    public static $singular_class_name = 'Casteller';
+    public static $plural_class_name = 'Castellers';
+    public static $class_name_gender = 'm';
+
     public static $member_fields = array('id' => 'N&uacute;mero de soci',
 					 'cognom1' => 'Cognom 1',
 					 'cognom2' => 'Cognom 2',

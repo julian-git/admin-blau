@@ -26,16 +26,16 @@
 <body>
     <div class="container">
         <nav class="navbar navbar-default" role="navigation">
-     @foreach (array('Casteller'  => 'Castellers', 
-		     'Familie'    => 'Families',
-		     'Quote'      => 'Quotes',
-		     'TipusQuote' => 'Tipus de Quotes',
-		     'Activitat'  => 'Activitats',
-		     'TipusActivitat' => "Tipus d'Activitats"
+     @foreach (array('Casteller',
+		     'Familie',
+		     'Quote',
+		     'TipusQuote',
+		     'Activitat',
+		     'TipusActivitat'
 		     )
-	       as    $SCN        => $title)
+	       as    $SCN)
             <div class="navbar-header">
-               <a href="{{ action($SCN . 'sController@index') }}" class="navbar-brand">{{ $title }}</a>
+     <a href="{{ action($SCN . 'sController@index') }}" class="navbar-brand">{{ $SCN::$plural_class_name }}</a>
             </div>
      @endforeach
         </nav>

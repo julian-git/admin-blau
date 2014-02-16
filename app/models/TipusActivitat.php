@@ -19,6 +19,10 @@
 
 class TipusActivitat extends Eloquent
 {
+    public static $singular_class_name = "Tipus d'Activitat";
+    public static $plural_class_name = "Tipus d'Activitats";
+    public static $class_name_gender = 'm';
+
     public static $member_fields = array('id' => 'Id',
 					 'tipus' => "Tipus d'Activitat",
 					 'descripcio' => 'Descripci&oacute;'

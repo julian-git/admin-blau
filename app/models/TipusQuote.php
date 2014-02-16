@@ -19,6 +19,10 @@
 
 class TipusQuote extends Eloquent
 {
+    public static $singular_class_name = 'Tipus de Quota';
+    public static $plural_class_name = 'Tipus de Quotes';
+    public static $class_name_gender = 'm';
+
     public static $member_fields = array('id' => 'Id',
 					 'periodicitat' => 'Periodicitat',
 					 'primer_cop_al_any' => 'Primer cobrament al any'

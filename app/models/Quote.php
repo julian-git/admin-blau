@@ -19,6 +19,10 @@
 
 class Quote extends Eloquent
 {
+    public static $singular_class_name = 'Quota';
+    public static $plural_class_name = 'Quotes';
+    public static $class_name_gender = 'f';
+
     public static $member_fields = array('banc' => 'Banc',
 					 'codi_banc' => 'Codi Banc',
 					 'oficina' => 'Oficina',

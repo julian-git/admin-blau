@@ -19,6 +19,10 @@
 
 class Familie extends Eloquent
 {
+    public static $singular_class_name = 'Família';
+    public static $plural_class_name = 'Famílies';
+    public static $class_name_gender = 'f';
+
     public static $member_fields = array('id' => 'Id',
 					 'cognom1' => 'Cognom 1',
 					 'cognom2' => 'Cognom 2'
