@@ -24,7 +24,7 @@ class Activitat extends Eloquent
     public static $class_name_gender = 'f';
 
     public static $member_fields = array('titol' => 'Titol',
-					 'tipus_fk' => "Tipus d'Activitat",
+					 'tipus_activitats_fk' => "Tipus d'Activitat",
 					 'data' => 'Data (inici)',
 					 'fi' => 'Data fi',
 					 'descripcio' => 'Descripci&oacute;',
@@ -38,7 +38,7 @@ class Activitat extends Eloquent
 					    'cost_estimat' => 'decimal',
 					    'cost_real' => 'decimal'
 					    );
-    public static $default_values = array('tipus_fk' => 1);
+    public static $default_values = array('tipus_activitats_fk' => 1);
 
     public static $identifying_fields = array('titol',
 					      'data',

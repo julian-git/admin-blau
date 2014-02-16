@@ -29,7 +29,7 @@ class Quote extends Eloquent
 					 'digit_control' => 'Digit Control',
 					 'compte' => 'N&uacute;mero de Compte',
 					 'import' => 'Import',
-					 'tipus_fk' => 'Tipus de Quota');
+					 'tipus_quotes_fk' => 'Tipus de Quota');
 
     public static $validation_rules = array('banc' => 'required|alpha',
 					    'codi_banc' => 'integer|size:4',
@@ -39,9 +39,9 @@ class Quote extends Eloquent
 					    'BIC' => 'alpha_num', // FIXME: correct size?
 					    'IBAN' => 'alpha_num', // FIXME: correct size?
 					    'import' => 'required|numeric',
-					    'tipus_fk' => 'required|integer');
+					    'tipus_quotes_fk' => 'required|integer');
 
-    public static $default_values = array('tipus_fk' => 1);
+    public static $default_values = array('tipus_quotes_fk' => 1);
 
     public static $identifying_fields = array('banc',
 					      'compte',

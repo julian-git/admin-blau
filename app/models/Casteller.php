@@ -42,7 +42,7 @@ class Casteller extends Eloquent
 					 'twitter' => 'Twitter',
 					 'whatsapp' => 'Whatsapp',
 					 'sexe' => 'Sexe',
-					 'quota_id_fk' => 'Quota');
+					 'quotes_fk' => 'Quota');
 
     public static $validation_rules = array('cognom1' => 'required|alpha',
 					    'cognom2' => 'alpha',
@@ -60,7 +60,7 @@ class Casteller extends Eloquent
 					    'whatsapp' => 'alpha_num',
 					    'sexe' => 'in:H,D');
 
-    public static $default_values = array('quota_id_fk' => 1);
+    public static $default_values = array('quotes_fk' => 1);
 
     public static $identifying_fields = array('mot', 
 					      'nom',
