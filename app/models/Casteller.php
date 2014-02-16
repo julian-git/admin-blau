@@ -16,6 +16,7 @@
     GNU General Public License for more details.
 */
 
+require_once('util.php');
 
 class Casteller extends Eloquent
 {
@@ -28,6 +29,7 @@ class Casteller extends Eloquent
 					 'cognom2' => 'Cognom 2',
 					 'nom' => 'Nom',
 					 'mot' => 'Mot',
+					 'families_fk' => 'Família',
 					 'naixement' => 'Data de naixement',
 					 'dni' => 'DNI',
 					 'email' => 'email',
@@ -66,6 +68,16 @@ class Casteller extends Eloquent
 					      'nom',
 					      'cognom1',
 					      'cognom2');
+    
+    public function getFamiliesFkAttribute($value) 
+    {
+	return resolve_foreign_key('Familie', $value);
+    }
+
+    public function getQuotesFkAttribute($value) 
+    {
+	return resolve_foreign_key('Quote', $value);
+    }
 }
 
 ?>

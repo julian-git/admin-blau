@@ -16,6 +16,7 @@
     GNU General Public License for more details.
 */
 
+require_once('util.php');
 
 class Activitat extends Eloquent
 {
@@ -38,12 +39,17 @@ class Activitat extends Eloquent
 					    'cost_estimat' => 'decimal',
 					    'cost_real' => 'decimal'
 					    );
+
     public static $default_values = array('tipus_activitats_fk' => 1);
 
     public static $identifying_fields = array('titol',
 					      'data',
 					      'fi');
 
+    public function getTipusActivitatsFkAttribute($value) 
+    {
+	return resolve_foreign_key('TipusActivitat', $value);
+    }
 }
 
 ?>

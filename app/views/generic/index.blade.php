@@ -49,13 +49,8 @@
                 <tr>
                    @foreach(array_keys($CSN::$member_fields) as $field)
                      @if (!strcmp(substr($field, -3), '_fk'))
-                      <td><div id="{{ $field }}{{ $instance->id }}">fk {{ $instance->$field }}</div></td>
-		     <script>
-		      $.get($instance.'/', function(data){
-			     $(".{{ $field }}{{ $instance->id }}").html(data);
-			 });
-                     </script>
-		     @else 
+                      <td><div id="{{ $field }}{{ $instance->id }}">{{ $instance->$field }}</div></td>
+ 		     @else 
                       <td>{{ $instance->$field }}</td>
                      @endif
 		   @endforeach

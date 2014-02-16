@@ -24,7 +24,7 @@ class TipusQuote extends Eloquent
     public static $class_name_gender = 'm';
 
     public static $member_fields = array('id' => 'Id',
-					 'periodicitat' => 'Periodicitat',
+					 'periodicitat_mesos' => 'Periodicitat',
 					 'primer_cop_al_any' => 'Primer cobrament al any'
 					 );
 
@@ -35,7 +35,7 @@ class TipusQuote extends Eloquent
 
     public static $default_values = array();
 
-    public static $identifying_fields = array('periodicitat',
+    public static $identifying_fields = array('descripcio',
 					      'primer_cop_al_any');
 }
 

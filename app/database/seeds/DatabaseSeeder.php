@@ -99,7 +99,7 @@ class CastellersSeeder extends Seeder {
 				'dni' => '12345678K',
 				'email' => 'jmg@hotmail.com',
 				'sexe' => 'H',
-				'quotes_fk' => 1));
+				'quotes_fk' => 2));
 
 	Casteller::create(array('id' => 2, 
 				'cognom1' => 'López', 
@@ -111,7 +111,7 @@ class CastellersSeeder extends Seeder {
 				'dni' => '87654321J',
 				'email' => 'jgl@gmail.com',
 				'sexe' => 'D',
-				'quotes_fk' => 1));
+				'quotes_fk' => 3));
 
     }
 }

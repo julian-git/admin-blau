@@ -16,6 +16,7 @@
     GNU General Public License for more details.
 */
 
+require_once('util.php');
 
 class Quote extends Eloquent
 {
@@ -47,6 +48,10 @@ class Quote extends Eloquent
 					      'compte',
 					      'import');
 
+    public function getTipusQuotesFkAttribute($value) 
+    {
+	return resolve_foreign_key('TipusQuote', $value);
+    }
 }
 
 ?>

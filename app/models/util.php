@@ -16,28 +16,14 @@
     GNU General Public License for more details.
 */
 
-
-class Familie extends Eloquent
+function resolve_foreign_key($class, $value) 
 {
-    public static $singular_class_name = 'Família';
-    public static $plural_class_name = 'Famílies';
-    public static $class_name_gender = 'f';
-
-    public static $member_fields = array('id' => 'Id',
-					 'cognom1' => 'Cognom 1',
-					 'cognom2' => 'Cognom 2'
-					 );
-
-    public static $validation_rules = array('id' => 'required|integer',
-					    'cognom1' => 'required|alpha',
-					    'cognom2' => 'alpha'
-					    );
-
-    public static $default_values = array();
-
-    public static $identifying_fields = array('cognom1',
-					      'cognom2'
-					      );
+	$foreign_object = $class::findOrFail($value);
+	$res = '';
+	foreach($class::$identifying_fields as $f)
+	{
+	    $res .= $foreign_object->$f . ' ';
+	}
+	return $res;
 }
-
 ?>
