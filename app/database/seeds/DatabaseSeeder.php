@@ -49,7 +49,7 @@ class QuotesSeeder extends Seeder {
 	DB::table('quotes')->delete();
 	Quote::create(array('id' => 1, 
 			    'banc' => 'sense quota', 
-			    'tipus_fk' => 1));
+			    'tipus_quotes_fk' => 1));
 
 	Quote::create(array('id' => 2, 
 			    'banc' => 'La Caixa',
@@ -58,7 +58,7 @@ class QuotesSeeder extends Seeder {
 			    'digit_control' => '33',
 			    'compte' => '1234567890',
 			    'import' => '12.34',
-			    'tipus_fk' => 2));
+			    'tipus_quotes_fk' => 2));
 
 	Quote::create(array('id' => 3, 
 			    'banc' => 'Caixa de Catalunya',
@@ -67,7 +67,7 @@ class QuotesSeeder extends Seeder {
 			    'digit_control' => '77',
 			    'compte' => '8901234567',
 			    'import' => '56.78',
-			    'tipus_fk' => 3));
+			    'tipus_quotes_fk' => 3));
     }
 
 }
@@ -94,24 +94,24 @@ class CastellersSeeder extends Seeder {
 				'cognom2' => 'González',
 				'nom' => 'Josep Maria',
 				'mot' => 'Pep',
-				'familia_id_fk' => 1,
+				'families_fk' => 1,
 				'naixement' => '1980-10-03',
 				'dni' => '12345678K',
 				'email' => 'jmg@hotmail.com',
 				'sexe' => 'H',
-				'quota_id_fk' => 1));
+				'quotes_fk' => 1));
 
 	Casteller::create(array('id' => 2, 
 				'cognom1' => 'López', 
 				'cognom2' => 'García',
 				'nom' => 'Joana',
 				'mot' => 'Pepa',
-				'familia_id_fk' => 2,
+				'families_fk' => 2,
 				'naixement' => '1979-11-04',
 				'dni' => '87654321J',
 				'email' => 'jgl@gmail.com',
 				'sexe' => 'D',
-				'quota_id_fk' => 1));
+				'quotes_fk' => 1));
 
     }
 }
@@ -140,13 +140,13 @@ class ActivitatsSeeder extends Seeder {
 
 	Activitat::create(array('id' => 1, 
 				'titol' => 'Calçotada febrer',
-				'tipus_fk' => 1,
+				'tipus_activitats_fk' => 1,
 				'data' => '2014-02-20'
 				      ));
 
 	Activitat::create(array('id' => 2, 
 				'titol' => 'Sopar Festa Major',
-				'tipus_fk' => 2,
+				'tipus_activitats_fk' => 2,
 				'data' => '2014-08-20'
 				      ));
     }
