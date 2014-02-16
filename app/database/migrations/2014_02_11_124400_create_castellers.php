@@ -36,7 +36,7 @@ class CreateCastellers extends Migration {
 		});
 
 	    /*
-	      Each casteller has a field 'quota_id_fk' that points to this table.
+	      Each casteller has a field 'quotes_fk' that points to this table.
 	      This table is seeded with one dummy entry for the 'sense quota' case,
 	      but apart from that contains one row for the bank data of each casteller.
 	     */	    
