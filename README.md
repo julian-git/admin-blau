@@ -63,6 +63,7 @@ git pull -s recursive -X theirs
 ```
 php artisan migrate:install
 php artisan migrate
+php artisan db:seed
 ```
 
 * To use the app, open a new shell and say 

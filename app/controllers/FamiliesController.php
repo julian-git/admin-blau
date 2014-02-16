@@ -1,4 +1,3 @@
-<!doctype html>
 <?php
 /*
     (c) 2014 Castellers de la Vila de Gràcia
@@ -16,21 +15,12 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 */
-?>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>l.Admin Blau</title>
-    <link rel="stylesheet" href="{{ asset('bootstrap/dist/css/bootstrap.min.css') }}" />
-</head>
-<body>
-    <div class="container">
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="navbar-header">
-                <a href="{{ action('CastellersController@index') }}" class="navbar-brand">Castellers</a>
-            </div>
-        </nav>
-        @yield('content')
-    </div>
-</body>
-</html>
+
+
+class FamiliesController extends CVGController
+{
+    public function __construct() {
+	CVGController::__construct('Familie');
+    }
+}
+ ?>

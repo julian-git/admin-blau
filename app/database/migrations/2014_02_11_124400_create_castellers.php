@@ -27,10 +27,40 @@ class CreateCastellers extends Migration {
 	 */
 	public function up()
 	{
+	    Schema::create('tipus_quotes', function($table) {
+		    $table->increments('id');
+		    $table->string('descripcio', 20);
+		    $table->integer('periodicitat_mesos')->unsigned(); // every how many months
+		    $table->date('primer_cop_al_any');
+		    $table->timestamps();
+		});
+
+	    /*
+	      Each casteller has a field 'quota_id_fk' that points to this table.
+	      This table is seeded with one dummy entry for the 'sense quota' case,
+	      but apart from that contains one row for the bank data of each casteller.
+	     */	    
 	    Schema::create('quotes', function($table) {
 		    $table->increments('id');
-		    $table->string('tipus', 20);
-		    $table->decimal('cantitat');
+		    $table->string('banc', 50);
+		    // Laravel doesn't seem to allow to specify int(4),
+		    // so we define the following fields as strings and validate on input
+		    $table->string('codi_banc', 4)->nullable(); 
+		    $table->string('oficina', 4)->nullable();
+		    $table->string('digit_control', 2)->nullable();
+		    $table->string('compte', 10)->nullable();
+		    $table->string('BIC', 50)->nullable(); // FIXME: correct size?
+		    $table->string('IBAN', 50)->nullable(); // FIXME: correct size?
+		    $table->decimal('import');
+		    $table->integer('tipus_fk')->unsigned();
+		    $table->foreign('tipus_fk')->references('id')->on('tipus_quotes');
+		    $table->timestamps();
+		});
+
+	    Schema::create('families', function($table) {
+		    $table->increments('id');
+		    $table->string('cognom1', 50);
+		    $table->string('cognom2', 50)->nullable();
 		    $table->timestamps();
 		});
 
@@ -40,6 +70,8 @@ class CreateCastellers extends Migration {
 		    $table->string('cognom2', 50);
 		    $table->string('nom', 50)->index();
 		    $table->string('mot', 50)->index();
+		    $table->integer('familia_id_fk')->unsigned();
+		    $table->foreign('familia_id_fk')->references('id')->on('families');
 		    $table->date('naixement');
 		    $table->string('dni', 15);
 		    $table->string('email', 50);
@@ -55,36 +87,23 @@ class CreateCastellers extends Migration {
 		    $table->string('whatsapp', 20);
 		    $table->date('alta')->index();
 		    $table->string('sexe', 1);
-		    $table->integer('quota_id_fk')->unsigned();
-		    $table->foreign('quota_id_fk')->references('id')->on('quotes')->nullable();
+		    $table->integer('quota_id_fk')->unsigned()->default(1);
+		    $table->foreign('quota_id_fk')->references('id')->on('quotes');
 		    $table->timestamps();
 		});
 
-	    Schema::create('families', function($table) {
-		    $table->increments('id');
-		    $table->string('cognom1', 50);
-		    $table->string('cognom2', 50);
-		    $table->timestamps();
-		});
-
-	    Schema::create('families_x_castellers', function($table) {
-		    $table->integer('familia_id_fk')->unsigned();
-		    $table->integer('casteller_id_fk')->unsigned();
-		    $table->foreign('familia_id_fk')->references('id')->on('families');
-		    $table->foreign('casteller_id_fk')->references('id')->on('castellers');
-		});
-	    
-	    Schema::create('tipus_activitat', function($table) {
+	    Schema::create('tipus_activitats', function($table) {
 		    $table->increments('id');
 		    $table->string('tipus', 50)->index();
 		    $table->string('descripcio', 200);
+		    $table->timestamps();
 		});
 
 	    Schema::create('activitats', function($table) {
 		    $table->increments('id');
 		    $table->string('titol', 50)->index();
 		    $table->integer('tipus_fk')->unsigned();
-		    $table->foreign('tipus_fk')->references('id')->on('tipus_activitat');
+		    $table->foreign('tipus_fk')->references('id')->on('tipus_activitats');
 		    $table->date('data')->index();
 		    $table->date('fi')->nullable();
 		    $table->string('descripcio', 200)->nullable();
@@ -112,11 +131,11 @@ class CreateCastellers extends Migration {
 	{
 	    Schema::drop('castellers_x_activitats');
 	    Schema::drop('activitats');
-	    Schema::drop('tipus_activitat');
-	    Schema::drop('families_x_castellers');
-	    Schema::drop('families');
+	    Schema::drop('tipus_activitats');
 	    Schema::drop('castellers');
+	    Schema::drop('families');
 	    Schema::drop('quotes');
+	    Schema::drop('tipus_quotes');
 	}
 
 }
