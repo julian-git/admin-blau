@@ -119,8 +119,6 @@ class CreateCastellers extends Migration {
 		    $table->foreign('castellers_fk')->references('id')->on('castellers');
 		    $table->foreign('activitats_fk')->references('id')->on('activitats');
 		});
-	    DB::insert('insert into quotes (id, tipus, cantitat) values (?, ?, ?)', array(1, 'trimestral', 14));	
-
 	}
 
 	/**
