@@ -111,8 +111,12 @@ class CVGController extends BaseController
 	$class_instance = $CSN::findOrFail(Input::get('id'));
 
 	foreach (array_keys($CSN::$member_fields) as $field) 
-	    if ($field != 'id')
+	{
+	    if ($field != 'id') 
+	    {
 		$class_instance->$field = Input::get($field); 
+	    }
+	}
 
 	$class_instance->save();
 	return Redirect::action($CSN . 'sController@index');

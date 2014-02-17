@@ -23,7 +23,9 @@
 <?php include_once(dirname(dirname(dirname(__FILE__))) . "/models/$CSN.php"); ?>
 
     <div class="page-header">
-    <h1>Editar {{ $CSN }}</h1>
+    <h1>Editar 
+      {{ $CSN::$singular_class_name }}
+    </h1>
     </div>
 
     <form action="{{ action($CSN . 'sController@handleEdit') }}" method="post" role="form">
