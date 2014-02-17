@@ -22,7 +22,10 @@
 <?php include_once(dirname(dirname(dirname(__FILE__))) . "/models/$CSN.php"); ?>
 
     <div class="page-header">
-    <h1>Crear nou {{ $CSN }}</h1>
+    <h1>Crear 
+      {{ $CSN::$class_name_gender == 'm' ? 'nou' : 'nova' }}
+      {{ $CSN::$singular_class_name }}
+    </h1>
     </div>
 
     <form action="{{ action($CSN . 'sController@handleCreate') }}" method="post" role="form">
@@ -41,7 +44,14 @@
     <td>
        <div class="form-group">
          @if (isset($dropbox[$field]))
-           {{ $dropbox[$field] }}           
+           <div class="panel-body">
+             {{ $dropbox[$field] }} 
+             <?php $ft = $foreign_table[$field] ?>
+             <a href="{{ action($ft . 'sController@create') }}" class="btn btn-primary">
+	        {{ $ft::$class_name_gender == 'm' ? 'Nou' : 'Nova' }}
+	        {{ $ft::$singular_class_name }}
+             </a>
+           </div>
          @else 
            {{ Form::text($field, Input::old($field)) }}
            {{ $errors->first($field, '<span class="error">:message</span>') }}

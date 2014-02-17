@@ -22,10 +22,15 @@ function toCamelCase($field)
     return $CamelCase;
 }
 
+function foreign_table_of($field)
+{
+    return toCamelCase(substr($field, 0, -4)); // remove also plural 's'
+}
+
 function dropbox_from_foreign_key($field)
 {
     $str = '<select>';
-    $class_name = toCamelCase(substr($field, 0, -4)); // remove also plural 's'
+    $class_name = foreign_table_of($field);
     foreach ($class_name::all() as $instance) 
     {
 	$str .= '<option value=' . $instance->id . '>';

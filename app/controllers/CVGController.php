@@ -56,14 +56,17 @@ class CVGController extends BaseController
 	$CSN = $this->ClassSingularName;
 	$csn = strtolower($CSN);
 	$dropbox = array();
+	$foreign_table = array();
 	foreach ($CSN::$member_fields as $field => $value) 
 	{
 	    if (!strcmp(substr($field, -3), '_fk'))
 	    {
 		$dropbox[$field] = dropbox_from_foreign_key($field);
+		$foreign_table[$field] = foreign_table_of($field);
 	    }
 	}
 	$extended_layout_data['dropbox'] = $dropbox;
+	$extended_layout_data['foreign_table'] = $foreign_table;
 	$this->layout->content = View::make('generic.create', $extended_layout_data);
     }
 
