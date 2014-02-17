@@ -40,8 +40,12 @@
     </td>
     <td>
        <div class="form-group">
-       {{ Form::text($field, Input::old($field)) }}
-       {{ $errors->first($field, '<span class="error">:message</span>') }}
+         @if (isset($dropbox[$field]))
+           {{ $dropbox[$field] }}           
+         @else 
+           {{ Form::text($field, Input::old($field)) }}
+           {{ $errors->first($field, '<span class="error">:message</span>') }}
+         @endif 
        </div>
     </td>
   </tr>
@@ -49,6 +53,6 @@
 @endforeach
 </table>
         <input type="submit" value="Crear" class="btn btn-primary" />
-        <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel.lar</a>
+       <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel&middot;lar</a>
     </form>
 @stop

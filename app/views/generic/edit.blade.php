@@ -52,6 +52,6 @@
 @endforeach
 </table>
         <input type="submit" value="Desar" class="btn btn-primary" />
-        <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel.lar</a>
+        <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel&middot;lar</a>
     </form>
 @stop

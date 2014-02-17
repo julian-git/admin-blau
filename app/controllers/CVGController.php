@@ -16,6 +16,8 @@
     GNU General Public License for more details.
 */
 
+require_once('util.php');
+
 class CVGController extends BaseController
 {
     // this variable will be instantiated to, for example,
@@ -50,7 +52,19 @@ class CVGController extends BaseController
     public function create()
     {
         // Show the create form.
-	$this->layout->content = View::make('generic.create', $this->layout_data);
+	$extended_layout_data = $this->layout_data;
+	$CSN = $this->ClassSingularName;
+	$csn = strtolower($CSN);
+	$dropbox = array();
+	foreach ($CSN::$member_fields as $field => $value) 
+	{
+	    if (!strcmp(substr($field, -3), '_fk'))
+	    {
+		$dropbox[$field] = dropbox_from_foreign_key($field);
+	    }
+	}
+	$extended_layout_data['dropbox'] = $dropbox;
+	$this->layout->content = View::make('generic.create', $extended_layout_data);
     }
 
     public function handleCreate()
