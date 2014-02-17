@@ -33,7 +33,7 @@ class TipusQuoteSeeder extends Seeder {
 	TipusQuote::create(array('id' => 2, 
 				 'descripcio' => 'Trimestral',
 				 'periodicitat_mesos' => 3, 
-				 'primer_cop_al_any' => '07-01'));
+				 'primer_cop_al_any' => '03-01'));
 
 	TipusQuote::create(array('id' => 3, 
 				 'descripcio' => 'Semestral',

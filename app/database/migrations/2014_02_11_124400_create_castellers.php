@@ -31,7 +31,7 @@ class CreateCastellers extends Migration {
 		    $table->increments('id');
 		    $table->string('descripcio', 20);
 		    $table->integer('periodicitat_mesos')->unsigned(); // every how many months
-		    $table->date('primer_cop_al_any');
+		    $table->string('primer_cop_al_any', 5);
 		    $table->timestamps();
 		});
 
