@@ -16,10 +16,68 @@
     GNU General Public License for more details.
 */
 
+require_once('util.php');
 
 class Casteller extends Eloquent
 {
+    public static $singular_class_name = 'Casteller';
+    public static $plural_class_name = 'Castellers';
+    public static $class_name_gender = 'm';
 
+    public static $member_fields = array('id' => 'N&uacute;mero de soci',
+					 'cognom1' => 'Cognom 1',
+					 'cognom2' => 'Cognom 2',
+					 'nom' => 'Nom',
+					 'mot' => 'Mot',
+					 'families_fk' => 'Família',
+					 'naixement' => 'Data de naixement',
+					 'dni' => 'DNI',
+					 'email' => 'email',
+					 'direccio' => 'Direcció',
+					 'cp' => 'CP',
+					 'poblacio' => 'Població',
+					 'provincia' => 'Provincia',
+					 'telefon1' => 'Telèfon 1',
+					 'telefon2' => 'Telèfon 2',
+					 'mobil1' => 'Mòvil 1',
+					 'mobil2' => 'Mòvil 2',
+					 'twitter' => 'Twitter',
+					 'whatsapp' => 'Whatsapp',
+					 'sexe' => 'Sexe',
+					 'quotes_fk' => 'Quota');
+
+    public static $validation_rules = array('cognom1' => 'required|alpha',
+					    'cognom2' => 'alpha',
+					    'nom' => 'required|alpha',
+					    'mot' => 'required|alpha',
+					    'naixement' => 'date',
+					    'dni' => 'alpha_num|max:12',
+					    'email' => 'email',
+					    'cp' => 'alpha_num',
+					    'telefon1' => 'alpha_num',
+					    'telefon2' => 'alpha_num',
+					    'mobil1' => 'alpha_num',
+					    'mobil2' => 'alpha_num',
+					    'twitter' => 'alpha_num',
+					    'whatsapp' => 'alpha_num',
+					    'sexe' => 'in:H,D');
+
+    public static $default_values = array('quotes_fk' => 1);
+
+    public static $identifying_fields = array('mot', 
+					      'nom',
+					      'cognom1',
+					      'cognom2');
+    
+    public function getFamiliesFkAttribute($value) 
+    {
+	return resolve_foreign_key('Familie', $value);
+    }
+
+    public function getQuotesFkAttribute($value) 
+    {
+	return resolve_foreign_key('Quote', $value);
+    }
 }
 
 ?>

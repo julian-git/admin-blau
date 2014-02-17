@@ -16,13 +16,14 @@
     GNU General Public License for more details.
 */
 
-require_once(dirname(__FILE__) . '/../models/Casteller.php');
-require_once('CVGController.php');
-
-class CastellersController extends CVGController
+function resolve_foreign_key($class, $value) 
 {
-    public function __construct() {
-	CVGController::__construct('Casteller');
-    }
+	$foreign_object = $class::findOrFail($value);
+	$res = '';
+	foreach($class::$identifying_fields as $f)
+	{
+	    $res .= $foreign_object->$f . ' ';
+	}
+	return $res;
 }
- ?>
+?>

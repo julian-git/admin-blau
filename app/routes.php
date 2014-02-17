@@ -29,17 +29,32 @@
 |
 */
 
+Route::get('/', function() 
+	   {
+	       return View::make('index');
+	   });
 
-// Bind route parameters.
-Route::model('casteller', 'Casteller');
+foreach(['Casteller', 
+	 'Familie', 
+	 'Quote',
+	 'TipusQuote',
+	 'Activitat',
+	 'TipusActivitat'
+	 ] as $CSN) {  // CSN is a mnemonic for ClassSingularName
 
-// Show pages.
-Route::get('/', 'CastellersController@index' );
-Route::get('/create', 'CastellersController@create');
-Route::get('/edit/{casteller}', 'CastellersController@edit');
-Route::get('/delete/{casteller}', 'CastellersController@delete');
+    $csn = strtolower($CSN);
 
-// Handle form submissions.
-Route::post('/create', 'CastellersController@handleCreate');
-Route::post('/edit', 'CastellersController@handleEdit');
-Route::post('/delete', 'CastellersController@handleDelete');
+    // Bind route parameters.
+    Route::model($csn, $CSN); // e.g., model('casteller', 'Casteller');
+
+    // Show pages.
+    Route::get("/$csn", "{$CSN}sController@index");
+    Route::get("/$csn/create", "{$CSN}sController@create");
+    Route::get("/$csn/edit/{" . $csn . '}', "{$CSN}sController@edit");
+    Route::get("/$csn/delete/{" . $csn . '}', "{$CSN}sController@delete");
+
+    // Handle form submissions.
+    Route::post("/$csn/create", "{$CSN}sController@handleCreate");
+    Route::post("/$csn/edit", "{$CSN}sController@handleEdit");
+    Route::post("/$csn/delete", "{$CSN}sController@handleDelete");
+}

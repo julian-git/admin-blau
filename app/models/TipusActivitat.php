@@ -16,13 +16,26 @@
     GNU General Public License for more details.
 */
 
-require_once(dirname(__FILE__) . '/../models/Casteller.php');
-require_once('CVGController.php');
 
-class CastellersController extends CVGController
+class TipusActivitat extends Eloquent
 {
-    public function __construct() {
-	CVGController::__construct('Casteller');
-    }
+    public static $singular_class_name = "Tipus d'Activitat";
+    public static $plural_class_name = "Tipus d'Activitats";
+    public static $class_name_gender = 'm';
+
+    public static $member_fields = array('id' => 'Id',
+					 'tipus' => "Tipus d'Activitat",
+					 'descripcio' => 'Descripci&oacute;'
+					 );
+
+    public static $validation_rules = array('id' => 'required|integer',
+					    'tipus' => 'required|alpha_num'
+					    );
+
+    public static $default_values = array();
+
+    public static $identifying_fields = array('tipus'
+					      );
 }
- ?>
+
+?>
