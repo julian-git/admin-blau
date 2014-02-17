@@ -27,23 +27,36 @@ function foreign_table_of($field)
     return toCamelCase(substr($field, 0, -4)); // remove also plural 's'
 }
 
-function dropbox_from_foreign_key($field)
+function assemble_identifying_fields($class_name, $instance)
+{
+    $str = '';
+    foreach ($class_name::$identifying_fields as $f)
+    {
+	$str .= $instance->$f . ' ';
+    }
+    return $str;
+}
+
+function dropbox_from_foreign_key($field, $value)
 {
     $str = '<select>';
     $class_name = foreign_table_of($field);
     foreach ($class_name::all() as $instance) 
     {
-	$str .= '<option value=' . $instance->id . '>';
-	foreach ($class_name::$identifying_fields as $f)
+	$id_fields = assemble_identifying_fields($class_name, $instance);
+	$str .= '<option ';
+	if (!strcmp($id_fields, $value))
 	{
-	    $str .= $instance->$f . ' ';
+	    $str .= 'selected="selected" ';
 	}
+	$str .= 'value="' . $instance->id . '-' . $value . '">';
+	$str .= $id_fields;
 	$str .= '</option>';
     }
     return $str . '</select>';
 }
 
-function dropbox_and_foreign_table_of($CSN)
+function dropbox_and_foreign_table_of($CSN, $class_instance='')
 {
     $dropbox = array();
     $foreign_table = array();
@@ -51,7 +64,7 @@ function dropbox_and_foreign_table_of($CSN)
     {
 	if (!strcmp(substr($field, -3), '_fk'))
 	{
-	    $dropbox[$field] = dropbox_from_foreign_key($field);
+	    $dropbox[$field] = dropbox_from_foreign_key($field, $class_instance->$field);
 	    $foreign_table[$field] = foreign_table_of($field);
 	}
     }

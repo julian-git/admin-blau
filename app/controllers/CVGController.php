@@ -97,7 +97,7 @@ class CVGController extends BaseController
 	$extended_layout_data = $this->layout_data;
 	$extended_layout_data[$csn] = $class_instance;
 
-	$dft = dropbox_and_foreign_table_of($CSN);
+	$dft = dropbox_and_foreign_table_of($CSN, $class_instance);
 	$extended_layout_data['dropbox'] = $dft[0];
 	$extended_layout_data['foreign_table'] = $dft[1];
 
