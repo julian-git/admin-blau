@@ -43,4 +43,19 @@ function dropbox_from_foreign_key($field)
     return $str . '</select>';
 }
 
+function dropbox_and_foreign_table_of($CSN)
+{
+    $dropbox = array();
+    $foreign_table = array();
+    foreach ($CSN::$member_fields as $field => $value) 
+    {
+	if (!strcmp(substr($field, -3), '_fk'))
+	{
+	    $dropbox[$field] = dropbox_from_foreign_key($field);
+	    $foreign_table[$field] = foreign_table_of($field);
+	}
+    }
+    return [$dropbox, $foreign_table];
+}
+
 ?>
