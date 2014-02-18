@@ -10,6 +10,22 @@ class DatabaseSeeder extends Seeder {
 	public function run()
 	{
 		Eloquent::unguard();
+		
+		foreach(['castellers',
+			 'quotes',
+			 'castells',
+			 'actuacions',
+			 'tipus_quotes',
+			 'families',
+			 'activitats',
+			 'tipus_activitats',
+			 'llocs',
+			 'tipus_actuacions',
+			 'posicions'
+			 ] as $table)
+		{
+		    DB::table($table)->delete();
+		}
 
 		foreach(['TipusQuoteSeeder',
 			 'QuotesSeeder',
@@ -21,11 +37,8 @@ class DatabaseSeeder extends Seeder {
 			 'LlocsSeeder',
 			 'TipusActuacionsSeeder',
 			 'ActuacionsSeeder',
-			 'TipusCastellsSeeder',
-			 'CastellsSeeder',
-			 'TipusPosicionsSeeder',
-			 'PosicionsSeeder',
-			 'PinyesSeeder'
+			 'CastellsSeeder'
+			 /* 'PosicionsSeeder' */
 			 ] as $seeder)
 		{
 		    $this->call($seeder);
@@ -37,7 +50,6 @@ class DatabaseSeeder extends Seeder {
 class TipusQuoteSeeder extends Seeder {
 
     public function run() {
-	DB::table('tipus_quotes')->delete();
 	TipusQuote::create(array('id' => 1, 
 				 'descripcio' => 'Sense Quota',
 				 'periodicitat_mesos' => 0, 
@@ -59,7 +71,6 @@ class TipusQuoteSeeder extends Seeder {
 class QuotesSeeder extends Seeder {
 
     public function run() {
-	DB::table('quotes')->delete();
 	Quote::create(array('id' => 1, 
 			    'banc' => 'sense quota', 
 			    'tipus_quotes_fk' => 1));
@@ -180,76 +191,118 @@ class LlocsSeeder extends Seeder {
     }
 }
 
-class TipusActuacioSeeder extends Seeder {
+class TipusActuacionsSeeder extends Seeder {
 
     public function run() {
 	DB::table('tipus_actuacions')->delete();
 
-	TipusActuacio::create(array('id' => 1, 
-			   'nom' => 'Actuació regular'
-			   ));
+	TipusActuacion::create(array('id' => 1, 
+				     'nom' => 'Actuació regular'
+				     ));
 
-	TipusActuacio::create(array('id' => 2, 
-			   'nom' => 'Concurs'
-			   ));
+	TipusActuacion::create(array('id' => 2, 
+				     'nom' => 'Concurs'
+				     ));
     }
 }
 
-class ActuacioSeeder extends Seeder {
+class ActuacionsSeeder extends Seeder {
 
     public function run() {
 	DB::table('actuacions')->delete();
 
-	Actuacio::create(array('id' => 1, 
-			       'nom' => 'Foguerons',
-			       'tipus_actuacions_fk' => '1',
-			       'data' => '2014-02-05',
-			       'llocs_fk' => '1'
+	Actuacion::create(array('id' => 1, 
+				'nom' => 'Foguerons',
+				'tipus_actuacions_fk' => '1',
+				'data' => '2014-02-05',
+				'llocs_fk' => '1'
 			   ));
 
-	Actuacio::create(array('id' => 2, 
-			       'nom' => 'Festa Major de Terrassa',
-			       'tipus_actuacions_fk' => '1',
-			       'data' => '2014-06-05',
-			       'llocs_fk' => '2'
+	Actuacion::create(array('id' => 2, 
+				'nom' => 'Festa Major de Terrassa',
+				'tipus_actuacions_fk' => '1',
+				'data' => '2014-06-05',
+				'llocs_fk' => '2'
 			   ));
     }
 }
 
-class CastellSeeder extends Seeder {
+class CastellsSeeder extends Seeder {
 
     public function run() {
 	DB::table('castells')->delete();
 
 	Castell::create(array('id' => 1, 
 			      'tipus_castell' => '2de8f',
-			      'actuacions_fk' => '1',
+			      'actuacions_fk' => 1,
 			      'ordre' => '2'
 			   ));
 
 	Castell::create(array('id' => 2, 
 			      'tipus_castell' => '3de9f',
-			      'actuacions_fk' => '2',
+			      'actuacions_fk' => 2,
 			      'ordre' => '3'
 			   ));
     }
 }
 
-class PinyeSeeder extends Seeder {
+class PosicioSeeder extends Seeder {
 
     public function run() {
-	DB::table('pinyes')->delete();
+	DB::table('posicions')->delete();
 
-	Castell::create(array('id' => 1, 
-			      'castells_fk' => '1',
-			      'actuacions_fk' => '1',
-			      'ordre' => '2'
-			   ));
+	Posicio::create(array('id' => 1, 
+			      'tipus_castell' => '2de8f',
+			      'tipus_posicio' => 'Baix',
+			      'nom' => 'BaixRengla'
+			      ));
 
-	Castell::create(array('id' => 2, 
-			      'tipus_castell' => '3de9f',
-			      'actuacions_fk' => '2',
-			      'ordre' => '3'
-			   ));
+	Posicio::create(array('id' => 2, 
+			      'tipus_castell' => '2de8f',
+			      'tipus_posicio' => 'Baix',
+			      'nom' => 'BaixPlena'
+			      ));
+
+	Posicio::create(array('id' => 3, 
+			      'tipus_castell' => '2de8f',
+			      'tipus_posicio' => 'Baix',
+			      'nom' => 'BaixBuida'
+			      ));
+
+	Posicio::create(array('id' => 4, 
+			      'tipus_castell' => '2de8f',
+			      'tipus_posicio' => 'Crossa',
+			      'nom' => 'CrossaDretaBaixRengla'
+			      ));
+
+	Posicio::create(array('id' => 5, 
+			      'tipus_castell' => '2de8f',
+			      'tipus_posicio' => 'Crossa',
+			      'nom' => 'CrossaEsqBaixRengla'
+			      ));
+
+	Posicio::create(array('id' => 6, 
+			      'tipus_castell' => '2de8f',
+			      'tipus_posicio' => 'Crossa',
+			      'nom' => 'CrossaDretaBaixPlena'
+			      ));
+
+	Posicio::create(array('id' => 7, 
+			      'tipus_castell' => '2de8f',
+			      'tipus_posicio' => 'Crossa',
+			      'nom' => 'CrossaEsqBaixPlena'
+			      ));
+
+	Posicio::create(array('id' => 8, 
+			      'tipus_castell' => '2de8f',
+			      'tipus_posicio' => 'Crossa',
+			      'nom' => 'CrossaDretaBaixBuida'
+			      ));
+
+	Posicio::create(array('id' => 9, 
+			      'tipus_castell' => '2de8f',
+			      'tipus_posicio' => 'Crossa',
+			      'nom' => 'CrossaEsqBaixBuida'
+			      ));
     }
 }

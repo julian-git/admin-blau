@@ -28,13 +28,15 @@ class Pinyes extends Migration {
 	public function up()
 	{
 	    Schema::create('llocs', function($table) {
-o		    $table->increments('id');
+		    $table->increments('id');
 		    $table->string('nom', 50);
+		    $table->timestamps();
 		});
 
 	    Schema::create('tipus_actuacions', function($table) {
 		    $table->increments('id');
 		    $table->string('nom', 10);
+		    $table->timestamps();
 		});
 
 	    Schema::create('actuacions', function($table) {
@@ -45,6 +47,7 @@ o		    $table->increments('id');
 		    $table->date('data')->index();
 		    $table->integer('llocs_fk')->unsigned();
 		    $table->foreign('llocs_fk')->references('id')->on('llocs');
+		    $table->timestamps();
 		});
 	    
 	    Schema::create('castells', function($table) {
@@ -53,6 +56,7 @@ o		    $table->increments('id');
 		    $table->integer('actuacions_fk')->unsigned();
 		    $table->foreign('actuacions_fk')->references('id')->on('actuacions');
 		    $table->smallInteger('ordre');
+		    $table->timestamps();
 		});
 
 	    Schema::create('posicions', function($table) {
@@ -60,6 +64,7 @@ o		    $table->increments('id');
 		    $table->string('tipus_castell', 12);
 		    $table->string('tipus_posicio', 12);
 		    $table->string('nom', 15);
+		    $table->timestamps();
 		});
 
 	    Schema::create('pinyes', function($table) {
@@ -70,6 +75,7 @@ o		    $table->increments('id');
 		    $table->foreign('castellers_fk')->references('id')->on('castellers');
 		    $table->integer('posicions_fk')->unsigned();
 		    $table->foreign('posicions_fk')->references('id')->on('posicions');
+		    $table->timestamps();
 		});
 	}
 

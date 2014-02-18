@@ -30,15 +30,24 @@ class Castell extends Eloquent
 					 'ordre' => 'Ordre a Plaça'
 					 );
 
-    public static $validation_rules = array('id' => 'required|integer',
-					    'tipus_castell' => 'in:' . $tipus_castells
-					    );
+    public static $validation_rules;
 
     public static $default_values = array();
 
     public static $identifying_fields = array('tipus_castell',
 					      'actuacions_fk'
 					      );
+
+    // put this into a constructor because it's non-static data,
+    // being derived from a require_once'd file.
+    public function __construct() 
+    {
+	global $tipus_castells;
+	Castell::$validation_rules = array('id' => 'required|integer',
+					   'tipus_castell' => 'in:' . $tipus_castells
+					   );
+
+    }
 }
 
 ?>

@@ -17,27 +17,24 @@
 */
 
 
-class Actuacio extends Eloquent
+class TipusActuacion extends Eloquent
 {
-    public static $singular_class_name = 'Actuació';
-    public static $plural_class_name = 'Actuacions';
-    public static $class_name_gender = 'f';
+    public static $singular_class_name = 'Tipus de Actuació';
+    public static $plural_class_name = 'Tipus de Actuacions';
+    public static $class_name_gender = 'm';
 
     public static $member_fields = array('id' => 'Id',
-					 'nom' => 'Nom',
-					 'tipus_actuacions_fk' => "Tipus d'actuació",
-					 'data' => 'Data',
-					 'llocs_fk' => 'Lloc'
+					 'nom' => 'Nom'
 					 );
 
     public static $validation_rules = array('id' => 'required|integer',
-					    'data' => 'required|date'
+					    'nom' => 'required|alpha_whitespace|size:10',
+					    'primer_cop_al_any' => 'required|date'
 					    );
 
     public static $default_values = array();
 
-    public static $identifying_fields = array('nom',
-					      'data'
+    public static $identifying_fields = array('nom'
 					      );
 }
 
