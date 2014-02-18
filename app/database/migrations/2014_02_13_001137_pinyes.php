@@ -32,56 +32,56 @@ class Pinyes extends Migration {
 		    $table->string('nom', 50);
 		});
 
-	    Schema::create('actuacio_tipus', function($table) {
+	    Schema::create('tipus_actuacions', function($table) {
 		    $table->increments('id');
 		    $table->string('nom', 10);
 		});
 
 	    Schema::create('actuacions', function($table) {
 		    $table->increments('id');
-		    $table->integer('tipus_fk')->unsigned();
-		    $table->foreign('tipus_fk')->references('id')->on('actuacio_tipus');
+		    $table->integer('tipus_actuacions_fk')->unsigned();
+		    $table->foreign('tipus_actuacions_fk')->references('id')->on('tipus_actuacions');
 		    $table->date('data')->index();
-		    $table->integer('lloc_fk')->unsigned();
-		    $table->foreign('lloc_fk')->references('id')->on('llocs');
-		}
+		    $table->integer('llocs_fk')->unsigned();
+		    $table->foreign('llocs_fk')->references('id')->on('llocs');
+		});
 	    
-	    Schema::create('castell_tipus', function($table) {
+	    Schema::create('tipus_castells', function($table) {
 		    $table->increments('id');
 		    $table->string('nom', 10);
 		});
 
 	    Schema::create('castells', function($table) {
 		    $table->increments('id');
-		    $table->integer('tipus_fk')->unsigned();
-		    $table->foreign('tipus_fk')->references('id')->on('castell_tipus');
-		    $table->integer('actuacio_fk')->unsigned();
-		    $table->foreign('actuacio_fk')->references('id')->on('actuacions');
+		    $table->integer('tipus_castells_fk')->unsigned();
+		    $table->foreign('tipus_castells_fk')->references('id')->on('tipus_castells');
+		    $table->integer('actuacions_fk')->unsigned();
+		    $table->foreign('actuacions_fk')->references('id')->on('actuacions');
 		    $table->smallInteger('ordre');
 		});
 
-	    Schema::create('posicio_tipus', function($table) {
+	    Schema::create('tipus_posicions', function($table) {
 		    $table->increments('id');
 		    $table->string('tipus', 15);
 		});
 
-	    Schema::create('posicio', function($table) {
+	    Schema::create('posicions', function($table) {
 		    $table->increments('id');
-		    $table->integer('castell_tipus_fk')->unsigned();
-		    $table->foreign('castell_tipus_fk')->references('id')->on('castell_tipus');
-		    $table->integer('posicio_tipus_fk')->unsigned();
-		    $table->foreign('posicio_tipus_fk')->references('id')->on('posicio_tipus');
+		    $table->integer('tipus_castells_fk')->unsigned();
+		    $table->foreign('tipus_castells_fk')->references('id')->on('tipus_castells');
+		    $table->integer('tipus_posicions_fk')->unsigned();
+		    $table->foreign('tipus_posicions_fk')->references('id')->on('tipus_posicions');
 		    $table->string('nom', 15);
 		});
 
-	    Schema::create('pinya', function($table) {
+	    Schema::create('pinyes', function($table) {
 		    $table->increments('id');
-		    $table->integer('casteller_id_fk')->unsigned();
-		    $table->foreign('casteller_id_fk')->references('id')->on('castellers');
-		    $table->integer('castell_id_fk')->unsigned();
-		    $table->foreign('castell_id_fk')->references('id')->on('castells');
-		    $table->integer('posicio_id_fk')->unsigned();
-		    $table->foreign('posicio_id_fk')->references('id')->on('posicio');
+		    $table->integer('castells_fk')->unsigned();
+		    $table->foreign('castells_fk')->references('id')->on('castells');
+		    $table->integer('castellers_fk')->unsigned();
+		    $table->foreign('castellers_fk')->references('id')->on('castellers');
+		    $table->integer('posicions_fk')->unsigned();
+		    $table->foreign('posicions_fk')->references('id')->on('posicions');
 		});
 	}
 
@@ -92,13 +92,13 @@ class Pinyes extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('pinya');
-	    Schema::drop('posicio');
-	    Schema::drop('posicio_tipus');
+	    Schema::drop('pinyes');
+	    Schema::drop('posicions');
+	    Schema::drop('tipus_posicions');
 	    Schema::drop('castells');
-	    Schema::drop('castell_tipus');
+	    Schema::drop('tipus_castells');
 	    Schema::drop('actuacions');
-	    Schema::drop('actuacio_tipus');
+	    Schema::drop('tipus_actuacions');
 	    Schema::drop('llocs');
 	}
 
