@@ -16,6 +16,8 @@
     GNU General Public License for more details.
 */
 
+require_once('util.php');
+
 class CVGController extends BaseController
 {
     // this variable will be instantiated to, for example,
@@ -27,6 +29,9 @@ class CVGController extends BaseController
 
     // pass information to layout template so that it can instantiate the correct class
     protected $layout_data;
+
+    // Error messages for custom validation rules
+    protected $custom_validation_messages = array('integer_size' => "El camp ha de consistir d'exactament :size digits.");
 
     public function __construct($ClassSingularName) {
 	$this->ClassSingularName = $ClassSingularName;
@@ -50,13 +55,21 @@ class CVGController extends BaseController
     public function create()
     {
         // Show the create form.
-	$this->layout->content = View::make('generic.create', $this->layout_data);
+	$CSN = $this->ClassSingularName;
+	$csn = strtolower($CSN);
+
+	$extended_layout_data = $this->layout_data;
+	$extended_layout_data['dropbox_options'] = dropbox_options_of($CSN);
+	$extended_layout_data['dropbox_default'] = $CSN::$default_values;
+	$extended_layout_data['foreign_table'] = foreign_tables_of($CSN);
+
+	$this->layout->content = View::make('generic.create', $extended_layout_data);
     }
 
     public function handleCreate()
     {
 	$CSN = $this->ClassSingularName;
-	$validator = Validator::make(Input::all(), $CSN::$validation_rules);
+	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
 	if ($validator->fails()) {
 	    return Redirect::to(strtolower($CSN) . '/create')
 		->with($this->layout_data)
@@ -89,6 +102,10 @@ class CVGController extends BaseController
 	$extended_layout_data = $this->layout_data;
 	$extended_layout_data[$csn] = $class_instance;
 
+	$extended_layout_data['dropbox_options'] = dropbox_options_of($CSN);
+	$extended_layout_data['dropbox_default'] = dropbox_default_of($CSN, $class_instance);
+	$extended_layout_data['foreign_table'] = foreign_tables_of($CSN);
+
         return View::make('generic.edit', $extended_layout_data);
     }
 
@@ -98,9 +115,18 @@ class CVGController extends BaseController
 	$CSN = $this->ClassSingularName;
 	$class_instance = $CSN::findOrFail(Input::get('id'));
 
+	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
+	if ($validator->fails()) {
+	    return Redirect::to(strtolower($CSN) . '/edit/' . Input::get('id'))
+		->with($this->layout_data)
+		->withErrors($validator)
+		->withInput();
+	}
+
 	foreach (array_keys($CSN::$member_fields) as $field) 
-	    if ($field != 'id')
-		$class_instance->$field = Input::get($field); 
+	{
+	    $class_instance->$field = Input::get($field); 
+	}
 
 	$class_instance->save();
 	return Redirect::action($CSN . 'sController@index');

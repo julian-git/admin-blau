@@ -48,7 +48,11 @@
                 @foreach($$class_instance_list as $instance)
                 <tr>
                    @foreach(array_keys($CSN::$member_fields) as $field)
+                     @if (!strcmp(substr($field, -3), '_fk'))
+                      <td><div id="{{ $field }}{{ $instance->id }}">{{ $instance->$field }}</div></td>
+ 		     @else 
                       <td>{{ $instance->$field }}</td>
+                     @endif
 		   @endforeach
                     <td>
                         <a href="{{ action($CSN . 'sController@edit', $instance->id) }}" class="btn btn-default">Editar</a>

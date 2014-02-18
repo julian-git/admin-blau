@@ -16,6 +16,7 @@
     GNU General Public License for more details.
 */
 
+require_once('util.php');
 
 class Activitat extends Eloquent
 {
@@ -23,8 +24,9 @@ class Activitat extends Eloquent
     public static $plural_class_name = 'Activitats';
     public static $class_name_gender = 'f';
 
-    public static $member_fields = array('titol' => 'Titol',
-					 'tipus_fk' => "Tipus d'Activitat",
+    public static $member_fields = array('id' => 'Id Activitat',
+					 'titol' => 'Titol',
+					 'tipus_activitats_fk' => "Tipus d'Activitat",
 					 'data' => 'Data (inici)',
 					 'fi' => 'Data fi',
 					 'descripcio' => 'Descripci&oacute;',
@@ -38,12 +40,17 @@ class Activitat extends Eloquent
 					    'cost_estimat' => 'decimal',
 					    'cost_real' => 'decimal'
 					    );
-    public static $default_values = array('tipus_fk' => 1);
+
+    public static $default_values = array('tipus_activitats_fk' => 1);
 
     public static $identifying_fields = array('titol',
 					      'data',
 					      'fi');
 
+    public function getTipusActivitatsFkAttribute($value) 
+    {
+	return resolve_foreign_key('TipusActivitat', $value);
+    }
 }
 
 ?>

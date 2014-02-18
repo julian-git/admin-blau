@@ -16,6 +16,7 @@
     GNU General Public License for more details.
 */
 
+require_once('util.php');
 
 class Quote extends Eloquent
 {
@@ -23,30 +24,36 @@ class Quote extends Eloquent
     public static $plural_class_name = 'Quotes';
     public static $class_name_gender = 'f';
 
-    public static $member_fields = array('banc' => 'Banc',
+    public static $member_fields = array('id' => 'Id de Quota',
+					 'banc' => 'Banc',
 					 'codi_banc' => 'Codi Banc',
 					 'oficina' => 'Oficina',
 					 'digit_control' => 'Digit Control',
 					 'compte' => 'N&uacute;mero de Compte',
 					 'import' => 'Import',
-					 'tipus_fk' => 'Tipus de Quota');
+					 'tipus_quotes_fk' => 'Tipus de Quota');
 
-    public static $validation_rules = array('banc' => 'required|alpha',
-					    'codi_banc' => 'integer|size:4',
-					    'oficina' => 'integer|size:4',
-					    'digit_control' => 'integer|size:2',
-					    'compte' => 'alpha_num|size:10',
+    public static $validation_rules = array('banc' => 'required|alpha_whitespace',
+					    // FIXME: the following should be numeric
+					    'codi_banc' => 'integer_size:4',
+					    'oficina' => 'integer_size:4',
+					    'digit_control' => 'integer_size:2',
+					    'compte' => 'integer_size:10',
 					    'BIC' => 'alpha_num', // FIXME: correct size?
 					    'IBAN' => 'alpha_num', // FIXME: correct size?
 					    'import' => 'required|numeric',
-					    'tipus_fk' => 'required|integer');
+					    'tipus_quotes_fk' => 'required|integer');
 
-    public static $default_values = array('tipus_fk' => 1);
+    public static $default_values = array('tipus_quotes_fk' => 1);
 
     public static $identifying_fields = array('banc',
 					      'compte',
 					      'import');
 
+    public function getTipusQuotesFkAttribute($value) 
+    {
+	return resolve_foreign_key('TipusQuote', $value);
+    }
 }
 
 ?>

@@ -1,5 +1,6 @@
 /bootstrap/compiled.php
 /vendor
+/conf
 composer.phar
 .env.local.php
 .env.php
@@ -7,5 +8,4 @@ composer.phar
 Thumbs.db
 *~
 admin_cvg_cat
-admin_blau.sql
 codebright/

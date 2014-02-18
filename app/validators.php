@@ -16,28 +16,16 @@
     GNU General Public License for more details.
 */
 
-
-class Familie extends Eloquent
+Validator::extend('alpha_whitespace', function($attribute, $value)
 {
-    public static $singular_class_name = 'Família';
-    public static $plural_class_name = 'Famílies';
-    public static $class_name_gender = 'f';
+    return preg_match('/^([a-z_-\s])+$/i', $value);
+});
 
-    public static $member_fields = array('id' => 'Id',
-					 'cognom1' => 'Cognom 1',
-					 'cognom2' => 'Cognom 2'
-					 );
-
-    public static $validation_rules = array('id' => 'required|integer',
-					    'cognom1' => 'required|alpha',
-					    'cognom2' => 'alpha'
-					    );
-
-    public static $default_values = array();
-
-    public static $identifying_fields = array('cognom1',
-					      'cognom2'
-					      );
-}
+Validator::extend('integer_size', function($attribute, $value, $param)
+{
+    return 
+	(strlen($value) == $param[0]) &&
+	is_numeric($value);
+});
 
 ?>

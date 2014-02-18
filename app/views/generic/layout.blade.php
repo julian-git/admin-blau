@@ -21,7 +21,7 @@
 <head>
     <meta charset="UTF-8">
     <title>l.Admin Blau</title>
-    <link rel="stylesheet" href="{{ asset('bootstrap/dist/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}" />
 </head>
 <body>
     <div class="container">

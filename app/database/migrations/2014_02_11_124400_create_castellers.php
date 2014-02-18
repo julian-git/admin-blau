@@ -31,12 +31,12 @@ class CreateCastellers extends Migration {
 		    $table->increments('id');
 		    $table->string('descripcio', 20);
 		    $table->integer('periodicitat_mesos')->unsigned(); // every how many months
-		    $table->date('primer_cop_al_any');
+		    $table->string('primer_cop_al_any', 5);
 		    $table->timestamps();
 		});
 
 	    /*
-	      Each casteller has a field 'quota_id_fk' that points to this table.
+	      Each casteller has a field 'quotes_fk' that points to this table.
 	      This table is seeded with one dummy entry for the 'sense quota' case,
 	      but apart from that contains one row for the bank data of each casteller.
 	     */	    
@@ -52,8 +52,8 @@ class CreateCastellers extends Migration {
 		    $table->string('BIC', 50)->nullable(); // FIXME: correct size?
 		    $table->string('IBAN', 50)->nullable(); // FIXME: correct size?
 		    $table->decimal('import');
-		    $table->integer('tipus_fk')->unsigned();
-		    $table->foreign('tipus_fk')->references('id')->on('tipus_quotes');
+		    $table->integer('tipus_quotes_fk')->unsigned();
+		    $table->foreign('tipus_quotes_fk')->references('id')->on('tipus_quotes');
 		    $table->timestamps();
 		});
 
@@ -70,8 +70,8 @@ class CreateCastellers extends Migration {
 		    $table->string('cognom2', 50);
 		    $table->string('nom', 50)->index();
 		    $table->string('mot', 50)->index();
-		    $table->integer('familia_id_fk')->unsigned();
-		    $table->foreign('familia_id_fk')->references('id')->on('families');
+		    $table->integer('families_fk')->unsigned();
+		    $table->foreign('families_fk')->references('id')->on('families');
 		    $table->date('naixement');
 		    $table->string('dni', 15);
 		    $table->string('email', 50);
@@ -87,8 +87,8 @@ class CreateCastellers extends Migration {
 		    $table->string('whatsapp', 20);
 		    $table->date('alta')->index();
 		    $table->string('sexe', 1);
-		    $table->integer('quota_id_fk')->unsigned()->default(1);
-		    $table->foreign('quota_id_fk')->references('id')->on('quotes');
+		    $table->integer('quotes_fk')->unsigned()->default(1);
+		    $table->foreign('quotes_fk')->references('id')->on('quotes');
 		    $table->timestamps();
 		});
 
@@ -102,8 +102,8 @@ class CreateCastellers extends Migration {
 	    Schema::create('activitats', function($table) {
 		    $table->increments('id');
 		    $table->string('titol', 50)->index();
-		    $table->integer('tipus_fk')->unsigned();
-		    $table->foreign('tipus_fk')->references('id')->on('tipus_activitats');
+		    $table->integer('tipus_activitats_fk')->unsigned();
+		    $table->foreign('tipus_activitats_fk')->references('id')->on('tipus_activitats');
 		    $table->date('data')->index();
 		    $table->date('fi')->nullable();
 		    $table->string('descripcio', 200)->nullable();
@@ -114,12 +114,11 @@ class CreateCastellers extends Migration {
 		});
 
 	    Schema::create('castellers_x_activitats', function($table) {
-		    $table->integer('casteller_id_fk')->unsigned();
-		    $table->integer('activitat_id_fk')->unsigned();
-		    $table->foreign('casteller_id_fk')->references('id')->on('castellers');
-		    $table->foreign('activitat_id_fk')->references('id')->on('activitats');
+		    $table->integer('castellers_fk')->unsigned();
+		    $table->integer('activitats_fk')->unsigned();
+		    $table->foreign('castellers_fk')->references('id')->on('castellers');
+		    $table->foreign('activitats_fk')->references('id')->on('activitats');
 		});
-
 	}
 
 	/**

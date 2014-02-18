@@ -23,7 +23,9 @@
 <?php include_once(dirname(dirname(dirname(__FILE__))) . "/models/$CSN.php"); ?>
 
     <div class="page-header">
-    <h1>Editar {{ $CSN }}</h1>
+    <h1>Editar 
+      {{ $CSN::$singular_class_name }}
+    </h1>
     </div>
 
     <form action="{{ action($CSN . 'sController@handleEdit') }}" method="post" role="form">
@@ -44,7 +46,22 @@
     </td>
     <td>
        <div class="form-group">
-         {{ Form::text ($field, $$csn->$field) }}
+         @if (isset($dropbox_options[$field]))
+           <div class="panel-body">
+
+             {{ Form::select($field, $dropbox_options[$field], $dropbox_default[$field]) }} 
+
+             <?php $ft = $foreign_table[$field] ?>
+             <a href="{{ action($ft . 'sController@create') }}" class="btn btn-primary">
+	        {{ $ft::$class_name_gender == 'm' ? 'Nou' : 'Nova' }}
+	        {{ $ft::$singular_class_name }}
+             </a>
+
+           </div>
+         @else 
+	     {{ Form::text ($field, $$csn->$field) }}
+             {{ $errors->first($field, '<span class="error">:message</span>') }}
+         @endif
        </div>
     </td>
   </tr>
@@ -52,6 +69,6 @@
 @endforeach
 </table>
         <input type="submit" value="Desar" class="btn btn-primary" />
-        <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel.lar</a>
+        <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel&middot;lar</a>
     </form>
 @stop

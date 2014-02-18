@@ -16,6 +16,7 @@
     GNU General Public License for more details.
 */
 
+require_once('util.php');
 
 class Casteller extends Eloquent
 {
@@ -28,6 +29,7 @@ class Casteller extends Eloquent
 					 'cognom2' => 'Cognom 2',
 					 'nom' => 'Nom',
 					 'mot' => 'Mot',
+					 'families_fk' => 'Família',
 					 'naixement' => 'Data de naixement',
 					 'dni' => 'DNI',
 					 'email' => 'email',
@@ -42,7 +44,7 @@ class Casteller extends Eloquent
 					 'twitter' => 'Twitter',
 					 'whatsapp' => 'Whatsapp',
 					 'sexe' => 'Sexe',
-					 'quota_id_fk' => 'Quota');
+					 'quotes_fk' => 'Quota');
 
     public static $validation_rules = array('cognom1' => 'required|alpha',
 					    'cognom2' => 'alpha',
@@ -60,12 +62,22 @@ class Casteller extends Eloquent
 					    'whatsapp' => 'alpha_num',
 					    'sexe' => 'in:H,D');
 
-    public static $default_values = array('quota_id_fk' => 1);
+    public static $default_values = array('quotes_fk' => 1);
 
     public static $identifying_fields = array('mot', 
 					      'nom',
 					      'cognom1',
 					      'cognom2');
+    
+    public function getFamiliesFkAttribute($value) 
+    {
+	return resolve_foreign_key('Familie', $value);
+    }
+
+    public function getQuotesFkAttribute($value) 
+    {
+	return resolve_foreign_key('Quote', $value);
+    }
 }
 
 ?>
