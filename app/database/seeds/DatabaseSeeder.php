@@ -11,12 +11,16 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		$this->call('TipusQuoteSeeder');
-		$this->call('QuotesSeeder');
-		$this->call('FamiliesSeeder');
-		$this->call('CastellersSeeder');
-		$this->call('TipusActivitatsSeeder');
-		$this->call('ActivitatsSeeder');
+		foreach(['TipusQuoteSeeder',
+			 'QuotesSeeder',
+			 'FamiliesSeeder',
+			 'CastellersSeeder',
+			 'TipusActivitatsSeeder',
+			 'ActivitatsSeeder'
+			 ] as $seeder)
+		{
+		    $this->call($seeder);
+		}
 	}
 
 }
