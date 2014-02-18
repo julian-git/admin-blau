@@ -123,7 +123,6 @@ class CVGController extends BaseController
 	foreach (array_keys($CSN::$member_fields) as $field) 
 	{
 	    $class_instance->$field = Input::get($field); 
-	    Log::info($field . ':' . $class_instance->$field);
 	}
 
 	$class_instance->save();

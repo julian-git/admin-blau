@@ -33,7 +33,7 @@ class Quote extends Eloquent
 					 'import' => 'Import',
 					 'tipus_quotes_fk' => 'Tipus de Quota');
 
-    public static $validation_rules = array('banc' => 'required',
+    public static $validation_rules = array('banc' => 'required|alpha_whitespace',
 					    // FIXME: the following should be numeric
 					    'codi_banc' => 'alpha_num|size:4',
 					    'oficina' => 'alpha_num|size:4',

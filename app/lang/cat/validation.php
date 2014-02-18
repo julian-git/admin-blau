@@ -19,6 +19,7 @@ return array(
 	"alpha"            => "El camp :attribute nom&eacute;s pot contenir lletres, sense espais.",
 	"alpha_dash"       => "The :attribute may only contain letters, numbers, and dashes.",
 	"alpha_num"        => "El camp :attribute nom&eacute;s pot contenir lletres i n&uacute;meros, sense espais.",
+        "alpha_whitespace" => "El camp :attribute nom&eacute;s pot contenir lletres i espais.",
 	"array"            => "The :attribute must be an array.",
 	"before"           => "The :attribute must be a date before :date.",
 	"between"          => array(
