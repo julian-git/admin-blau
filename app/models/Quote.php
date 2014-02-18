@@ -24,7 +24,8 @@ class Quote extends Eloquent
     public static $plural_class_name = 'Quotes';
     public static $class_name_gender = 'f';
 
-    public static $member_fields = array('banc' => 'Banc',
+    public static $member_fields = array('id' => 'Id de Quota',
+					 'banc' => 'Banc',
 					 'codi_banc' => 'Codi Banc',
 					 'oficina' => 'Oficina',
 					 'digit_control' => 'Digit Control',
@@ -50,7 +51,6 @@ class Quote extends Eloquent
 
     public function getTipusQuotesFkAttribute($value) 
     {
-	Log::info('value: ' . $value);
 	return resolve_foreign_key('TipusQuote', $value);
     }
 }

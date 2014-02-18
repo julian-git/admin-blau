@@ -37,7 +37,7 @@ function assemble_identifying_fields($class_name, $instance)
     return $str;
 }
 
-function dropbox_options_from_foreign_key($field, $value)
+function dropbox_options_from_foreign_key($field)
 {
     $options = array();
     $class_name = foreign_table_of($field);
@@ -48,14 +48,14 @@ function dropbox_options_from_foreign_key($field, $value)
     return $options;
 }
 
-function dropbox_options_of($CSN, $class_instance)
+function dropbox_options_of($CSN)
 {
     $dropbox_options = array();
     foreach (array_keys($CSN::$member_fields) as $field) 
     {
 	if (!strcmp(substr($field, -3), '_fk'))
 	{
-	    $dropbox_options[$field] = dropbox_options_from_foreign_key($field, $class_instance->$field);
+	    $dropbox_options[$field] = dropbox_options_from_foreign_key($field);
 	}
     }
     return $dropbox_options;

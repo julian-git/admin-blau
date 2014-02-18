@@ -24,7 +24,8 @@ class Activitat extends Eloquent
     public static $plural_class_name = 'Activitats';
     public static $class_name_gender = 'f';
 
-    public static $member_fields = array('titol' => 'Titol',
+    public static $member_fields = array('id' => 'Id Activitat',
+					 'titol' => 'Titol',
 					 'tipus_activitats_fk' => "Tipus d'Activitat",
 					 'data' => 'Data (inici)',
 					 'fi' => 'Data fi',
