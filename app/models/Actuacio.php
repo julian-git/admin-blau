@@ -16,28 +16,28 @@
     GNU General Public License for more details.
 */
 
-require_once('tipus_castells.php');
 
-class Castell extends Eloquent
+class Actuacio extends Eloquent
 {
-    public static $singular_class_name = 'Castell';
-    public static $plural_class_name = 'Castells';
-    public static $class_name_gender = 'm';
+    public static $singular_class_name = 'Actuació';
+    public static $plural_class_name = 'Actuacions';
+    public static $class_name_gender = 'f';
 
     public static $member_fields = array('id' => 'Id',
-					 'tipus_castell' => 'Tipus de Castell',
-					 'actuacions_fk' => 'Actuació',
-					 'ordre' => 'Ordre a Plaça'
+					 'nom' => 'Nom',
+					 'tipus_actuacions_fk' => "Tipus d'actuació",
+					 'data' => 'Data',
+					 'llocs_fk' => 'Lloc'
 					 );
 
     public static $validation_rules = array('id' => 'required|integer',
-					    'tipus_castell' => 'in:' . $tipus_castells
+					    'data' => 'required|date'
 					    );
 
     public static $default_values = array();
 
-    public static $identifying_fields = array('tipus_castell',
-					      'actuacions_fk'
+    public static $identifying_fields = array('nom',
+					      'data'
 					      );
 }
 

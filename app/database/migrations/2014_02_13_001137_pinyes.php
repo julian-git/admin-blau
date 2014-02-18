@@ -28,7 +28,7 @@ class Pinyes extends Migration {
 	public function up()
 	{
 	    Schema::create('llocs', function($table) {
-		    $table->increments('id');
+o		    $table->increments('id');
 		    $table->string('nom', 50);
 		});
 
@@ -39,6 +39,7 @@ class Pinyes extends Migration {
 
 	    Schema::create('actuacions', function($table) {
 		    $table->increments('id');
+		    $table->string('nom', 50);
 		    $table->integer('tipus_actuacions_fk')->unsigned();
 		    $table->foreign('tipus_actuacions_fk')->references('id')->on('tipus_actuacions');
 		    $table->date('data')->index();
@@ -46,31 +47,18 @@ class Pinyes extends Migration {
 		    $table->foreign('llocs_fk')->references('id')->on('llocs');
 		});
 	    
-	    Schema::create('tipus_castells', function($table) {
-		    $table->increments('id');
-		    $table->string('nom', 10);
-		});
-
 	    Schema::create('castells', function($table) {
 		    $table->increments('id');
-		    $table->integer('tipus_castells_fk')->unsigned();
-		    $table->foreign('tipus_castells_fk')->references('id')->on('tipus_castells');
+		    $table->string('tipus_castell', 12);
 		    $table->integer('actuacions_fk')->unsigned();
 		    $table->foreign('actuacions_fk')->references('id')->on('actuacions');
 		    $table->smallInteger('ordre');
 		});
 
-	    Schema::create('tipus_posicions', function($table) {
-		    $table->increments('id');
-		    $table->string('tipus', 15);
-		});
-
 	    Schema::create('posicions', function($table) {
 		    $table->increments('id');
-		    $table->integer('tipus_castells_fk')->unsigned();
-		    $table->foreign('tipus_castells_fk')->references('id')->on('tipus_castells');
-		    $table->integer('tipus_posicions_fk')->unsigned();
-		    $table->foreign('tipus_posicions_fk')->references('id')->on('tipus_posicions');
+		    $table->string('tipus_castell', 12);
+		    $table->string('tipus_posicio', 12);
 		    $table->string('nom', 15);
 		});
 
@@ -94,9 +82,7 @@ class Pinyes extends Migration {
 	{
 	    Schema::drop('pinyes');
 	    Schema::drop('posicions');
-	    Schema::drop('tipus_posicions');
 	    Schema::drop('castells');
-	    Schema::drop('tipus_castells');
 	    Schema::drop('actuacions');
 	    Schema::drop('tipus_actuacions');
 	    Schema::drop('llocs');

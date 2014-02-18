@@ -16,7 +16,16 @@ class DatabaseSeeder extends Seeder {
 			 'FamiliesSeeder',
 			 'CastellersSeeder',
 			 'TipusActivitatsSeeder',
-			 'ActivitatsSeeder'
+			 'ActivitatsSeeder',
+
+			 'LlocsSeeder',
+			 'TipusActuacionsSeeder',
+			 'ActuacionsSeeder',
+			 'TipusCastellsSeeder',
+			 'CastellsSeeder',
+			 'TipusPosicionsSeeder',
+			 'PosicionsSeeder',
+			 'PinyesSeeder'
 			 ] as $seeder)
 		{
 		    $this->call($seeder);
@@ -153,5 +162,94 @@ class ActivitatsSeeder extends Seeder {
 				'tipus_activitats_fk' => 2,
 				'data' => '2014-08-20'
 				      ));
+    }
+}
+
+class LlocsSeeder extends Seeder {
+
+    public function run() {
+	DB::table('llocs')->delete();
+
+	Lloc::create(array('id' => 1, 
+			   'nom' => 'Vila de Gràcia'
+			   ));
+
+	Lloc::create(array('id' => 2, 
+			   'nom' => 'Terrassa'
+			   ));
+    }
+}
+
+class TipusActuacioSeeder extends Seeder {
+
+    public function run() {
+	DB::table('tipus_actuacions')->delete();
+
+	TipusActuacio::create(array('id' => 1, 
+			   'nom' => 'Actuació regular'
+			   ));
+
+	TipusActuacio::create(array('id' => 2, 
+			   'nom' => 'Concurs'
+			   ));
+    }
+}
+
+class ActuacioSeeder extends Seeder {
+
+    public function run() {
+	DB::table('actuacions')->delete();
+
+	Actuacio::create(array('id' => 1, 
+			       'nom' => 'Foguerons',
+			       'tipus_actuacions_fk' => '1',
+			       'data' => '2014-02-05',
+			       'llocs_fk' => '1'
+			   ));
+
+	Actuacio::create(array('id' => 2, 
+			       'nom' => 'Festa Major de Terrassa',
+			       'tipus_actuacions_fk' => '1',
+			       'data' => '2014-06-05',
+			       'llocs_fk' => '2'
+			   ));
+    }
+}
+
+class CastellSeeder extends Seeder {
+
+    public function run() {
+	DB::table('castells')->delete();
+
+	Castell::create(array('id' => 1, 
+			      'tipus_castell' => '2de8f',
+			      'actuacions_fk' => '1',
+			      'ordre' => '2'
+			   ));
+
+	Castell::create(array('id' => 2, 
+			      'tipus_castell' => '3de9f',
+			      'actuacions_fk' => '2',
+			      'ordre' => '3'
+			   ));
+    }
+}
+
+class PinyeSeeder extends Seeder {
+
+    public function run() {
+	DB::table('pinyes')->delete();
+
+	Castell::create(array('id' => 1, 
+			      'castells_fk' => '1',
+			      'actuacions_fk' => '1',
+			      'ordre' => '2'
+			   ));
+
+	Castell::create(array('id' => 2, 
+			      'tipus_castell' => '3de9f',
+			      'actuacions_fk' => '2',
+			      'ordre' => '3'
+			   ));
     }
 }

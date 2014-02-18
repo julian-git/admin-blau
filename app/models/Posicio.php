@@ -17,26 +17,30 @@
 */
 
 require_once('tipus_castells.php');
+require_once('tipus_posicions.php');
 
-class Castell extends Eloquent
+class Posicio extends Eloquent
 {
-    public static $singular_class_name = 'Castell';
-    public static $plural_class_name = 'Castells';
-    public static $class_name_gender = 'm';
+    public static $singular_class_name = 'Posició';
+    public static $plural_class_name = 'Posicions';
+    public static $class_name_gender = 'f';
 
     public static $member_fields = array('id' => 'Id',
 					 'tipus_castell' => 'Tipus de Castell',
-					 'actuacions_fk' => 'Actuació',
-					 'ordre' => 'Ordre a Plaça'
+					 'tipus_posicio' => 'Tipus de Posició',
+					 'nom'
 					 );
 
     public static $validation_rules = array('id' => 'required|integer',
-					    'tipus_castell' => 'in:' . $tipus_castells
+					    'tipus_castell' => 'required|in:' . $tipus_castells,
+					    'tipus_posicio' => 'required|in:' . $tipus_posicions,
+					    'ordre' => 'integer'
 					    );
 
     public static $default_values = array();
 
-    public static $identifying_fields = array('tipus_castell',
+    public static $identifying_fields = array('nom',
+					      'tipus_castell',
 					      'actuacions_fk'
 					      );
 }
