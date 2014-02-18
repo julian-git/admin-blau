@@ -63,7 +63,7 @@ return array(
 	"size"             => array(
 		"numeric" => "The :attribute must be :size.",
 		"file"    => "The :attribute must be :size kilobytes.",
-		"string"  => "The :attribute must be :size characters.",
+		"string"  => "El camp :attribute ha de tenir exactament :size car&agrave;cters.",
 		"array"   => "The :attribute must contain :size items.",
 	),
 	"unique"           => "The :attribute has already been taken.",

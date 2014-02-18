@@ -59,7 +59,8 @@
 
            </div>
          @else 
-         {{ Form::text ($field, $$csn->$field) }}
+	     {{ Form::text ($field, $$csn->$field) }}
+             {{ $errors->first($field, '<span class="error">:message</span>') }}
          @endif
        </div>
     </td>

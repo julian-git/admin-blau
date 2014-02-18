@@ -112,13 +112,21 @@ class CVGController extends BaseController
 	$CSN = $this->ClassSingularName;
 	$class_instance = $CSN::findOrFail(Input::get('id'));
 
+	$validator = Validator::make(Input::all(), $CSN::$validation_rules);
+	if ($validator->fails()) {
+	    return Redirect::to(strtolower($CSN) . '/edit/' . Input::get('id'))
+		->with($this->layout_data)
+		->withErrors($validator)
+		->withInput();
+	}
+
 	foreach (array_keys($CSN::$member_fields) as $field) 
 	{
 	    $class_instance->$field = Input::get($field); 
 	    Log::info($field . ':' . $class_instance->$field);
 	}
 
-	Log::info($class_instance->save());
+	$class_instance->save();
 	return Redirect::action($CSN . 'sController@index');
     }
 

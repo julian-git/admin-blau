@@ -33,10 +33,10 @@ class Quote extends Eloquent
 					 'import' => 'Import',
 					 'tipus_quotes_fk' => 'Tipus de Quota');
 
-    public static $validation_rules = array('banc' => 'required|alpha',
-					    'codi_banc' => 'integer|size:4',
-					    'oficina' => 'integer|size:4',
-					    'digit_control' => 'integer|size:2',
+    public static $validation_rules = array('banc' => 'required',
+					    'codi_banc' => 'alpha_num|size:4',
+					    'oficina' => 'alpha_num|size:4',
+					    'digit_control' => 'alpha_num|size:2',
 					    'compte' => 'alpha_num|size:10',
 					    'BIC' => 'alpha_num', // FIXME: correct size?
 					    'IBAN' => 'alpha_num', // FIXME: correct size?
