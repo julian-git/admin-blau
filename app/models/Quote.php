@@ -34,6 +34,7 @@ class Quote extends Eloquent
 					 'tipus_quotes_fk' => 'Tipus de Quota');
 
     public static $validation_rules = array('banc' => 'required',
+					    // FIXME: the following should be numeric
 					    'codi_banc' => 'alpha_num|size:4',
 					    'oficina' => 'alpha_num|size:4',
 					    'digit_control' => 'alpha_num|size:2',

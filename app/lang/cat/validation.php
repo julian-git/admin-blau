@@ -40,7 +40,7 @@ return array(
 	"integer"          => "The :attribute must be an integer.",
 	"ip"               => "The :attribute must be a valid IP address.",
 	"max"              => array(
-		"numeric" => "El camp :attribute no pot tenir m&eacute;s de :max lletres.",
+		"numeric" => "El camp :attribute no pot ser m&eacute;s gran que :max .",
 		"file"    => "The :attribute may not be greater than :max kilobytes.",
 		"string"  => "The :attribute may not be greater than :max characters.",
 		"array"   => "The :attribute may not have more than :max items.",
@@ -53,7 +53,7 @@ return array(
 		"array"   => "The :attribute must have at least :min items.",
 	),
 	"not_in"           => "The selected :attribute is invalid.",
-	"numeric"          => "The :attribute must be a number.",
+	"numeric"          => "El camp :attribute nom&egrave;s pot contenir xifres.",
 	"regex"            => "The :attribute format is invalid.",
 	"required"         => "El camp :attribute &eacute;s imprescindible.",
 	"required_if"      => "The :attribute field is required when :other is :value.",
@@ -61,7 +61,7 @@ return array(
 	"required_without" => "The :attribute field is required when :values is not present.",
 	"same"             => "The :attribute and :other must match.",
 	"size"             => array(
-		"numeric" => "The :attribute must be :size.",
+		"numeric" => "El camp :attribute ha de tenir exactament :size xifres.",
 		"file"    => "The :attribute must be :size kilobytes.",
 		"string"  => "El camp :attribute ha de tenir exactament :size car&agrave;cters.",
 		"array"   => "The :attribute must contain :size items.",
