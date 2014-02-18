@@ -50,6 +50,7 @@ class Quote extends Eloquent
 
     public function getTipusQuotesFkAttribute($value) 
     {
+	Log::info('value: ' . $value);
 	return resolve_foreign_key('TipusQuote', $value);
     }
 }

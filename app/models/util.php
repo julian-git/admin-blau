@@ -18,12 +18,12 @@
 
 function resolve_foreign_key($class, $value) 
 {
-	$foreign_object = $class::findOrFail($value);
-	$res = '';
-	foreach($class::$identifying_fields as $f)
-	{
-	    $res .= $foreign_object->$f . ' ';
-	}
-	return $res;
+    $foreign_object = $class::findOrFail($value);
+    $res = '';
+    foreach($class::$identifying_fields as $f)
+    {
+	$res .= $foreign_object->$f . ' ';
+    }
+    return $res;
 }
 ?>

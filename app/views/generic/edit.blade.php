@@ -46,14 +46,17 @@
     </td>
     <td>
        <div class="form-group">
-         @if (isset($dropbox[$field]))
+         @if (isset($dropbox_options[$field]))
            <div class="panel-body">
-             {{ $dropbox[$field] }} 
+
+             {{ Form::select($field, $dropbox_options[$field], $dropbox_default[$field]) }} 
+
              <?php $ft = $foreign_table[$field] ?>
              <a href="{{ action($ft . 'sController@create') }}" class="btn btn-primary">
 	        {{ $ft::$class_name_gender == 'm' ? 'Nou' : 'Nova' }}
 	        {{ $ft::$singular_class_name }}
              </a>
+
            </div>
          @else 
          {{ Form::text ($field, $$csn->$field) }}

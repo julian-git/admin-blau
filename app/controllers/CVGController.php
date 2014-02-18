@@ -97,9 +97,9 @@ class CVGController extends BaseController
 	$extended_layout_data = $this->layout_data;
 	$extended_layout_data[$csn] = $class_instance;
 
-	$dft = dropbox_and_foreign_table_of($CSN, $class_instance);
-	$extended_layout_data['dropbox'] = $dft[0];
-	$extended_layout_data['foreign_table'] = $dft[1];
+	$extended_layout_data['dropbox_options'] = dropbox_options_of($CSN, $class_instance);
+	$extended_layout_data['dropbox_default'] = dropbox_default_of($CSN, $class_instance);
+	$extended_layout_data['foreign_table'] = foreign_tables_of($CSN);
 
         return View::make('generic.edit', $extended_layout_data);
     }
@@ -114,7 +114,9 @@ class CVGController extends BaseController
 	{
 	    if ($field != 'id') 
 	    {
+		Log::info($field);
 		$class_instance->$field = Input::get($field); 
+		Log::info($class_instance->$field);
 	    }
 	}
 

@@ -37,38 +37,70 @@ function assemble_identifying_fields($class_name, $instance)
     return $str;
 }
 
-function dropbox_from_foreign_key($field, $value)
+function dropbox_options_from_foreign_key($field, $value)
 {
-    $str = '<select>';
+    $options = array();
     $class_name = foreign_table_of($field);
     foreach ($class_name::all() as $instance) 
     {
-	$id_fields = assemble_identifying_fields($class_name, $instance);
-	$str .= '<option ';
-	if (!strcmp($id_fields, $value))
-	{
-	    $str .= 'selected="selected" ';
-	}
-	$str .= 'value="' . $instance->id . '-' . $value . '">';
-	$str .= $id_fields;
-	$str .= '</option>';
+	$options[$instance->id] = assemble_identifying_fields($class_name, $instance);
     }
-    return $str . '</select>';
+    return $options;
 }
 
-function dropbox_and_foreign_table_of($CSN, $class_instance='')
+function dropbox_options_of($CSN, $class_instance)
 {
-    $dropbox = array();
-    $foreign_table = array();
-    foreach ($CSN::$member_fields as $field => $value) 
+    $dropbox_options = array();
+    foreach (array_keys($CSN::$member_fields) as $field) 
     {
 	if (!strcmp(substr($field, -3), '_fk'))
 	{
-	    $dropbox[$field] = dropbox_from_foreign_key($field, $class_instance->$field);
+	    $dropbox_options[$field] = dropbox_options_from_foreign_key($field, $class_instance->$field);
+	}
+    }
+    return $dropbox_options;
+}
+
+
+function dropbox_default_from_foreign_key($field, $value)
+{
+    $class_name = foreign_table_of($field);
+    $i = 1;
+    foreach ($class_name::all() as $instance) 
+    {
+	if (!strcmp(assemble_identifying_fields($class_name, $instance), $value)) 
+	{
+	    return $i;
+	}
+	$i++;
+    }
+    return 0;
+}
+
+function dropbox_default_of($CSN, $class_instance)
+{
+    $dropbox_default = array();
+    foreach (array_keys($CSN::$member_fields) as $field) 
+    {
+	if (!strcmp(substr($field, -3), '_fk'))
+	{
+	    $dropbox_default[$field] = dropbox_default_from_foreign_key($field, $class_instance->$field);
+	}
+    }
+    return $dropbox_default;
+}
+
+function foreign_tables_of($CSN)
+{
+    $foreign_table = array();
+    foreach (array_keys($CSN::$member_fields) as $field) 
+    {
+	if (!strcmp(substr($field, -3), '_fk'))
+	{
 	    $foreign_table[$field] = foreign_table_of($field);
 	}
     }
-    return [$dropbox, $foreign_table];
+    return $foreign_table;
 }
 
 ?>
