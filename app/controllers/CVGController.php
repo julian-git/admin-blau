@@ -30,6 +30,9 @@ class CVGController extends BaseController
     // pass information to layout template so that it can instantiate the correct class
     protected $layout_data;
 
+    // Error messages for custom validation rules
+    protected $custom_validation_messages = array('integer_size' => "El camp ha de consistir d'exactament :size digits.");
+
     public function __construct($ClassSingularName) {
 	$this->ClassSingularName = $ClassSingularName;
 	$this->layout_data  = array('CSN' => $ClassSingularName,
@@ -66,7 +69,7 @@ class CVGController extends BaseController
     public function handleCreate()
     {
 	$CSN = $this->ClassSingularName;
-	$validator = Validator::make(Input::all(), $CSN::$validation_rules);
+	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
 	if ($validator->fails()) {
 	    return Redirect::to(strtolower($CSN) . '/create')
 		->with($this->layout_data)
@@ -112,7 +115,7 @@ class CVGController extends BaseController
 	$CSN = $this->ClassSingularName;
 	$class_instance = $CSN::findOrFail(Input::get('id'));
 
-	$validator = Validator::make(Input::all(), $CSN::$validation_rules);
+	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
 	if ($validator->fails()) {
 	    return Redirect::to(strtolower($CSN) . '/edit/' . Input::get('id'))
 		->with($this->layout_data)

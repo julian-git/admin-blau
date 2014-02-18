@@ -39,6 +39,7 @@ return array(
 	"image"            => "The :attribute must be an image.",
 	"in"               => "El valor sel&middot;leccionat :attribute no &eacute;s v&agrave;lid.",
 	"integer"          => "The :attribute must be an integer.",
+	"integer_size"     => "El camp :attribute ha de consistir d'exactament :integer_size digits.",
 	"ip"               => "The :attribute must be a valid IP address.",
 	"max"              => array(
 		"numeric" => "El camp :attribute no pot ser m&eacute;s gran que :max .",

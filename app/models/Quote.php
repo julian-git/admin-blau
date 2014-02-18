@@ -35,10 +35,10 @@ class Quote extends Eloquent
 
     public static $validation_rules = array('banc' => 'required|alpha_whitespace',
 					    // FIXME: the following should be numeric
-					    'codi_banc' => 'alpha_num|size:4',
-					    'oficina' => 'alpha_num|size:4',
-					    'digit_control' => 'alpha_num|size:2',
-					    'compte' => 'alpha_num|size:10',
+					    'codi_banc' => 'integer_size:4',
+					    'oficina' => 'integer_size:4',
+					    'digit_control' => 'integer_size:2',
+					    'compte' => 'integer_size:10',
 					    'BIC' => 'alpha_num', // FIXME: correct size?
 					    'IBAN' => 'alpha_num', // FIXME: correct size?
 					    'import' => 'required|numeric',
