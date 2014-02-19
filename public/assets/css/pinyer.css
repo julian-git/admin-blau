@@ -1,0 +1,91 @@
+@charset "utf-8";
+/* CSS Document */
+
+body
+{
+/*
+    background-image:url('../img/escut-web.png');
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-position:center;
+*/
+} 
+
+circle { fill:     lightblue;}
+
+circle:hover { fill:     red;}
+
+circle.prescribed { fill: lightgreen;}
+
+circle.design { stroke: green;}
+
+
+rect                { fill: lightblue; }
+rect.ma             { fill: #EF9BE7;    }
+rect.vent           { fill: #42A7F4;      }
+rect.crossa         { fill: yellow;    }
+rect.contrafort     { fill: orange;    }
+rect.baix           { fill: red;       }
+rect.agulla         { fill: #C4BD01;     }
+rect.portacrossa    { fill: teal;      }
+rect.lateral        { fill: #274DF7;  }  /* lateral       */
+rect.segon          { fill: #1CA304;      }
+rect.design         { stroke: green;}
+rect:hover { fill: red; }
+
+
+path { stroke-width:2; fill: none; }
+
+/* path.rel { stroke: purple; } */
+
+path.rel { stroke: rgb(1,0,0);  }
+path.agulla_baix_segon { stroke: #EF9BE7; }
+path.baix_agulla { stroke: #EF9BE7; }
+path.baix_contrafort { stroke: #EF9BE7; }
+path.baix_crossa { stroke: teal; }
+path.baix_segon_baix_segon { stroke: #EF9BE7; }
+path.lateral_baix_segon { stroke: #EF9BE7; }
+path.ma { stroke: seagreen}
+path.ma_baix_segon { stroke: seagreen; }
+path.ma_ma { stroke: seagreen}
+path.pinya { stroke: lightblue; }
+path.pinya_pinya { stroke: lightblue; }
+path.pinya_pinya_pinya { stroke: lightblue; }
+path.vent { stroke: lightgreen}
+path.vent_baix_segon { stroke: lightgreen; }
+path.vent_vent { stroke: lightgreen}
+
+/* path.rel { display: none; } */
+text.rel { color: rgb(1,0,0); fill: rgb(1,0,0); stroke-width: .2; text-shadow: 0px 0px 2px #7B7B80; }
+text.rel:hover { color: rgba(1,0,0,1); fill: rgba(1,0,0,1); }
+
+.invisible { display: none }
+.whiteText { stroke-width: 2; stroke: white; fill: white; }
+text.whiteRelText { stroke-width: 2; stroke: white; fill: white; }
+.inequality { stroke-width: 2; color: red; }
+.list_class { display:inline; }
+.list_text_class  { font-size:small; }
+.cast_draggable { color: purple; font-weight: bold; }
+
+.vtext {
+/*
+-webkit-transform:rotate(-90deg);
+-moz-transform:rotate(-90deg);
+-o-transform: rotate(-90deg);
+*/
+font-size: .50em;
+font-weight: bold;
+dominant-baseline: 'mathematical';
+display:block;
+text-shadow: 20px 20px 3px #FF0000;
+fill: #772601;
+}
+
+
+text:hover { fill: red;}
+
+/*
+text { text-anchor:       "middle";
+    dominant-baseline: "mathematical";}
+
+*/

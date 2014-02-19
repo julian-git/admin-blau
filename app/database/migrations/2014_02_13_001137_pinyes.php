@@ -52,10 +52,12 @@ class Pinyes extends Migration {
 	    
 	    Schema::create('castells', function($table) {
 		    $table->increments('id');
-		    $table->string('tipus_castell', 12);
+		    $table->string('tipus_castell', 12)->index();
 		    $table->integer('actuacions_fk')->unsigned();
 		    $table->foreign('actuacions_fk')->references('id')->on('actuacions');
-		    $table->smallInteger('ordre');
+		    $table->string('placa_o_assaig', 1);
+		    $table->smallInteger('ordre_a_placa')->nullable();
+		    $table->string('resultat', 3)->nullable();
 		    $table->timestamps();
 		});
 
@@ -64,6 +66,11 @@ class Pinyes extends Migration {
 		    $table->string('tipus_castell', 12);
 		    $table->string('tipus_posicio', 12);
 		    $table->string('nom', 50);
+		    $table->decimal('origin');
+		    $table->decimal('x');
+		    $table->decimal('y');
+		    $table->decimal('d');
+		    $table->decimal('alpha');
 		    $table->timestamps();
 		});
 

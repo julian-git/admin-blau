@@ -49,7 +49,9 @@ require_once('tipus_castells.php');
 global $tipus_castells;
 
 Castell::$validation_rules = array('id' => 'required|integer',
-				   'tipus_castell' => 'in:' . $tipus_castells
+				   'tipus_castell' => 'in:' . $tipus_castells,
+				   'placa_o_assaig' => 'in:P,A',
+				   'resultat' => 'in:,c,id,i'
 				   );
 
 ?>

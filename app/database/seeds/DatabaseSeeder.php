@@ -235,13 +235,17 @@ class CastellsSeeder extends Seeder {
 	Castell::create(array('id' => 1, 
 			      'tipus_castell' => '2de8f',
 			      'actuacions_fk' => 1,
-			      'ordre' => '2'
+			      'placa_o_assaig' => 'P',
+			      'ordre_a_placa' => '2',
+			      'resultat' => ''
 			   ));
 
 	Castell::create(array('id' => 2, 
 			      'tipus_castell' => '3de9f',
 			      'actuacions_fk' => 2,
-			      'ordre' => '3'
+			      'placa_o_assaig' => 'A',
+			      'ordre_a_placa' => '',
+			      'resultat' => 'c'
 			   ));
     }
 }

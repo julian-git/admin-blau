@@ -34,6 +34,11 @@ Route::get('/', function()
 	       return View::make('index');
 	   });
 
+Route::get('/test.html', function() 
+	   {
+	       return View::make('test');
+	   });
+
 foreach(['Casteller', 
 	 'Familie', 
 	 'Quote',
