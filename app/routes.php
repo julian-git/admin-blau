@@ -34,9 +34,9 @@ Route::get('/', function()
 	       return View::make('index');
 	   });
 
-Route::get('/sb-admin', function() 
+Route::get('/index_castellers', function() 
 	   {
-	       return View::make('blank');
+	       return View::make('index_castellers');
 	   });
 
 foreach(['Casteller', 
