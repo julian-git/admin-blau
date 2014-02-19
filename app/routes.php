@@ -34,6 +34,11 @@ Route::get('/', function()
 	       return View::make('index');
 	   });
 
+Route::get('/sb-admin', function() 
+	   {
+	       return View::make('blank');
+	   });
+
 foreach(['Casteller', 
 	 'Familie', 
 	 'Quote',
