@@ -27,13 +27,13 @@
     <title>l&rsquo;Admin Blau</title>
 
     <!-- Core CSS - Include with every page -->
-    <link href="components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="components/sb-admin-v2/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('components/sb-admin-v2/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 
     <!-- Page-Level Plugin CSS - Blank -->
 
     <!-- SB Admin CSS - Include with every page -->
-    <link href="components/sb-admin-v2/css/sb-admin.css" rel="stylesheet">
+    <link href="{{ asset('components/sb-admin-v2/css/sb-admin.css') }}" rel="stylesheet">
 
 </head>
 
@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="index.html">
-		       <img src="favicon.ico"/> L&rsquo;Admin Blau
+		       <img src="{{ asset('favicon.ico') }}"/> L&rsquo;Admin Blau
                 </a>
             </div>
             <!-- /.navbar-header -->
@@ -312,14 +312,14 @@
     <!-- /#wrapper -->
 
     <!-- Core Scripts - Include with every page -->
-    <script src="components/jquery/jquery.min.js"></script>
-    <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="components/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="{{ asset('components/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
     <!-- Page-Level Plugin Scripts - Blank -->
 
     <!-- SB Admin Scripts - Include with every page -->
-    <script src="components/sb-admin-v2/js/sb-admin.js"></script>
+    <script src="{{ asset('components/sb-admin-v2/js/sb-admin.js') }}"></script>
+    <script src="{{ asset('components/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
 
     <!-- Page-Level Demo Scripts - Blank - Use for reference -->
 
