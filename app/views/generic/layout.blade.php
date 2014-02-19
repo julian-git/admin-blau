@@ -274,11 +274,19 @@
                         <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Gestió<span class="fa arrow"></a>
+                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Gestió Castellers<span class="fa arrow"></a>
                         <ul class="nav nav-second-level">
+@foreach(['Casteller', 
+	 'Familie', 
+	 'Quote',
+	 'TipusQuote',
+	 'Activitat',
+	 'TipusActivitat'
+	 ] as $CSN)   
                             <li>
-                                <a href="index_castellers">Castellers</a>
+ <a href="{{ action($CSN . 'sController@index') }}" class="navbar-brand">{{ $CSN::$plural_class_name }}</a>
                             </li>
+@endforeach
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
