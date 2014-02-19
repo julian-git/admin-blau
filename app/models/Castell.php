@@ -16,8 +16,6 @@
     GNU General Public License for more details.
 */
 
-require_once('tipus_castells.php');
-
 class Castell extends Eloquent
 {
     public static $singular_class_name = 'Castell';
@@ -38,16 +36,12 @@ class Castell extends Eloquent
 					      'actuacions_fk'
 					      );
 
-    // put this into a constructor because it's non-static data,
-    // being derived from a require_once'd file.
-    public function __construct() 
-    {
-	global $tipus_castells;
-	Castell::$validation_rules = array('id' => 'required|integer',
-					   'tipus_castell' => 'in:' . $tipus_castells
-					   );
-
-    }
 }
+
+require_once('tipus_castells.php');
+
+Castell::$validation_rules = array('id' => 'required|integer',
+				   'tipus_castell' => 'in:' . $tipus_castells
+				   );
 
 ?>
