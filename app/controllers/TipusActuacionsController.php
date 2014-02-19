@@ -16,13 +16,13 @@
     GNU General Public License for more details.
 */
 
-require_once(dirname(__FILE__) . '/../models/Castell.php');
+require_once(dirname(__FILE__) . '/../models/TipusActuacion.php');
 require_once('CVGController.php');
 
-class CastellsController extends CVGController
+class TipusActuacionsController extends CVGController
 {
     public function __construct() {
-	CVGController::__construct('Castell');
+	CVGController::__construct('TipusActuacion');
     }
 }
  ?>

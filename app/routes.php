@@ -39,7 +39,13 @@ foreach(['Casteller',
 	 'Quote',
 	 'TipusQuote',
 	 'Activitat',
-	 'TipusActivitat'
+	 'TipusActivitat',
+
+	 'Lloc',
+	 'TipusActuacion',
+	 'Actuacion',
+	 'Castell',
+	 'Posicion'
 	 ] as $CSN) {  // CSN is a mnemonic for ClassSingularName
 
     $csn = strtolower($CSN);

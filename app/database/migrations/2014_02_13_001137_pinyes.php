@@ -35,7 +35,7 @@ class Pinyes extends Migration {
 
 	    Schema::create('tipus_actuacions', function($table) {
 		    $table->increments('id');
-		    $table->string('nom', 10);
+		    $table->string('nom', 50);
 		    $table->timestamps();
 		});
 
@@ -63,7 +63,7 @@ class Pinyes extends Migration {
 		    $table->increments('id');
 		    $table->string('tipus_castell', 12);
 		    $table->string('tipus_posicio', 12);
-		    $table->string('nom', 30);
+		    $table->string('nom', 50);
 		    $table->timestamps();
 		});
 

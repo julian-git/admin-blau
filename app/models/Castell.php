@@ -40,6 +40,8 @@ class Castell extends Eloquent
 
 require_once('tipus_castells.php');
 
+global $tipus_castells;
+
 Castell::$validation_rules = array('id' => 'required|integer',
 				   'tipus_castell' => 'in:' . $tipus_castells
 				   );

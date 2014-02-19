@@ -38,6 +38,19 @@
      <a href="{{ action($SCN . 'sController@index') }}" class="navbar-brand">{{ $SCN::$plural_class_name }}</a>
             </div>
      @endforeach
+     </nav>
+     <nav class="navbar navbar-default" role="navigation">
+     @foreach (array('Lloc',
+		     'TipusActuacion',
+		     'Actuacion',
+		     'Castell',
+		     'Posicion'
+		     )
+	       as    $SCN)
+            <div class="navbar-header">
+     <a href="{{ action($SCN . 'sController@index') }}" class="navbar-brand">{{ $SCN::$plural_class_name }}</a>
+            </div>
+     @endforeach
         </nav>
         @yield('content')
     </div>
