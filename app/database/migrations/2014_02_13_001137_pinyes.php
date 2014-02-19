@@ -63,7 +63,7 @@ class Pinyes extends Migration {
 		    $table->increments('id');
 		    $table->string('tipus_castell', 12);
 		    $table->string('tipus_posicio', 12);
-		    $table->string('nom', 15);
+		    $table->string('nom', 30);
 		    $table->timestamps();
 		});
 

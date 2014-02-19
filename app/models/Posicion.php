@@ -16,10 +16,7 @@
     GNU General Public License for more details.
 */
 
-require_once('tipus_castells.php');
-require_once('tipus_posicions.php');
-
-class Posicio extends Eloquent
+class Posicion extends Eloquent
 {
     public static $singular_class_name = 'Posició';
     public static $plural_class_name = 'Posicions';
@@ -31,11 +28,7 @@ class Posicio extends Eloquent
 					 'nom'
 					 );
 
-    public static $validation_rules = array('id' => 'required|integer',
-					    'tipus_castell' => 'required|in:' . $tipus_castells,
-					    'tipus_posicio' => 'required|in:' . $tipus_posicions,
-					    'ordre' => 'integer'
-					    );
+    public static $validation_rules;
 
     public static $default_values = array();
 
@@ -44,5 +37,17 @@ class Posicio extends Eloquent
 					      'actuacions_fk'
 					      );
 }
+
+require_once('tipus_castells.php');
+require_once('tipus_posicions.php');
+
+global $tipus_castells;
+global $tipus_posicions;
+
+Posicion::$validation_rules = array('id' => 'required|integer',
+				   'tipus_castell' => 'required|in:' . $tipus_castells,
+				   'tipus_posicio' => 'required|in:' . $tipus_posicions,
+				   'ordre' => 'integer'
+				   );
 
 ?>
