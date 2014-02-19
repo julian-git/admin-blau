@@ -16,6 +16,7 @@
     GNU General Public License for more details.
 */
 
+require_once('util.php');
 
 class Actuacion extends Eloquent
 {
@@ -39,6 +40,18 @@ class Actuacion extends Eloquent
     public static $identifying_fields = array('nom',
 					      'data'
 					      );
+
+    public function getTipusActuacionsFkAttribute($value) 
+    {
+	return resolve_foreign_key('TipusActuacion', $value);
+    }
+
+    public function getLlocsFkAttribute($value) 
+    {
+	return resolve_foreign_key('Lloc', $value);
+    }
+
+
 }
 
 ?>

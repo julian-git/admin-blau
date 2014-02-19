@@ -16,6 +16,8 @@
     GNU General Public License for more details.
 */
 
+require_once('util.php');
+
 class Castell extends Eloquent
 {
     public static $singular_class_name = 'Castell';
@@ -36,10 +38,14 @@ class Castell extends Eloquent
 					      'actuacions_fk'
 					      );
 
+    public function getActuacionsFkAttribute($value) 
+    {
+	return resolve_foreign_key('Actuacion', $value);
+    }
 }
 
-require_once('tipus_castells.php');
 
+require_once('tipus_castells.php');
 global $tipus_castells;
 
 Castell::$validation_rules = array('id' => 'required|integer',

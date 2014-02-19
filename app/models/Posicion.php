@@ -25,7 +25,7 @@ class Posicion extends Eloquent
     public static $member_fields = array('id' => 'Id',
 					 'tipus_castell' => 'Tipus de Castell',
 					 'tipus_posicio' => 'Tipus de Posició',
-					 'nom'
+					 'nom' => 'Nom de Posició'
 					 );
 
     public static $validation_rules;
