@@ -35,7 +35,7 @@
     </div>
     <form action="{{ action($CSN . 'sController@handleDelete') }}" method="post" role="form">
         <input type="hidden" name="{{ $csn }}" value="{{ $$csn->id }}" />
-        <input type="submit" class="btn btn-danger" value="Yes" />
-        <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-default">No, de cap de les maneres!</a>
+        <input type="submit" class="btn btn-danger" value="D&rsquo;acord" />
+        <a href="{{ action($CSN . 'sController@edit', $$csn->id) }}" class="btn btn-default">No, de cap de les maneres!</a>
     </form>
 @stop

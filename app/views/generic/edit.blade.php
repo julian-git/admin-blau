@@ -70,5 +70,8 @@
 </table>
         <input type="submit" value="Desar" class="btn btn-primary" />
         <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel&middot;lar</a>
+	&nbsp;&nbsp;&nbsp;
+        <a href="{{ action($CSN . 'sController@delete', $$csn->id) }}" class="btn btn-danger">Esborrar</a>
+
     </form>
 @stop
