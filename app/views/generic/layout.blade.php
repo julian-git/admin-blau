@@ -31,6 +31,7 @@
     <link href="{{ asset('components/sb-admin-v2/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 
     <!-- Page-Level Plugin CSS - Blank -->
+    <!-- FIXME: the next two css datasets are still buggy. -->
         <link href="{{ asset('assets/css/datatable_hover.css') }}" rel="stylesheet">
 <style type="text/css" media="screen">
 	#indexDataTable tr:hover
@@ -39,6 +40,7 @@
 		background: #FCF;
 	}
 </style>
+
     <!-- SB Admin CSS - Include with every page -->
     <link href="{{ asset('components/sb-admin-v2/css/sb-admin.css') }}" rel="stylesheet">
 
@@ -46,6 +48,7 @@
 
 <body>
     <!-- Core Scripts - Include with every page -->
+    <!-- These scripts have to go at the beginning because the content included by @yield needs them -->
     <script src="{{ asset('components/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
@@ -281,6 +284,9 @@
                     </li>
                     <li>
                         <a href="/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="/missatge"><i class="fa fa-table fa-fw"></i> Missatges</a>
                     </li>
                     <li>
                         <a href="tables.html"><i class="fa fa-table fa-fw"></i> Castellers<span class="fa arrow"></a>

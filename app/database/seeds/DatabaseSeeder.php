@@ -340,13 +340,13 @@ class MissatgesSeeder extends Seeder {
 	Missatge::create(array('id' => 1,
 			       'titol' => 'Proper assaig de folres',
 			       'contingut' => 'Suarem!!',
-			       'data_caducitat' => strtotime('next friday')
+			       'data_caducitat' => date('Y-m-d', strtotime('next friday'))
 			       ));
 
 	Missatge::create(array('id' => 2,
 			       'titol' => 'Propera Actuació',
 			       'contingut' => 'Actuarem!!',
-			       'data_caducitat' => strtotime('next sunday')
+			       'data_caducitat' => date('Y-m-d', strtotime('next sunday'))
 			       ));
     }
 }
