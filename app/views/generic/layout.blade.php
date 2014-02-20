@@ -283,14 +283,51 @@
                         <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Gestió Castellers<span class="fa arrow"></a>
+                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Castellers<span class="fa arrow"></a>
                         <ul class="nav nav-second-level">
 @foreach(['Casteller', 
 	 'Familie', 
 	 'Quote',
-	 'TipusQuote',
-	 'Activitat',
+	 'TipusQuote'
+	 ] as $CSN)   
+                            <li>
+ <a href="{{ action($CSN . 'sController@index') }}" >{{ $CSN::$plural_class_name }}</a>
+                            </li>
+@endforeach
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Activitats<span class="fa arrow"></a>
+                        <ul class="nav nav-second-level">
+@foreach(['Activitat',
 	 'TipusActivitat'
+	 ] as $CSN)   
+                            <li>
+ <a href="{{ action($CSN . 'sController@index') }}" >{{ $CSN::$plural_class_name }}</a>
+                            </li>
+@endforeach
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Actuacions<span class="fa arrow"></a>
+                        <ul class="nav nav-second-level">
+@foreach(['Actuacion',
+	 'TipusActuacion'
+	 ] as $CSN)   
+                            <li>
+ <a href="{{ action($CSN . 'sController@index') }}" >{{ $CSN::$plural_class_name }}</a>
+                            </li>
+@endforeach
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Castells<span class="fa arrow"></a>
+                        <ul class="nav nav-second-level">
+@foreach(['Castell',
+	 'Posicion'
 	 ] as $CSN)   
                             <li>
  <a href="{{ action($CSN . 'sController@index') }}" >{{ $CSN::$plural_class_name }}</a>
