@@ -38,6 +38,9 @@
 </head>
 
 <body>
+    <!-- Core Scripts - Include with every page -->
+    <script src="{{ asset('components/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
     <div id="wrapper">
 
@@ -311,9 +314,6 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- Core Scripts - Include with every page -->
-    <script src="{{ asset('components/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
     <!-- Page-Level Plugin Scripts - Blank -->
 

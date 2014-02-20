@@ -39,12 +39,14 @@
         <?php $fields_in_index = isset($CSN::$fields_in_index) 
                                ? $CSN::$fields_in_index
 			       : $CSN::$member_fields ?>
-        <table class="table table-striped">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered table-hover" id="indexDataTable">
             <thead>
                 <tr>
         @foreach ($fields_in_index as $field => $prompt)
                    <th>{{ $prompt }}</th>
 	@endforeach
+		<th/>
                 </tr>
             </thead>
             <tbody>
@@ -65,5 +67,13 @@
                 @endforeach
             </tbody>
         </table>
+      </div>
+    <script src="{{ asset('components/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('components/sb-admin-v2/js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
+    <script>
+      $(document).ready(function() {
+          $('#indexDataTable').dataTable();
+      });
+    </script>
     @endif
 @stop
