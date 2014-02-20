@@ -15,14 +15,14 @@ class DatabaseSeeder extends Seeder {
 			 'quotes',
 			 'castells',
 			 'actuacions',
-			 'tipus_castells',
 			 'tipus_quotes',
 			 'families',
 			 'activitats',
 			 'tipus_activitats',
 			 'llocs',
 			 'tipus_actuacions',
-			 'posicions'
+			 'posicions',
+			 'tipus_castells'
 			 ] as $table)
 		{
 		    DB::table($table)->delete();
@@ -40,7 +40,9 @@ class DatabaseSeeder extends Seeder {
 			 'ActuacionsSeeder',
 			 'TipusCastellsSeeder',
 			 'CastellsSeeder',
-			 'PosicionsSeeder' 
+			 'PosicionsSeeder',
+
+			 'MissatgesSeeder'
 			 ] as $seeder)
 		{
 		    $this->call($seeder);
@@ -327,5 +329,24 @@ class PosicionsSeeder extends Seeder {
 			      'tipus_posicio' => 'Crossa',
 			      'nom' => 'CrossaEsqBaixBuida'
 			      ));
+    }
+}
+
+class MissatgesSeeder extends Seeder {
+
+    public function run() {
+	DB::table('missatges')->delete();
+
+	Missatge::create(array('id' => 1,
+			       'titol' => 'Proper assaig de folres',
+			       'contingut' => 'Suarem!!',
+			       'data_caducitat' => strtotime('next friday')
+			       ));
+
+	Missatge::create(array('id' => 2,
+			       'titol' => 'Propera Actuació',
+			       'contingut' => 'Actuarem!!',
+			       'data_caducitat' => strtotime('next sunday')
+			       ));
     }
 }
