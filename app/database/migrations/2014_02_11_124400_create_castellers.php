@@ -89,6 +89,11 @@ class CreateCastellers extends Migration {
 		    $table->string('sexe', 1);
 		    $table->integer('quotes_fk')->unsigned()->default(1);
 		    $table->foreign('quotes_fk')->references('id')->on('quotes');
+		    $table->numeric('alcada-cadira');
+		    $table->numeric('alcada-hombros');
+		    $table->numeric('alcada-mans');
+		    $table->numeric('amplada-hombros');
+		    $table->numeric('circunferencia');
 		    $table->timestamps();
 		});
 

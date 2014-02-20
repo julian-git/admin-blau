@@ -262,7 +262,6 @@
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
-
         </nav>
         <!-- /.navbar-static-top -->
 

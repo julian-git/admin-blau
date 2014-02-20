@@ -34,9 +34,9 @@ Route::get('/', function()
 	       return View::make('index');
 	   });
 
-Route::get('/index_castellers', function() 
+Route::get('/test.html', function() 
 	   {
-	       return View::make('index_castellers');
+	       return View::make('test');
 	   });
 
 foreach(['Casteller', 
@@ -44,7 +44,13 @@ foreach(['Casteller',
 	 'Quote',
 	 'TipusQuote',
 	 'Activitat',
-	 'TipusActivitat'
+	 'TipusActivitat',
+
+	 'Lloc',
+	 'TipusActuacion',
+	 'Actuacion',
+	 'Castell',
+	 'Posicion'
 	 ] as $CSN) {  // CSN is a mnemonic for ClassSingularName
 
     $csn = strtolower($CSN);

@@ -10,13 +10,35 @@ class DatabaseSeeder extends Seeder {
 	public function run()
 	{
 		Eloquent::unguard();
+		
+		foreach(['castellers',
+			 'quotes',
+			 'castells',
+			 'actuacions',
+			 'tipus_quotes',
+			 'families',
+			 'activitats',
+			 'tipus_activitats',
+			 'llocs',
+			 'tipus_actuacions',
+			 'posicions'
+			 ] as $table)
+		{
+		    DB::table($table)->delete();
+		}
 
 		foreach(['TipusQuoteSeeder',
 			 'QuotesSeeder',
 			 'FamiliesSeeder',
 			 'CastellersSeeder',
 			 'TipusActivitatsSeeder',
-			 'ActivitatsSeeder'
+			 'ActivitatsSeeder',
+
+			 'LlocsSeeder',
+			 'TipusActuacionsSeeder',
+			 'ActuacionsSeeder',
+			 'CastellsSeeder',
+			 'PosicionsSeeder' 
 			 ] as $seeder)
 		{
 		    $this->call($seeder);
@@ -28,7 +50,6 @@ class DatabaseSeeder extends Seeder {
 class TipusQuoteSeeder extends Seeder {
 
     public function run() {
-	DB::table('tipus_quotes')->delete();
 	TipusQuote::create(array('id' => 1, 
 				 'descripcio' => 'Sense Quota',
 				 'periodicitat_mesos' => 0, 
@@ -50,7 +71,6 @@ class TipusQuoteSeeder extends Seeder {
 class QuotesSeeder extends Seeder {
 
     public function run() {
-	DB::table('quotes')->delete();
 	Quote::create(array('id' => 1, 
 			    'banc' => 'sense quota', 
 			    'tipus_quotes_fk' => 1));
@@ -153,5 +173,140 @@ class ActivitatsSeeder extends Seeder {
 				'tipus_activitats_fk' => 2,
 				'data' => '2014-08-20'
 				      ));
+    }
+}
+
+class LlocsSeeder extends Seeder {
+
+    public function run() {
+	DB::table('llocs')->delete();
+
+	Lloc::create(array('id' => 1, 
+			   'nom' => 'Vila de Gràcia'
+			   ));
+
+	Lloc::create(array('id' => 2, 
+			   'nom' => 'Terrassa'
+			   ));
+    }
+}
+
+class TipusActuacionsSeeder extends Seeder {
+
+    public function run() {
+	DB::table('tipus_actuacions')->delete();
+
+	TipusActuacion::create(array('id' => 1, 
+				     'nom' => 'Actuació regular'
+				     ));
+
+	TipusActuacion::create(array('id' => 2, 
+				     'nom' => 'Concurs'
+				     ));
+    }
+}
+
+class ActuacionsSeeder extends Seeder {
+
+    public function run() {
+	DB::table('actuacions')->delete();
+
+	Actuacion::create(array('id' => 1, 
+				'nom' => 'Foguerons',
+				'tipus_actuacions_fk' => '1',
+				'data' => '2014-02-05',
+				'llocs_fk' => '1'
+			   ));
+
+	Actuacion::create(array('id' => 2, 
+				'nom' => 'Festa Major de Terrassa',
+				'tipus_actuacions_fk' => '1',
+				'data' => '2014-06-05',
+				'llocs_fk' => '2'
+			   ));
+    }
+}
+
+class CastellsSeeder extends Seeder {
+
+    public function run() {
+	DB::table('castells')->delete();
+
+	Castell::create(array('id' => 1, 
+			      'tipus_castell' => '2de8f',
+			      'actuacions_fk' => 1,
+			      'placa_o_assaig' => 'P',
+			      'ordre_a_placa' => '2',
+			      'resultat' => ''
+			   ));
+
+	Castell::create(array('id' => 2, 
+			      'tipus_castell' => '3de9f',
+			      'actuacions_fk' => 2,
+			      'placa_o_assaig' => 'A',
+			      'ordre_a_placa' => '',
+			      'resultat' => 'c'
+			   ));
+    }
+}
+
+class PosicionsSeeder extends Seeder {
+
+    public function run() {
+	DB::table('posicions')->delete();
+
+	Posicion::create(array('id' => 1, 
+			      'tipus_castell' => '3de9f',
+			      'tipus_posicio' => 'Baix',
+			      'nom' => 'BaixRengla'
+			      ));
+
+	Posicion::create(array('id' => 2, 
+			      'tipus_castell' => '3de9f',
+			      'tipus_posicio' => 'Baix',
+			      'nom' => 'BaixPlena'
+			      ));
+
+	Posicion::create(array('id' => 3, 
+			      'tipus_castell' => '3de9f',
+			      'tipus_posicio' => 'Baix',
+			      'nom' => 'BaixBuida'
+			      ));
+
+	Posicion::create(array('id' => 4, 
+			      'tipus_castell' => '3de9f',
+			      'tipus_posicio' => 'Crossa',
+			      'nom' => 'CrossaDretaBaixRengla'
+			      ));
+
+	Posicion::create(array('id' => 5, 
+			      'tipus_castell' => '3de9f',
+			      'tipus_posicio' => 'Crossa',
+			      'nom' => 'CrossaEsqBaixRengla'
+			      ));
+
+	Posicion::create(array('id' => 6, 
+			      'tipus_castell' => '3de9f',
+			      'tipus_posicio' => 'Crossa',
+			      'nom' => 'CrossaDretaBaixPlena'
+			      ));
+
+	Posicion::create(array('id' => 7, 
+			      'tipus_castell' => '3de9f',
+			      'tipus_posicio' => 'Crossa',
+			      'nom' => 'CrossaEsqBaixPlena'
+			      ));
+
+	Posicion::create(array('id' => 8, 
+			      'tipus_castell' => '3de9f',
+			      'tipus_posicio' => 'Crossa',
+			      'nom' => 'CrossaDretaBaixBuida'
+			      ));
+
+	Posicion::create(array('id' => 9, 
+			      'tipus_castell' => '3de9f',
+			      'tipus_posicio' => 'Crossa',
+			      'nom' => 'CrossaEsqBaixBuida'
+			      ));
     }
 }
