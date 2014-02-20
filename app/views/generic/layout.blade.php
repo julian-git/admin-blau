@@ -284,7 +284,7 @@
 	 'TipusActivitat'
 	 ] as $CSN)   
                             <li>
- <a href="{{ action($CSN . 'sController@index') }}" class="navbar-brand">{{ $CSN::$plural_class_name }}</a>
+ <a href="{{ action($CSN . 'sController@index') }}" >{{ $CSN::$plural_class_name }}</a>
                             </li>
 @endforeach
                         </ul>
