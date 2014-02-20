@@ -18,38 +18,26 @@
 
 require_once('util.php');
 
-class Castell extends Eloquent
+class TipusCastell extends Eloquent
 {
-    public static $singular_class_name = 'Castell';
-    public static $plural_class_name = 'Castells';
+    public static $singular_class_name = 'Tipus de Castell';
+    public static $plural_class_name = 'Tipus de Castells';
     public static $class_name_gender = 'm';
 
     public static $member_fields = array('id' => 'Id',
-					 'tipus_castells_fk' => 'Tipus de Castell',
-					 'actuacions_fk' => 'Actuació',
-					 'ordre' => 'Ordre a Plaça'
+					 'nom' => 'Tipus de Castell',
+					 'pinya_necessaria' => 'Número de Castellers necessaris'
 					 );
 
-    public static $validation_rules = array('id' => 'required|integer',
-					    'placa_o_assaig' => 'in:P,A',
-					    'resultat' => 'in:,c,id,i'
+    public static $validation_rules = array('nom' => 'alpha_num',
+					    'pinya_necessaria' => 'integer'
 					    );
 
     public static $default_values = array();
 
-    public static $identifying_fields = array('tipus_castells_fk',
-					      'actuacions_fk'
+    public static $identifying_fields = array('nom'
 					      );
 
-    public function getActuacionsFkAttribute($value) 
-    {
-	return resolve_foreign_key('Actuacion', $value);
-    }
-
-    public function getTipusCastellsFkAttribute($value) 
-    {
-	return resolve_foreign_key('TipusCastell', $value);
-    }
 }
 
 ?>

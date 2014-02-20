@@ -49,6 +49,7 @@ foreach(['Casteller',
 	 'Lloc',
 	 'TipusActuacion',
 	 'Actuacion',
+	 'TipusCastell',
 	 'Castell',
 	 'Posicion'
 	 ] as $CSN) {  // CSN is a mnemonic for ClassSingularName

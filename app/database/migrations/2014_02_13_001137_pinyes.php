@@ -50,9 +50,17 @@ class Pinyes extends Migration {
 		    $table->timestamps();
 		});
 	    
+	    Schema::create('tipus_castells', function($table) {
+		    $table->increments('id');
+		    $table->string('nom', 12)->index();
+		    $table->integer('pinya_necessaria')->unsigned();
+		    $table->timestamps();
+		});
+
 	    Schema::create('castells', function($table) {
 		    $table->increments('id');
-		    $table->string('tipus_castell', 12)->index();
+		    $table->integer('tipus_castells_fk')->unsigned();
+		    $table->foreign('tipus_castells_fk')->references('id')->on('tipus_castells');
 		    $table->integer('actuacions_fk')->unsigned();
 		    $table->foreign('actuacions_fk')->references('id')->on('actuacions');
 		    $table->string('placa_o_assaig', 1);
@@ -63,7 +71,8 @@ class Pinyes extends Migration {
 
 	    Schema::create('posicions', function($table) {
 		    $table->increments('id');
-		    $table->string('tipus_castell', 12);
+		    $table->integer('tipus_castells_fk')->unsigned();
+		    $table->foreign('tipus_castells_fk')->references('id')->on('tipus_castells');
 		    $table->string('tipus_posicio', 12);
 		    $table->string('nom', 50);
 		    $table->decimal('origin');
@@ -96,6 +105,7 @@ class Pinyes extends Migration {
 	    Schema::drop('pinyes');
 	    Schema::drop('posicions');
 	    Schema::drop('castells');
+	    Schema::drop('tipus_castells');
 	    Schema::drop('actuacions');
 	    Schema::drop('tipus_actuacions');
 	    Schema::drop('llocs');
