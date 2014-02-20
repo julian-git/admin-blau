@@ -17,10 +17,25 @@
 */
 
 
-class TipusActivitatsController extends CVGController
+class TipusEsdeveniment extends Eloquent
 {
-    public function __construct() {
-	CVGController::__construct('TipusActivitat');
-    }
+    public static $singular_class_name = "Tipus d'Esdeveniment";
+    public static $plural_class_name = "Tipus d'Esdeveniments";
+    public static $class_name_gender = 'm';
+
+    public static $member_fields = array('id' => 'Id',
+					 'tipus' => "Tipus d'Esdeveniment",
+					 'descripcio' => 'Descripci&oacute;'
+					 );
+
+    public static $validation_rules = array('id' => 'required|integer',
+					    'tipus' => 'required|alpha_num'
+					    );
+
+    public static $default_values = array();
+
+    public static $identifying_fields = array('tipus'
+					      );
 }
- ?>
+
+?>

@@ -17,10 +17,10 @@
 */
 
 
-class ActivitatsController extends CVGController
+class TipusEsdevenimentsController extends CVGController
 {
     public function __construct() {
-	CVGController::__construct('Activitat');
+	CVGController::__construct('TipusEsdeveniment');
     }
 }
  ?>

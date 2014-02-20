@@ -97,32 +97,42 @@ class CreateCastellers extends Migration {
 		    $table->timestamps();
 		});
 
-	    Schema::create('tipus_activitats', function($table) {
+	    Schema::create('tipus_esdeveniments', function($table) {
 		    $table->increments('id');
 		    $table->string('tipus', 50)->index();
 		    $table->string('descripcio', 200);
 		    $table->timestamps();
 		});
 
-	    Schema::create('activitats', function($table) {
+	    Schema::create('llocs', function($table) {
+		    $table->increments('id');
+		    $table->string('nom', 50);
+		    $table->timestamps();
+		});
+
+	    Schema::create('esdeveniments', function($table) {
 		    $table->increments('id');
 		    $table->string('titol', 50)->index();
-		    $table->integer('tipus_activitats_fk')->unsigned();
-		    $table->foreign('tipus_activitats_fk')->references('id')->on('tipus_activitats');
+		    $table->integer('tipus_esdeveniments_fk')->unsigned();
+		    $table->foreign('tipus_esdeveniments_fk')->references('id')->on('tipus_esdeveniments');
 		    $table->date('data')->index();
-		    $table->date('fi')->nullable();
+		    $table->date('data_fi')->nullable();
+		    $table->time('hora');
+		    $table->time('hora_fi')->nullable();
 		    $table->string('descripcio', 200)->nullable();
+		    $table->integer('llocs_fk')->unsigned();
+		    $table->foreign('llocs_fk')->references('id')->on('llocs');
 		    $table->string('contacte', 200)->nullable();		    
 		    $table->decimal('cost_estimat')->nullable();
 		    $table->decimal('cost_real')->nullable();
 		    $table->timestamps();
 		});
 
-	    Schema::create('castellers_x_activitats', function($table) {
+	    Schema::create('castellers_x_esdeveniments', function($table) {
 		    $table->integer('castellers_fk')->unsigned();
-		    $table->integer('activitats_fk')->unsigned();
+		    $table->integer('esdeveniments_fk')->unsigned();
 		    $table->foreign('castellers_fk')->references('id')->on('castellers');
-		    $table->foreign('activitats_fk')->references('id')->on('activitats');
+		    $table->foreign('esdeveniments_fk')->references('id')->on('esdeveniments');
 		});
 	}
 
@@ -133,9 +143,10 @@ class CreateCastellers extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('castellers_x_activitats');
-	    Schema::drop('activitats');
-	    Schema::drop('tipus_activitats');
+	    Schema::drop('castellers_x_esdeveniments');
+	    Schema::drop('esdeveniments');
+	    Schema::drop('tipus_esdeveniments');
+	    Schema::drop('llocs');
 	    Schema::drop('castellers');
 	    Schema::drop('families');
 	    Schema::drop('quotes');

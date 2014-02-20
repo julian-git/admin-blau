@@ -27,12 +27,6 @@ class Pinyes extends Migration {
 	 */
 	public function up()
 	{
-	    Schema::create('llocs', function($table) {
-		    $table->increments('id');
-		    $table->string('nom', 50);
-		    $table->timestamps();
-		});
-
 	    Schema::create('tipus_actuacions', function($table) {
 		    $table->increments('id');
 		    $table->string('nom', 50);
@@ -108,7 +102,6 @@ class Pinyes extends Migration {
 	    Schema::drop('tipus_castells');
 	    Schema::drop('actuacions');
 	    Schema::drop('tipus_actuacions');
-	    Schema::drop('llocs');
 	}
 
 }

@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder {
 			 'actuacions',
 			 'tipus_quotes',
 			 'families',
-			 'activitats',
-			 'tipus_activitats',
+			 'esdeveniments',
+			 'tipus_esdeveniments',
 			 'llocs',
 			 'tipus_actuacions',
 			 'posicions',
@@ -32,10 +32,10 @@ class DatabaseSeeder extends Seeder {
 			 'QuotesSeeder',
 			 'FamiliesSeeder',
 			 'CastellersSeeder',
-			 'TipusActivitatsSeeder',
-			 'ActivitatsSeeder',
-
 			 'LlocsSeeder',
+			 'TipusEsdevenimentsSeeder',
+			 'EsdevenimentsSeeder',
+
 			 'TipusActuacionsSeeder',
 			 'ActuacionsSeeder',
 			 'TipusCastellsSeeder',
@@ -144,42 +144,6 @@ class CastellersSeeder extends Seeder {
     }
 }
 
-class TipusActivitatsSeeder extends Seeder {
-
-    public function run() {
-	DB::table('tipus_activitats')->delete();
-
-	TipusActivitat::create(array('id' => 1, 
-				      'tipus' => 'Calçotada',
-				      'descripcio' => ''
-				      ));
-
-	TipusActivitat::create(array('id' => 2, 
-				      'tipus' => 'Sopar',
-				      'descripcio' => ''
-				      ));
-    }
-}
-
-class ActivitatsSeeder extends Seeder {
-
-    public function run() {
-	DB::table('activitats')->delete();
-
-	Activitat::create(array('id' => 1, 
-				'titol' => 'Calçotada febrer',
-				'tipus_activitats_fk' => 1,
-				'data' => '2014-02-20'
-				      ));
-
-	Activitat::create(array('id' => 2, 
-				'titol' => 'Sopar Festa Major',
-				'tipus_activitats_fk' => 2,
-				'data' => '2014-08-20'
-				      ));
-    }
-}
-
 class LlocsSeeder extends Seeder {
 
     public function run() {
@@ -192,6 +156,46 @@ class LlocsSeeder extends Seeder {
 	Lloc::create(array('id' => 2, 
 			   'nom' => 'Terrassa'
 			   ));
+    }
+}
+
+class TipusEsdevenimentsSeeder extends Seeder {
+
+    public function run() {
+	DB::table('tipus_esdeveniments')->delete();
+
+	TipusEsdeveniment::create(array('id' => 1, 
+				      'tipus' => 'Calçotada',
+				      'descripcio' => ''
+				      ));
+
+	TipusEsdeveniment::create(array('id' => 2, 
+				      'tipus' => 'Sopar',
+				      'descripcio' => ''
+				      ));
+    }
+}
+
+class EsdevenimentsSeeder extends Seeder {
+
+    public function run() {
+	DB::table('esdeveniments')->delete();
+
+	Esdeveniment::create(array('id' => 1, 
+				   'titol' => 'Calçotada febrer',
+				   'tipus_esdeveniments_fk' => 1,
+				   'data' => '2014-02-20',
+				   'hora' => '12:00',
+				   'llocs_fk' => 1
+				   ));
+
+	Esdeveniment::create(array('id' => 2, 
+				   'titol' => 'Sopar Festa Major',
+				   'tipus_esdeveniments_fk' => 2,
+				   'data' => '2014-08-20',
+				   'hora' => '12:00',
+				   'llocs_fk' => 2
+				      ));
     }
 }
 

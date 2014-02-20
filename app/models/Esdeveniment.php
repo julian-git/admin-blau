@@ -18,22 +18,34 @@
 
 require_once('util.php');
 
-class Activitat extends Eloquent
+class Esdeveniment extends Eloquent
 {
-    public static $singular_class_name = 'Activitat';
-    public static $plural_class_name = 'Activitats';
-    public static $class_name_gender = 'f';
+    public static $singular_class_name = 'Esdeveniment';
+    public static $plural_class_name = 'Esdeveniments';
+    public static $class_name_gender = 'm';
 
-    public static $member_fields = array('id' => 'Id Activitat',
+    public static $member_fields = array('id' => 'Id',
 					 'titol' => 'Titol',
-					 'tipus_activitats_fk' => "Tipus d'Activitat",
+					 'tipus_esdeveniments_fk' => "Tipus d'Esdeveniment",
 					 'data' => 'Data (inici)',
-					 'fi' => 'Data fi',
+					 'data_fi' => 'Data fi',
+					 'hora' => 'Hora',
+					 'hora_fi' => 'Hora fi',
 					 'descripcio' => 'Descripci&oacute;',
+					 'llocs_fk' => 'Lloc',
 					 'contacte' => 'contacte',
 					 'cost_estimat' => 'Cost Estimat',
 					 'cost_real' => 'Cost Real'
 					 );
+
+    public static $fields_in_index = array('id' => 'Id',
+					   'titol' => 'Titol',
+					   'tipus_esdeveniments_fk' => "Tipus d'Esdeveniment",
+					   'data' => 'Data (inici)',
+					   'llocs_fk' => 'Lloc',
+					   'contacte' => 'contacte'
+					   );
+					 
 
     public static $validation_rules = array('titol' => 'required',
 					    'data' => 'required|date',
@@ -41,15 +53,20 @@ class Activitat extends Eloquent
 					    'cost_real' => 'decimal'
 					    );
 
-    public static $default_values = array('tipus_activitats_fk' => 1);
+    public static $default_values = array('tipus_esdeveniments_fk' => 1);
 
     public static $identifying_fields = array('titol',
 					      'data',
 					      'fi');
 
-    public function getTipusActivitatsFkAttribute($value) 
+    public function getTipusEsdevenimentsFkAttribute($value) 
     {
-	return resolve_foreign_key('TipusActivitat', $value);
+	return resolve_foreign_key('TipusEsdeveniment', $value);
+    }
+
+    public function getLlocsFkAttribute($value) 
+    {
+	return resolve_foreign_key('Lloc', $value);
     }
 }
 

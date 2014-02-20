@@ -304,10 +304,10 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Activitats<span class="fa arrow"></a>
+                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Esdeveniments<span class="fa arrow"></a>
                         <ul class="nav nav-second-level">
-@foreach(['Activitat',
-	 'TipusActivitat'
+@foreach(['Esdeveniment',
+	 'TipusEsdeveniment'
 	 ] as $CSN)   
                             <li>
  <a href="{{ action($CSN . 'sController@index') }}" >{{ $CSN::$plural_class_name }}</a>
