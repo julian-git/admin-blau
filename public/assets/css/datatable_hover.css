@@ -1,0 +1,39 @@
+.highlight #indexDataTable tbody tr.even:hover, #indexDataTable tbody tr.even td.highlighted {
+	background-color: #ECFFB3;
+}
+
+.highlight #indexDataTable tbody tr.odd:hover, #indexDataTable tbody tr.odd td.highlighted {
+	background-color: #E6FF99;
+}
+
+.highlight_row #indexDataTable tr.even:hover {
+	background-color: #ECFFB3;
+}
+
+.highlight_row #indexDataTable tr.even:hover td.sorting_1 {
+	background-color: #DDFF75;
+}
+
+.highlight_row #indexDataTable tr.even:hover td.sorting_2 {
+	background-color: #E7FF9E;
+}
+
+.highlight_row #indexDataTable tr.even:hover td.sorting_3 {
+	background-color: #E2FF89;
+}
+
+.highlight_row #indexDataTable tr.odd:hover {
+	background-color: #E6FF99;
+}
+
+.highlight_row #indexDataTable tr.odd:hover td.sorting_1 {
+	background-color: #D6FF5C;
+}
+
+.highlight_row #indexDataTable tr.odd:hover td.sorting_2 {
+	background-color: #E0FF84;
+}
+
+.highlight_row #indexDataTable tr.odd:hover td.sorting_3 {
+	background-color: #DBFF70;
+}
