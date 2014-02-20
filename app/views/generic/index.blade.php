@@ -40,13 +40,12 @@
                                ? $CSN::$fields_in_index
 			       : $CSN::$member_fields ?>
         <div class="table-responsive">
-          <table class="table table-striped table-bordered table-hover" id="indexDataTable">
+          <table class="table table-striped table-bordered" id="indexDataTable">
             <thead>
                 <tr>
         @foreach ($fields_in_index as $field => $prompt)
                    <th>{{ $prompt }}</th>
 	@endforeach
-		<th/>
                 </tr>
             </thead>
             <tbody>
@@ -59,10 +58,6 @@
                       <td>{{ $instance->$field }}</td>
                      @endif
 		   @endforeach
-                    <td>
-                        <a href="{{ action($CSN . 'sController@edit', $instance->id) }}" class="btn btn-warning btn-xs">Editar</a>
-                        <a href="{{ action($CSN . 'sController@delete', $instance->id) }}" class="btn btn-danger btn-xs">Esborrar</a>
-                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -72,7 +67,15 @@
     <script src="{{ asset('components/sb-admin-v2/js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
     <script>
       $(document).ready(function() {
-          $('#indexDataTable').dataTable();
+	      var iDT = $('#indexDataTable').dataTable({
+		  fnDrawCallback: function(){
+			  $("#indexDataTable tbody tr").click(function () {
+				  var position = iDT.fnGetPosition(this); //get position of the selected row
+				  var id = iDT.fnGetData(position)[0];    //value of the first column (can be hidden)
+				  document.location.href = "/{{ strtolower($CSN) }}/edit/" + id;   //redirect
+			      });
+		      }
+		  });
       });
     </script>
     @endif

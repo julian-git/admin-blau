@@ -31,7 +31,14 @@
     <link href="{{ asset('components/sb-admin-v2/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 
     <!-- Page-Level Plugin CSS - Blank -->
-
+        <link href="{{ asset('assets/css/datatable_hover.css') }}" rel="stylesheet">
+<style type="text/css" media="screen">
+	#indexDataTable tr:hover
+	{
+		color: #000;
+		background: #FCF;
+	}
+</style>
     <!-- SB Admin CSS - Include with every page -->
     <link href="{{ asset('components/sb-admin-v2/css/sb-admin.css') }}" rel="stylesheet">
 
