@@ -36,10 +36,13 @@
     @if ($$class_instance_list->isEmpty())
         <p>De moment no hi ha cap entrada.</p>
     @else
+        <?php $fields_in_index = isset($CSN::$fields_in_index) 
+                               ? $CSN::$fields_in_index
+			       : $CSN::$member_fields ?>
         <table class="table table-striped">
             <thead>
                 <tr>
-        @foreach ($CSN::$member_fields as $field => $prompt)
+        @foreach ($fields_in_index as $field => $prompt)
                    <th>{{ $prompt }}</th>
 	@endforeach
                 </tr>
@@ -47,7 +50,7 @@
             <tbody>
                 @foreach($$class_instance_list as $instance)
                 <tr>
-                   @foreach(array_keys($CSN::$member_fields) as $field)
+                   @foreach(array_keys($fields_in_index) as $field)
                      @if (!strcmp(substr($field, -3), '_fk'))
                       <td><div id="{{ $field }}{{ $instance->id }}">{{ $instance->$field }}</div></td>
  		     @else 

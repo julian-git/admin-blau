@@ -46,6 +46,19 @@ class Casteller extends Eloquent
 					 'sexe' => 'Sexe',
 					 'quotes_fk' => 'Quota');
 
+    public static $fields_in_index = array('id' => 'N&uacute;mero de soci',
+					   'cognom1' => 'Cognom 1',
+					   'cognom2' => 'Cognom 2',
+					   'nom' => 'Nom',
+					   'mot' => 'Mot',
+					   'telefon1' => 'Telèfon 1',
+					   'telefon2' => 'Telèfon 2',
+					   'mobil1' => 'Mòvil 1',
+					   'mobil2' => 'Mòvil 2',
+					   'twitter' => 'Twitter',
+					   'whatsapp' => 'Whatsapp'
+					   );					 
+
     public static $validation_rules = array('cognom1' => 'required|alpha',
 					    'cognom2' => 'alpha',
 					    'nom' => 'required|alpha',

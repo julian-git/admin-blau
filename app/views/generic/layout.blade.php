@@ -29,7 +29,6 @@
     <!-- Core CSS - Include with every page -->
     <link href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('components/sb-admin-v2/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/footer.css') }}" rel="stylesheet">
 
     <!-- Page-Level Plugin CSS - Blank -->
 
@@ -324,8 +323,8 @@
 
     <!-- Page-Level Demo Scripts - Blank - Use for reference -->
 
-<div id="footer"><a href="http://github.com/julian-git/admin-blau">L&rsquo;Admin Blau</a> &eacute;s <a href="https://www.gnu.org/copyleft/gpl.html">software lliure</a> basada en <a href="http://laravel.com">Laravel</a>, <a href="http://getbootstrap.com/">bootstrap</a> i <a href="http://startbootstrap.com/sb-admin-v2">sb-admin-v2</a>.
-</div>
+<footer><a href="http://github.com/julian-git/admin-blau">L&rsquo;Admin Blau</a> &eacute;s <a href="https://www.gnu.org/copyleft/gpl.html">software lliure</a> basada en <a href="http://laravel.com">Laravel</a>, <a href="http://getbootstrap.com/">bootstrap</a> i <a href="http://startbootstrap.com/sb-admin-v2">sb-admin-v2</a>.
+</footer>
 </body>
 
 </html>
