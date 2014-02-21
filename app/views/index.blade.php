@@ -17,3 +17,23 @@
     GNU General Public License for more details.
 */
 ?>
+@section('content')
+
+<h2>Propers Esdeveniments</h2>
+<div id="esdeveniment-wrap">
+</div>
+
+<h2>Properes Actuacions</h2>
+<div id="actuacion-wrap">
+</div>
+
+<script>
+$(document).ready(function() {
+	polling('esdeveniment', ['titol', 'data']);
+	polling('actuacion', ['llocs_fk', 'data']);
+    });
+</script>
+
+
+
+@stop

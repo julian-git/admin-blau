@@ -29,6 +29,8 @@ require_once('validators.php');
 |
 */
 
+$globCSN = '';
+
 Route::get('/', function() 
 	   {
 	       return View::make('index');
@@ -56,6 +58,7 @@ foreach(['Casteller',
 	 'Missatge'
 	 ] as $CSN) {  // CSN is a mnemonic for ClassSingularName
 
+    $globCSN = $CSN;
     $csn = strtolower($CSN);
 
     // Bind route parameters.
@@ -66,6 +69,9 @@ foreach(['Casteller',
     Route::get("/$csn/create", "{$CSN}sController@create");
     Route::get("/$csn/edit/{" . $csn . '}', "{$CSN}sController@edit");
     Route::get("/$csn/delete/{" . $csn . '}', "{$CSN}sController@delete");
+    Route::get("/$csn/json", function() use ($CSN) {
+	    return Response::json($CSN::all()->toArray());
+	});
 
     // Handle form submissions.
     Route::post("/$csn/create", "{$CSN}sController@handleCreate");

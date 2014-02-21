@@ -283,7 +283,7 @@
                         <!-- /input-group -->
                     </li>
                     <li>
-                        <a href="/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        <a href="/"><i class="fa fa-dashboard fa-fw"></i> Propers Events</a>
                     </li>
                     <li>
                         <a href="/missatge"><i class="fa fa-table fa-fw"></i> Missatges</a>
@@ -366,6 +366,7 @@
 
 
     <!-- Page-Level Plugin Scripts - Blank -->
+    <script src="{{ asset('assets/js/polling.js') }}"></script>
 
     <!-- SB Admin Scripts - Include with every page -->
     <script src="{{ asset('components/sb-admin-v2/js/sb-admin.js') }}"></script>
