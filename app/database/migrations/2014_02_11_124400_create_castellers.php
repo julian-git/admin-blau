@@ -128,7 +128,7 @@ class CreateCastellers extends Migration {
 		    $table->timestamps();
 		});
 
-	    Schema::create('castellers_x_esdeveniments', function($table) {
+	    Schema::create('castellers_esdeveniments', function($table) {
 		    $table->integer('castellers_fk')->unsigned();
 		    $table->integer('esdeveniments_fk')->unsigned();
 		    $table->foreign('castellers_fk')->references('id')->on('castellers');
@@ -143,7 +143,7 @@ class CreateCastellers extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('castellers_x_esdeveniments');
+	    Schema::drop('castellers_esdeveniments');
 	    Schema::drop('esdeveniments');
 	    Schema::drop('tipus_esdeveniments');
 	    Schema::drop('llocs');
