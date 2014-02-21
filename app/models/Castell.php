@@ -50,6 +50,11 @@ class Castell extends Eloquent
     {
 	return resolve_foreign_key('TipusCastell', $value);
     }
+
+    public function actuacion()
+    {
+	return $this->belongsTo('Actuacion');
+    }
 }
 
 ?>

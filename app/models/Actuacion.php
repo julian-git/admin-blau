@@ -51,9 +51,15 @@ class Actuacion extends Eloquent
 	return resolve_foreign_key('Lloc', $value);
     }
 
+    public function castells() 
+    {
+	return $this->hasMany('Castell');
+    }
+
     public static function propers() 
     {
-	return Actuacion::all();
+	$actuacion = new Actuacion;
+	return $actuacion->where('data', '>=', date('Y-m-d', strtotime('now')))->get();
     }
 
 

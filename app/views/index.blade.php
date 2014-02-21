@@ -21,17 +21,46 @@
 
 <h2>Propers Esdeveniments</h2>
 <div id="esdeveniment-wrap">
+
+<?php
+    $esdeveniment = new Esdeveniment;
+foreach($esdeveniment->where('data', '>=', date('Y-m-d', strtotime('now')))->get()
+	as $esd) {
+    echo '<div id="esdeveniment' . $esd->id . '">';
+    echo '  <div id="titol">' . $esd->titol . '</div>';
+    echo '  <div id="data">' . $esd->data . '</div>';
+    echo '  <div id="llocs_fk">' . $esd->llocs_fk . '</div>';
+    echo '</div>';
+}
+    
+?>
+
 </div>
 
 <h2>Properes Actuacions</h2>
 <div id="actuacion-wrap">
+
+<?php
+    $actuacion = new Actuacion;
+foreach($actuacion->where('data', '>=', date('Y-m-d', strtotime('now')))->get()
+	as $act) {
+    echo '<div id="actuacion' . $act->id . '">';
+    echo '  <div id="llocs_fk">' . $act->llocs_fk . '</div>';
+    echo '  <div id="data">' . $act->data . '</div>';
+    echo '</div>';
+}
+    
+?>
+
 </div>
 
 <script>
+    /*
 $(document).ready(function() {
 	polling('esdeveniment', ['titol', 'data']);
 	polling('actuacion', ['llocs_fk', 'data']);
     });
+    */
 </script>
 
 
