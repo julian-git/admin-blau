@@ -205,10 +205,14 @@ class TipusActuacionsSeeder extends Seeder {
 	DB::table('tipus_actuacions')->delete();
 
 	TipusActuacion::create(array('id' => 1, 
-				     'nom' => 'Actuació regular'
+				     'nom' => 'Assaig'
 				     ));
 
 	TipusActuacion::create(array('id' => 2, 
+				     'nom' => 'Actuació regular'
+				     ));
+
+	TipusActuacion::create(array('id' => 3, 
 				     'nom' => 'Concurs'
 				     ));
     }
@@ -221,16 +225,26 @@ class ActuacionsSeeder extends Seeder {
 
 	Actuacion::create(array('id' => 1, 
 				'nom' => 'Foguerons',
-				'tipus_actuacions_fk' => '1',
+				'tipus_actuacions_fk' => '2',
 				'data' => '2014-02-05',
-				'llocs_fk' => '1'
+				'llocs_fk' => '1',
+				'placa_o_assaig' => 'P'
 			   ));
 
 	Actuacion::create(array('id' => 2, 
 				'nom' => 'Festa Major de Terrassa',
+				'tipus_actuacions_fk' => '2',
+				'data' => '2014-06-05',
+				'llocs_fk' => '2',
+				'placa_o_assaig' => 'P'
+			   ));
+
+	Actuacion::create(array('id' => 3, 
+				'nom' => 'Assaig de folres',
 				'tipus_actuacions_fk' => '1',
 				'data' => '2014-06-05',
-				'llocs_fk' => '2'
+				'llocs_fk' => '1',
+				'placa_o_assaig' => 'P'
 			   ));
     }
 }
@@ -260,7 +274,6 @@ class CastellsSeeder extends Seeder {
 	Castell::create(array('id' => 1, 
 			      'tipus_castells_fk' => 1,
 			      'actuacions_fk' => 1,
-			      'placa_o_assaig' => 'P',
 			      'ordre_a_placa' => '2',
 			      'resultat' => ''
 			   ));
@@ -268,7 +281,6 @@ class CastellsSeeder extends Seeder {
 	Castell::create(array('id' => 2, 
 			      'tipus_castells_fk' => 2,
 			      'actuacions_fk' => 2,
-			      'placa_o_assaig' => 'A',
 			      'ordre_a_placa' => '',
 			      'resultat' => 'c'
 			   ));

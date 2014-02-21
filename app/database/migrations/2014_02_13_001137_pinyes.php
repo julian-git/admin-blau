@@ -41,6 +41,7 @@ class Pinyes extends Migration {
 		    $table->date('data')->index();
 		    $table->integer('llocs_fk')->unsigned();
 		    $table->foreign('llocs_fk')->references('id')->on('llocs');
+		    $table->string('placa_o_assaig', 1);
 		    $table->timestamps();
 		});
 	    
@@ -57,7 +58,6 @@ class Pinyes extends Migration {
 		    $table->foreign('tipus_castells_fk')->references('id')->on('tipus_castells');
 		    $table->integer('actuacions_fk')->unsigned();
 		    $table->foreign('actuacions_fk')->references('id')->on('actuacions');
-		    $table->string('placa_o_assaig', 1);
 		    $table->smallInteger('ordre_a_placa')->nullable();
 		    $table->string('resultat', 3)->nullable();
 		    $table->timestamps();
