@@ -68,6 +68,11 @@ class Esdeveniment extends Eloquent
     {
 	return resolve_foreign_key('Lloc', $value);
     }
+
+    public static function propers() 
+    {
+	return Esdeveniment::all();
+    }
 }
 
 ?>

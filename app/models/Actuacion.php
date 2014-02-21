@@ -51,6 +51,11 @@ class Actuacion extends Eloquent
 	return resolve_foreign_key('Lloc', $value);
     }
 
+    public static function propers() 
+    {
+	return Actuacion::all();
+    }
+
 
 }
 

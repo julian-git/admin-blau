@@ -69,12 +69,23 @@ foreach(['Casteller',
     Route::get("/$csn/create", "{$CSN}sController@create");
     Route::get("/$csn/edit/{" . $csn . '}', "{$CSN}sController@edit");
     Route::get("/$csn/delete/{" . $csn . '}', "{$CSN}sController@delete");
+    /*
     Route::get("/$csn/json", function() use ($CSN) {
 	    return Response::json($CSN::all()->toArray());
 	});
+    */
 
     // Handle form submissions.
     Route::post("/$csn/create", "{$CSN}sController@handleCreate");
     Route::post("/$csn/edit", "{$CSN}sController@handleEdit");
     Route::post("/$csn/delete", "{$CSN}sController@handleDelete");
+}
+
+foreach (['Esdeveniment',
+	  'Actuacion'
+	  ] as $CSN) {
+    $csn = strtolower($CSN);
+    Route::get("/properes-{$csn}s", function() use ($CSN) {
+	return Response::json($CSN::propers()->toArray());
+    });
 }
