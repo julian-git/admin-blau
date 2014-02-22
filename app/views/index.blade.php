@@ -19,31 +19,24 @@
 ?>
 @section('content')
 
-<?php 
-foreach (['Esdeveniment', 'Actuacion'] as $CSN) 
-{ 
+@foreach (['Esdeveniment', 'Actuacion'] as $CSN) 
+  <?php 
     $csn = strtolower($CSN);
-
-    echo "<h2>{$CSN}s</h2>";
-    echo "<div id=\"$csn-wrap\">";
-
     $instance = new $CSN; 
-    foreach ($instance->where('data', '>=', date('Y-m-d', strtotime('now')))->get()
-	     as $res) 
-    {
-	echo "<div id=\"{$csn}{$res->id}\" class=\"cvg-$csn\">";
-	foreach (['titol', 'data', 'llocs_fk'] as $f) 
-	{
-	    echo "  <div id=\"$f\" class=\"cvg-$csn-$f\">{$res->$f}</div>";
-	}
-	echo '</div>';
-    }
-    
-    echo '</div>';
-}
-?>   
+  ?>
+  <h2>{{ $CSN }}s</h2>
+  <div id="{{ $csn }}-wrap">
 
-
+  @foreach ($instance->where('data', '>=', date('Y-m-d', strtotime('now')))->get()
+	    as $res) 
+    <div id="{{ $csn }}{{ $res->id }}" class="cvg-{{ $csn }}">
+    @foreach (['titol', 'data', 'llocs_fk'] as $f) 
+	<div id="{{ $f }}" class="cvg-{{ $csn }}-{{ $f }}">{{ $res->$f }}</div>
+    @endforeach
+    </div>
+  @endforeach
+  </div>
+@endforeach
 
 <script>
     /*
