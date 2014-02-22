@@ -35,7 +35,7 @@ class Pinyes extends Migration {
 
 	    Schema::create('actuacions', function($table) {
 		    $table->increments('id');
-		    $table->string('nom', 50);
+		    $table->string('titol', 50);
 		    $table->integer('tipus_actuacions_fk')->unsigned();
 		    $table->foreign('tipus_actuacions_fk')->references('id')->on('tipus_actuacions');
 		    $table->date('data')->index();

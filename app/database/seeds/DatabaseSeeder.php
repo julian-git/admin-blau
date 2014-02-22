@@ -224,7 +224,7 @@ class ActuacionsSeeder extends Seeder {
 	DB::table('actuacions')->delete();
 
 	Actuacion::create(array('id' => 1, 
-				'nom' => 'Foguerons',
+				'titol' => 'Foguerons',
 				'tipus_actuacions_fk' => '2',
 				'data' => '2014-02-05',
 				'llocs_fk' => '1',
@@ -232,7 +232,7 @@ class ActuacionsSeeder extends Seeder {
 			   ));
 
 	Actuacion::create(array('id' => 2, 
-				'nom' => 'Festa Major de Terrassa',
+				'titol' => 'Festa Major de Terrassa',
 				'tipus_actuacions_fk' => '2',
 				'data' => '2014-06-05',
 				'llocs_fk' => '2',
@@ -240,7 +240,7 @@ class ActuacionsSeeder extends Seeder {
 			   ));
 
 	Actuacion::create(array('id' => 3, 
-				'nom' => 'Assaig de folres',
+				'titol' => 'Assaig de folres',
 				'tipus_actuacions_fk' => '1',
 				'data' => '2014-06-05',
 				'llocs_fk' => '1',
