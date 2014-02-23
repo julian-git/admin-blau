@@ -30,24 +30,26 @@
       @foreach ($instance->where('data', '>=', date('Y-m-d', strtotime('now')))->get()
 		as $res) 
       <div id="{{ $csn }}-{{ $res->id }}" class="row cvg-{{ $csn }}">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="row">
-            <div id="{{ $csn }}-{{ $res->id }}-titol" class="col-md-6">
+            <div id="{{ $csn }}-{{ $res->id }}-titol" class="col-md-5 cvg-{{ $csn }}-titol">
               {{ $res->titol }}
             </div>
-            <div id="{{ $csn }}-{{ $res->id }}-data" class="col-md-6">
-              {{ $res->data }}
-            </div>
-            <div id="{{ $csn }}-{{ $res->id }}-llocs_fk" class="col-md-6">
-              {{ $res->llocs_fk }}
-            </div>
+            <div class="col-md-7">
+              <div id="{{ $csn }}-{{ $res->id }}-data" class="cvg-{{ $csn }}-data">
+                {{ $res->data }}
+              </div>
+              <div id="{{ $csn }}-{{ $res->id }}-llocs_fk" class="cvg-{{ $csn }}-llocs_fk">
+                {{ $res->llocs_fk }}
+              </div>
+            </div> <!-- col-md-7 -->
           </div> <!-- row -->
-        </div> <!-- col-md-3 -->
-        <div id="{{ $csn }}-{{ $res->id }}-details" class="col-md-9">
+        </div> <!-- col-md-4 -->
+        <div id="{{ $csn }}-{{ $res->id }}-details" class="col-md-8">
 	  <div>castell 1</div>
 	  <div>castell 2</div>
 	  <div>castell 3</div>
-        </div> <!-- col-md-9 -->
+        </div> <!-- col-md-8 -->
       </div> <!-- csn-res-id -->
       @endforeach
     </div> <!-- /panel-body -->

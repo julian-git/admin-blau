@@ -1,0 +1,20 @@
+.cvg-esdeveniment-titol {
+    font-weight: bold;
+}
+
+.cvg-esdeveniment-llocs_fk {
+    font-style: italic;
+}
+
+
+.cvg-actuacion {
+    margin-bottom: 10px;
+}
+
+.cvg-actuacion-titol {
+    font-weight: bold;
+}
+
+.cvg-actuacion-llocs_fk {
+    font-style: italic;
+}
