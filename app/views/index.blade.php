@@ -25,9 +25,14 @@
     $instance = new $CSN; 
   ?>
   <div id="{{ $csn }}-panel" class="panel panel-default">
-        <div><h2>{{ $CSN }}s</h2></div>
+    <div>
+      <h2>{{ $CSN }}s</h2>
+    </div>
     <div class="panel-body">
-      @foreach ($instance->where('data', '>=', date('Y-m-d', strtotime('now')))->get()
+      @foreach ($instance
+		->where('data', '>=', date('Y-m-d', strtotime('now')))
+		->orderBy('data')
+		->get()
 		as $res) 
       <div id="{{ $csn }}-{{ $res->id }}" class="row cvg-{{ $csn }}">
         <div class="col-md-4">
