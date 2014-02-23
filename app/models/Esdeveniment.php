@@ -59,6 +59,12 @@ class Esdeveniment extends Eloquent
 					      'data',
 					      'fi');
 
+
+    public function getDataAttribute($value)
+    {
+	return local_date($value);
+    }
+
     public function getTipusEsdevenimentsFkAttribute($value) 
     {
 	return resolve_foreign_key('TipusEsdeveniment', $value);

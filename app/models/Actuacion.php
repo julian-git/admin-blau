@@ -41,6 +41,11 @@ class Actuacion extends Eloquent
 					      'data'
 					      );
 
+    public function getDataAttribute($value)
+    {
+	return local_date($value);
+    }
+
     public function getTipusActuacionsFkAttribute($value) 
     {
 	return resolve_foreign_key('TipusActuacion', $value);

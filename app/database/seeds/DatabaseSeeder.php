@@ -234,7 +234,7 @@ class ActuacionsSeeder extends Seeder {
 	Actuacion::create(array('id' => 2, 
 				'titol' => 'Festa Major de Terrassa',
 				'tipus_actuacions_fk' => '2',
-				'data' => '2014-06-05',
+				'data' => '2014-06-08',
 				'llocs_fk' => '2',
 				'placa_o_assaig' => 'P'
 			   ));
