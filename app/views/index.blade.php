@@ -50,10 +50,10 @@
             </div> <!-- col-md-7 -->
           </div> <!-- row -->
         </div> <!-- col-md-4 -->
-        <div id="{{ $csn }}-{{ $res->id }}-details" class="col-md-8">
-	  <div>castell 1</div>
-	  <div>castell 2</div>
-	  <div>castell 3</div>
+        <div id="{{ $csn }}-{{ $res->id }}-details" class="col-md-8 {{ $csn }}-details">
+	@foreach($CSN::details($res->id) as $detail)
+	<div>{{ $detail[0] }} {{ $detail[1] }}</div>
+        @endforeach
         </div> <!-- col-md-8 -->
       </div> <!-- csn-res-id -->
       @endforeach
@@ -62,12 +62,11 @@
 @endforeach
 
 <script>
-    /*
+						/*
 $(document).ready(function() {
-	polling('Esdeveniment', ['titol', 'data']);
-	polling('actuacion', ['llocs_fk', 'data']);
+	$('.actuacion-details').each('pollCastells');
     });
-    */
+						*/
 </script>
 
 

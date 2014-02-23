@@ -75,9 +75,10 @@ class Esdeveniment extends Eloquent
 	return resolve_foreign_key('Lloc', $value);
     }
 
-    public static function propers() 
+    public static function details($id)
     {
-	return Esdeveniment::all();
+	$esdeveniment = Esdeveniment::findOrFail($id);
+	return [ [ $esdeveniment->id, $esdeveniment->llocs_fk ] ]; 
     }
 }
 

@@ -61,12 +61,17 @@ class Actuacion extends Eloquent
 	return $this->hasMany('Castell');
     }
 
-    public static function propers() 
+    public static function details($id)
     {
-	$actuacion = new Actuacion;
-	return $actuacion->where('data', '>=', date('Y-m-d', strtotime('now')))->get();
+	$actuacion = Actuacion::findOrFail($id);
+	$the_castells = $actuacion->castells->all();
+	$res = array();
+	foreach ($the_castells as $c) 
+	{
+	    $res[] = [$c->id, $c->tipus_castells_fk];
+	}
+	return $res;
     }
-
 
 }
 

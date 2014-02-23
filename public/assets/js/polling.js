@@ -12,3 +12,7 @@ function polling(className, aFields) {
 	$('#' + className + '-wrap').append('<div class="error">Error</div>');
     });
 }
+
+function pollCastells(index, value) {
+    alert(value);
+}
