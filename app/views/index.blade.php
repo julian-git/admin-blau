@@ -24,18 +24,34 @@
     $csn = strtolower($CSN);
     $instance = new $CSN; 
   ?>
-  <h2>{{ $CSN }}s</h2>
-  <div id="{{ $csn }}-wrap">
-
-  @foreach ($instance->where('data', '>=', date('Y-m-d', strtotime('now')))->get()
-	    as $res) 
-    <div id="{{ $csn }}{{ $res->id }}" class="cvg-{{ $csn }}">
-    @foreach (['titol', 'data', 'llocs_fk'] as $f) 
-	<div id="{{ $f }}" class="cvg-{{ $csn }}-{{ $f }}">{{ $res->$f }}</div>
-    @endforeach
-    </div>
-  @endforeach
-  </div>
+  <div id="{{ $csn }}-panel" class="panel panel-default">
+        <div><h2>{{ $CSN }}s</h2></div>
+    <div class="panel-body">
+      @foreach ($instance->where('data', '>=', date('Y-m-d', strtotime('now')))->get()
+		as $res) 
+      <div id="{{ $csn }}-{{ $res->id }}" class="row cvg-{{ $csn }}">
+        <div class="col-md-3">
+          <div class="row">
+            <div id="{{ $csn }}-{{ $res->id }}-titol" class="col-md-6">
+              {{ $res->titol }}
+            </div>
+            <div id="{{ $csn }}-{{ $res->id }}-data" class="col-md-6">
+              {{ $res->data }}
+            </div>
+            <div id="{{ $csn }}-{{ $res->id }}-llocs_fk" class="col-md-6">
+              {{ $res->llocs_fk }}
+            </div>
+          </div> <!-- row -->
+        </div> <!-- col-md-3 -->
+        <div id="{{ $csn }}-{{ $res->id }}-details" class="col-md-9">
+	  <div>castell 1</div>
+	  <div>castell 2</div>
+	  <div>castell 3</div>
+        </div> <!-- col-md-9 -->
+      </div> <!-- csn-res-id -->
+      @endforeach
+    </div> <!-- /panel-body -->
+  </div> <!-- /panel -->
 @endforeach
 
 <script>

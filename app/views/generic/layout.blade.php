@@ -29,6 +29,7 @@
     <!-- Core CSS - Include with every page -->
     <link href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('components/sb-admin-v2/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/cvg.css') }}" rel="stylesheet">
 
     <!-- Page-Level Plugin CSS - Blank -->
     <!-- FIXME: the next two css datasets are still buggy. -->
