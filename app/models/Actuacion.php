@@ -61,9 +61,9 @@ class Actuacion extends Eloquent
 	return $this->hasMany('Castell');
     }
 
-    public static function details($id)
+    public static function details($actuacion_id)
     {
-	$actuacion = Actuacion::findOrFail($id);
+	$actuacion = Actuacion::findOrFail($actuacion_id);
 	$the_castells = $actuacion->castells->all();
 	$res = array();
 	foreach ($the_castells as $c) 
@@ -73,6 +73,11 @@ class Actuacion extends Eloquent
 	return $res;
     }
 
+    public static function details2($castell_id)
+    {
+	$the_castell = Castell::findOrFail($castell_id);
+	return $the_castell->castellers()->count();
+    }
 }
 
 ?>

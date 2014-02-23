@@ -80,6 +80,12 @@ class Esdeveniment extends Eloquent
 	$esdeveniment = Esdeveniment::findOrFail($id);
 	return [ [ $esdeveniment->id, $esdeveniment->llocs_fk ] ]; 
     }
+
+    public static function details2($esdeveniment_id)
+    {
+	return '';
+    }
+
 }
 
 ?>

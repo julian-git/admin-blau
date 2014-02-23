@@ -11,7 +11,8 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 		
-		foreach(['castellers',
+		foreach(['castell_casteller',
+			 'castellers',
 			 'quotes',
 			 'castells',
 			 'actuacions',
@@ -40,6 +41,7 @@ class DatabaseSeeder extends Seeder {
 			 'ActuacionsSeeder',
 			 'TipusCastellsSeeder',
 			 'CastellsSeeder',
+			 'CastellCastellerSeeder',
 			 'PosicionsSeeder',
 
 			 'MissatgesSeeder'
@@ -255,12 +257,22 @@ class TipusCastellsSeeder extends Seeder {
 	DB::table('tipus_castells')->delete();
 
 	TipusCastell::create(array('id' => 1,
+				   'nom' => 'p4',
+				   'pinya_necessaria' => 20
+				   ));
+
+	TipusCastell::create(array('id' => 2,
 				   'nom' => '2de8f',
 				   'pinya_necessaria' => 200
 				   ));
 
-	TipusCastell::create(array('id' => 2,
+	TipusCastell::create(array('id' => 3,
 				   'nom' => '3de9f',
+				   'pinya_necessaria' => 300
+				   ));
+
+	TipusCastell::create(array('id' => 4,
+				   'nom' => '4de8a',
 				   'pinya_necessaria' => 300
 				   ));
     }
@@ -273,17 +285,87 @@ class CastellsSeeder extends Seeder {
 
 	Castell::create(array('id' => 1, 
 			      'tipus_castells_fk' => 1,
-			      'actuacion_id' => 1,
-			      'ordre_a_placa' => '2',
+			      'actuacion_id' => 2,
+			      'ordre_a_placa' => '1',
 			      'resultat' => ''
 			   ));
 
 	Castell::create(array('id' => 2, 
 			      'tipus_castells_fk' => 2,
 			      'actuacion_id' => 2,
-			      'ordre_a_placa' => '',
-			      'resultat' => 'c'
+			      'ordre_a_placa' => '2',
+			      'resultat' => ''
 			   ));
+
+	Castell::create(array('id' => 3, 
+			      'tipus_castells_fk' => 3,
+			      'actuacion_id' => 2,
+			      'ordre_a_placa' => '2',
+			      'resultat' => ''
+			   ));
+
+	Castell::create(array('id' => 4, 
+			      'tipus_castells_fk' => 1,
+			      'actuacion_id' => 3,
+			      'ordre_a_placa' => '1',
+			      'resultat' => ''
+			   ));
+
+	Castell::create(array('id' => 5, 
+			      'tipus_castells_fk' => 2,
+			      'actuacion_id' => 3,
+			      'ordre_a_placa' => '2',
+			      'resultat' => ''
+			   ));
+
+	Castell::create(array('id' => 6, 
+			      'tipus_castells_fk' => 3,
+			      'actuacion_id' => 3,
+			      'ordre_a_placa' => '2',
+			      'resultat' => ''
+			   ));
+
+	Castell::create(array('id' => 7, 
+			      'tipus_castells_fk' => 4,
+			      'actuacion_id' => 3,
+			      'ordre_a_placa' => '2',
+			      'resultat' => ''
+			   ));
+    }
+}
+
+class CastellCastellerSeeder extends Seeder {
+
+    public function run() {
+	DB::table('castell_casteller')->delete();
+	
+	DB::table('castell_casteller')->insert(array('casteller_id' => 1,
+						     'castell_id'   => 1));
+
+	DB::table('castell_casteller')->insert(array('casteller_id' => 1,
+						     'castell_id'   => 2));
+
+	DB::table('castell_casteller')->insert(array('casteller_id' => 1,
+						     'castell_id'   => 3));
+
+	DB::table('castell_casteller')->insert(array('casteller_id' => 1,
+						     'castell_id'   => 4));
+
+	DB::table('castell_casteller')->insert(array('casteller_id' => 1,
+						     'castell_id'   => 5));
+
+	DB::table('castell_casteller')->insert(array('casteller_id' => 1,
+						     'castell_id'   => 6));
+
+	DB::table('castell_casteller')->insert(array('casteller_id' => 2,
+						     'castell_id'   => 1));
+
+	DB::table('castell_casteller')->insert(array('casteller_id' => 2,
+						     'castell_id'   => 2));
+
+	DB::table('castell_casteller')->insert(array('casteller_id' => 2,
+						     'castell_id'   => 3));
+
     }
 }
 

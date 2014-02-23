@@ -54,6 +54,11 @@ class Castell extends Eloquent
     {
 	return $this->belongsTo('Actuacion');
     }
+
+    public function castellers()
+    {
+	return $this->belongsToMany('Casteller');
+    }
 }
 
 ?>

@@ -51,9 +51,16 @@
           </div> <!-- row -->
         </div> <!-- col-md-4 -->
         <div id="{{ $csn }}-{{ $res->id }}-details" class="col-md-8 {{ $csn }}-details">
-	@foreach($CSN::details($res->id) as $detail)
-	<div>{{ $detail[0] }} {{ $detail[1] }}</div>
-        @endforeach
+          <div class="row">
+            @foreach($CSN::details($res->id) as $detail)
+	      <div class="col-md-2">
+                {{ $detail[1] }}
+              </div>
+              <div id="{{ $csn }}-detail-{{ $res->id }}" detailId="{{ $detail[0] }}" class="col-md-10">
+		  {{ $CSN::details2($detail[0]) }}
+              </div>
+            @endforeach
+          </div> <!-- row -->
         </div> <!-- col-md-8 -->
       </div> <!-- csn-res-id -->
       @endforeach

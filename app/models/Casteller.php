@@ -91,6 +91,11 @@ class Casteller extends Eloquent
     {
 	return resolve_foreign_key('Quote', $value);
     }
+
+    public function castells()
+    {
+	return $this->belongsToMany('Castell');
+    }
 }
 
 ?>
