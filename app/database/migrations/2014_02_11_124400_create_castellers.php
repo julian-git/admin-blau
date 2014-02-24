@@ -35,6 +35,24 @@ class CreateCastellers extends Migration {
 		    $table->timestamps();
 		});
 
+	    DB::table('tipus_quotes')
+		->insert(array(array('id' => 1, 
+				     'descripcio' => 'Sense Quota',
+				     'periodicitat_mesos' => 0, 
+				     'primer_cop_al_any' => '00-00'
+				     ),
+			       array('id' => 2, 
+				     'descripcio' => 'Trimestral',
+				     'periodicitat_mesos' => 3, 
+				     'primer_cop_al_any' => '03-01'
+				     ),
+			       array('id' => 3, 
+				      'descripcio' => 'Semestral',
+				      'periodicitat_mesos' => 6, 
+				      'primer_cop_al_any' => '07-01'
+				     )
+				));
+
 	    /*
 	      Each casteller has a field 'quotes_fk' that points to this table.
 	      This table is seeded with one dummy entry for the 'sense quota' case,
@@ -71,10 +89,33 @@ class CreateCastellers extends Migration {
 		    $table->timestamps();
 		});
 	    
-	    DB::table('categories')->insert(array('id' => 1,
-						  'tipus' => 'Casteller'));
-	    DB::table('categories')->insert(array('id' => 2,
-						  'tipus' => 'Canalla'));
+	    DB::table('categories')
+		->insert(array(array('id' => 1,
+				     'tipus' => 'Casteller',
+				     'created_at' => date('Y-m-d H:i:s'),
+				     'updated_at' => date('Y-m-d H:i:s')
+				     ),
+			       array('id' => 2,
+				     'tipus' => 'Canalla',
+				     'created_at' => date('Y-m-d H:i:s'),
+				     'updated_at' => date('Y-m-d H:i:s')
+				     ),
+			       array('id' => 3,
+				     'tipus' => 'Nen de la colla',
+				     'created_at' => date('Y-m-d H:i:s'),
+				     'updated_at' => date('Y-m-d H:i:s')
+				     ),
+			       array('id' => 4,
+				     'tipus' => 'Col·laborador',
+				     'created_at' => date('Y-m-d H:i:s'),
+				     'updated_at' => date('Y-m-d H:i:s')
+				     ),
+			       array('id' => 5,
+				     'tipus' => 'Simpatitzant',
+				     'created_at' => date('Y-m-d H:i:s'),
+				     'updated_at' => date('Y-m-d H:i:s')
+				     )
+			       ));
 
 	    Schema::create('castellers', function($table) {
 		    $table->increments('id');
@@ -119,11 +160,36 @@ class CreateCastellers extends Migration {
 		    $table->timestamps();
 		});
 
+	    DB::table('tipus_esdeveniments')
+		->insert(array(array('id' => 1, 
+				      'tipus' => 'Calçotada',
+				      'descripcio' => ''
+				     ),
+			       array('id' => 2, 
+				      'tipus' => 'Sopar',
+				      'descripcio' => ''
+				     )
+			       ));
+
+
 	    Schema::create('llocs', function($table) {
 		    $table->increments('id');
 		    $table->string('nom', 50);
 		    $table->timestamps();
 		});
+
+	    DB::table('llocs')
+		->insert(array(array('id' => 1, 
+				     'nom' => 'Can Mussons'
+				     ),
+			       array('id' => 2, 
+				     'nom' => 'Vila de Gràcia'
+				     ),
+			       array('id' => 3, 
+				     'nom' => 'Terrassa'
+				     )
+			       ));
+
 
 	    Schema::create('esdeveniments', function($table) {
 		    $table->increments('id');

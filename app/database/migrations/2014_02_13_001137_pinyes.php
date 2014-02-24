@@ -18,6 +18,108 @@
 
 use Illuminate\Database\Migrations\Migration;
 
+$castell_list = array();
+
+function insert_results($nom)
+{
+    global $castell_list;
+    $castell_list[] = $nom;
+    $castell_list[] = $nom . 'c';
+    $castell_list[] = 'i' . $nom;
+    $castell_list[] = 'id' . $nom;
+}
+
+function seed_tipus_castells()
+{
+    for ($i=2; $i<8; $i++) 
+    {
+	if ($i==6) continue;
+	for ($j=5; $j<10; $j++)
+	    {
+		if ($i==2 && $j==9) continue;
+		insert_results($i . 'de' . $j);
+	    }
+    }
+
+    for ($i=4; $i<7; $i++)
+    {
+	insert_results("p$i");
+    }
+
+    foreach(['p7f',
+	     '2de8f',
+	     '2de9fm',
+	     '3de9f',
+	     '4de9f',
+	     '5de9f',
+	     '7de9f',
+	     '9de9f'] as $extra)
+    {
+	insert_results($extra);
+    }
+
+    global $castell_list;
+    sort($castell_list);
+    foreach($castell_list as $c)
+    {
+	DB::table('tipus_castells')->insert(array('nom' => $c,
+						  'created_at' => date('Y-m-d H:i:s'),
+						  'updated_at' => date('Y-m-d H:i:s')
+						  ));
+    }
+}
+
+function seed_posicions()
+{
+    DB::table('posicions')
+	->insert(array(array('id' => 1, 
+			     'tipus_castells_fk' => 2,
+			     'tipus_posicio' => 'Baix',
+			     'nom' => 'BaixRengla'
+			     ),
+		       array('id' => 2, 
+			     'tipus_castells_fk' => 2,
+			     'tipus_posicio' => 'Baix',
+			     'nom' => 'BaixPlena'
+			     ),
+		       array('id' => 3, 
+			     'tipus_castells_fk' => 2,
+			     'tipus_posicio' => 'Baix',
+			     'nom' => 'BaixBuida'
+			     ),
+		       array('id' => 4, 
+			     'tipus_castells_fk' => 2,
+			     'tipus_posicio' => 'Crossa',
+			     'nom' => 'CrossaDretaBaixRengla'
+			     ),
+		       array('id' => 5, 
+			     'tipus_castells_fk' => 2,
+			     'tipus_posicio' => 'Crossa',
+			     'nom' => 'CrossaEsqBaixRengla'
+			     ),
+		       array('id' => 6, 
+			     'tipus_castells_fk' => 2,
+			     'tipus_posicio' => 'Crossa',
+			     'nom' => 'CrossaDretaBaixPlena'
+			     ),
+		       array('id' => 7, 
+			     'tipus_castells_fk' => 2,
+			     'tipus_posicio' => 'Crossa',
+			     'nom' => 'CrossaEsqBaixPlena'
+			     ),
+		       array('id' => 8, 
+			     'tipus_castells_fk' => 2,
+			     'tipus_posicio' => 'Crossa',
+			     'nom' => 'CrossaDretaBaixBuida'
+			     ),
+		       array('id' => 9, 
+			     'tipus_castells_fk' => 2,
+			     'tipus_posicio' => 'Crossa',
+			     'nom' => 'CrossaEsqBaixBuida'
+			     )
+		       ));
+}
+
 class Pinyes extends Migration {
 
 	/**
@@ -32,6 +134,18 @@ class Pinyes extends Migration {
 		    $table->string('nom', 50);
 		    $table->timestamps();
 		});
+
+	    DB::table('tipus_actuacions')
+		->insert(array(array('id' => 1, 
+				     'nom' => 'Assaig'
+				     ),
+			       array('id' => 2, 
+				     'nom' => 'Actuació regular'
+				     ),
+			       array('id' => 3, 
+				     'nom' => 'Concurs'
+				     )
+			       ));
 
 	    Schema::create('actuacions', function($table) {
 		    $table->increments('id');
@@ -51,6 +165,9 @@ class Pinyes extends Migration {
 		    $table->integer('pinya_necessaria')->unsigned();
 		    $table->timestamps();
 		});
+	    
+	    seed_tipus_castells();
+
 
 	    Schema::create('castells', function($table) {
 		    $table->increments('id');
@@ -83,6 +200,8 @@ class Pinyes extends Migration {
 		    $table->decimal('alpha');
 		    $table->timestamps();
 		});
+
+	    seed_posicions();
 
 	    Schema::create('pinyes', function($table) {
 		    $table->increments('id');
