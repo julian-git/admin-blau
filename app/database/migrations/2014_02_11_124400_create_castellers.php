@@ -64,6 +64,18 @@ class CreateCastellers extends Migration {
 		    $table->timestamps();
 		});
 
+	    Schema::create('categories', function($table) {
+		    $table->increments('id');
+		    $table->string('tipus', 50);
+		    $table->string('comentari', 100)->nullable();
+		    $table->timestamps();
+		});
+	    
+	    DB::table('categories')->insert(array('id' => 1,
+						  'tipus' => 'Casteller'));
+	    DB::table('categories')->insert(array('id' => 2,
+						  'tipus' => 'Canalla'));
+
 	    Schema::create('castellers', function($table) {
 		    $table->increments('id');
 		    $table->string('cognom1', 50)->index();
@@ -89,6 +101,9 @@ class CreateCastellers extends Migration {
 		    $table->string('sexe', 1);
 		    $table->integer('quotes_fk')->unsigned()->default(1);
 		    $table->foreign('quotes_fk')->references('id')->on('quotes');
+		    $table->boolean('actiu')->default(1);
+		    $table->integer('categories_fk')->unsigned()->default(1);
+		    $table->foreign('categories_fk')->references('id')->on('categories');
 		    $table->decimal('alcada-cadira');
 		    $table->decimal('alcada-hombros');
 		    $table->decimal('alcada-mans');
@@ -148,6 +163,7 @@ class CreateCastellers extends Migration {
 	    Schema::drop('tipus_esdeveniments');
 	    Schema::drop('llocs');
 	    Schema::drop('castellers');
+	    Schema::drop('categories');
 	    Schema::drop('families');
 	    Schema::drop('quotes');
 	    Schema::drop('tipus_quotes');

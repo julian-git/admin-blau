@@ -42,6 +42,7 @@ Route::get('/test.html', function()
 	   });
 
 foreach(['Casteller', 
+	 'Categorie',
 	 'Familie', 
 	 'Quote',
 	 'TipusQuote',

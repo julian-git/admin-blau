@@ -293,9 +293,10 @@
                         <a href="tables.html"><i class="fa fa-table fa-fw"></i> Castellers<span class="fa arrow"></a>
                         <ul class="nav nav-second-level">
 @foreach(['Casteller', 
-	 'Familie', 
-	 'Quote',
-	 'TipusQuote'
+	  'Categorie',
+	  'Familie', 
+	  'Quote',
+	  'TipusQuote'
 	 ] as $CSN)   
                             <li>
  <a href="{{ action($CSN . 'sController@index') }}" >{{ $CSN::$plural_class_name }}</a>
