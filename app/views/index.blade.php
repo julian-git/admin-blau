@@ -26,7 +26,13 @@
   ?>
   <div id="{{ $csn }}-panel" class="panel panel-default">
     <div>
-      <h2>{{ $CSN }}s</h2>
+      <h2>
+	@if ($CSN == 'Actuacion')
+          assajos i actuacions
+        @else
+          {{ $csn }}s
+        @endif
+      </h2>
     </div>
     <div class="panel-body">
       @foreach ($instance
