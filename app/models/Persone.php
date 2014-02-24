@@ -18,11 +18,11 @@
 
 require_once('util.php');
 
-class Casteller extends Eloquent
+class Persone extends Eloquent
 {
-    public static $singular_class_name = 'Casteller';
-    public static $plural_class_name = 'Castellers';
-    public static $class_name_gender = 'm';
+    public static $singular_class_name = 'Persona';
+    public static $plural_class_name = 'Persones';
+    public static $class_name_gender = 'f';
 
     public static $member_fields = array('id' => 'N&uacute;mero de soci',
 					 'cognom1' => 'Cognom 1',

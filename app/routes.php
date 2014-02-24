@@ -41,7 +41,7 @@ Route::get('/test.html', function()
 	       return View::make('test');
 	   });
 
-foreach(['Casteller', 
+foreach(['Persone', 
 	 'Categorie',
 	 'Familie', 
 	 'Quote',

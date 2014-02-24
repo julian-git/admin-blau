@@ -290,9 +290,9 @@
                         <a href="/missatge"><i class="fa fa-table fa-fw"></i> Missatges</a>
                     </li>
                     <li>
-                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Castellers<span class="fa arrow"></a>
+                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Persones<span class="fa arrow"></a>
                         <ul class="nav nav-second-level">
-@foreach(['Casteller', 
+@foreach(['Persone', 
 	  'Categorie',
 	  'Familie', 
 	  'Quote',

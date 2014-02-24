@@ -180,9 +180,9 @@ class Pinyes extends Migration {
 		    $table->timestamps();
 		});
 
-	    Schema::create('castell_casteller', function($table) {
-		    $table->integer('casteller_id')->unsigned();
-		    $table->foreign('casteller_id')->references('id')->on('castellers');
+	    Schema::create('castell_persone', function($table) {
+		    $table->integer('persone_id')->unsigned();
+		    $table->foreign('persone_id')->references('id')->on('persones');
 		    $table->integer('castell_id')->unsigned();
 		    $table->foreign('castell_id')->references('id')->on('castells');
 		});
@@ -207,8 +207,8 @@ class Pinyes extends Migration {
 		    $table->increments('id');
 		    $table->integer('castells_fk')->unsigned();
 		    $table->foreign('castells_fk')->references('id')->on('castells');
-		    $table->integer('castellers_fk')->unsigned();
-		    $table->foreign('castellers_fk')->references('id')->on('castellers');
+		    $table->integer('persones_fk')->unsigned();
+		    $table->foreign('persones_fk')->references('id')->on('persones');
 		    $table->integer('posicions_fk')->unsigned();
 		    $table->foreign('posicions_fk')->references('id')->on('posicions');
 		    $table->timestamps();
@@ -224,7 +224,7 @@ class Pinyes extends Migration {
 	{
 	    Schema::drop('pinyes');
 	    Schema::drop('posicions');
-	    Schema::drop('castell_casteller');
+	    Schema::drop('castell_persone');
 	    Schema::drop('castells');
 	    Schema::drop('tipus_castells');
 	    Schema::drop('actuacions');

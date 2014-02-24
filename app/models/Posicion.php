@@ -38,14 +38,11 @@ class Posicion extends Eloquent
 					      );
 }
 
-require_once('tipus_castells.php');
 require_once('tipus_posicions.php');
 
-global $tipus_castells;
 global $tipus_posicions;
 
 Posicion::$validation_rules = array('id' => 'required|integer',
-				   'tipus_castell' => 'required|in:' . $tipus_castells,
 				   'tipus_posicio' => 'required|in:' . $tipus_posicions,
 				   'ordre' => 'integer'
 				   );

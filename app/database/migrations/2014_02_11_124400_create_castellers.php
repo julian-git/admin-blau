@@ -117,7 +117,7 @@ class CreateCastellers extends Migration {
 				     )
 			       ));
 
-	    Schema::create('castellers', function($table) {
+	    Schema::create('persones', function($table) {
 		    $table->increments('id');
 		    $table->string('cognom1', 50)->index();
 		    $table->string('cognom2', 50);
@@ -209,10 +209,10 @@ class CreateCastellers extends Migration {
 		    $table->timestamps();
 		});
 
-	    Schema::create('castellers_esdeveniments', function($table) {
-		    $table->integer('castellers_fk')->unsigned();
+	    Schema::create('persones_esdeveniments', function($table) {
+		    $table->integer('persones_fk')->unsigned();
+		    $table->foreign('persones_fk')->references('id')->on('persones');
 		    $table->integer('esdeveniments_fk')->unsigned();
-		    $table->foreign('castellers_fk')->references('id')->on('castellers');
 		    $table->foreign('esdeveniments_fk')->references('id')->on('esdeveniments');
 		});
 	}
@@ -224,11 +224,11 @@ class CreateCastellers extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('castellers_esdeveniments');
+	    Schema::drop('persones_esdeveniments');
 	    Schema::drop('esdeveniments');
 	    Schema::drop('tipus_esdeveniments');
 	    Schema::drop('llocs');
-	    Schema::drop('castellers');
+	    Schema::drop('persones');
 	    Schema::drop('categories');
 	    Schema::drop('families');
 	    Schema::drop('quotes');

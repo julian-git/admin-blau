@@ -11,19 +11,13 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 		
-		foreach(['castell_casteller',
-			 'castellers',
+		foreach(['castell_persone',
+			 'persones',
 			 'quotes',
 			 'castells',
 			 'actuacions',
-			 'tipus_quotes',
 			 'families',
-			 'esdeveniments',
-			 'tipus_esdeveniments',
-			 'llocs',
-			 'tipus_actuacions',
-			 'posicions',
-			 'tipus_castells'
+			 'esdeveniments'
 			 ] as $table)
 		{
 		    DB::table($table)->delete();
@@ -31,12 +25,12 @@ class DatabaseSeeder extends Seeder {
 
 		foreach(['QuotesSeeder',
 			 'FamiliesSeeder',
-			 'CastellersSeeder',
+			 'PersonesSeeder',
 			 'EsdevenimentsSeeder',
 
 			 'ActuacionsSeeder',
 			 'CastellsSeeder',
-			 'CastellCastellerSeeder',
+			 'CastellPersoneSeeder',
 
 			 'MissatgesSeeder'
 			 ] as $seeder)
@@ -88,33 +82,33 @@ class FamiliesSeeder extends Seeder {
     }
 }
 
-class CastellersSeeder extends Seeder {
+class PersonesSeeder extends Seeder {
 
     public function run() {
-	DB::table('castellers')->delete();
-	Casteller::create(array('id' => 1, 
-				'cognom1' => 'García', 
-				'cognom2' => 'González',
-				'nom' => 'Josep Maria',
-				'mot' => 'Pep',
-				'families_fk' => 1,
-				'naixement' => '1980-10-03',
-				'dni' => '12345678K',
-				'email' => 'jmg@hotmail.com',
-				'sexe' => 'H',
-				'quotes_fk' => 2));
+	DB::table('persones')->delete();
+	Persone::create(array('id' => 1, 
+			      'cognom1' => 'García', 
+			      'cognom2' => 'González',
+			      'nom' => 'Josep Maria',
+			      'mot' => 'Pep',
+			      'families_fk' => 1,
+			      'naixement' => '1980-10-03',
+			      'dni' => '12345678K',
+			      'email' => 'jmg@hotmail.com',
+			      'sexe' => 'H',
+			      'quotes_fk' => 2));
 
-	Casteller::create(array('id' => 2, 
-				'cognom1' => 'López', 
-				'cognom2' => 'García',
-				'nom' => 'Joana',
-				'mot' => 'Pepa',
-				'families_fk' => 2,
-				'naixement' => '1979-11-04',
-				'dni' => '87654321J',
-				'email' => 'jgl@gmail.com',
-				'sexe' => 'D',
-				'quotes_fk' => 3));
+	Persone::create(array('id' => 2, 
+			      'cognom1' => 'López', 
+			      'cognom2' => 'García',
+			      'nom' => 'Joana',
+			      'mot' => 'Pepa',
+			      'families_fk' => 2,
+			      'naixement' => '1979-11-04',
+			      'dni' => '87654321J',
+			      'email' => 'jgl@gmail.com',
+			      'sexe' => 'D',
+			      'quotes_fk' => 3));
 
     }
 }
@@ -230,36 +224,36 @@ class CastellsSeeder extends Seeder {
     }
 }
 
-class CastellCastellerSeeder extends Seeder {
+class CastellPersoneSeeder extends Seeder {
 
     public function run() {
-	DB::table('castell_casteller')->delete();
+	DB::table('castell_persone')->delete();
 	
-	DB::table('castell_casteller')->insert(array('casteller_id' => 1,
+	DB::table('castell_persone')->insert(array('persone_id' => 1,
 						     'castell_id'   => 1));
 
-	DB::table('castell_casteller')->insert(array('casteller_id' => 1,
+	DB::table('castell_persone')->insert(array('persone_id' => 1,
 						     'castell_id'   => 2));
 
-	DB::table('castell_casteller')->insert(array('casteller_id' => 1,
+	DB::table('castell_persone')->insert(array('persone_id' => 1,
 						     'castell_id'   => 3));
 
-	DB::table('castell_casteller')->insert(array('casteller_id' => 1,
+	DB::table('castell_persone')->insert(array('persone_id' => 1,
 						     'castell_id'   => 4));
 
-	DB::table('castell_casteller')->insert(array('casteller_id' => 1,
+	DB::table('castell_persone')->insert(array('persone_id' => 1,
 						     'castell_id'   => 5));
 
-	DB::table('castell_casteller')->insert(array('casteller_id' => 1,
+	DB::table('castell_persone')->insert(array('persone_id' => 1,
 						     'castell_id'   => 6));
 
-	DB::table('castell_casteller')->insert(array('casteller_id' => 2,
+	DB::table('castell_persone')->insert(array('persone_id' => 2,
 						     'castell_id'   => 1));
 
-	DB::table('castell_casteller')->insert(array('casteller_id' => 2,
+	DB::table('castell_persone')->insert(array('persone_id' => 2,
 						     'castell_id'   => 2));
 
-	DB::table('castell_casteller')->insert(array('casteller_id' => 2,
+	DB::table('castell_persone')->insert(array('persone_id' => 2,
 						     'castell_id'   => 3));
 
     }
