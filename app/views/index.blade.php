@@ -56,9 +56,11 @@
 	      <div class="col-md-2">
                 {{ $detail[1] }}
               </div>
-              <div id="{{ $csn }}-detail-{{ $res->id }}" detailId="{{ $detail[0] }}" class="col-md-10">
-		  {{ $CSN::details2($detail[0]) }}
-              </div>
+              @if(method_exists($CSN, 'details2'))
+                <div detailId="{{ $detail[0] }}" class="col-md-10 {{ $csn }}-detail" field="{{ $CSN::details2($detail[0]) }}">
+                 {{ $CSN::details2($detail[0]) }}
+                </div>
+              @endif
             @endforeach
           </div> <!-- row -->
         </div> <!-- col-md-8 -->
@@ -69,11 +71,11 @@
 @endforeach
 
 <script>
-						/*
+
 $(document).ready(function() {
-	$('.actuacion-details').each('pollCastells');
+	$('.actuacion-detail').each(function(){drawCastellBar($(this))});
     });
-						*/
+
 </script>
 
 
