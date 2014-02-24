@@ -1,6 +1,6 @@
 function drawCastellBar(barDiv) {
     var castellId = barDiv.attr('castell-id');
-    $.getJSON('/castellers/apuntats/' + castellId,  function() {
+    $.getJSON('/persones/apuntats/' + castellId,  function() {
     }).done(function(numApuntats) {
 	$('#current-count-' + castellId).text(numApuntats);
 	var percent = Math.min(100, 

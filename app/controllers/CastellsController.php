@@ -27,7 +27,7 @@ class CastellsController extends CVGController
 
     public function apuntats($instance)
     {
-	return Response::json($instance->castellers()->count());
+	return Response::json($instance->persones()->count());
     }
 }
  ?>

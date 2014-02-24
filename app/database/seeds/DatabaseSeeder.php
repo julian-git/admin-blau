@@ -174,42 +174,42 @@ class CastellsSeeder extends Seeder {
 	DB::table('castells')->delete();
 
 	Castell::create(array('id' => 1, 
-			      'tipus_castells_fk' => 1,
+			      'tipus_castells_fk' => 19, // 3de8
 			      'actuacion_id' => 2,
 			      'ordre_a_placa' => '1',
 			      'resultat' => ''
 			   ));
 
 	Castell::create(array('id' => 2, 
-			      'tipus_castells_fk' => 2,
+			      'tipus_castells_fk' => 9, // 2de8f
 			      'actuacion_id' => 2,
 			      'ordre_a_placa' => '2',
 			      'resultat' => ''
 			   ));
 
 	Castell::create(array('id' => 3, 
-			      'tipus_castells_fk' => 3,
+			      'tipus_castells_fk' => 133, // p4
 			      'actuacion_id' => 2,
 			      'ordre_a_placa' => '2',
 			      'resultat' => ''
 			   ));
 
 	Castell::create(array('id' => 4, 
-			      'tipus_castells_fk' => 1,
+			      'tipus_castells_fk' => 41, // 5de7
 			      'actuacion_id' => 3,
 			      'ordre_a_placa' => '1',
 			      'resultat' => ''
 			   ));
 
 	Castell::create(array('id' => 5, 
-			      'tipus_castells_fk' => 2,
+			      'tipus_castells_fk' => 55, // 7de8
 			      'actuacion_id' => 3,
 			      'ordre_a_placa' => '2',
 			      'resultat' => ''
 			   ));
 
 	Castell::create(array('id' => 6, 
-			      'tipus_castells_fk' => 3,
+			      'tipus_castells_fk' => 137, // p6
 			      'actuacion_id' => 3,
 			      'ordre_a_placa' => '2',
 			      'resultat' => ''

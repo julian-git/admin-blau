@@ -82,4 +82,4 @@ foreach(['Persone',
     Route::post("/$csn/delete", "{$CSN}sController@handleDelete");
 }
 
-Route::get("/castellers/apuntats/{castell}", 'CastellsController@apuntats');
+Route::get("/persones/apuntats/{castell}", 'CastellsController@apuntats');

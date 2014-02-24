@@ -20,13 +20,32 @@ use Illuminate\Database\Migrations\Migration;
 
 $castell_list = array();
 
-function insert_results($nom)
+function insert_results_impl($nom, $pinya)
 {
     global $castell_list;
-    $castell_list[] = $nom;
-    $castell_list[] = $nom . 'c';
-    $castell_list[] = 'i' . $nom;
-    $castell_list[] = 'id' . $nom;
+    $castell_list[$nom] = $pinya;
+    $castell_list[$nom . 'c'] = $pinya;
+    $castell_list['i' . $nom] = $pinya;
+    $castell_list['id' . $nom] = $pinya;
+}
+
+function insert_results($i, $j)  // $i de $j
+{
+    $pinya = 5 * $i; // baix, contrafort, agulla, 2 crosses
+    $n_cordons = $j; // tants cordons com diu la alçada
+    $pinya += 2 * $n_cordons; // mans i vents
+    for ($quesito = 1; $quesito <= $n_cordons; $quesito++)
+    {
+	$pinya += 2 * $i * $quesito;
+    }
+
+    $pinya += $i * $j; // el tronc; una mica sobreestimat, pero ens hem deixat els taps
+
+    $nom = ($i == 1) 
+	? "p$j" 
+	: $i . 'de' . $j;
+
+    insert_results_impl($nom, $pinya);
 }
 
 function seed_tipus_castells()
@@ -37,13 +56,13 @@ function seed_tipus_castells()
 	for ($j=5; $j<10; $j++)
 	    {
 		if ($i==2 && $j==9) continue;
-		insert_results($i . 'de' . $j);
+		insert_results($i, $j);
 	    }
     }
 
     for ($i=4; $i<7; $i++)
     {
-	insert_results("p$i");
+	insert_results(1, $i);
     }
 
     foreach(['p7f',
@@ -55,14 +74,15 @@ function seed_tipus_castells()
 	     '7de9f',
 	     '9de9f'] as $extra)
     {
-	insert_results($extra);
+	insert_results_impl($extra, 300);
     }
 
     global $castell_list;
-    sort($castell_list);
-    foreach($castell_list as $c)
+    ksort($castell_list);
+    foreach($castell_list as $c => $pinya)
     {
 	DB::table('tipus_castells')->insert(array('nom' => $c,
+						  'pinya_necessaria' => $pinya,
 						  'created_at' => date('Y-m-d H:i:s'),
 						  'updated_at' => date('Y-m-d H:i:s')
 						  ));
