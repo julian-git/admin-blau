@@ -152,7 +152,7 @@ class LlocsSeeder extends Seeder {
 	DB::table('llocs')->delete();
 
 	Lloc::create(array('id' => 1, 
-			   'nom' => 'Vila de Gràcia'
+			   'nom' => 'Can Mussons'
 			   ));
 
 	Lloc::create(array('id' => 2, 
@@ -438,13 +438,15 @@ class MissatgesSeeder extends Seeder {
 	Missatge::create(array('id' => 1,
 			       'titol' => 'Proper assaig de folres',
 			       'contingut' => 'Suarem!!',
-			       'data_caducitat' => date('Y-m-d', strtotime('next friday'))
+			       'data' => date('Y-m-d', strtotime('next friday')),
+			       'llocs_fk' => 1
 			       ));
 
 	Missatge::create(array('id' => 2,
 			       'titol' => 'Propera Actuació',
-			       'contingut' => 'Actuarem!!',
-			       'data_caducitat' => date('Y-m-d', strtotime('next sunday'))
+			       'contingut' => 'Actuarem a Terrassa!!',
+			       'data' => date('Y-m-d', strtotime('next sunday')),
+			       'llocs_fk' => 2
 			       ));
     }
 }

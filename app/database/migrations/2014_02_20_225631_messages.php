@@ -14,8 +14,10 @@ class Messages extends Migration {
 	    Schema::create('missatges', function($table) {
 		    $table->increments('id');
 		    $table->string('titol', 50);
+		    $table->date('data');
+		    $table->integer('llocs_fk')->unsigned();
+		    $table->foreign('llocs_fk')->references('id')->on('llocs');
 		    $table->string('contingut', 500);
-		    $table->date('data_caducitat');
 		    $table->timestamps();
 		});
 	}

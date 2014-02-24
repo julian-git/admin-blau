@@ -18,3 +18,16 @@
 .cvg-actuacion-llocs_fk {
     font-style: italic;
 }
+
+
+.cvg-missatge {
+    margin-bottom: 10px;
+}
+
+.cvg-missatge-titol {
+    font-weight: bold;
+}
+
+.cvg-missatge-llocs_fk {
+    font-style: italic;
+}

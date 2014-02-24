@@ -19,7 +19,7 @@
 ?>
 @section('content')
 
-@foreach (['Esdeveniment', 'Actuacion'] as $CSN) 
+@foreach (['Esdeveniment', 'Actuacion', 'Missatge'] as $CSN) 
   <?php 
     $csn = strtolower($CSN);
     $instance = new $CSN; 

@@ -21,11 +21,12 @@ require_once('util.php');
 class Actuacion extends Eloquent
 {
 
+    /*
     public function __construct() 
     {
 	DB::connection()->enableQueryLog();
     }
-
+    */
     public static $singular_class_name = 'Actuació';
     public static $plural_class_name = 'Actuacions';
     public static $class_name_gender = 'f';

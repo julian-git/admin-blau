@@ -26,20 +26,36 @@ class Missatge extends Eloquent
 
     public static $member_fields = array('titol' => 'Assumpte del missatge',
 					 'contingut' => 'Text del missatge',
-					 'data_caducitat' => 'Data de caducitat'
+					 'data' => 'Data de caducitat',
+					 'llocs_fk' => 'Lloc'
 					 );
 
     public static $validation_rules = array('titol' => 'required',
 					    'contingut' => 'required',
-					    'data_caducitat' => 'date'
+					    'data' => 'date'
 					    );
 
     public static $default_values = array();
 
     public static $identifying_fields = array('titol',
-					      'data_caducitat'
+					      'data'
 					      );
 
+    public function getDataAttribute($value)
+    {
+	return local_date($value);
+    }
+
+    public function getLlocsFkAttribute($value) 
+    {
+	return resolve_foreign_key('Lloc', $value);
+    }
+
+    public static function details($id)
+    {
+	$missatge = Missatge::findOrFail($id);
+	return [ [ $missatge->id, $missatge->contingut ] ]; 
+    }
 }
 
 ?>
