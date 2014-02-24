@@ -1,25 +1,25 @@
-function polling(className, aFields) {
-    $.getJSON('/properes-' + className + 's', function() {
-    }).done(function(result) {
-	for(i=0, rlen=result.length; i<rlen; i++) {
-	    var resultId = className + i;
-	    $('#' + className + '-wrap').append('<div id="' + resultId + '">');
-	    for(j=0, flen=aFields.length; j<flen; j++) {
-		$('#' + resultId).append('<div id="' + aFields[j] + i + '">' + result[i][aFields[j]] + '</div>');
-	    }
-	}
-    }).fail(function(result) {
-	$('#' + className + '-wrap').append('<div class="error">Error</div>');
-    });
-}
+function drawCastellBar(barDiv) {
+    var castellId = barDiv.attr('castell-id');
+    $.getJSON('/castellers/apuntats/' + castellId,  function() {
+    }).done(function(numApuntats) {
+	$('#current-count-' + castellId).text(numApuntats);
+	var percent = Math.min(100, 
+			       Math.floor(100.0 * numApuntats / barDiv.attr('aria-valuemax')));
 
-function drawCastellBar(element) {
-    element.text('aa' + element.attr('field'));
-/*
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complert (warning)</span>
-                                        </div>
-                                    </div>
-*/
+	if (percent <= 50) {
+	    barDiv.addClass('progress-bar-danger');
+	} else if (percent <= 70) {
+	    barDiv.addClass('progress-bar-warning');
+	} else if (percent <= 90) {
+	    barDiv.addClass('progress-bar-info');
+	} else {
+	    barDiv.addClass('progress-bar-success');
+	}
+
+	barDiv.attr('aria-valuenow', percent);
+	barDiv.attr('style', "width: " + percent + "%");
+
+    }).fail(function(result) {
+	barDiv.parent().append('<div class="error">Error!</div>');
+    });
 }

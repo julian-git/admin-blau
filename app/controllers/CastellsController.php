@@ -24,5 +24,10 @@ class CastellsController extends CVGController
     public function __construct() {
 	CVGController::__construct('Castell');
     }
+
+    public function apuntats($instance)
+    {
+	return Response::json($instance->castellers()->count());
+    }
 }
  ?>

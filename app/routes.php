@@ -81,11 +81,4 @@ foreach(['Casteller',
     Route::post("/$csn/delete", "{$CSN}sController@handleDelete");
 }
 
-foreach (['Esdeveniment',
-	  'Actuacion'
-	  ] as $CSN) {
-    $csn = strtolower($CSN);
-    Route::get("/properes-{$csn}s", function() use ($CSN) {
-	return Response::json($CSN::propers());
-    });
-}
+Route::get("/castellers/apuntats/{castell}", 'CastellsController@apuntats');

@@ -273,7 +273,7 @@ class TipusCastellsSeeder extends Seeder {
 
 	TipusCastell::create(array('id' => 4,
 				   'nom' => '4de8a',
-				   'pinya_necessaria' => 300
+				   'pinya_necessaria' => 250
 				   ));
     }
 }

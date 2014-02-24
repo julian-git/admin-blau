@@ -53,13 +53,24 @@
         <div id="{{ $csn }}-{{ $res->id }}-details" class="col-md-8 {{ $csn }}-details">
           <div class="row">
             @foreach($CSN::details($res->id) as $detail)
-	      <div class="col-md-2">
-                {{ $detail[1] }}
-              </div>
-              @if(method_exists($CSN, 'pinya_necessaria'))
-                <div detailId="{{ $detail[0] }}" class="col-md-10 {{ $csn }}-detail" pinyaNecessaria="{{ $CSN::pinya_necessaria($detail[0]) }}">
-	      {{ $CSN::current_count($detail[0]) }} - {{ $CSN::pinya_necessaria($detail[0]) }}
+              @if(!method_exists($CSN, 'pinya_necessaria')) 
+	        <div class="col-md-2">
+                  {{ $detail[1] }}
                 </div>
+              @else
+	        <div class="col-md-1">
+                  {{ $detail[1] }}
+                </div>
+	        <div class="col-md-1">
+                  <span id="current-count-{{ $detail[0] }}">0</span>/{{ $CSN::pinya_necessaria($detail[1]) }}
+                </div>
+                <div class="col-md-10 {{ $csn }}-detail">
+                  <div class="progress progress-striped">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="{{ $CSN::pinya_necessaria($detail[1]) }}" style="width: 0%" castell-id="{{ $detail[0] }}">
+                      <span class="sr-only">0% Complert (warning)</span>
+                    </div> <!-- progress-bar -->
+                  </div> <!-- progress -->
+                </div> <!-- detailId -->
               @endif
             @endforeach
           </div> <!-- row -->
@@ -70,12 +81,17 @@
   </div> <!-- /panel -->
 @endforeach
 
+		{{--
+@foreach(DB::connection()->getQueryLog() as $query)
+		<div>{{ $query['query'] }} {{ var_dump($query['bindings']) }} </div>
+@endforeach
+		  --}}
 <script>
-		  /*
-$(document).ready(function() {
-	$('.actuacion-detail').each(function(){drawCastellBar($(this))});
+
+$(function() {
+	$('.actuacion-detail .progress-bar').each(function(){drawCastellBar($(this))});
     });
-		  */
+
 </script>
 
 
