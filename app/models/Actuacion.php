@@ -73,10 +73,14 @@ class Actuacion extends Eloquent
 	return $res;
     }
 
-    public static function details2($castell_id)
+    public static function pinya_necessaria($castell_id)
     {
-	$the_castell = Castell::findOrFail($castell_id);
-	return $the_castell->castellers()->count();
+	return Castell::findOrFail($castell_id)->tipus()->pluck('pinya_necessaria');
+    }
+
+    public static function current_count($castell_id)
+    {
+	return Castell::findOrFail($castell_id)->castellers()->count();
     }
 }
 

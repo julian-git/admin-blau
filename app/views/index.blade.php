@@ -56,9 +56,9 @@
 	      <div class="col-md-2">
                 {{ $detail[1] }}
               </div>
-              @if(method_exists($CSN, 'details2'))
-                <div detailId="{{ $detail[0] }}" class="col-md-10 {{ $csn }}-detail" field="{{ $CSN::details2($detail[0]) }}">
-                 {{ $CSN::details2($detail[0]) }}
+              @if(method_exists($CSN, 'pinya_necessaria'))
+                <div detailId="{{ $detail[0] }}" class="col-md-10 {{ $csn }}-detail" pinyaNecessaria="{{ $CSN::pinya_necessaria($detail[0]) }}">
+	      {{ $CSN::current_count($detail[0]) }} - {{ $CSN::pinya_necessaria($detail[0]) }}
                 </div>
               @endif
             @endforeach
@@ -71,11 +71,11 @@
 @endforeach
 
 <script>
-
+		  /*
 $(document).ready(function() {
 	$('.actuacion-detail').each(function(){drawCastellBar($(this))});
     });
-
+		  */
 </script>
 
 

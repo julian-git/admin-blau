@@ -40,6 +40,7 @@ class Castell extends Eloquent
     public static $identifying_fields = array('tipus_castells_fk',
 					      'actuacions_fk'
 					      );
+
     public function getActuacionsFkAttribute($value) 
     {
 	return resolve_foreign_key('Actuacion', $value);
@@ -48,6 +49,11 @@ class Castell extends Eloquent
     public function getTipusCastellsFkAttribute($value) 
     {
 	return resolve_foreign_key('TipusCastell', $value);
+    }
+
+    public function tipus()
+    {
+	return $this->belongsTo('TipusCastell', 'tipus_castells_fk');
     }
 
     public function actuacion()
