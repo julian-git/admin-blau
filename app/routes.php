@@ -83,3 +83,4 @@ foreach(['Persone',
 }
 
 Route::get("/persones/apuntats/{castell}", 'CastellsController@apuntats');
+Route::get("/persones/actives/{persone}", 'PersonesController@actives');

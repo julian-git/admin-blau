@@ -142,7 +142,7 @@ class CreateCastellers extends Migration {
 		    $table->string('sexe', 1);
 		    $table->integer('quotes_fk')->unsigned()->default(1);
 		    $table->foreign('quotes_fk')->references('id')->on('quotes');
-		    $table->boolean('actiu')->default(1);
+		    $table->boolean('actiu')->default(1)->index();
 		    $table->integer('categories_fk')->unsigned()->default(1);
 		    $table->foreign('categories_fk')->references('id')->on('categories');
 		    $table->decimal('alcada-cadira');
@@ -209,11 +209,11 @@ class CreateCastellers extends Migration {
 		    $table->timestamps();
 		});
 
-	    Schema::create('persones_esdeveniments', function($table) {
-		    $table->integer('persones_fk')->unsigned();
-		    $table->foreign('persones_fk')->references('id')->on('persones');
-		    $table->integer('esdeveniments_fk')->unsigned();
-		    $table->foreign('esdeveniments_fk')->references('id')->on('esdeveniments');
+	    Schema::create('esdeveniment_persone', function($table) {
+		    $table->integer('persone_id')->unsigned();
+		    $table->foreign('persone_id')->references('id')->on('persones');
+		    $table->integer('esdeveniment_id')->unsigned();
+		    $table->foreign('esdeveniment_id')->references('id')->on('esdeveniments');
 		});
 	}
 
@@ -224,7 +224,7 @@ class CreateCastellers extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('persones_esdeveniments');
+	    Schema::drop('esdeveniment_persone');
 	    Schema::drop('esdeveniments');
 	    Schema::drop('tipus_esdeveniments');
 	    Schema::drop('llocs');

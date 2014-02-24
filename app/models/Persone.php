@@ -96,6 +96,7 @@ class Persone extends Eloquent
     {
 	return $this->belongsToMany('Castell');
     }
+
 }
 
 ?>

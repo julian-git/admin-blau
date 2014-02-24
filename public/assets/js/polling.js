@@ -1,16 +1,16 @@
-function drawCastellBar(barDiv) {
-    var castellId = barDiv.attr('castell-id');
-    $.getJSON('/persones/apuntats/' + castellId,  function() {
+function drawStatusBar(barDiv, url, thresholds) {
+    var theId = barDiv.attr('detail-id');
+    $.getJSON(url + theId,  function() {
     }).done(function(numApuntats) {
-	$('#current-count-' + castellId).text(numApuntats);
+	$('#current-count-' + theId).text(numApuntats);
 	var percent = Math.min(100, 
 			       Math.floor(100.0 * numApuntats / barDiv.attr('aria-valuemax')));
 
-	if (percent <= 50) {
+	if (percent <= thresholds[0]) {
 	    barDiv.addClass('progress-bar-danger');
-	} else if (percent <= 70) {
+	} else if (percent <= thresholds[1]) {
 	    barDiv.addClass('progress-bar-warning');
-	} else if (percent <= 90) {
+	} else if (percent <= thresholds[2]) {
 	    barDiv.addClass('progress-bar-info');
 	} else {
 	    barDiv.addClass('progress-bar-success');

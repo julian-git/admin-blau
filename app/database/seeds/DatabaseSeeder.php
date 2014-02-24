@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder {
 			 'ActuacionsSeeder',
 			 'CastellsSeeder',
 			 'CastellPersoneSeeder',
+			 'EsdevenimentPersoneSeeder',
 
 			 'MissatgesSeeder'
 			 ] as $seeder)
@@ -216,7 +217,7 @@ class CastellsSeeder extends Seeder {
 			   ));
 
 	Castell::create(array('id' => 7, 
-			      'tipus_castells_fk' => 4,
+			      'tipus_castells_fk' => 5, // 2de7
 			      'actuacion_id' => 3,
 			      'ordre_a_placa' => '2',
 			      'resultat' => ''
@@ -259,6 +260,22 @@ class CastellPersoneSeeder extends Seeder {
     }
 }
 
+class EsdevenimentPersoneSeeder extends Seeder {
+
+    public function run() {
+	DB::table('esdeveniment_persone')->delete();
+	
+	DB::table('esdeveniment_persone')->insert(array('persone_id' => 1,
+							'esdeveniment_id'   => 1));
+
+	DB::table('esdeveniment_persone')->insert(array('persone_id' => 1,
+							'esdeveniment_id'   => 2));
+
+	DB::table('esdeveniment_persone')->insert(array('persone_id' => 2,
+							'esdeveniment_id'   => 1));
+    }
+}
+
 class MissatgesSeeder extends Seeder {
 
     public function run() {
@@ -275,7 +292,7 @@ class MissatgesSeeder extends Seeder {
 			       'titol' => 'Propera Actuació',
 			       'contingut' => 'Actuarem a Terrassa!!',
 			       'data' => date('Y-m-d', strtotime('next sunday')),
-			       'llocs_fk' => 2
+			       'llocs_fk' => 3
 			       ));
     }
 }

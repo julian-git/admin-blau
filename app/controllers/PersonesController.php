@@ -24,5 +24,11 @@ class PersonesController extends CVGController
     public function __construct() {
 	CVGController::__construct('Persone');
     }
+
+    public static function actives($unused)
+    {
+	return Esdeveniment::persones_actives();
+    }
+
 }
  ?>

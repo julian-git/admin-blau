@@ -59,10 +59,14 @@ class Esdeveniment extends Eloquent
 					      'data',
 					      'fi');
 
-
     public function getDataAttribute($value)
     {
 	return local_date($value);
+    }
+
+    public function getHoraAttribute($value)
+    {
+	return date('H:i', strtotime($value));
     }
 
     public function getTipusEsdevenimentsFkAttribute($value) 
@@ -78,9 +82,14 @@ class Esdeveniment extends Eloquent
     public static function details($id)
     {
 	$esdeveniment = Esdeveniment::findOrFail($id);
-	return [ [ $esdeveniment->id, $esdeveniment->llocs_fk ] ]; 
+	return [ [ $esdeveniment->id, $esdeveniment->hora ] ]; 
     }
 
+    public static function persones_actives()
+    {
+	$P = new Persone;
+	return $P->where('actiu', '=', 1)->count();
+    }
 }
 
 ?>
