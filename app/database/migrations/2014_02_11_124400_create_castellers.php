@@ -67,8 +67,8 @@ class CreateCastellers extends Migration {
 		    $table->string('oficina', 4)->nullable();
 		    $table->string('digit_control', 2)->nullable();
 		    $table->string('compte', 10)->nullable();
-		    $table->string('BIC', 50)->nullable(); // FIXME: correct size?
-		    $table->string('IBAN', 50)->nullable(); // FIXME: correct size?
+		    $table->string('BIC', 12)->nullable(); 
+		    $table->string('IBAN', 34)->nullable();
 		    $table->decimal('import');
 		    $table->integer('tipus_quotes_fk')->unsigned();
 		    $table->foreign('tipus_quotes_fk')->references('id')->on('tipus_quotes');
