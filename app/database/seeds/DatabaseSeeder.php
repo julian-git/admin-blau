@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder {
 			 'actuacion_persone',
 			 'esdeveniment_persone',
 			 'beneficiaris',
-			 'persones',
 			 'quotes',
+			 'persones',
 			 'castells',
 			 'actuacions',
 			 'families',
@@ -26,9 +26,9 @@ class DatabaseSeeder extends Seeder {
 		    DB::table($table)->delete();
 		}
 
-		foreach(['QuotesSeeder',
-			 'FamiliesSeeder',
+		foreach(['FamiliesSeeder',
 			 'PersonesSeeder',
+			 'QuotesSeeder',
 			 'BeneficiarisSeeder',
 			 'EsdevenimentsSeeder',
 
@@ -51,26 +51,22 @@ class QuotesSeeder extends Seeder {
 
     public function run() {
 	Quote::create(array('id' => 1, 
-			    'banc' => 'sense quota', 
-			    'tipus_quotes_fk' => 1));
+			    'periodicitat_mesos' => 0,
+			    'id_responsable_fk' => 1
+			    ));
 
 	Quote::create(array('id' => 2, 
-			    'banc' => 'La Caixa',
-			    'codi_banc' => '1111',
-			    'oficina' => '2222',
-			    'digit_control' => '33',
-			    'compte' => '1234567890',
-			    'import' => '12.34',
-			    'tipus_quotes_fk' => 2));
+			    'periodicitat_mesos' => 3,
+			    'import' => 20,
+			    'id_responsable_fk' => 2
+			    ));
 
 	Quote::create(array('id' => 3, 
-			    'banc' => 'Caixa de Catalunya',
-			    'codi_banc' => '5555',
-			    'oficina' => '6666',
-			    'digit_control' => '77',
-			    'compte' => '8901234567',
-			    'import' => '56.78',
-			    'tipus_quotes_fk' => 3));
+			    'periodicitat_mesos' => 6,
+			    'import' => 30,
+			    'id_responsable_fk' => 3
+			    ));
+
     }
 
 }
@@ -97,36 +93,33 @@ class PersonesSeeder extends Seeder {
 			      'cognom2' => 'González',
 			      'nom' => 'Josep Maria',
 			      'mot' => 'Pep',
-			      'families_fk' => 1,
 			      'naixement' => '1980-10-03',
 			      'dni' => '12345678K',
 			      'email' => 'jmg@hotmail.com',
-			      'sexe' => 'H',
-			      'quotes_fk' => 2));
+			      'sexe' => 'H'
+			      ));
 
 	Persone::create(array('id' => 2, 
 			      'cognom1' => 'López', 
 			      'cognom2' => 'García',
 			      'nom' => 'Joana',
 			      'mot' => 'Pepa',
-			      'families_fk' => 2,
 			      'naixement' => '1979-11-04',
 			      'dni' => '87654321J',
 			      'email' => 'jgl@gmail.com',
-			      'sexe' => 'D',
-			      'quotes_fk' => 3));
+			      'sexe' => 'D'
+			      ));
 
 	Persone::create(array('id' => 3, 
 			      'cognom1' => 'Terç', 
 			      'cognom2' => 'Patufet',
 			      'nom' => 'Marta',
 			      'mot' => 'Patufeta',
-			      'families_fk' => 1,
 			      'naixement' => '1973-12-04',
 			      'dni' => '78563412J',
 			      'email' => 'marta@patufeta.org',
-			      'sexe' => 'D',
-			      'quotes_fk' => 1));
+			      'sexe' => 'D'
+			      ));
 
     }
 }
