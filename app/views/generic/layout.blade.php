@@ -295,8 +295,7 @@
 @foreach(['Persone', 
 	  'Categorie',
 	  'Familie', 
-	  'Quote',
-	  'TipusQuote'
+	  'Quote'
 	 ] as $CSN)   
                             <li>
  <a href="{{ action($CSN . 'sController@index') }}" >{{ $CSN::$plural_class_name }}</a>

@@ -16,6 +16,7 @@
     GNU General Public License for more details.
 */
 
+require_once('util.php');
 
 class Familie extends Eloquent
 {
@@ -24,20 +25,30 @@ class Familie extends Eloquent
     public static $class_name_gender = 'f';
 
     public static $member_fields = array('id' => 'Id',
-					 'cognom1' => 'Cognom 1',
-					 'cognom2' => 'Cognom 2'
+					 'nom' => 'Nom',
+					 'activa' => 'Activa',
+					 'persona_membre_fk' => 'Membre',
+					 'persona_responsable_fk' => 'Responsable'
 					 );
 
     public static $validation_rules = array('id' => 'required|integer',
-					    'cognom1' => 'required|alpha',
-					    'cognom2' => 'alpha'
+					    'nom' => 'required|alpha'
 					    );
 
-    public static $default_values = array();
+    public static $default_values = array('activa' => 1);
 
-    public static $identifying_fields = array('cognom1',
-					      'cognom2'
+    public static $identifying_fields = array('nom'
 					      );
+
+    public function getPersonaMembreFkAttribute($value)
+    {
+	return resolve_foreign_key('Persone', $value);
+    }
+
+    public function getPersonaResponsableFkAttribute($value)
+    {
+	return resolve_foreign_key('Persone', $value);
+    }
 }
 
 ?>

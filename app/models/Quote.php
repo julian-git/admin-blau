@@ -27,25 +27,20 @@ class Quote extends Eloquent
     public static $member_fields = array('id' => 'Id de Quota',
 					 'periodicitat_mesos' => 'Periodicitat (mesos)',
 					 'import' => 'Import',
-					 'id_responsable' => 'Persona responsable',
-					 'beneficiari' => 'Beneficiaris'); // fake field
+					 'id_responsable_fk' => 'Persona responsable',
+					 'beneficiari' => 'Beneficiaris' // fake field
+					 );
 
-    public static $validation_rules = array('banc' => 'required|alpha_whitespace',
-					    // FIXME: the following should be numeric
-					    'codi_banc' => 'integer_size:4',
-					    'oficina' => 'integer_size:4',
-					    'digit_control' => 'integer_size:2',
-					    'compte' => 'integer_size:10',
-					    'BIC' => 'alpha_num', // FIXME: correct size?
-					    'IBAN' => 'alpha_num', // FIXME: correct size?
-					    'import' => 'required|numeric',
-					    'tipus_quotes_fk' => 'required|integer');
+    public static $validation_rules = array('periodicitat_mesos' => 'required|integer',
+					    'import' => 'required|numeric'
+					    );
 
-    public static $default_values = array('tipus_quotes_fk' => 1);
+    public static $default_values = array();
 
-    public static $identifying_fields = array('banc',
-					      'compte',
-					      'import');
+    public static $identifying_fields = array('periodicitat_mesos',
+					      'id_responsable_fk',
+					      'import'
+					      );
 
     public function getIdResponsableFkAttribute($value) 
     {

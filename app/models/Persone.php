@@ -35,7 +35,6 @@ class Persone extends Eloquent
 					 'cognom2' => 'Cognom 2',
 					 'nom' => 'Nom',
 					 'mot' => 'Mot',
-					 'families_fk' => 'Família',
 					 'naixement' => 'Data de naixement',
 					 'dni' => 'DNI',
 					 'email' => 'email',

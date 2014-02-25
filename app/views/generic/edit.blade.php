@@ -52,12 +52,13 @@
            <div class="panel-body">
              {{ Form::select($field, $dropbox_options[$field], $dropbox_default[$field]) }} 
 
-             <?php $ft = $foreign_table[$field] ?>
-             <a href="{{ action($ft . 'sController@create') }}" class="btn btn-primary">
-	        {{ $ft::$class_name_gender == 'm' ? 'Nou' : 'Nova' }}
-	        {{ $ft::$singular_class_name }}
-             </a>
-
+             @if (strcmp($field, 'rols_fk') && strcmp($field, 'categories_fk'))
+               <?php $ft = $foreign_table[$field] ?>
+               <a href="{{ action($ft . 'sController@create') }}" class="btn btn-primary">
+	          {{ $ft::$class_name_gender == 'm' ? 'Nou' : 'Nova' }}
+	          {{ $ft::$singular_class_name }}
+               </a>
+             @endif
            </div> <!-- panel-body -->
 
          @elseif(isset($multidropbox_options[$field]))
