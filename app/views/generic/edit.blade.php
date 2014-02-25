@@ -68,10 +68,14 @@
     @endif
 @endforeach
 </table>
+  
+  <div class="col-md-8">
         <input type="submit" value="Desar" class="btn btn-primary" />
         <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel&middot;lar</a>
-	&nbsp;&nbsp;&nbsp;
+  </div>
+  <div class="col-md-4">
         <a href="{{ action($CSN . 'sController@delete', $$csn->id) }}" class="btn btn-danger">Esborrar</a>
+  </div>
 
     </form>
 @stop
