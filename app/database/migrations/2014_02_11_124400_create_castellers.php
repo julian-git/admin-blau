@@ -28,13 +28,6 @@ class CreateCastellers extends Migration {
 	public function up()
 	{
 
-	    Schema::create('families', function($table) {
-		    $table->increments('id');
-		    $table->string('cognom1', 50);
-		    $table->string('cognom2', 50)->nullable();
-		    $table->timestamps();
-		});
-
 	    Schema::create('categories', function($table) {
 		    $table->increments('id');
 		    $table->string('tipus', 50);
@@ -158,6 +151,20 @@ class CreateCastellers extends Migration {
 		    $table->foreign('persone_id')->references('id')->on('persones');
 		});
 
+	    Schema::create('families', function($table) {
+		    $table->increments('id');
+		    $table->string('nom', 50);
+		    $table->boolean('activa')->default(1);
+
+		    // FIXME: cal una taula auxiliar per les camps següents
+
+		    $table->integer('persona_membre_fk')->unsigned();
+		    $table->foreign('persona_membre_fk')->references('id')->on('persones');
+		    $table->integer('persona_responsable_fk')->unsigned();
+		    $table->foreign('persona_responsable_fk')->references('id')->on('persones');
+		    $table->timestamps();
+		});
+
 	    Schema::create('tipus_esdeveniments', function($table) {
 		    $table->increments('id');
 		    $table->string('tipus', 50)->index();
@@ -235,10 +242,10 @@ class CreateCastellers extends Migration {
 	    Schema::drop('beneficiaris');
 	    Schema::drop('llocs');
 	    Schema::drop('quotes');
+	    Schema::drop('families');
 	    Schema::drop('persones');
 	    Schema::drop('rols');
 	    Schema::drop('categories');
-	    Schema::drop('families');
 	}
 
 }

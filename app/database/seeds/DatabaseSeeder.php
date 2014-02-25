@@ -26,8 +26,8 @@ class DatabaseSeeder extends Seeder {
 		    DB::table($table)->delete();
 		}
 
-		foreach(['FamiliesSeeder',
-			 'PersonesSeeder',
+		foreach(['PersonesSeeder',
+			 'FamiliesSeeder',
 			 'QuotesSeeder',
 			 'BeneficiarisSeeder',
 			 'EsdevenimentsSeeder',
@@ -77,10 +77,16 @@ class FamiliesSeeder extends Seeder {
 	DB::table('families')->delete();
 
 	Familie::create(array('id' => 1,
-			      'cognom1' => 'García'));
+			      'nom' => 'García',
+			      'persona_membre_fk' => 1,
+			      'persona_responsable_fk' => 1
+			      ));
 
 	Familie::create(array('id' => 2,
-			      'cognom1' => 'López'));
+			      'nom' => 'López',
+			      'persona_membre_fk' => 2,
+			      'persona_responsable_fk' => 2
+			      ));
     }
 }
 
