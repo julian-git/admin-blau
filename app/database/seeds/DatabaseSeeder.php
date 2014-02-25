@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder {
 		foreach(['castell_persone',
 			 'actuacion_persone',
 			 'esdeveniment_persone',
+			 'beneficiaris',
 			 'persones',
 			 'quotes',
 			 'castells',
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder {
 		foreach(['QuotesSeeder',
 			 'FamiliesSeeder',
 			 'PersonesSeeder',
+			 'BeneficiarisSeeder',
 			 'EsdevenimentsSeeder',
 
 			 'ActuacionsSeeder',
@@ -114,6 +116,40 @@ class PersonesSeeder extends Seeder {
 			      'sexe' => 'D',
 			      'quotes_fk' => 3));
 
+	Persone::create(array('id' => 3, 
+			      'cognom1' => 'Terç', 
+			      'cognom2' => 'Patufet',
+			      'nom' => 'Marta',
+			      'mot' => 'Patufeta',
+			      'families_fk' => 1,
+			      'naixement' => '1973-12-04',
+			      'dni' => '78563412J',
+			      'email' => 'marta@patufeta.org',
+			      'sexe' => 'D',
+			      'quotes_fk' => 1));
+
+    }
+}
+
+class BeneficiarisSeeder extends Seeder {
+
+    public function run() {
+	DB::table('beneficiaris')->delete();
+	
+	DB::table('beneficiaris')
+	    ->insert(array(array('id' => 1,
+				 'quotes_fk' => 2,
+				 'persones_fk' => 1
+				 ),
+			   array('id' => 2,
+				 'quotes_fk' => 2,
+				 'persones_fk' => 3
+				 ),
+			   array('id' => 3,
+				 'quotes_fk' => 3,
+				 'persones_fk' => 2
+				 )
+			   ));
     }
 }
 
