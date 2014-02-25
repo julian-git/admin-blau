@@ -206,6 +206,13 @@ class Pinyes extends Migration {
 		    $table->integer('castell_id')->unsigned();
 		    $table->foreign('castell_id')->references('id')->on('castells');
 		});
+
+	    Schema::create('actuacion_persone', function($table) {
+		    $table->integer('persone_id')->unsigned();
+		    $table->foreign('persone_id')->references('id')->on('persones');
+		    $table->integer('actuacion_id')->unsigned();
+		    $table->foreign('actuacion_id')->references('id')->on('actuacions');
+		});
  
 	    Schema::create('posicions', function($table) {
 		    $table->increments('id');
@@ -245,6 +252,7 @@ class Pinyes extends Migration {
 	    Schema::drop('pinyes');
 	    Schema::drop('posicions');
 	    Schema::drop('castell_persone');
+	    Schema::drop('actuacion_persone');
 	    Schema::drop('castells');
 	    Schema::drop('tipus_castells');
 	    Schema::drop('actuacions');

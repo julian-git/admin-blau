@@ -1,25 +1,28 @@
-function drawStatusBar(barDiv, url, thresholds) {
-    var theId = barDiv.attr('detail-id');
-    $.getJSON(url + theId,  function() {
+function updateStatusBars(detailDiv, url, thresholds) {
+    var detailId = detailDiv.attr('detail-id');
+    $.getJSON(url + detailId,  function() {
     }).done(function(numApuntats) {
-	$('#current-count-' + theId).text(numApuntats);
-	var percent = Math.min(100, 
-			       Math.floor(100.0 * numApuntats / barDiv.attr('aria-valuemax')));
+	var detailDivId = detailDiv.attr('id');
+	$('#' + detailDivId + ' .current-count-detail-id-' + detailId).text(numApuntats);
+	$('#' + detailDivId + ' .progress-bar').each(function(){
+	    var percent = Math.min(100, 
+				   Math.floor(100.0 * numApuntats / $(this).attr('aria-valuemax')));
+	    if (percent <= thresholds[0]) {
+		$(this).addClass('progress-bar-danger');
+	    } else if (percent <= thresholds[1]) {
+		$(this).addClass('progress-bar-warning');
+	    } else if (percent <= thresholds[2]) {
+		$(this).addClass('progress-bar-info');
+	    } else {
+		$(this).addClass('progress-bar-success');
+	    }
 
-	if (percent <= thresholds[0]) {
-	    barDiv.addClass('progress-bar-danger');
-	} else if (percent <= thresholds[1]) {
-	    barDiv.addClass('progress-bar-warning');
-	} else if (percent <= thresholds[2]) {
-	    barDiv.addClass('progress-bar-info');
-	} else {
-	    barDiv.addClass('progress-bar-success');
-	}
-
-	barDiv.attr('aria-valuenow', percent);
-	barDiv.attr('style', "width: " + percent + "%");
+	    $(this).attr('aria-valuenow', percent);
+	    $(this).attr('style', "width: " + percent + "%");
+	    
+	});
 
     }).fail(function(result) {
-	barDiv.parent().append('<div class="error">Error!</div>');
+	detailDiv.parent().append('<div class="error">Error!</div>');
     });
 }

@@ -20,7 +20,7 @@
 @section('content')
 
 <!-- we use the same code to display three panels. -->
-<!-- each second entry in the following array is a funtion that returns the relevant total -->
+<!-- each second entry in the following array is a function that returns the relevant total -->
 @foreach (['Esdeveniment' => 'persones_actives', 
 	   'Actuacion' => 'pinya_necessaria', 
 	   'Missatge' => null 
@@ -50,6 +50,7 @@
 		as $res) 
 	<!-- inside each panel, generate a row for each instance found -->
       <div id="{{ $csn }}-{{ $res->id }}" class="row cvg-{{ $csn }}">
+
         <div class="col-md-4">
           <div class="row">
 	<!-- first, relevant data: titol, data, lloc -->
@@ -66,7 +67,8 @@
             </div> <!-- col-md-7 -->
           </div> <!-- row -->
         </div> <!-- col-md-4 -->
-        <div id="{{ $csn }}-{{ $res->id }}-details" class="col-md-8 {{ $csn }}-details">
+
+        <div id="{{ $csn }}-{{ $res->id }}-details" detail-id="{{ $res->id }}" class="col-md-8 {{ $csn }}-details">
           <div class="row">
 	<!-- next, the details for each instance -->
             @foreach($CSN::details($res->id) as $detail)
@@ -85,14 +87,14 @@
                   {{ $detail[1] }}
                 </div>
 	        <div class="col-md-1">
-		  <!-- display the number of people currently assigned to the esdeveniment or castell -->
-                  <span id="current-count-{{ $detail[0] }}">0</span>/{{ $total }}
+		  <!-- how many people are currently assigned to the esdeveniment or castell? -->
+		  <!-- This will later be updated via ajax -->
+                  <span class="current-count-detail-id-{{ $res->id }}">0</span>/{{ $total }}
                 </div>
-                <div class="col-md-10 {{ $csn }}-detail">
+                <div class="col-md-10">
 		  <!-- code for the progress bar -->
                   <div class="progress progress-striped">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="{{ $total }}" style="width: 0%" detail-id="{{ $detail[0] }}">
-                      <span class="sr-only">0% Complert (warning)</span>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="{{ $total }}" style="width: 0%" detail-id="{{ $res->id }}">
                     </div> <!-- progress-bar -->
                   </div> <!-- progress -->
                 </div> <!-- detailId -->
@@ -100,25 +102,26 @@
             @endforeach
           </div> <!-- row -->
         </div> <!-- col-md-8 -->
+
       </div> <!-- csn-res-id -->
       @endforeach
     </div> <!-- /panel-body -->
   </div> <!-- /panel -->
 @endforeach
 
-		{{--
+
 @foreach(DB::connection()->getQueryLog() as $query)
 		<div>{{ $query['query'] }} {{ var_dump($query['bindings']) }} </div>
 @endforeach
-		  --}}
+
 <script>
 
 $(function() {
-	$('.esdeveniment-detail .progress-bar').each(function() {
-		drawStatusBar($(this), '/persones/actives/', [25, 50, 75]);
+	$('.esdeveniment-details').each(function() {
+		updateStatusBars($(this), '/esdeveniments/apuntats/', [10, 25, 50]);
 	    });
-	$('.actuacion-detail .progress-bar').each(function() {
-		drawStatusBar($(this), '/persones/apuntats/', [50, 70, 90]);
+	$('.actuacion-details').each(function() {
+		updateStatusBars($(this), '/actuacions/apuntats/', [50, 70, 90]);
 	    });
     });
 

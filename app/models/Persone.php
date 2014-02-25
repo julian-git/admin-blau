@@ -20,6 +20,12 @@ require_once('util.php');
 
 class Persone extends Eloquent
 {
+    /*
+    public function __construct() 
+    {
+	DB::connection()->enableQueryLog();
+    }
+*/
     public static $singular_class_name = 'Persona';
     public static $plural_class_name = 'Persones';
     public static $class_name_gender = 'f';
@@ -95,6 +101,16 @@ class Persone extends Eloquent
     public function castells()
     {
 	return $this->belongsToMany('Castell');
+    }
+
+    public function actuacions()
+    {
+	return $this->belongsToMany('Actuacion');
+    }
+
+    public function esdeveniments()
+    {
+	return $this->belongsToMany('Esdeveniment');
     }
 
 }

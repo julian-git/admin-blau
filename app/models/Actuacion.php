@@ -68,6 +68,11 @@ class Actuacion extends Eloquent
 	return $this->hasMany('Castell');
     }
 
+    public function persones() 
+    {
+	return $this->belongsToMany('Persone');
+    }
+
     public static function details($actuacion_id)
     {
 	$actuacion = Actuacion::findOrFail($actuacion_id);

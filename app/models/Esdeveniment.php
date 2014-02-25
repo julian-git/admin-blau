@@ -90,6 +90,11 @@ class Esdeveniment extends Eloquent
 	$P = new Persone;
 	return $P->where('actiu', '=', 1)->count();
     }
+
+    public function persones()
+    {
+	return $this->belongsToMany('Persone');
+    }
 }
 
 ?>

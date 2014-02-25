@@ -12,6 +12,8 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 		
 		foreach(['castell_persone',
+			 'actuacion_persone',
+			 'esdeveniment_persone',
 			 'persones',
 			 'quotes',
 			 'castells',
@@ -32,6 +34,7 @@ class DatabaseSeeder extends Seeder {
 			 'CastellsSeeder',
 			 'CastellPersoneSeeder',
 			 'EsdevenimentPersoneSeeder',
+			 'ActuacionPersoneSeeder',
 
 			 'MissatgesSeeder'
 			 ] as $seeder)
@@ -257,6 +260,28 @@ class CastellPersoneSeeder extends Seeder {
 	DB::table('castell_persone')->insert(array('persone_id' => 2,
 						     'castell_id'   => 3));
 
+    }
+}
+
+class ActuacionPersoneSeeder extends Seeder {
+
+    public function run() {
+	DB::table('actuacion_persone')->delete();
+	
+	DB::table('actuacion_persone')->insert(array('persone_id' => 1,
+						     'actuacion_id'   => 1));
+
+	DB::table('actuacion_persone')->insert(array('persone_id' => 1,
+						     'actuacion_id'   => 2));
+
+	DB::table('actuacion_persone')->insert(array('persone_id' => 1,
+						     'actuacion_id'   => 3));
+
+	DB::table('actuacion_persone')->insert(array('persone_id' => 2,
+						     'actuacion_id'   => 1));
+
+	DB::table('actuacion_persone')->insert(array('persone_id' => 2,
+						     'actuacion_id'   => 2));
     }
 }
 

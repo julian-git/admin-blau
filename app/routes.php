@@ -82,5 +82,6 @@ foreach(['Persone',
     Route::post("/$csn/delete", "{$CSN}sController@handleDelete");
 }
 
-Route::get("/persones/apuntats/{castell}", 'CastellsController@apuntats');
+Route::get("/esdeveniments/apuntats/{esdeveniment}", 'EsdevenimentsController@apuntats');
+Route::get("/actuacions/apuntats/{actuacion}", 'ActuacionsController@apuntats');
 Route::get("/persones/actives/{persone}", 'PersonesController@actives');

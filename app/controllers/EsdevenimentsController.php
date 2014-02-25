@@ -22,5 +22,10 @@ class EsdevenimentsController extends CVGController
     public function __construct() {
 	CVGController::__construct('Esdeveniment');
     }
+
+    public function apuntats($instance)
+    {
+	return Response::json($instance->persones()->count());
+    }
 }
  ?>

@@ -24,5 +24,10 @@ class ActuacionsController extends CVGController
     public function __construct() {
 	CVGController::__construct('Actuacion');
     }
+
+    public function apuntats($instance)
+    {
+	return Response::json($instance->persones()->count());
+    }
 }
- ?>
+?>
