@@ -46,7 +46,9 @@
     </td>
     <td>
        <div class="form-group">
+
          @if (isset($dropbox_options[$field]))
+
            <div class="panel-body">
 
              {{ Form::select($field, $dropbox_options[$field], $dropbox_default[$field]) }} 
@@ -57,8 +59,23 @@
 	        {{ $ft::$singular_class_name }}
              </a>
 
-           </div>
-         @else 
+           </div> <!-- panel-body -->
+
+         @elseif(isset($multidropbox_options[$field]))
+	    
+           <div class="panel-body">
+
+             {{ Form::multiselect($field, $multidropbox_options[$field]) }} 
+
+             <?php $ft = $multiforeign_table[$field] ?>
+             <a href="{{ action($ft . 'sController@multicreate/' . $$csn->id) }}" class="btn btn-primary">
+	        {{ $ft::$class_name_gender == 'm' ? 'Nou' : 'Nova' }}
+	        {{ $ft::$singular_class_name }}
+             </a>
+
+           </div> <!-- panel-body -->
+
+         @else
 	     {{ Form::text ($field, $$csn->$field) }}
              {{ $errors->first($field, '<span class="error">:message</span>') }}
          @endif
@@ -67,6 +84,7 @@
   </tr>
     @endif
 @endforeach
+ 
 </table>
   
   <div class="col-md-8">

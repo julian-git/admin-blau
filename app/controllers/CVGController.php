@@ -31,13 +31,15 @@ class CVGController extends BaseController
     protected $layout_data;
 
     // Error messages for custom validation rules
-    protected $custom_validation_messages = array('integer_size' => "El camp ha de consistir d'exactament :size digits.");
+    protected $custom_validation_messages
+	= array('integer_size' => "El camp ha de consistir d'exactament :size digits.");
 
     public function __construct($ClassSingularName) {
 	$this->ClassSingularName = $ClassSingularName;
-	$this->layout_data  = array('CSN' => $ClassSingularName,
-				    'csn' => strtolower($ClassSingularName),
-				    'class_instance_list' => strtolower($ClassSingularName) . 's');
+	$this->layout_data
+	    = array('CSN' => $ClassSingularName,
+		    'csn' => strtolower($ClassSingularName),
+		    'class_instance_list' => strtolower($ClassSingularName) . 's');
     }
 
     public function index()
@@ -63,6 +65,18 @@ class CVGController extends BaseController
 	$extended_layout_data['dropbox_default'] = $CSN::$default_values;
 	$extended_layout_data['foreign_table'] = foreign_tables_of($CSN);
 
+	$this->layout->content = View::make('generic.create', $extended_layout_data);
+    }
+
+    public function multicreate($instance)
+    {
+	// Create a new entry in an m-to-n table corresponding to a given first entry
+	// e.g., $instance will be of class Beneficiari
+
+	$CSN = $this->ClassSingularName;
+	$csn = strtolower($CSN);
+
+	$extended_layout_data = $this->layout_data;
 	$this->layout->content = View::make('generic.create', $extended_layout_data);
     }
 
@@ -105,6 +119,9 @@ class CVGController extends BaseController
 	$extended_layout_data['dropbox_options'] = dropbox_options_of($CSN);
 	$extended_layout_data['dropbox_default'] = dropbox_default_of($CSN, $class_instance);
 	$extended_layout_data['foreign_table'] = foreign_tables_of($CSN);
+
+	$extended_layout_data['mulitdropbox_options'] = multidropbox_options_of($CSN);
+	$extended_layout_data['multiforeign_table'] = multiforeign_tables_of($CSN);
 
         return View::make('generic.edit', $extended_layout_data);
     }
