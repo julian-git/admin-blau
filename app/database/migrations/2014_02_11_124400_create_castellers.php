@@ -27,53 +27,6 @@ class CreateCastellers extends Migration {
 	 */
 	public function up()
 	{
- 	    Schema::create('tipus_quotes', function($table) {
-		    $table->increments('id');
-		    $table->string('descripcio', 20);
-		    $table->integer('periodicitat_mesos')->unsigned(); // every how many months
-		    $table->string('primer_cop_al_any', 5);
-		    $table->timestamps();
-		});
-
-	    DB::table('tipus_quotes')
-		->insert(array(array('id' => 1, 
-				     'descripcio' => 'Sense Quota',
-				     'periodicitat_mesos' => 0, 
-				     'primer_cop_al_any' => '00-00'
-				     ),
-			       array('id' => 2, 
-				     'descripcio' => 'Trimestral',
-				     'periodicitat_mesos' => 3, 
-				     'primer_cop_al_any' => '03-01'
-				     ),
-			       array('id' => 3, 
-				      'descripcio' => 'Semestral',
-				      'periodicitat_mesos' => 6, 
-				      'primer_cop_al_any' => '07-01'
-				     )
-				));
-
-	    /*
-	      Each casteller has a field 'quotes_fk' that points to this table.
-	      This table is seeded with one dummy entry for the 'sense quota' case,
-	      but apart from that contains one row for the bank data of each casteller.
-	     */	    
-	    Schema::create('quotes', function($table) {
-		    $table->increments('id');
-		    $table->string('banc', 50);
-		    // Laravel doesn't seem to allow to specify int(4),
-		    // so we define the following fields as strings and validate on input
-		    $table->string('codi_banc', 4)->nullable(); 
-		    $table->string('oficina', 4)->nullable();
-		    $table->string('digit_control', 2)->nullable();
-		    $table->string('compte', 10)->nullable();
-		    $table->string('BIC', 12)->nullable(); 
-		    $table->string('IBAN', 34)->nullable();
-		    $table->decimal('import');
-		    $table->integer('tipus_quotes_fk')->unsigned();
-		    $table->foreign('tipus_quotes_fk')->references('id')->on('tipus_quotes');
-		    $table->timestamps();
-		});
 
 	    Schema::create('families', function($table) {
 		    $table->increments('id');
@@ -117,39 +70,83 @@ class CreateCastellers extends Migration {
 				     )
 			       ));
 
+	    Schema::create('rols', function($table) {
+		    $table->increments('id');
+		    $table->string('tipus', 20);
+		    $table->integer('nivell_permis')->unsigned();
+		    $table->string('comentari', 200)->nullable();
+		});
+
+	    DB::table('rols')
+		->insert(array(array('id' => 1, 
+				     'tipus' => 'Canalla',
+				     'nivell_permis' => 0
+				     ),
+			       array('id' => 2,
+				     'tipus' => 'Casteller actiu',
+				     'nivell_permis' => 1
+				     ),
+			       array('id' => 3,
+				     'tipus' => 'Administrador',
+				     'nivell_permis' => 2
+				     ),
+			       array('id' => 4,
+				     'tipus' => 'Super',
+				     'nivell_permis' => 3
+				     )
+			       ));
+
 	    Schema::create('persones', function($table) {
 		    $table->increments('id');
+		    $table->integer('numero_soci')->unsigned()->nullable();
+		    $table->string('nom', 50)->index();
 		    $table->string('cognom1', 50)->index();
 		    $table->string('cognom2', 50);
-		    $table->string('nom', 50)->index();
-		    $table->string('mot', 50)->index();
-		    $table->integer('families_fk')->unsigned();
-		    $table->foreign('families_fk')->references('id')->on('families');
-		    $table->date('naixement');
+		    $table->string('mot', 50)->unique()->index();
 		    $table->string('dni', 15);
+		    $table->date('naixement');
 		    $table->string('email', 50);
 		    $table->string('direccio', 200);
 		    $table->string('cp', 8);
 		    $table->string('poblacio', 50);
 		    $table->string('provincia', 30);
-		    $table->string('telefon1', 12);
-		    $table->string('telefon2', 12);
-		    $table->string('mobil1', 12);
-		    $table->string('mobil2', 12);
-		    $table->string('twitter', 20);
-		    $table->string('whatsapp', 20);
-		    $table->date('alta')->index();
+		    $table->string('pais', 30)->default('Espanya');
+		    $table->string('telefon', 12);
+		    $table->string('mobil', 12);
 		    $table->string('sexe', 1);
-		    $table->integer('quotes_fk')->unsigned()->default(1);
-		    $table->foreign('quotes_fk')->references('id')->on('quotes');
+		    $table->date('alta')->index();
 		    $table->boolean('actiu')->default(1)->index();
 		    $table->integer('categories_fk')->unsigned()->default(1);
 		    $table->foreign('categories_fk')->references('id')->on('categories');
-		    $table->decimal('alcada-cadira');
-		    $table->decimal('alcada-hombros');
-		    $table->decimal('alcada-mans');
-		    $table->decimal('amplada-hombros');
-		    $table->decimal('circunferencia');
+		    $table->integer('rols_fk')->unsigned()->default(2);
+		    $table->foreign('rols_fk')->references('id')->on('rols');
+		    $table->string('usuari', 30)->nullable();
+		    $table->string('password', 64)->nullable();
+		    $table->boolean('rebre_sms')->default(1);
+		    $table->boolean('rebre_mail')->default(1);
+		    $table->string('comentari', 200)->nullable();
+		    $table->string('bic', 12)->nullable(); 
+		    $table->string('iban', 34)->nullable();
+
+		    $table->decimal('alcada-cadira')->default(0);
+		    $table->decimal('alcada-hombros')->default(0);
+		    $table->decimal('alcada-mans')->default(0);
+		    $table->decimal('amplada-hombros')->default(0);
+		    $table->decimal('circunferencia')->default(0);
+		    $table->timestamps();
+		});
+
+	    /*
+	      Each casteller has a field 'quotes_fk' that points to this table.
+	      This table is seeded with one dummy entry for the 'sense quota' case,
+	      but apart from that contains one row for the bank data of each casteller.
+	     */	    
+	    Schema::create('quotes', function($table) {
+		    $table->increments('id');
+		    $table->integer('periodicitat_mesos')->unsigned(); // every how many months
+		    $table->decimal('import')->default(0);
+		    $table->integer('id_responsable_fk')->unsigned();
+		    $table->foreign('id_responsable_fk')->references('id')->on('persones');
 		    $table->timestamps();
 		});
 
@@ -237,11 +234,11 @@ class CreateCastellers extends Migration {
 	    Schema::drop('tipus_esdeveniments');
 	    Schema::drop('beneficiaris');
 	    Schema::drop('llocs');
+	    Schema::drop('quotes');
 	    Schema::drop('persones');
+	    Schema::drop('rols');
 	    Schema::drop('categories');
 	    Schema::drop('families');
-	    Schema::drop('quotes');
-	    Schema::drop('tipus_quotes');
 	}
 
 }

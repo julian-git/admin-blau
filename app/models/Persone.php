@@ -39,31 +39,35 @@ class Persone extends Eloquent
 					 'naixement' => 'Data de naixement',
 					 'dni' => 'DNI',
 					 'email' => 'email',
-					 'direccio' => 'Direcció',
+					 'direccio' => 'Adreça postal',
 					 'cp' => 'CP',
 					 'poblacio' => 'Població',
 					 'provincia' => 'Provincia',
-					 'telefon1' => 'Telèfon 1',
-					 'telefon2' => 'Telèfon 2',
-					 'mobil1' => 'Mòvil 1',
-					 'mobil2' => 'Mòvil 2',
-					 'twitter' => 'Twitter',
-					 'whatsapp' => 'Whatsapp',
+					 'pais' => 'Pais',
+					 'telefon' => 'Telèfon',
+					 'mobil' => 'Mòvil',
 					 'sexe' => 'Sexe',
-					 'quotes_fk' => 'Quota'
+					 'alta' => "Data d'alta",
+					 'actiu' => 'Actiu',
+					 'categories_fk' => 'Categoria',
+					 'rols_fk' => 'Rol',
+					 'usuari' => 'Usuari',
+					 'password' => 'Password',
+					 'rebre_sms' => 'Vol rebre SMS',
+					 'rebre_mail' => 'Vol rebre mail',
+					 'comentari' => 'Comentaris',
+					 'bic' => 'BIC',
+					 'iban' => 'IBAN'
 					 );
 
-    public static $fields_in_index = array('id' => 'N&uacute;mero de soci',
+    public static $fields_in_index = array('id' => 'Id',
+					   'num_soci' => 'N&uacute;mero de soci',
 					   'cognom1' => 'Cognom 1',
 					   'cognom2' => 'Cognom 2',
 					   'nom' => 'Nom',
 					   'mot' => 'Mot',
-					   'telefon1' => 'Telèfon 1',
-					   'telefon2' => 'Telèfon 2',
-					   'mobil1' => 'Mòvil 1',
-					   'mobil2' => 'Mòvil 2',
-					   'twitter' => 'Twitter',
-					   'whatsapp' => 'Whatsapp'
+					   'telefon' => 'Telèfon',
+					   'mobil' => 'Mòvil'
 					   );					 
 
     public static $validation_rules = array('cognom1' => 'required|alpha',
@@ -74,31 +78,17 @@ class Persone extends Eloquent
 					    'dni' => 'alpha_num|max:12',
 					    'email' => 'email',
 					    'cp' => 'alpha_num',
-					    'telefon1' => 'alpha_num',
-					    'telefon2' => 'alpha_num',
-					    'mobil1' => 'alpha_num',
-					    'mobil2' => 'alpha_num',
-					    'twitter' => 'alpha_num',
-					    'whatsapp' => 'alpha_num',
+					    'telefon' => 'alpha_num',
+					    'mobil' => 'alpha_num',
 					    'sexe' => 'in:H,D');
 
-    public static $default_values = array('quotes_fk' => 1);
+    public static $default_values = array();
 
     public static $identifying_fields = array('mot', 
 					      'nom',
 					      'cognom1',
 					      'cognom2');
     
-    public function getFamiliesFkAttribute($value) 
-    {
-	return resolve_foreign_key('Familie', $value);
-    }
-
-    public function getQuotesFkAttribute($value) 
-    {
-	return resolve_foreign_key('Quote', $value);
-    }
-
     public function castells()
     {
 	return $this->belongsToMany('Castell');
@@ -112,11 +102,6 @@ class Persone extends Eloquent
     public function esdeveniments()
     {
 	return $this->belongsToMany('Esdeveniment');
-    }
-
-    public function quotes()
-    {
-	return $this->belongsTo('Quote', 'beneficiaris');
     }
 }
 

@@ -25,14 +25,10 @@ class Quote extends Eloquent
     public static $class_name_gender = 'f';
 
     public static $member_fields = array('id' => 'Id de Quota',
-					 'banc' => 'Banc',
-					 'codi_banc' => 'Codi Banc',
-					 'oficina' => 'Oficina',
-					 'digit_control' => 'Digit Control',
-					 'compte' => 'N&uacute;mero de Compte',
+					 'periodicitat_mesos' => 'Periodicitat (mesos)',
 					 'import' => 'Import',
-					 'tipus_quotes_fk' => 'Tipus de Quota',
-					 'beneficiari' => 'Beneficiaris');
+					 'id_responsable' => 'Persona responsable',
+					 'beneficiari' => 'Beneficiaris'); // fake field
 
     public static $validation_rules = array('banc' => 'required|alpha_whitespace',
 					    // FIXME: the following should be numeric
@@ -51,9 +47,9 @@ class Quote extends Eloquent
 					      'compte',
 					      'import');
 
-    public function getTipusQuotesFkAttribute($value) 
+    public function getIdResponsableFkAttribute($value) 
     {
-	return resolve_foreign_key('TipusQuote', $value);
+	return resolve_foreign_key('Persone', $value);
     }
 
     public function beneficiaris()

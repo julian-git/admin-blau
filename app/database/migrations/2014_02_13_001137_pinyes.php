@@ -220,11 +220,12 @@ class Pinyes extends Migration {
 		    $table->foreign('tipus_castells_fk')->references('id')->on('tipus_castells');
 		    $table->string('tipus_posicio', 12);
 		    $table->string('nom', 50);
-		    $table->decimal('origin');
-		    $table->decimal('x');
-		    $table->decimal('y');
-		    $table->decimal('d');
-		    $table->decimal('alpha');
+		    $table->decimal('origin_x')->default(0);
+		    $table->decimal('origin_y')->default(0);
+		    $table->decimal('x')->default(0);
+		    $table->decimal('y')->default(0);
+		    $table->decimal('d')->default(0);
+		    $table->decimal('alpha')->default(0);
 		    $table->timestamps();
 		});
 
