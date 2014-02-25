@@ -70,10 +70,10 @@ function multidropbox_options_of($CSN, $class_instance)
 	$beneficiaris = array();
 	foreach ($query_result as $instance)
 	{
-	    $beneficiari = array();
+	    $beneficiari = '';
 	    foreach (Persone::$identifying_fields as $field)
 	    {
-		$beneficiari[$field] = $instance->$field;
+		$beneficiari .= $instance->$field . ' ';
 	    }
 	    $beneficiaris[] = $beneficiari;
 	}
