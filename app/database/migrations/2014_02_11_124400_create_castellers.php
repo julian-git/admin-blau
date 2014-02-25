@@ -155,10 +155,10 @@ class CreateCastellers extends Migration {
 
 	    Schema::create('beneficiaris', function($table) {
 		    $table->increments('id');
-		    $table->integer('quotes_fk')->unsigned();
-		    $table->foreign('quotes_fk')->references('id')->on('quotes');
-		    $table->integer('persones_fk')->unsigned();
-		    $table->foreign('persones_fk')->references('id')->on('persones');
+		    $table->integer('quote_id')->unsigned();
+		    $table->foreign('quote_id')->references('id')->on('quotes');
+		    $table->integer('persone_id')->unsigned();
+		    $table->foreign('persone_id')->references('id')->on('persones');
 		});
 
 	    Schema::create('tipus_esdeveniments', function($table) {

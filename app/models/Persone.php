@@ -50,7 +50,8 @@ class Persone extends Eloquent
 					 'twitter' => 'Twitter',
 					 'whatsapp' => 'Whatsapp',
 					 'sexe' => 'Sexe',
-					 'quotes_fk' => 'Quota');
+					 'quotes_fk' => 'Quota'
+					 );
 
     public static $fields_in_index = array('id' => 'N&uacute;mero de soci',
 					   'cognom1' => 'Cognom 1',
@@ -113,6 +114,10 @@ class Persone extends Eloquent
 	return $this->belongsToMany('Esdeveniment');
     }
 
+    public function quotes()
+    {
+	return $this->belongsTo('Quote', 'beneficiaris');
+    }
 }
 
 ?>

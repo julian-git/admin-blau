@@ -119,9 +119,7 @@ class CVGController extends BaseController
 	$extended_layout_data['dropbox_options'] = dropbox_options_of($CSN);
 	$extended_layout_data['dropbox_default'] = dropbox_default_of($CSN, $class_instance);
 	$extended_layout_data['foreign_table'] = foreign_tables_of($CSN);
-
-	$extended_layout_data['mulitdropbox_options'] = multidropbox_options_of($CSN);
-	$extended_layout_data['multiforeign_table'] = multiforeign_tables_of($CSN);
+	$extended_layout_data['multidropbox_options'] = multidropbox_options_of($CSN, $class_instance);
 
         return View::make('generic.edit', $extended_layout_data);
     }

@@ -138,16 +138,16 @@ class BeneficiarisSeeder extends Seeder {
 	
 	DB::table('beneficiaris')
 	    ->insert(array(array('id' => 1,
-				 'quotes_fk' => 2,
-				 'persones_fk' => 1
+				 'quote_id' => 2,
+				 'persone_id' => 1
 				 ),
 			   array('id' => 2,
-				 'quotes_fk' => 2,
-				 'persones_fk' => 3
+				 'quote_id' => 2,
+				 'persone_id' => 3
 				 ),
 			   array('id' => 3,
-				 'quotes_fk' => 3,
-				 'persones_fk' => 2
+				 'quote_id' => 3,
+				 'persone_id' => 2
 				 )
 			   ));
     }

@@ -31,7 +31,8 @@ class Quote extends Eloquent
 					 'digit_control' => 'Digit Control',
 					 'compte' => 'N&uacute;mero de Compte',
 					 'import' => 'Import',
-					 'tipus_quotes_fk' => 'Tipus de Quota');
+					 'tipus_quotes_fk' => 'Tipus de Quota',
+					 'beneficiari' => 'Beneficiaris');
 
     public static $validation_rules = array('banc' => 'required|alpha_whitespace',
 					    // FIXME: the following should be numeric
@@ -53,6 +54,11 @@ class Quote extends Eloquent
     public function getTipusQuotesFkAttribute($value) 
     {
 	return resolve_foreign_key('TipusQuote', $value);
+    }
+
+    public function beneficiaris()
+    {
+	return $this->belongsToMany('Persone', 'beneficiaris');
     }
 }
 
