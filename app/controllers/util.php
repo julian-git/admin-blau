@@ -24,7 +24,14 @@ function toCamelCase($field)
 
 function foreign_table_of($field)
 {
-    return toCamelCase(substr($field, 0, -4)); // remove also plural 's'
+    if (!strcmp($field, 'id_responsables_fk'))
+    {
+	return 'Persone';
+    } 
+    else 
+    {
+	return toCamelCase(substr($field, 0, -4)); // remove also plural 's'
+    }
 }
 
 function assemble_identifying_fields($class_name, $instance)

@@ -58,7 +58,7 @@ class Castell extends Eloquent
 
     public function actuacion()
     {
-	return $this->belongsTo('Actuacion');
+	return $this->belongsToMany('Actuacion');
     }
 
     public function persones()

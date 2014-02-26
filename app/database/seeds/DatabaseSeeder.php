@@ -52,19 +52,19 @@ class QuotesSeeder extends Seeder {
     public function run() {
 	Quote::create(array('id' => 1, 
 			    'periodicitat_mesos' => 0,
-			    'id_responsable_fk' => 1
+			    'id_responsables_fk' => 1
 			    ));
 
 	Quote::create(array('id' => 2, 
 			    'periodicitat_mesos' => 3,
 			    'import' => 20,
-			    'id_responsable_fk' => 2
+			    'id_responsables_fk' => 2
 			    ));
 
 	Quote::create(array('id' => 3, 
 			    'periodicitat_mesos' => 6,
 			    'import' => 30,
-			    'id_responsable_fk' => 3
+			    'id_responsables_fk' => 3
 			    ));
 
     }

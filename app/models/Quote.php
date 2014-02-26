@@ -27,7 +27,7 @@ class Quote extends Eloquent
     public static $member_fields = array('id' => 'Id de Quota',
 					 'periodicitat_mesos' => 'Periodicitat (mesos)',
 					 'import' => 'Import',
-					 'id_responsable_fk' => 'Persona responsable',
+					 'id_responsables_fk' => 'Persona responsable',
 					 'beneficiari' => 'Beneficiaris' // fake field
 					 );
 
@@ -38,11 +38,11 @@ class Quote extends Eloquent
     public static $default_values = array();
 
     public static $identifying_fields = array('periodicitat_mesos',
-					      'id_responsable_fk',
+					      'id_responsables_fk',
 					      'import'
 					      );
 
-    public function getIdResponsableFkAttribute($value) 
+    public function getIdResponsablesFkAttribute($value) 
     {
 	return resolve_foreign_key('Persone', $value);
     }

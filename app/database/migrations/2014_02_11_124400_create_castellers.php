@@ -138,8 +138,8 @@ class CreateCastellers extends Migration {
 		    $table->increments('id');
 		    $table->integer('periodicitat_mesos')->unsigned(); // every how many months
 		    $table->decimal('import')->default(0);
-		    $table->integer('id_responsable_fk')->unsigned();
-		    $table->foreign('id_responsable_fk')->references('id')->on('persones');
+		    $table->integer('id_responsables_fk')->unsigned();
+		    $table->foreign('id_responsables_fk')->references('id')->on('persones');
 		    $table->timestamps();
 		});
 
