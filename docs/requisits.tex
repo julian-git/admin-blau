@@ -1,4 +1,4 @@
-\documentclass[11pt]{amsart}
+\documentclass[10pt]{amsart}
 
 \usepackage{a4wide}
 \usepackage[usenames,dvipsnames]{color}
@@ -39,87 +39,92 @@
 \subsection{Versió 0.5}
 \begin{description}
 \setlength{\itemsep}{3ex}
-\item[R01] Alta, baixa i modificació de persones \progres 
+\item[R01] \progres Alta, baixa i modificació de persones 
 
 \begin{itemize}
-\item Un administrador ha de poder accedir a una part privada per afegir, editar i eliminar persones a la base de dades. \complert
-\item Quan es doni d'alta una persona, enviar-li un mail informant-lo de l'alta i se li adjunten les dades per a que les comprovi. \falta
-\item Quan es doni de baixa algú, enviar també mail informant. \falta
+\item \complert Un administrador ha de poder accedir a una part privada per afegir, editar i eliminar persones a la base de dades. 
+\item \falta Quan es doni d'alta una persona, enviar-li un mail informant-lo de l'alta i se li adjunten les dades per a que les comprovi. 
+\item \falta Quan es doni de baixa algú, enviar també mail informant. 
 \end{itemize}
 
-\item[R02] Agrupar persones per famílies \progres
+\item[R02] \progres Agrupar persones per famílies 
 
  Les famílies estaran composades per diversos castellers ja existents a la base de persones.
 Cada persona només pot pertànyer a una família.
 
 \begin{itemize}
-\item L'administrador ha de poder afegir, editar i eliminar famílies. \progres llevat el rol
-\item Quan es doni d'alta una família, avisar a tots els responsables de que se'ls ha agrupat en una família. \falta
-\item El mateix quan es doni de baixa. \falta
+\item \progres  L'administrador ha de poder afegir, editar i eliminar famílies. \falta el rol
+\item \falta Quan es doni d'alta una família, avisar a tots els responsables de que se'ls ha agrupat en una família. 
+\item \falta El mateix quan es doni de baixa. 
 \end{itemize}
 
 
-\item[R03] Alta, baixa i modificació de quotes \progres
+\item[R03] \progres Alta, baixa i modificació de quotes 
 
 \begin{itemize}
-\item L'administrador ha de poder afegir, editar i eliminar quotes. \complert
-\item Una quota té un responsable (a la taula de persones), que és el titular del compte corrent al que es passa el rebut. \complert
-\item Cada quota tindrà associat un llistat de un o més castellers als quals ``cobreix''. \complert
-\item Cada vegada que es dóna d'alta/baixa una quota, enviar un mail al responsable informant-lo. \falta
+\item \complert L'administrador ha de poder afegir, editar i eliminar quotes.
+\item \complert Una quota té un responsable (a la taula de persones), que és el titular del compte corrent al que es passa el rebut. 
+\item \complert Cada quota tindrà associat un llistat de un o més castellers als quals ``cobreix''. 
+\item \falta Cada vegada que es dóna d'alta/baixa una quota, enviar un mail al responsable informant-lo. 
 \end{itemize}
 
-\item[R04] Generació de rebuts \falta
+\item[R04] Generació de rebuts 
 
   \begin{itemize}
-  \item L'administrador ha de poder generar rebuts per a les quotes de manera periòdica.
-\item Cada vegada que es generi un rebut, se seleccionaràn les quotes sobre les que es genera el rebut, es crearà un fitxer de text pla seguint el format N19 (o el IBAN directament, que és al que anem CAL MIRAR EL FORMAT!) per a descarregar (i després pujar-lo al banc) i es guardarà un històric de cada rebut passat a cada responsable de quota. 
-\item Guardar el fitxer de text generat.
+  \item\falta L'administrador ha de poder generar rebuts per a les quotes de manera periòdica.
+\item\falta Cada vegada que es generi un rebut, se seleccionaràn les quotes sobre les que es genera el rebut, es crearà un fitxer de text pla seguint el format N19 (o el IBAN directament, que és al que anem CAL MIRAR EL FORMAT!) per a descarregar (i després pujar-lo al banc) i es guardarà un històric de cada rebut passat a cada responsable de quota.
+\item\falta Guardar el fitxer de text generat.
 
-\item Enviar un mail als responsables de la quota de que es passa la quota. Hi ha gent que es queixa de que no s'avisa quan es passen les quotes, d'aquesta manera se'ls avisaria de manera automàtica.
+\item\falta Enviar un mail als responsables de la quota de que es passa la quota. Hi ha gent que es queixa de que no s'avisa quan es passen les quotes, d'aquesta manera se'ls avisaria de manera automàtica.
 
   \end{itemize}
 
 \end{description}
 
+\subsection{Tarees per completar la versió 0.5}
+
+\begin{itemize}
+\item Completar la taula Families i les seves taules auxiliars
+\item Decidir un gestor de rols 
+\end{itemize}
+
 \subsection{Versió 1.0}
 
 \begin{description}
 \setlength{\itemsep}{3ex}
-\item[R05] Consulta i modificació de l'històric de rebuts \falta
+\item[R05] \falta Consulta i modificació de l'històric de rebuts 
 
 L'administrador ha de poder consultar els rebuts passats i el seu estat. També ha de poder canviar l'estat, per marcar els rebuts retornats.
 
 Quan un rebut es marqui com a retornat, enviar un mail al responsable de la quota per a informar-lo.
 
-\item[R06] Crear, editar i esborrar esdeveniments \complert
+\item[R06] \complert Crear, editar i esborrar esdeveniments 
 
 L'administrador ha de poder crear, modificar i esborrar esdeveniments.
 
-\item[R07] Modificació de les dades "personals" per part d'una persona \complert apart de rols
+\item[R07] \progres Modificació de les dades "personals" per part d'una persona  \falta rols
 
-\item[R08] Modificació de les dades "personals" d'una família per part d'un responsable 
-\complert apart de rols
+\item[R08] \progres Modificació de les dades "personals" d'una família per part d'un responsable 
+\falta rols
 
-\item[R09] Cada mes s'ha de poder treure una llista de quotes per passar al banc \falta
+\item[R09] \falta Cada mes s'ha de poder treure una llista de quotes per passar al banc 
 
-\item[R10] Una persona ha de poder pagar la quota per a una altra persona o persones \complert 
+\item[R10] \complert Una persona ha de poder pagar la quota per a una altra persona o persones 
 
-\item[R11] Hi ha persones que no volen rebre els SMS de la colla \complert
+\item[R11] \complert Hi ha persones que no volen rebre els SMS de la colla
 
-Tot i tenir un mòbil registrat, hi ha gent que no vol rebre els SMS de la colla
+\item[R12] \complert Volem un llistat d'apuntats a una activitat 
 
-\item[R12] Volem un llistat d'apuntats a una activitat \complert
+\item[R13] \falta Volem un llistat d'assistents a una activitat?? 
 
-\item[R13] Volem un llistat d'assistents a una activitat?? \falta
-
-\item[R14] Les quotes poden tenir una periodicitat diferent i un import diferent per cada casteller. \complert
+\item[R14] \complert Les quotes poden tenir una periodicitat diferent i un import diferent per cada casteller. 
 
 \begin{itemize}
-\item Les periodicitats es definiran en mesos, i estaran predefinides en el sistema (trimestral, semestral, anual).  \complert
+\item \complert Les periodicitats es definiran en mesos, i estaran predefinides en el sistema (trimestral, semestral, anual).  
 
-\item S'han de poder afegir noves periodicitats en un futur (encara que sigui directament a la BD) \complert
+\item \complert S'han de poder afegir noves periodicitats en un futur (encara que sigui directament a la BD) 
 
-\item Les periodicitats poden tenir un mes de cobrament (ex: anual, però cobrar al juliol). \complert
+\item \complert Les periodicitats poden tenir un mes de cobrament (ex: anual, però cobrar al juliol). 
 \end{itemize}
 
 \end{description}
@@ -144,7 +149,26 @@ També cal tenir en compte que hi ha famílies on els pares estàn separats i tots 
 \item\ [ids dels castellers responsables] (FK)   afegir boolea de responsable/no responsable a la taula auxiliar
 \end{itemize}
 
-\newpage
+\subsection{Rebuts}
+
+Cada vegada que generem un moviment econòmic, cal guardar l'històric.
+Això ens pot permetre treure estadístiques de quotes, veure quant ha pagat/gastat cadascú en un període.
+Els rebuts seran o bé de quotes o bé d'esdeveniments o bé de compte.
+L'import pot ser negatiu (una pagament de quota, d'activitat o de birra) o positiu (aportació al compte). 
+Això ho podem canviar!
+
+Camps
+\begin{itemize}
+\item id
+\item id\_casteller (FK)
+\item import
+\item mètode de pagament (efectiu, rebut, ?)
+\item estat (pagat, retornat, pendent, ?)
+\item data
+\item id\_quota (FK)
+\end{itemize}
+
+
 \includegraphics[width=\linewidth]{DbSchemaAdminBlau}
 
 \end{document}
