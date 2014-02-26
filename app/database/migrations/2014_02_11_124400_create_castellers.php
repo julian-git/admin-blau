@@ -72,7 +72,7 @@ class CreateCastellers extends Migration {
 
 	    DB::table('rols')
 		->insert(array(array('id' => 1, 
-				     'tipus' => 'Canalla',
+				     'tipus' => 'Sense Permisos',
 				     'nivell_permis' => 0
 				     ),
 			       array('id' => 2,
@@ -80,12 +80,16 @@ class CreateCastellers extends Migration {
 				     'nivell_permis' => 1
 				     ),
 			       array('id' => 3,
-				     'tipus' => 'Administrador',
+				     'tipus' => 'Ressponsable Família',
 				     'nivell_permis' => 2
 				     ),
 			       array('id' => 4,
-				     'tipus' => 'Super',
+				     'tipus' => 'Administrador',
 				     'nivell_permis' => 3
+				     ),
+			       array('id' => 5,
+				     'tipus' => 'Super',
+				     'nivell_permis' => 4
 				     )
 			       ));
 
