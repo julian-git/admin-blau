@@ -1,0 +1,1 @@
+../app/database/migrations/2014_02_20_225631_messages.php
