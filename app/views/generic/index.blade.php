@@ -35,8 +35,9 @@
         </div> {{-- col-md-2 --}}
 
         @if (isset($CSN::$responsible_class))
-          <div class="col-md-4">
-	    {{ $CSN::$responsible_class }}
+          <div class="col-md-6">
+            responsable: &nbsp;
+            {{ Form::select('responsible', $responsibles_list) }}
           </div>
         @endif
 
