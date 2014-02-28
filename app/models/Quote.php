@@ -42,6 +42,8 @@ class Quote extends Eloquent
 					      'import'
 					      );
 
+    public static $responsible_class = 'Persone';
+
     public function getIdResponsablesFkAttribute($value) 
     {
 	return resolve_foreign_key('Persone', $value);

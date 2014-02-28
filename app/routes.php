@@ -29,8 +29,6 @@ require_once('validators.php');
 |
 */
 
-$globCSN = '';
-
 Route::get('/', function() 
 	   {
 	       return View::make('index');
@@ -59,7 +57,6 @@ foreach(['Persone',
 	 'Missatge'
 	 ] as $CSN) {  // CSN is a mnemonic for ClassSingularName
 
-    $globCSN = $CSN;
     $csn = strtolower($CSN);
 
     // Bind route parameters.
