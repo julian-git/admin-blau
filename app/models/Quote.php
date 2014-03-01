@@ -36,7 +36,7 @@ class Quote extends Eloquent
     public static $no_dropbox = array('id_responsables_fk'
 				      );
 
-    public static $validation_rules = array('periodicitat_mesos' => 'required|integer',
+    public static $validation_rules = array('periodicitat_mesos' => 'required|in:0,1,2,3,4,6,12',
 					    'import' => 'required|numeric'
 					    );
 
