@@ -16,6 +16,7 @@
     GNU General Public License for more details.
 */
 
+require_once(dirname(__FILE__) . '/../util.php');
 require_once('util.php');
 
 class Persone extends Eloquent
@@ -88,6 +89,11 @@ class Persone extends Eloquent
 					      'cognom1',
 					      'cognom2');
     
+    public function getCategoriesFKAttribute($value)
+    {
+	return resolve_foreign_key('Categorie', $value);
+    }
+
     public function castells()
     {
 	return $this->belongsToMany('Castell');
@@ -101,6 +107,11 @@ class Persone extends Eloquent
     public function esdeveniments()
     {
 	return $this->belongsToMany('Esdeveniment');
+    }
+
+    public static function identifying_fields_of($id)
+    {
+	return assemble_identifying_fields('Persone', Persone::findOrFail($id));
     }
 }
 

@@ -28,7 +28,7 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="col-md-2">
-          <a href="{{ action($CSN . 'sController@create') }}" class="btn btn-primary">
+          <a href="{{ action($CSN . 'sController@create', 88) }}" class="btn btn-primary">
 	    {{ $CSN::$class_name_gender == 'm' ? 'Nou' : 'Nova' }}
 	    {{ $CSN::$singular_class_name }}
           </a>
@@ -37,7 +37,7 @@
         @if (isset($CSN::$responsible_class))
           <div class="col-md-6">
             responsable: &nbsp;
-            {{ Form::select('responsible', $responsibles_list) }}
+            {{ Form::select('responsible', $potential_responsibles_list) }}
           </div>
         @endif
 

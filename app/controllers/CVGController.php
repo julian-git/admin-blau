@@ -21,7 +21,7 @@ require_once('util.php');
 class CVGController extends BaseController
 {
     // this variable will be instantiated to, for example,
-    // 'Casteller' or 'Quote' (the latter is mangled catalan for the singular of "Quotes").
+    // 'Persone' or 'Quote' (these being mangled catalan for the singular of 'Persones', 'Quotes')
     protected $ClassSingularName;
 
     // which layout template to use
@@ -53,14 +53,14 @@ class CVGController extends BaseController
 
 	if (isset($CSN::$responsible_class))
 	{
-	    $extended_layout_data['responsibles_list'] 
+	    $extended_layout_data['potential_responsibles_list'] 
 		= list_all_by_identifying_fields($CSN::$responsible_class);
 	}
 
 	$this->layout->content = View::make("generic.index", $extended_layout_data);
     }
 
-    public function create()
+    public function create($id_responsable_fk=null)
     {
         // Show the create form.
 	$CSN = $this->ClassSingularName;
@@ -70,6 +70,7 @@ class CVGController extends BaseController
 	$extended_layout_data['dropbox_options'] = dropbox_options_of($CSN);
 	$extended_layout_data['dropbox_default'] = $CSN::$default_values;
 	$extended_layout_data['foreign_table'] = foreign_tables_of($CSN);
+	$extended_layout_data['responsible_fields'] = array('id_responsables_fk' => $id_responsable_fk);
 
 	$this->layout->content = View::make('generic.create', $extended_layout_data);
     }

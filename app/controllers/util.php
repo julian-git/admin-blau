@@ -16,11 +16,7 @@
     GNU General Public License for more details.
 */
 
-function toCamelCase($field) 
-{
-    $CamelCase = str_replace(' ', '', ucwords(str_replace('_', ' ', $field)));
-    return $CamelCase;
-}
+require_once(dirname(__FILE__) . '/../util.php');
 
 function foreign_table_of($field)
 {
@@ -32,16 +28,6 @@ function foreign_table_of($field)
     {
 	return toCamelCase(substr($field, 0, -4)); // remove also plural 's'
     }
-}
-
-function assemble_identifying_fields($class_name, $instance)
-{
-    $str = '';
-    foreach ($class_name::$identifying_fields as $f)
-    {
-	$str .= $instance->$f . ' ';
-    }
-    return $str;
 }
 
 function dropbox_options_from_foreign_key($field)
@@ -60,7 +46,10 @@ function dropbox_options_of($CSN)
     $dropbox_options = array();
     foreach (array_keys($CSN::$member_fields) as $field) 
     {
-	if (!strcmp(substr($field, -3), '_fk'))
+	if (!strcmp(substr($field, -3), '_fk') && 
+	    ( !isset($CSN::$no_dropbox) ||
+	      !in_array($field, $CSN::$no_dropbox)
+	   ))
 	{
 	    $dropbox_options[$field] = dropbox_options_from_foreign_key($field);
 	}

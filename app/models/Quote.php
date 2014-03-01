@@ -31,6 +31,11 @@ class Quote extends Eloquent
 					 'beneficiari' => 'Beneficiaris' // fake field
 					 );
 
+    public static $responsible_class = 'Persone';
+
+    public static $no_dropbox = array('id_responsables_fk'
+				      );
+
     public static $validation_rules = array('periodicitat_mesos' => 'required|integer',
 					    'import' => 'required|numeric'
 					    );
@@ -41,8 +46,6 @@ class Quote extends Eloquent
 					      'id_responsables_fk',
 					      'import'
 					      );
-
-    public static $responsible_class = 'Persone';
 
     public function getIdResponsablesFkAttribute($value) 
     {

@@ -21,32 +21,30 @@
 
 <?php include_once(dirname(dirname(dirname(__FILE__))) . "/models/$CSN.php"); ?>
 
-    <div class="page-header">
-    <h1>Crear 
-      {{ $CSN::$class_name_gender == 'm' ? 'nou' : 'nova' }}
-      {{ $CSN::$singular_class_name }}
-    </h1>
+<div class="page-header">
+  <h1>Crear 
+    {{ $CSN::$class_name_gender == 'm' ? 'nou' : 'nova' }}
+    {{ $CSN::$singular_class_name }}
+  </h1>
+</div>
+
+<form action="{{ action($CSN . 'sController@handleCreate') }}" method="post" role="form">
+
+
+@foreach ($CSN::$member_fields as $field => $prompt)
+@if ($field != 'id')
+<div class="row">
+  <div class="col-md-2">
+    <div class="form-group">
+      {{ Form::label($field, $prompt) }} 
     </div>
-
-    <form action="{{ action($CSN . 'sController@handleCreate') }}" method="post" role="form">
-
-<table>
-<thead/>
-<tbody> 
-    @foreach ($CSN::$member_fields as $field => $prompt)
-    @if ($field != 'id')
-  <tr>
-    <td>
-       <div class="form-group">
-         {{ Form::label($field, $prompt) }} 
-       </div>
-    </td>
-    <td>
-       <div class="form-group">
+  </div>
+  <div class="col-md-10">
+    <div class="form-group">
          @if (isset($dropbox_options[$field]))
            <div class="panel-body">
 
-             {{ Form::select($field, $dropbox_options[$field], $dropbox_default[$field]) }} 
+             {{ Form::select($field, $dropbox_options[$field]) }} 
 
              <?php $ft = $foreign_table[$field] ?>
              <a href="{{ action($ft . 'sController@create') }}" class="btn btn-primary">
@@ -54,16 +52,19 @@
 	        {{ $ft::$singular_class_name }}
              </a>
            </div>
+         @elseif (isset($responsible_fields[$field]))
+		<?php $RCL = $CSN::$responsible_class; ?>
+	     {{ $RCL::identifying_fields_of($responsible_fields[$field]) }}
          @else 
            {{ Form::text($field, Input::old($field)) }}
            {{ $errors->first($field, '<span class="error">:message</span>') }}
          @endif 
-       </div>
-    </td>
-  </tr>
+     </div> <!-- form-group -->
+   </div> <!-- col-md -->
+</div> <!-- row -->
     @endif
 @endforeach
-</table>
+
         <input type="submit" value="Crear" class="btn btn-primary" />
        <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel&middot;lar</a>
     </form>

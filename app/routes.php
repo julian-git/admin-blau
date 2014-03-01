@@ -64,7 +64,7 @@ foreach(['Persone',
 
     // Show pages.
     Route::get("/$csn", "{$CSN}sController@index");
-    Route::get("/$csn/create", "{$CSN}sController@create");
+    Route::get("/$csn/create/{responsable?}", "{$CSN}sController@create");
     Route::get("/$csn/edit/{" . $csn . '}', "{$CSN}sController@edit");
     Route::get("/$csn/delete/{" . $csn . '}', "{$CSN}sController@delete");
     /*
