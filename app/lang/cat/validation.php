@@ -37,7 +37,7 @@ return array(
 	"email"            => "El format :attribute no &eacute;s v&agrave;lid.",
 	"exists"           => "The selected :attribute is invalid.",
 	"image"            => "The :attribute must be an image.",
-	"in"               => "El valor sel&middot;leccionat :attribute no &eacute;s v&agrave;lid.",
+	"in"               => "El valor :attribute ha de ser un de :values",
 	"integer"          => "The :attribute must be an integer.",
 	"integer_size"     => "El camp :attribute ha de consistir d'exactament :integer_size digits.",
 	"ip"               => "The :attribute must be a valid IP address.",
