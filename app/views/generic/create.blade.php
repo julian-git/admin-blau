@@ -55,6 +55,9 @@
          @elseif (isset($responsible_fields[$field]))
 		<?php $RCL = $CSN::$responsible_class; ?>
 	     {{ $RCL::identifying_fields_of($responsible_fields[$field]) }}
+         @elseif(!strcmp($field, 'beneficiari'))
+	 decide on element here
+
          @else 
            {{ Form::text($field, Input::old($field)) }}
            {{ $errors->first($field, '<span class="error">:message</span>') }}
