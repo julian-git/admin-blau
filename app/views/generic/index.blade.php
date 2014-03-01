@@ -28,7 +28,7 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="col-md-2">
-          <a href="{{ action($CSN . 'sController@create', 88) }}" class="btn btn-primary">
+          <a id="new_button" href="{{ action($CSN . 'sController@create', -1) }}" class="btn btn-primary">
 	    {{ $CSN::$class_name_gender == 'm' ? 'Nou' : 'Nova' }}
 	    {{ $CSN::$singular_class_name }}
           </a>
@@ -37,7 +37,7 @@
         @if (isset($CSN::$responsible_class))
           <div class="col-md-6">
             responsable: &nbsp;
-            {{ Form::select('responsible', $potential_responsibles_list) }}
+	{{ Form::select('responsible_select', $potential_responsibles_list, null, array('id' => 'responsible_select')) }}
           </div>
         @endif
 
@@ -86,6 +86,13 @@
 				  document.location.href = "/{{ strtolower($CSN) }}/edit/" + id;   //redirect
 			      });
 		      }
+		  });
+
+	      $("#responsible_select").click(function(){
+		      var id = $('#responsible_select option:selected').val();
+		      var href = $('#new_button').attr('href');
+		      var last_slash = href.lastIndexOf('/');
+		      $('#new_button').attr('href', href.substr(0, last_slash) + '/' + id);
 		  });
       });
     </script>

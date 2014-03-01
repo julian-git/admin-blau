@@ -125,7 +125,7 @@ function list_all_by_identifying_fields($CSN)
     $list = array();
     foreach($CSN::all() as $instance) 
     {
-	$list[] = assemble_identifying_fields($CSN, $instance);
+	$list[$instance->id] = assemble_identifying_fields($CSN, $instance);
     }
     return $list;
 }
