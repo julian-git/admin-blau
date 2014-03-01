@@ -88,11 +88,17 @@
 		      }
 		  });
 
-	      $("#responsible_select").click(function(){
+	      function update_new_button() {
 		      var id = $('#responsible_select option:selected').val();
 		      var href = $('#new_button').attr('href');
 		      var last_slash = href.lastIndexOf('/');
 		      $('#new_button').attr('href', href.substr(0, last_slash) + '/' + id);
+	      }
+
+	      update_new_button();
+
+	      $("#responsible_select").click(function(){
+		      update_new_button();
 		  });
       });
     </script>
