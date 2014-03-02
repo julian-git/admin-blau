@@ -24,12 +24,11 @@ class Quote extends Eloquent
     public static $plural_class_name = 'Quotes';
     public static $class_name_gender = 'f';
 
-    public static $member_fields = array('id' => 'Id de Quota',
-					 'periodicitat_mesos' => 'Periodicitat (mesos)',
-					 'import' => 'Import',
-					 'id_responsables_fk' => 'Persona responsable',
-					 'beneficiari' => 'Beneficiaris' // fake field
-					 );
+    public static $member_fields = array('id' => 'Id',
+                         'tipus_quotes_fk' => 'Tipus',
+						 'import' => 'Import',
+						 'persones_fk' => 'Responsable'
+						 );
 
     public static $responsible_class = 'Persone';
     public static $responsible_field = 'id_responsables_fk';
@@ -40,22 +39,57 @@ class Quote extends Eloquent
     public static $validation_rules = array('periodicitat_mesos' => 'required|in:0,1,2,3,4,6,12',
 					    'import' => 'required|numeric'
 					    );
-
+    public static $fields_in_index = array(
+                         'id' => 'Id',
+                         'tipus_quotes' => 'Tipus',
+                         'import' => 'Import',
+                         'import_anual' => 'Total anual',
+                         'persones_fk' => 'Responsable',
+                         'beneficiaris_list' => 'Beneficiaris'
+                         );
+    						 
     public static $default_values = array();
 
-    public static $identifying_fields = array('periodicitat_mesos',
-					      'id_responsables_fk',
-					      'import'
-					      );
-
-    public function getIdResponsablesFkAttribute($value) 
-    {
-	return resolve_foreign_key('Persone', $value);
-    }
+    public static $identifying_fields = array('tipus_quotes_fk',
+										      'persones_fk',
+										      'import'
+										      );
 
     public function beneficiaris()
     {
-	return $this->belongsToMany('Persone', 'beneficiaris');
+    	return $this->belongsToMany('Persone', 'beneficiaris');
+    }
+    
+    public function getBeneficiarisListAttribute($value)
+    {    
+        $res = '';
+        $firstOne=true;
+        $persones=$this->beneficiaris;
+        foreach($persones as $p)
+        {
+            if (!$firstOne)
+               $res .=', ';
+            foreach(Persone::$identifying_short_fields as $f)
+                $res .= $p->$f . ' ';
+            $firstOne=false;
+        }
+        return $res;
+    }
+
+    public function getPersonesFkAttribute($value) 
+    {
+       return resolve_foreign_key('Persone', $value);
+    }
+
+    public function getTipusQuotesAttribute($value) 
+    {
+       return resolve_foreign_key('TipusQuote', $this->tipus_quotes_fk);
+    }
+
+    public function getImportAnualAttribute($value) 
+    {
+        $tipus = TipusQuote::findOrFail($this->tipus_quotes_fk);
+    	return $tipus->periodicitat_mesos*$this->import;
     }
 }
 

@@ -25,9 +25,13 @@ class Familie extends Eloquent
     public static $class_name_gender = 'f';
 
     public static $member_fields = array('id' => 'Id',
-					 'nom' => 'Nom',
-                     'membres_mk' => 'Membres',
+					 'nom' => 'Nom'
                     );
+
+    public static $fields_in_index = array('id' => 'Id',
+                       'nom' => 'Nom',
+                       'membres_list' => 'Membres',
+                       );                    
 
     public static $validation_rules = array('nom' => 'required');
 
@@ -40,7 +44,7 @@ class Familie extends Eloquent
     	return $this->belongsToMany('Persone')->withPivot('es_responsable');
     }
     
-    public function getMembresMkAttribute($value)
+    public function getMembresListAttribute($value)
     {    
     	$res = '';
     	$firstOne=true;
