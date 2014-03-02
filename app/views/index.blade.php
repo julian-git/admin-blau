@@ -53,7 +53,7 @@
 
         <div class="col-md-4">
           <div class="row">
-	<!-- first, relevant data: titol, data, lloc -->
+            <!-- first, relevant data: titol, data, lloc -->
             <div id="{{ $csn }}-{{ $res->id }}-titol" class="col-md-5 cvg-{{ $csn }}-titol">
               {{ $res->titol }}
             </div>
@@ -70,7 +70,7 @@
 
         <div id="{{ $csn }}-{{ $res->id }}-details" detail-id="{{ $res->id }}" class="col-md-8 {{ $csn }}-details">
           <div class="row">
-	<!-- next, the details for each instance -->
+          <!-- next, the details for each instance -->
             @foreach($CSN::details($res->id) as $detail)
               @if($detail_total_method == null) 
 	        <!-- this happens for missatge -->

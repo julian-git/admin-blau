@@ -24,7 +24,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>l&rsquo;Admin Blau</title>
+    <title>l'Admin Blau</title>
 
     <!-- Core CSS - Include with every page -->
     <link href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -64,7 +64,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/">
-		       <img src="{{ asset('favicon.ico') }}"/> L&rsquo;Admin Blau
+		       <img src="{{ asset('favicon.ico') }}"/> L'Admin Blau
                 </a>
             </div>
             <!-- /.navbar-header -->
@@ -287,20 +287,30 @@
                         <a href="/"><i class="fa fa-dashboard fa-fw"></i> Propers Events</a>
                     </li>
                     <li>
-                        <a href="/missatge"><i class="fa fa-table fa-fw"></i> Missatges</a>
+                        <a href="{{ action('MissatgesController@index') }}"><i class="fa fa-table fa-fw"></i> Missatges</a>
+                    </li>
+                    <li>
+                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Configuraci&oacute;<span class="fa arrow"></a>
+                        <ul class="nav nav-second-level">
+						@foreach(['Categorie', 'TipusQuote'] as $CSN)   
+                            <li>
+                                <a href="{{ action($CSN . 'sController@index') }}" >{{ $CSN::$plural_class_name }}</a>
+                            </li>
+                        @endforeach
+                        </ul>
+                        <!-- /.nav-second-level -->
                     </li>
                     <li>
                         <a href="tables.html"><i class="fa fa-table fa-fw"></i> Persones<span class="fa arrow"></a>
                         <ul class="nav nav-second-level">
-@foreach(['Persone', 
-	  'Categorie',
-	  'Familie', 
-	  'Quote'
-	 ] as $CSN)   
+                        @foreach(['Persone',
+                              'Familie',
+                              'Quote'
+                             ] as $CSN)   
                             <li>
- <a href="{{ action($CSN . 'sController@index') }}" >{{ $CSN::$plural_class_name }}</a>
+                                <a href="{{ action($CSN . 'sController@index') }}" >{{ $CSN::$plural_class_name }}</a>
                             </li>
-@endforeach
+                        @endforeach
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
@@ -375,7 +385,7 @@
 
     <!-- Page-Level Demo Scripts - Blank - Use for reference -->
 
-<footer><a href="http://github.com/julian-git/admin-blau">L&rsquo;Admin Blau</a> &eacute;s <a href="https://www.gnu.org/copyleft/gpl.html">software lliure</a> basada en <a href="http://laravel.com">Laravel</a>, <a href="http://getbootstrap.com/">bootstrap</a> i <a href="http://startbootstrap.com/sb-admin-v2">sb-admin-v2</a>.
+<footer><a href="http://github.com/julian-git/admin-blau">L'Admin Blau</a> &eacute;s <a href="https://www.gnu.org/copyleft/gpl.html">software lliure</a> basada en <a href="http://laravel.com">Laravel</a>, <a href="http://getbootstrap.com/">bootstrap</a> i <a href="http://startbootstrap.com/sb-admin-v2">sb-admin-v2</a>.
 </footer>
 </body>
 
