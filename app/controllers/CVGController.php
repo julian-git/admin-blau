@@ -45,11 +45,11 @@ class CVGController extends BaseController
     public function index()
     {
         // Show a listing.
-	$CSN = $this->ClassSingularName;
-	$csn = strtolower($CSN);
-	$listing = $CSN::all();
-	$extended_layout_data = $this->layout_data;
-	$extended_layout_data[$csn . 's'] = $listing;
+		$CSN = $this->ClassSingularName;
+		$csn = strtolower($CSN);
+		$listing = $CSN::all();
+		$extended_layout_data = $this->layout_data;
+		$extended_layout_data[$csn . 's'] = $listing;
 
 	if (isset($CSN::$responsible_class))
 	{

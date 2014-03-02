@@ -27,149 +27,191 @@ class CreateCastellers extends Migration {
 	 */
 	public function up()
 	{
-
 	    Schema::create('categories', function($table) {
 		    $table->increments('id');
-		    $table->string('tipus', 50);
+		    $table->string('tipus', 25);
 		    $table->string('comentari', 100)->nullable();
 		    $table->timestamps();
 		});
 	    
+	    Schema::create('rols', function($table) {
+		    $table->increments('id');
+		    $table->string('tipus', 25);
+		    $table->integer('nivell_permis')->unsigned();
+		    $table->string('comentari', 100)->nullable();
+		});
+
+        Schema::create('tipus_quotes', function($table) {
+		    $table->increments('id');
+		    $table->string('tipus', 25);
+		    $table->string('comentari', 100)->nullable();
+		    $table->integer('periodicitat_mesos')->unsigned(); // every how many months
+		    $table->timestamps();
+		});
+
+	    Schema::create('persones', function($table) {
+		    $table->increments('id');
+		    $table->timestamps();
+            //Dades CVG
+		    $table->integer('numero_soci')->unsigned()->nullable();
+		    $table->date('data_alta')->index()->nullable();
+		    $table->date('data_baixa')->index()->nullable();
+		    $table->boolean('actiu')->default(1)->index();
+		    $table->boolean('rebre_sms')->default(1);
+		    $table->boolean('rebre_mail')->default(1);
+		    $table->string('comentari', 200)->nullable();
+		    $table->integer('categories_fk')->unsigned()->default(1);
+		    $table->foreign('categories_fk')->references('id')->on('categories');
+            //Dades personals
+		    $table->string('nom', 50)->index();
+		    $table->string('cognom1', 50)->index();
+		    $table->string('cognom2', 50)->nullable();
+		    $table->string('mot', 50)->unique()->index()->nullable();
+		    $table->string('dni', 15)->nullable();
+		    $table->date('naixement')->nullable();
+		    $table->string('sexe', 1);
+            //Adreça postal
+		    $table->string('direccio', 200)->nullable();
+		    $table->string('cp', 8)->nullable();
+		    $table->string('poblacio', 50)->nullable();
+		    $table->string('provincia', 30)->nullable();
+		    $table->string('pais', 30)->nullable();
+            //Dades de contacte
+		    $table->string('email', 50)->nullable();
+		    $table->string('telefon', 12)->nullable();
+		    $table->string('mobil', 12)->nullable();
+            //Dades financeres
+		    $table->string('iban', 34)->nullable();
+            //Dades d'accés a l'aplicació
+		    $table->string('password', 64)->nullable();
+		    $table->integer('rols_fk')->unsigned()->default(1);
+		    $table->foreign('rols_fk')->references('id')->on('rols');
+            //Dades físiques
+		    $table->decimal('alcada-cadira')->default(0);
+		    $table->decimal('alcada-hombros')->default(0);
+		    $table->decimal('alcada-mans')->default(0);
+		    $table->decimal('amplada-hombros')->default(0);
+		    $table->decimal('circunferencia')->default(0);
+		});
+
+	    Schema::create('families', function($table) {
+		    $table->increments('id');
+		    $table->string('nom', 50);
+		    $table->timestamps();
+		});
+
+   	    Schema::create('familie_persone', function($table) {
+		    $table->increments('id');
+		    $table->integer('persone_id')->unsigned();
+		    $table->foreign('persone_id')->references('id')->on('persones');
+            $table->integer('familie_id')->unsigned();
+            $table->foreign('familie_id')->references('id')->on('families');
+		    $table->boolean('es_responsable')->default(0);
+		    $table->timestamps();
+		});
+
+	    Schema::create('quotes', function($table) {
+		    $table->increments('id');
+		    $table->integer('tipus_quotes_fk')->unsigned();
+		    $table->foreign('tipus_quotes_fk')->references('id')->on('tipus_quotes');
+		    $table->integer('id_responsables_fk')->unsigned();
+		    $table->foreign('id_responsables_fk')->references('id')->on('persones');
+		    $table->decimal('import')->default(0);
+		    $table->boolean('activa')->default(1);
+		    $table->timestamps();
+		});
+
+	    Schema::create('beneficiaris', function($table) {
+		    $table->increments('id');
+		    $table->integer('quote_fk')->unsigned();
+		    $table->foreign('quote_fk')->references('id')->on('quotes');
+		    $table->integer('persone_fk')->unsigned();
+		    $table->foreign('persone_fk')->references('id')->on('persones');
+		});
+
+        CreateCastellers::fillBasicData();
+        CreateCastellers::otherTablesForNextReleases();
+	}
+
+    public function fillBasicData()
+    {
 	    DB::table('categories')
 		->insert(array(array('id' => 1,
 				     'tipus' => 'Casteller',
 				     'created_at' => date('Y-m-d H:i:s'),
 				     'updated_at' => date('Y-m-d H:i:s')
 				     ),
-			       array('id' => 2,
+                 array('id' => 2,
 				     'tipus' => 'Canalla',
 				     'created_at' => date('Y-m-d H:i:s'),
 				     'updated_at' => date('Y-m-d H:i:s')
 				     ),
-			       array('id' => 3,
+                 array('id' => 3,
 				     'tipus' => 'Nen de la colla',
 				     'created_at' => date('Y-m-d H:i:s'),
 				     'updated_at' => date('Y-m-d H:i:s')
 				     ),
-			       array('id' => 4,
-				     'tipus' => 'Col·laborador',
-				     'created_at' => date('Y-m-d H:i:s'),
-				     'updated_at' => date('Y-m-d H:i:s')
-				     ),
-			       array('id' => 5,
+			     array('id' => 4,
 				     'tipus' => 'Simpatitzant',
 				     'created_at' => date('Y-m-d H:i:s'),
 				     'updated_at' => date('Y-m-d H:i:s')
 				     )
 			       ));
 
-	    Schema::create('rols', function($table) {
-		    $table->increments('id');
-		    $table->string('tipus', 20);
-		    $table->integer('nivell_permis')->unsigned();
-		    $table->string('comentari', 200)->nullable();
-		});
-
 	    DB::table('rols')
 		->insert(array(array('id' => 1, 
-				     'tipus' => 'Sense Permisos',
+				     'tipus' => 'Sense permisos',
 				     'nivell_permis' => 0
 				     ),
-			       array('id' => 2,
-				     'tipus' => 'Casteller actiu',
+			     array('id' => 2,
+				     'tipus' => 'Accés bàsic',
 				     'nivell_permis' => 1
 				     ),
-			       array('id' => 3,
-				     'tipus' => 'Ressponsable Família',
+			     array('id' => 3,
+				     'tipus' => 'Responsable família',
 				     'nivell_permis' => 2
 				     ),
-			       array('id' => 4,
+			     array('id' => 4,
 				     'tipus' => 'Administrador',
 				     'nivell_permis' => 3
 				     ),
-			       array('id' => 5,
+			     array('id' => 5,
 				     'tipus' => 'Super',
 				     'nivell_permis' => 4
 				     )
 			       ));
 
-	    Schema::create('persones', function($table) {
-		    $table->increments('id');
-		    $table->integer('numero_soci')->unsigned()->nullable();
-		    $table->string('nom', 50)->index();
-		    $table->string('cognom1', 50)->index();
-		    $table->string('cognom2', 50);
-		    $table->string('mot', 50)->unique()->index();
-		    $table->string('dni', 15);
-		    $table->date('naixement');
-		    $table->string('email', 50);
-		    $table->string('direccio', 200);
-		    $table->string('cp', 8);
-		    $table->string('poblacio', 50);
-		    $table->string('provincia', 30);
-		    $table->string('pais', 30)->default('Espanya');
-		    $table->string('telefon', 12);
-		    $table->string('mobil', 12);
-		    $table->string('sexe', 1);
-		    $table->date('alta')->index();
-		    $table->boolean('actiu')->default(1)->index();
-		    $table->integer('categories_fk')->unsigned()->default(1);
-		    $table->foreign('categories_fk')->references('id')->on('categories');
-		    $table->integer('rols_fk')->unsigned()->default(2);
-		    $table->foreign('rols_fk')->references('id')->on('rols');
-		    $table->string('usuari', 30)->nullable();
-		    $table->string('password', 64)->nullable();
-		    $table->boolean('rebre_sms')->default(1);
-		    $table->boolean('rebre_mail')->default(1);
-		    $table->string('comentari', 200)->nullable();
-		    $table->string('bic', 12)->nullable(); 
-		    $table->string('iban', 34)->nullable();
+	    DB::table('tipus_quotes')
+		->insert(array(array('id' => 1, 
+				     'tipus' => 'Sense quota',
+				     'periodicitat_mesos' => 0,
+				     'created_at' => date('Y-m-d H:i:s'),
+				     'updated_at' => date('Y-m-d H:i:s')
+				     ),
+			       array('id' => 2,
+				     'tipus' => 'Trimestral',
+				     'periodicitat_mesos' => 3,
+				     'created_at' => date('Y-m-d H:i:s'),
+				     'updated_at' => date('Y-m-d H:i:s')
+				     ),
+			       array('id' => 3,
+				     'tipus' => 'Semestral',
+				     'periodicitat_mesos' => 6,
+				     'created_at' => date('Y-m-d H:i:s'),
+				     'updated_at' => date('Y-m-d H:i:s')
+				     ),
+			       array('id' => 4,
+				     'tipus' => 'Anual',
+				     'periodicitat_mesos' => 12,
+				     'created_at' => date('Y-m-d H:i:s'),
+				     'updated_at' => date('Y-m-d H:i:s')
+                     ),
+			       ));
+    }
 
-		    $table->decimal('alcada-cadira')->default(0);
-		    $table->decimal('alcada-hombros')->default(0);
-		    $table->decimal('alcada-mans')->default(0);
-		    $table->decimal('amplada-hombros')->default(0);
-		    $table->decimal('circunferencia')->default(0);
-		    $table->timestamps();
-		});
-
-	    /*
-	      Each casteller has a field 'quotes_fk' that points to this table.
-	      This table is seeded with one dummy entry for the 'sense quota' case,
-	      but apart from that contains one row for the bank data of each casteller.
-	     */	    
-	    Schema::create('quotes', function($table) {
-		    $table->increments('id');
-		    $table->integer('periodicitat_mesos')->unsigned(); // every how many months
-		    $table->decimal('import')->default(0);
-		    $table->integer('id_responsables_fk')->unsigned();
-		    $table->foreign('id_responsables_fk')->references('id')->on('persones');
-		    $table->timestamps();
-		});
-
-	    Schema::create('beneficiaris', function($table) {
-		    $table->increments('id');
-		    $table->integer('quote_id')->unsigned();
-		    $table->foreign('quote_id')->references('id')->on('quotes');
-		    $table->integer('persone_id')->unsigned();
-		    $table->foreign('persone_id')->references('id')->on('persones');
-		});
-
-	    Schema::create('families', function($table) {
-		    $table->increments('id');
-		    $table->string('nom', 50);
-		    $table->boolean('activa')->default(1);
-
-		    // FIXME: cal una taula auxiliar per les camps següents
-
-		    $table->integer('persona_membre_fk')->unsigned();
-		    $table->foreign('persona_membre_fk')->references('id')->on('persones');
-		    $table->integer('persona_responsable_fk')->unsigned();
-		    $table->foreign('persona_responsable_fk')->references('id')->on('persones');
-		    $table->timestamps();
-		});
-
-	    Schema::create('tipus_esdeveniments', function($table) {
+    private function otherTablesForNextReleases()
+    {
+        Schema::create('tipus_esdeveniments', function($table) {
 		    $table->increments('id');
 		    $table->string('tipus', 50)->index();
 		    $table->string('descripcio', 200);
@@ -231,8 +273,8 @@ class CreateCastellers extends Migration {
 		    $table->integer('esdeveniment_id')->unsigned();
 		    $table->foreign('esdeveniment_id')->references('id')->on('esdeveniments');
 		});
-	}
-
+    }
+    
 	/**
 	 * Reverse the migrations.
 	 *
@@ -240,16 +282,18 @@ class CreateCastellers extends Migration {
 	 */
 	public function down()
 	{
-	    Schema::drop('esdeveniment_persone');
-	    Schema::drop('esdeveniments');
-	    Schema::drop('tipus_esdeveniments');
-	    Schema::drop('beneficiaris');
-	    Schema::drop('llocs');
-	    Schema::drop('quotes');
-	    Schema::drop('families');
-	    Schema::drop('persones');
-	    Schema::drop('rols');
-	    Schema::drop('categories');
+	    Schema::dropIfExists('esdeveniment_persone');
+	    Schema::dropIfExists('esdeveniments');
+	    Schema::dropIfExists('tipus_esdeveniments');
+	    Schema::dropIfExists('llocs');
+        Schema::dropIfExists('beneficiaris');
+	    Schema::dropIfExists('quotes');
+        Schema::dropIfExists('familie_persone');
+	    Schema::dropIfExists('families');
+	    Schema::dropIfExists('persones');
+	    Schema::dropIfExists('tipus_quotes');
+	    Schema::dropIfExists('rols');
+	    Schema::dropIfExists('categories');
 	}
 
 }

@@ -27,67 +27,25 @@ class DatabaseSeeder extends Seeder {
 		}
 
 		foreach(array('PersonesSeeder',
-			 'FamiliesSeeder',
-			 'QuotesSeeder',
-			 'BeneficiarisSeeder',
-			 'EsdevenimentsSeeder',
+                     'FamiliesSeeder',
+                     'PersonesFamiliesSeeder',
+                     //'QuotesSeeder',
+                     //'BeneficiarisSeeder',
+                     'EsdevenimentsSeeder',
 
-			 'ActuacionsSeeder',
-			 'CastellsSeeder',
-			 'CastellPersoneSeeder',
-			 'EsdevenimentPersoneSeeder',
-			 'ActuacionPersoneSeeder',
+                     'ActuacionsSeeder',
+                     'CastellsSeeder',
+                     'CastellPersoneSeeder',
+                     'EsdevenimentPersoneSeeder',
+                     'ActuacionPersoneSeeder',
 
-			 'MissatgesSeeder'
-			 ) as $seeder)
+                     'MissatgesSeeder'
+                     ) as $seeder)
 		{
 		    $this->call($seeder);
 		}
 	}
 
-}
-
-class QuotesSeeder extends Seeder {
-
-    public function run() {
-	Quote::create(array('id' => 1, 
-			    'periodicitat_mesos' => 0,
-			    'id_responsables_fk' => 1
-			    ));
-
-	Quote::create(array('id' => 2, 
-			    'periodicitat_mesos' => 3,
-			    'import' => 20,
-			    'id_responsables_fk' => 2
-			    ));
-
-	Quote::create(array('id' => 3, 
-			    'periodicitat_mesos' => 6,
-			    'import' => 30,
-			    'id_responsables_fk' => 3
-			    ));
-
-    }
-
-}
-
-class FamiliesSeeder extends Seeder {
-    
-    public function run() {
-	DB::table('families')->delete();
-
-	Familie::create(array('id' => 1,
-			      'nom' => 'García',
-			      'persona_membre_fk' => 1,
-			      'persona_responsable_fk' => 1
-			      ));
-
-	Familie::create(array('id' => 2,
-			      'nom' => 'López',
-			      'persona_membre_fk' => 2,
-			      'persona_responsable_fk' => 2
-			      ));
-    }
 }
 
 class PersonesSeeder extends Seeder {
@@ -130,6 +88,62 @@ class PersonesSeeder extends Seeder {
     }
 }
 
+class FamiliesSeeder extends Seeder {
+    
+    public function run() {
+	DB::table('families')->delete();
+
+	Familie::create(array('id' => 1,
+			      'nom' => 'García',
+			      ));
+
+	Familie::create(array('id' => 2,
+			      'nom' => 'López',
+			      ));
+    }
+}
+
+class PersonesFamiliesSeeder extends Seeder {
+    public function run() {
+    $table_name='familie_persone';
+	DB::table($table_name)->delete();
+
+	DB::table($table_name)->insert(array(
+                  'persone_id' => '1',
+			      'familie_id' => '1',
+                  'es_responsable' => 1
+			      ));
+
+	DB::table($table_name)->insert(array(
+			      'persone_id' => '2',
+			      'familie_id' => '1',
+                  'es_responsable' => 0
+			      ));
+    }
+}
+
+class QuotesSeeder extends Seeder {
+
+    public function run() {
+	Quote::create(array('id' => 1, 
+			    'periodicitat_mesos' => 0,
+			    'id_responsables_fk' => 1
+			    ));
+
+	Quote::create(array('id' => 2, 
+			    'periodicitat_mesos' => 3,
+			    'import' => 20,
+			    'id_responsables_fk' => 2
+			    ));
+
+	Quote::create(array('id' => 3, 
+			    'periodicitat_mesos' => 6,
+			    'import' => 30,
+			    'id_responsables_fk' => 3
+			    ));
+
+    }
+}
 class BeneficiarisSeeder extends Seeder {
 
     public function run() {
