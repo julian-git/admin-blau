@@ -32,9 +32,10 @@ class Quote extends Eloquent
 					 );
 
     public static $responsible_class = 'Persone';
+    public static $responsible_field = 'id_responsables_fk';
 
-    public static $no_dropbox = array('id_responsables_fk'
-				      );
+    public static $dependent_class = 'Persone';
+    public static $dependent_field = 'beneficiari';
 
     public static $validation_rules = array('periodicitat_mesos' => 'required|in:0,1,2,3,4,6,12',
 					    'import' => 'required|numeric'

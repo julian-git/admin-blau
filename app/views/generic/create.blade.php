@@ -30,7 +30,6 @@
 
 <form action="{{ action($CSN . 'sController@handleCreate') }}" method="post" role="form">
 
-
 @foreach ($CSN::$member_fields as $field => $prompt)
 @if ($field != 'id')
 <div class="row">
@@ -41,27 +40,35 @@
   </div>
   <div class="col-md-10">
     <div class="form-group">
-         @if (isset($dropbox_options[$field]))
-           <div class="panel-body">
 
-             {{ Form::select($field, $dropbox_options[$field]) }} 
+      @if (isset($dropbox_options[$field]))
+        <div class="panel-body">
 
-             <?php $ft = $foreign_table[$field] ?>
-             <a href="{{ action($ft . 'sController@create') }}" class="btn btn-primary">
-	        {{ $ft::$class_name_gender == 'm' ? 'Nou' : 'Nova' }}
-	        {{ $ft::$singular_class_name }}
-             </a>
-           </div>
-         @elseif (isset($responsible_fields[$field]))
-		<?php $RCL = $CSN::$responsible_class; ?>
-	     {{ $RCL::identifying_fields_of($responsible_fields[$field]) }}
-         @elseif(!strcmp($field, 'beneficiari'))
-	 decide on element here
+          {{ Form::select($field, $dropbox_options[$field]) }} 
 
-         @else 
-           {{ Form::text($field, Input::old($field)) }}
-           {{ $errors->first($field, '<span class="error">:message</span>') }}
-         @endif 
+          <?php $ft = $foreign_table[$field] ?>
+          <a href="{{ action($ft . 'sController@create') }}" class="btn btn-primary">
+	    {{ $ft::$class_name_gender == 'm' ? 'Nou' : 'Nova' }}
+	    {{ $ft::$singular_class_name }}
+          </a>
+        </div>
+
+      @elseif (isset($responsible_fields) &&
+               !strcmp($responsible_fields['field'], $field))
+        <?php $RCL = $CSN::$responsible_class; ?>
+	  {{ $RCL::identifying_fields_of($responsible_fields['id']) }}
+        
+      @elseif (isset($dependent_fields) &&
+               !strcmp($dependent_fields, $field))
+        <div class="form-group">
+dependent	   
+        </div>
+
+      @else 
+        {{ Form::text($field, Input::old($field)) }}
+        {{ $errors->first($field, '<span class="error">:message</span>') }}
+
+      @endif 
      </div> <!-- form-group -->
    </div> <!-- col-md -->
 </div> <!-- row -->

@@ -47,9 +47,11 @@ function dropbox_options_of($CSN)
     foreach (array_keys($CSN::$member_fields) as $field) 
     {
 	if (!strcmp(substr($field, -3), '_fk') && 
-	    ( !isset($CSN::$no_dropbox) ||
-	      !in_array($field, $CSN::$no_dropbox)
-	   ))
+ 	    ( !isset($CSN::$responsible_field) ||
+	      strcmp($CSN::$responsible_field, $field) ) &&
+ 	    ( !isset($CSN::$dependent_field) ||
+	      strcmp($CSN::$dependent_field, $field) )
+	   )
 	{
 	    $dropbox_options[$field] = dropbox_options_from_foreign_key($field);
 	}

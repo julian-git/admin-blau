@@ -60,7 +60,7 @@ class CVGController extends BaseController
 	$this->layout->content = View::make("generic.index", $extended_layout_data);
     }
 
-    public function create($id_responsable_fk=null)
+    public function create($responsible_id=null)
     {
         // Show the create form.
 	$CSN = $this->ClassSingularName;
@@ -70,7 +70,16 @@ class CVGController extends BaseController
 	$extended_layout_data['dropbox_options'] = dropbox_options_of($CSN);
 	$extended_layout_data['dropbox_default'] = $CSN::$default_values;
 	$extended_layout_data['foreign_table'] = foreign_tables_of($CSN);
-	$extended_layout_data['responsible_fields'] = array('id_responsables_fk' => $id_responsable_fk);
+	if (isset($CSN::$responsible_field)) 
+	{
+	    $extended_layout_data['responsible_fields'] 
+		= array('field' => $CSN::$responsible_field,
+			'id' => $responsible_id);
+	}
+	if (isset($CSN::$dependent_field)) 
+	{
+	    $extended_layout_data['dependent_fields'] = $CSN::$dependent_field;
+	}
 
 	$this->layout->content = View::make('generic.create', $extended_layout_data);
     }
