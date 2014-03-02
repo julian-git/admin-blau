@@ -80,7 +80,7 @@ class Actuacion extends Eloquent
 	$res = array();
 	foreach ($the_castells as $c) 
 	{
-	    $res[] = [$c->id, $c->tipus_castells_fk];
+	    $res[] = array($c->id, $c->tipus_castells_fk);
 	}
 	return $res;
     }
