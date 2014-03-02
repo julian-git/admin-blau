@@ -65,14 +65,14 @@ function seed_tipus_castells()
 	insert_results(1, $i);
     }
 
-    foreach(['p7f',
+    foreach(array('p7f',
 	     '2de8f',
 	     '2de9fm',
 	     '3de9f',
 	     '4de9f',
 	     '5de9f',
 	     '7de9f',
-	     '9de9f'] as $extra)
+	     '9de9f') as $extra)
     {
 	insert_results_impl($extra, 300);
     }

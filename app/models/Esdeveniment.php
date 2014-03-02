@@ -82,7 +82,7 @@ class Esdeveniment extends Eloquent
     public static function details($id)
     {
 	$esdeveniment = Esdeveniment::findOrFail($id);
-	return [ [ $esdeveniment->id, $esdeveniment->hora ] ]; 
+	return array(array($esdeveniment->id, $esdeveniment->hora)); 
     }
 
     public static function persones_actives()

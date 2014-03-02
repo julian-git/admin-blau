@@ -54,7 +54,7 @@ class Missatge extends Eloquent
     public static function details($id)
     {
 	$missatge = Missatge::findOrFail($id);
-	return [ [ $missatge->id, $missatge->contingut ] ]; 
+	return array(array($missatge->id, $missatge->contingut)); 
     }
 }
 

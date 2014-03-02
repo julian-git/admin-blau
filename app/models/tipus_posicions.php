@@ -17,7 +17,7 @@
 */
 
 $tipus_posicions = join(',',
-			['Baix',
+			array('Baix',
 			 'Crossa',
 			 'Agulla',
 			 'Contrafort',
@@ -25,6 +25,6 @@ $tipus_posicions = join(',',
 			 'Vent',
 			 'Ma',
 			 'Quesito'
-			 ]);
+			 ));
 
 ?>

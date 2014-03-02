@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 		
-		foreach(['castell_persone',
+		foreach(array('castell_persone',
 			 'actuacion_persone',
 			 'esdeveniment_persone',
 			 'beneficiaris',
@@ -21,12 +21,12 @@ class DatabaseSeeder extends Seeder {
 			 'actuacions',
 			 'families',
 			 'esdeveniments'
-			 ] as $table)
+			 ) as $table)
 		{
 		    DB::table($table)->delete();
 		}
 
-		foreach(['PersonesSeeder',
+		foreach(array('PersonesSeeder',
 			 'FamiliesSeeder',
 			 'QuotesSeeder',
 			 'BeneficiarisSeeder',
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder {
 			 'ActuacionPersoneSeeder',
 
 			 'MissatgesSeeder'
-			 ] as $seeder)
+			 ) as $seeder)
 		{
 		    $this->call($seeder);
 		}

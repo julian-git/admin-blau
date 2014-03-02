@@ -41,7 +41,7 @@ Route::get('/test.html', function()
 	       return View::make('test');
 	   });
 
-foreach(['Persone', 
+foreach(array('Persone', 
 	 'Categorie',
 	 'Familie', 
 	 'Quote',
@@ -57,7 +57,7 @@ foreach(['Persone',
 	 'Posicion',
 
 	 'Missatge'
-	 ] as $CSN) {  // CSN is a mnemonic for ClassSingularName
+	 ) as $CSN) {  // CSN is a mnemonic for ClassSingularName
 
     $globCSN = $CSN;
     $csn = strtolower($CSN);
