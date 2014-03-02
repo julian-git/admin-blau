@@ -29,8 +29,8 @@ class DatabaseSeeder extends Seeder {
 		foreach(array('PersonesSeeder',
                      'FamiliesSeeder',
                      'PersonesFamiliesSeeder',
-                     //'QuotesSeeder',
-                     //'BeneficiarisSeeder',
+                     'QuotesSeeder',
+                     'BeneficiarisSeeder',
                      'EsdevenimentsSeeder',
 
                      'ActuacionsSeeder',
@@ -126,22 +126,18 @@ class QuotesSeeder extends Seeder {
 
     public function run() {
 	Quote::create(array('id' => 1, 
-			    'periodicitat_mesos' => 0,
-			    'id_responsables_fk' => 1
+			    'tipus_quotes_fk' => 1,
+			    'persones_fk' => 2,
+                'import' => 0,
+                'activa' => 0,              
 			    ));
 
 	Quote::create(array('id' => 2, 
-			    'periodicitat_mesos' => 3,
-			    'import' => 20,
-			    'id_responsables_fk' => 2
+			    'tipus_quotes_fk' => 2,
+			    'persones_fk' => 1,
+                'import' => 12,
+                'activa' => 1,              
 			    ));
-
-	Quote::create(array('id' => 3, 
-			    'periodicitat_mesos' => 6,
-			    'import' => 30,
-			    'id_responsables_fk' => 3
-			    ));
-
     }
 }
 class BeneficiarisSeeder extends Seeder {
@@ -150,16 +146,16 @@ class BeneficiarisSeeder extends Seeder {
 	DB::table('beneficiaris')->delete();
 	
 	DB::table('beneficiaris')
-	    ->insert(array(array('id' => 1,
+	    ->insert(array(array(
 				 'quote_id' => 2,
 				 'persone_id' => 1
 				 ),
-			   array('id' => 2,
+			   array(
 				 'quote_id' => 2,
 				 'persone_id' => 3
 				 ),
-			   array('id' => 3,
-				 'quote_id' => 3,
+			   array(
+				 'quote_id' => 1,
 				 'persone_id' => 2
 				 )
 			   ));

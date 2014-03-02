@@ -61,12 +61,10 @@ class Persone extends Eloquent
 
     public static $fields_in_index = array('id' => 'Id',
 					   'num_soci' => 'N&uacute;mero de soci',
-					   'cognom1' => 'Cognom 1',
-					   'cognom2' => 'Cognom 2',
-					   'nom' => 'Nom',
+					   'nom_complert' => 'Nom',
 					   'mot' => 'Mot',
-					   'telefon' => 'Telèfon',
-					   'mobil' => 'Mòvil'
+					   'telefon' => 'Tel&egrave;fon',
+					   'mobil' => 'M&ograve;bil'
 					   );					 
 
     public static $validation_rules = array('cognom1' => 'required|alpha',
@@ -90,19 +88,24 @@ class Persone extends Eloquent
     public static $identifying_short_fields = array('nom',
                           'cognom1');
     
+    public function getNomComplertAttribute()
+    {
+    	return $this->nom.' '.$this->cognom1.' '.$this->cognom2;
+    	
+    }
     public function castells()
     {
-	return $this->belongsToMany('Castell');
+        return $this->belongsToMany('Castell');
     }
 
     public function actuacions()
     {
-	return $this->belongsToMany('Actuacion');
+        return $this->belongsToMany('Actuacion');
     }
 
     public function esdeveniments()
     {
-	return $this->belongsToMany('Esdeveniment');
+        return $this->belongsToMany('Esdeveniment');
     }
 }
 

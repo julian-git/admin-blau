@@ -36,7 +36,7 @@
             }
         ?>
         <br>
-        <small>Estas segur/a?</small>
+        <small>Est&agrave;s segur/a?</small>
     </h1>
     </div>
     <form action="{{ action($CSN . 'sController@handleDelete') }}" method="post" role="form">
