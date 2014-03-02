@@ -14,7 +14,6 @@ L'Admin Blau és programari lliure, llicenciat amb la llicència [GPL v3](https:
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 
-
 ## Installation
 
 This installation process is adapted from http://daylerees.com/codebright/getting-started .
@@ -29,10 +28,6 @@ create database admin_blau;
 ```
 
 * Clone the Laravel framework via ```git clone https://github.com/laravel/laravel.git admin-blau/```
-
-* Install [PHP Composer](https://getcomposer.org/download/)
-
-* Inside ```admin_blau/```, run ```php /your/path/to/composer.phar install```
 
 * Rename git origins:
 ```
@@ -71,3 +66,9 @@ php artisan db:seed
 php artisan serve
 ``` 
 then open your browser to ```http://localhost:8000```
+
+### Com canviar les versions de Bootstrap i jQuery
+
+Les versions utilitzades en aquests moments són la Bootstrap 3.1.0 i jQuery 1.11.0.
+Aquests components estan ubicats a public/components amb els noms genèrics, sense la versió. En cas de voler canviar la versió, només cal sobreescriure els components actuals.
+
