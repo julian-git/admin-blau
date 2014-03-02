@@ -28,14 +28,9 @@ class Categorie extends Eloquent
 					 'comentari' => 'Comentari'
 					 );
 
-    public static $validation_rules = array('id' => 'required|integer',
-					    'tipus' => 'required'
-					    );
-
+    public static $validation_rules = array('tipus' => 'required');
     public static $default_values = array();
-
-    public static $identifying_fields = array('tipus'
-					      );
+    public static $identifying_fields = array('tipus');
 }
 
 ?>

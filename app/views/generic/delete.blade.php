@@ -21,21 +21,27 @@
 @section('content')
 
     <div class="page-header">
-
     <?php $idf = $CSN::$identifying_fields; ?>
-
     <h1> Esborrar
-        {{ $$csn->$idf[0] }} 
-    (
-        @for ($i=1; $i < sizeof($idf); $i++)
-	  {{ $$csn->$idf[$i] }}
-	@endfor
-     )
- <small>Estas segur/a?</small></h1>
+        <?php 
+            echo $$csn->$idf[0];
+            if (sizeof($idf)>1)
+            {
+                echo " (";
+            	for ($i=1; $i < sizeof($idf); $i++)
+		        {
+			       $$csn->$idf[$i];
+		        }
+	            echo ")";
+            }
+        ?>
+        <br>
+        <small>Estas segur/a?</small>
+    </h1>
     </div>
     <form action="{{ action($CSN . 'sController@handleDelete') }}" method="post" role="form">
         <input type="hidden" name="{{ $csn }}" value="{{ $$csn->id }}" />
-        <input type="submit" class="btn btn-danger" value="D&rsquo;acord" />
+        <input type="submit" class="btn btn-danger" value="D'acord" />
         <a href="{{ action($CSN . 'sController@edit', $$csn->id) }}" class="btn btn-default">No, de cap de les maneres!</a>
     </form>
 @stop

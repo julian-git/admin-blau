@@ -26,28 +26,36 @@ class Familie extends Eloquent
 
     public static $member_fields = array('id' => 'Id',
 					 'nom' => 'Nom',
-					 'activa' => 'Activa',
-					 'persona_membre_fk' => 'Membre',
-					 'persona_responsable_fk' => 'Responsable'
-					 );
+                     'membres_mk' => 'Membres',
+                    );
 
-    public static $validation_rules = array('id' => 'required|integer',
-					    'nom' => 'required|alpha'
-					    );
+    public static $validation_rules = array('nom' => 'required');
 
-    public static $default_values = array('activa' => 1);
+    public static $default_values = array();
 
-    public static $identifying_fields = array('nom'
-					      );
+    public static $identifying_fields = array('nom');
 
-    public function getPersonaMembreFkAttribute($value)
+    public function membres()
     {
-	return resolve_foreign_key('Persone', $value);
+    	return $this->belongsToMany('Persone')->withPivot('es_responsable');
     }
-
-    public function getPersonaResponsableFkAttribute($value)
-    {
-	return resolve_foreign_key('Persone', $value);
+    
+    public function getMembresMkAttribute($value)
+    {    
+    	$res = '';
+    	$firstOne=true;
+    	$persones=$this->membres;
+        foreach($persones as $p)
+        {
+        	if (!$firstOne)
+        	   $res .=', ';
+	        foreach(Persone::$identifying_short_fields as $f)
+	            $res .= $p->$f . ' ';
+	        if ($p->pivot->es_responsable)
+    	        $res .= '(*)';
+	        $firstOne=false;
+        }
+    	return $res;
     }
 }
 

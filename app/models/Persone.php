@@ -84,10 +84,12 @@ class Persone extends Eloquent
 
     public static $default_values = array();
 
-    public static $identifying_fields = array('mot', 
-					      'nom',
+    public static $identifying_fields = array('nom',
 					      'cognom1',
 					      'cognom2');
+
+    public static $identifying_short_fields = array('nom',
+						    'cognom1');
     
     public function getCategoriesFKAttribute($value)
     {

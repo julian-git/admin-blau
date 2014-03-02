@@ -39,23 +39,25 @@ Route::get('/test.html', function()
 	       return View::make('test');
 	   });
 
-foreach(array('Persone', 
-	 'Categorie',
-	 'Familie', 
-	 'Quote',
-	 'Esdeveniment',
-	 'TipusEsdeveniment',
-	 'Rol',
+foreach(array('Categorie',
+              'Rol',
+              'TipusQuote', 
+              'Persone', 
+              'Familie', 
+			  'Quote',
 
-	 'Lloc',
-	 'TipusActuacion',
-	 'Actuacion',
-	 'TipusCastell',
-	 'Castell',
-	 'Posicion',
-
-	 'Missatge'
-	 ) as $CSN) {  // CSN is a mnemonic for ClassSingularName
+              'Esdeveniment',
+			  'TipusEsdeveniment',
+			
+			  'Lloc',
+			  'TipusActuacion',
+			  'Actuacion',
+			  'TipusCastell',
+			  'Castell',
+			  'Posicion',
+			
+			  'Missatge'
+			 ) as $CSN) {  // CSN is a mnemonic for ClassSingularName
 
     $csn = strtolower($CSN);
 

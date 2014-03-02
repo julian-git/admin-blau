@@ -20,7 +20,6 @@
 @section('content')
 
 <?php include_once(dirname(dirname(dirname(__FILE__))) . "/models/$CSN.php"); ?>
-
     <div class="page-header">
     <h1>{{ $CSN::$plural_class_name }}</h1>
     </div>
@@ -83,7 +82,7 @@
 			  $("#indexDataTable tbody tr").click(function () {
 				  var position = iDT.fnGetPosition(this); //get position of the selected row
 				  var id = iDT.fnGetData(position)[0];    //value of the first column (can be hidden)
-				  document.location.href = "/{{ strtolower($CSN) }}/edit/" + id;   //redirect
+				  document.location.href = "{{ strtolower($CSN) }}/edit/" + id;   //redirect
 			      });
 		      }
 		  });
