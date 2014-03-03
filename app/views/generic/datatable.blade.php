@@ -17,11 +17,11 @@
 */
 ?>
 
-        <?php $fields_in_index = isset($CSN::$fields_in_index) 
-                               ? $CSN::$fields_in_index
-			       : $CSN::$member_fields ?>
+        <?php $fields_in_index = isset($DataCSN::$fields_in_index) 
+                               ? $DataCSN::$fields_in_index
+			       : $DataCSN::$member_fields ?>
         <div class="table-responsive">
-          <table id="indexDataTable" class="table table-striped table-bordered">
+          <table id="indexDataTable-{{ $DataCSN }}" class="table table-striped table-bordered">
             <thead>
                 <tr>
         @foreach ($fields_in_index as $field => $prompt)
@@ -48,12 +48,12 @@
     <script src="{{ asset('components/sb-admin-v2/js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
     <script>
       $(document).ready(function() {
-	      var iDT = $('#indexDataTable').dataTable({
+	      var iDT = $('#indexDataTable-{{ $DataCSN }}').dataTable({
 		  fnDrawCallback: function(){
-			  $("#indexDataTable tbody tr").click(function () {
+			  $("#indexDataTable-{{ $DataCSN }} tbody tr").click(function () {
 				  var position = iDT.fnGetPosition(this); //get position of the selected row
 				  var id = iDT.fnGetData(position)[0];    //value of the first column (can be hidden)
-				  document.location.href = "{{ strtolower($CSN) }}/edit/" + id;   //redirect
+				  document.location.href = "{{ strtolower($DataCSN) }}/edit/" + id;   //redirect
 			      });
 		      }
 		  });
