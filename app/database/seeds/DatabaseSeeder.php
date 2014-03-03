@@ -12,44 +12,47 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 		
 		foreach(array('castell_persone',
-			 'actuacion_persone',
-			 'esdeveniment_persone',
-			 'beneficiaris',
-			 'quotes',
-			 'persones',
-			 'castells',
-			 'actuacions',
-			 'families',
-			 'esdeveniments'
-			 ) as $table)
+                     'actuacion_persone',
+                     'esdeveniment_persone',
+                     'beneficiaris',
+                     'quotes',
+                     'persones',
+                     'castells',
+                     'actuacions',
+                     'families',
+                     'esdeveniments') as $table)
 		{
 		    DB::table($table)->delete();
 		}
 
-		foreach(array('PersonesSeeder',
+		foreach(array(
+                     //Core
+                     'PersonesSeeder',
                      'FamiliesSeeder',
                      'PersonesFamiliesSeeder',
                      'QuotesSeeder',
                      'BeneficiarisSeeder',
+                     //Esdeveniments
+                     'TipusEsdevenimentsSeeder',
+                     'LlocsSeeder',
                      'EsdevenimentsSeeder',
-
+                     'EsdevenimentPersoneSeeder',
+                     //Actuacions
                      'ActuacionsSeeder',
                      'CastellsSeeder',
                      'CastellPersoneSeeder',
-                     'EsdevenimentPersoneSeeder',
                      'ActuacionPersoneSeeder',
-
+                     //Missatges
                      'MissatgesSeeder'
                      ) as $seeder)
 		{
 		    $this->call($seeder);
 		}
 	}
-
 }
 
+//Core
 class PersonesSeeder extends Seeder {
-
     public function run() {
 	DB::table('persones')->delete();
 	Persone::create(array('id' => 1, 
@@ -89,7 +92,6 @@ class PersonesSeeder extends Seeder {
 }
 
 class FamiliesSeeder extends Seeder {
-    
     public function run() {
 	DB::table('families')->delete();
 
@@ -123,7 +125,6 @@ class PersonesFamiliesSeeder extends Seeder {
 }
 
 class QuotesSeeder extends Seeder {
-
     public function run() {
 	Quote::create(array('id' => 1, 
 			    'tipus_quotes_fk' => 1,
@@ -140,8 +141,8 @@ class QuotesSeeder extends Seeder {
 			    ));
     }
 }
-class BeneficiarisSeeder extends Seeder {
 
+class BeneficiarisSeeder extends Seeder {
     public function run() {
 	DB::table('beneficiaris')->delete();
 	
@@ -162,8 +163,39 @@ class BeneficiarisSeeder extends Seeder {
     }
 }
 
-class EsdevenimentsSeeder extends Seeder {
+//Esdeveniments
+class TipusEsdevenimentsSeeder extends Seeder {
+    public function run() {
+	    DB::table('tipus_esdeveniments')
+		->insert(array(array('id' => 1, 
+				      'tipus' => 'Calçotada',
+				      'descripcio' => ''
+				     ),
+			       array('id' => 2, 
+				      'tipus' => 'Sopar',
+				      'descripcio' => ''
+				     )
+			       ));
+    }
+}
 
+class LlocsSeeder extends Seeder {
+    public function run() {
+        DB::table('llocs')
+		->insert(array(array('id' => 1, 
+				     'nom' => 'Can Mussons'
+				     ),
+			       array('id' => 2, 
+				     'nom' => 'Vila de Gràcia'
+				     ),
+			       array('id' => 3, 
+				     'nom' => 'Terrassa'
+				     )
+			       ));
+    }
+}
+
+class EsdevenimentsSeeder extends Seeder {
     public function run() {
 	DB::table('esdeveniments')->delete();
 
@@ -185,8 +217,23 @@ class EsdevenimentsSeeder extends Seeder {
     }
 }
 
-class ActuacionsSeeder extends Seeder {
+class EsdevenimentPersoneSeeder extends Seeder {
+    public function run() {
+	DB::table('esdeveniment_persone')->delete();
+	
+	DB::table('esdeveniment_persone')->insert(array('persone_id' => 1,
+							'esdeveniment_id'   => 1));
 
+	DB::table('esdeveniment_persone')->insert(array('persone_id' => 1,
+							'esdeveniment_id'   => 2));
+
+	DB::table('esdeveniment_persone')->insert(array('persone_id' => 2,
+							'esdeveniment_id'   => 1));
+    }
+}
+
+//Actuacions
+class ActuacionsSeeder extends Seeder {
     public function run() {
 	DB::table('actuacions')->delete();
 
@@ -216,9 +263,7 @@ class ActuacionsSeeder extends Seeder {
     }
 }
 
-
 class CastellsSeeder extends Seeder {
-
     public function run() {
 	DB::table('castells')->delete();
 
@@ -274,7 +319,6 @@ class CastellsSeeder extends Seeder {
 }
 
 class CastellPersoneSeeder extends Seeder {
-
     public function run() {
 	DB::table('castell_persone')->delete();
 	
@@ -309,7 +353,6 @@ class CastellPersoneSeeder extends Seeder {
 }
 
 class ActuacionPersoneSeeder extends Seeder {
-
     public function run() {
 	DB::table('actuacion_persone')->delete();
 	
@@ -330,22 +373,7 @@ class ActuacionPersoneSeeder extends Seeder {
     }
 }
 
-class EsdevenimentPersoneSeeder extends Seeder {
-
-    public function run() {
-	DB::table('esdeveniment_persone')->delete();
-	
-	DB::table('esdeveniment_persone')->insert(array('persone_id' => 1,
-							'esdeveniment_id'   => 1));
-
-	DB::table('esdeveniment_persone')->insert(array('persone_id' => 1,
-							'esdeveniment_id'   => 2));
-
-	DB::table('esdeveniment_persone')->insert(array('persone_id' => 2,
-							'esdeveniment_id'   => 1));
-    }
-}
-
+//Missatges
 class MissatgesSeeder extends Seeder {
 
     public function run() {

@@ -97,6 +97,7 @@ class CreateCastellers extends Migration {
 	    Schema::create('families', function($table) {
 		    $table->increments('id');
 		    $table->string('nom', 50);
+		    $table->string('comentari', 100)->nullable();
 		    $table->timestamps();
 		});
 
@@ -118,6 +119,7 @@ class CreateCastellers extends Migration {
 		    $table->foreign('persones_fk')->references('id')->on('persones');
 		    $table->decimal('import')->default(0);
 		    $table->boolean('activa')->default(1);
+		    $table->string('comentari', 100)->nullable();
 		    $table->timestamps();
 		});
 
@@ -127,6 +129,7 @@ class CreateCastellers extends Migration {
 		    $table->foreign('quote_id')->references('id')->on('quotes');
 		    $table->integer('persone_id')->unsigned();
 		    $table->foreign('persone_id')->references('id')->on('persones');
+		    $table->timestamps();
 		});
 
         CreateCastellers::fillBasicData();
@@ -218,36 +221,11 @@ class CreateCastellers extends Migration {
 		    $table->timestamps();
 		});
 
-	    DB::table('tipus_esdeveniments')
-		->insert(array(array('id' => 1, 
-				      'tipus' => 'Calçotada',
-				      'descripcio' => ''
-				     ),
-			       array('id' => 2, 
-				      'tipus' => 'Sopar',
-				      'descripcio' => ''
-				     )
-			       ));
-
-
 	    Schema::create('llocs', function($table) {
 		    $table->increments('id');
 		    $table->string('nom', 50);
 		    $table->timestamps();
 		});
-
-	    DB::table('llocs')
-		->insert(array(array('id' => 1, 
-				     'nom' => 'Can Mussons'
-				     ),
-			       array('id' => 2, 
-				     'nom' => 'Vila de Gràcia'
-				     ),
-			       array('id' => 3, 
-				     'nom' => 'Terrassa'
-				     )
-			       ));
-
 
 	    Schema::create('esdeveniments', function($table) {
 		    $table->increments('id');
@@ -286,6 +264,7 @@ class CreateCastellers extends Migration {
 	    Schema::dropIfExists('esdeveniments');
 	    Schema::dropIfExists('tipus_esdeveniments');
 	    Schema::dropIfExists('llocs');
+
         Schema::dropIfExists('beneficiaris');
 	    Schema::dropIfExists('quotes');
         Schema::dropIfExists('familie_persone');
