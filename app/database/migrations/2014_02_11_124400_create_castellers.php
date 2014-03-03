@@ -104,8 +104,8 @@ class CreateCastellers extends Migration {
 		    $table->increments('id');
 		    $table->integer('persone_id')->unsigned();
 		    $table->foreign('persone_id')->references('id')->on('persones');
-            $table->integer('familie_id')->unsigned();
-            $table->foreign('familie_id')->references('id')->on('families');
+		    $table->integer('familie_id')->unsigned();
+		    $table->foreign('familie_id')->references('id')->on('families');
 		    $table->boolean('es_responsable')->default(0);
 		    $table->timestamps();
 		});
@@ -118,23 +118,14 @@ class CreateCastellers extends Migration {
 		    $table->foreign('id_responsables_fk')->references('id')->on('persones');
 		    $table->decimal('import')->default(0);
 		    $table->boolean('activa')->default(1);
-		    $table->timestamps();
 		});
-
-	    Schema::create('beneficiaris', function($table) {
-		    $table->increments('id');
-		    $table->integer('quote_id')->unsigned();
-		    $table->foreign('quote_id')->references('id')->on('quotes');
-		    $table->integer('persone_id')->unsigned();
-		    $table->foreign('persone_id')->references('id')->on('persones');
-		});
-
-        CreateCastellers::fillBasicData();
-        CreateCastellers::otherTablesForNextReleases();
+		    
+	    CreateCastellers::fillBasicData();
+	    CreateCastellers::otherTablesForNextReleases();
 	}
-
-    public function fillBasicData()
-    {
+	
+	public function fillBasicData()
+	{
 	    DB::table('categories')
 		->insert(array(array('id' => 1,
 				     'tipus' => 'Casteller',
@@ -207,47 +198,22 @@ class CreateCastellers extends Migration {
 				     'updated_at' => date('Y-m-d H:i:s')
                      ),
 			       ));
-    }
+	}
 
-    private function otherTablesForNextReleases()
-    {
-        Schema::create('tipus_esdeveniments', function($table) {
+	private function otherTablesForNextReleases()
+	{
+	    Schema::create('tipus_esdeveniments', function($table) {
 		    $table->increments('id');
 		    $table->string('tipus', 50)->index();
 		    $table->string('descripcio', 200);
 		    $table->timestamps();
 		});
 
-	    DB::table('tipus_esdeveniments')
-		->insert(array(array('id' => 1, 
-				      'tipus' => 'Calçotada',
-				      'descripcio' => ''
-				     ),
-			       array('id' => 2, 
-				      'tipus' => 'Sopar',
-				      'descripcio' => ''
-				     )
-			       ));
-
-
 	    Schema::create('llocs', function($table) {
 		    $table->increments('id');
 		    $table->string('nom', 50);
 		    $table->timestamps();
 		});
-
-	    DB::table('llocs')
-		->insert(array(array('id' => 1, 
-				     'nom' => 'Can Mussons'
-				     ),
-			       array('id' => 2, 
-				     'nom' => 'Vila de Gràcia'
-				     ),
-			       array('id' => 3, 
-				     'nom' => 'Terrassa'
-				     )
-			       ));
-
 
 	    Schema::create('esdeveniments', function($table) {
 		    $table->increments('id');
@@ -273,8 +239,8 @@ class CreateCastellers extends Migration {
 		    $table->integer('esdeveniment_id')->unsigned();
 		    $table->foreign('esdeveniment_id')->references('id')->on('esdeveniments');
 		});
-    }
-    
+	}
+	
 	/**
 	 * Reverse the migrations.
 	 *
@@ -286,9 +252,9 @@ class CreateCastellers extends Migration {
 	    Schema::dropIfExists('esdeveniments');
 	    Schema::dropIfExists('tipus_esdeveniments');
 	    Schema::dropIfExists('llocs');
-        Schema::dropIfExists('beneficiaris');
+	    Schema::dropIfExists('beneficiaris');
 	    Schema::dropIfExists('quotes');
-        Schema::dropIfExists('familie_persone');
+	    Schema::dropIfExists('familie_persone');
 	    Schema::dropIfExists('families');
 	    Schema::dropIfExists('persones');
 	    Schema::dropIfExists('tipus_quotes');

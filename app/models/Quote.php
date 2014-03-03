@@ -39,6 +39,7 @@ class Quote extends Eloquent
     public static $validation_rules = array('periodicitat_mesos' => 'required|in:0,1,2,3,4,6,12',
 					    'import' => 'required|numeric'
 					    );
+
     public static $fields_in_index = array(
                          'id' => 'Id',
                          'tipus_quotes' => 'Tipus',
