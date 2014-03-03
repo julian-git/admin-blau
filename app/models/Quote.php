@@ -27,7 +27,8 @@ class Quote extends Eloquent
     public static $member_fields = array('id' => 'Id',
 					 'tipus_quotes_fk' => 'Tipus',
 					 'import' => 'Import',
-					 'id_responsables_fk' => 'Responsable'
+					 'id_responsables_fk' => 'Responsable',
+					 'beneficiari' => 'Beneficiaris'
 					 );
 
     public static $responsible_class = 'Persone';

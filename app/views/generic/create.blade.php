@@ -59,7 +59,7 @@
                !strcmp($dependent_fields, $field))
 
         <div class="form-group">
-dependent	   
+fer aquí un input pels dependents
         </div>
 
 
