@@ -114,8 +114,8 @@ class CreateCastellers extends Migration {
 		    $table->increments('id');
 		    $table->integer('tipus_quotes_fk')->unsigned();
 		    $table->foreign('tipus_quotes_fk')->references('id')->on('tipus_quotes');
-		    $table->integer('persones_fk')->unsigned();
-		    $table->foreign('persones_fk')->references('id')->on('persones');
+		    $table->integer('id_responsables_fk')->unsigned();
+		    $table->foreign('id_responsables_fk')->references('id')->on('persones');
 		    $table->decimal('import')->default(0);
 		    $table->boolean('activa')->default(1);
 		    $table->timestamps();

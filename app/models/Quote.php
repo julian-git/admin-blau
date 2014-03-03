@@ -25,10 +25,10 @@ class Quote extends Eloquent
     public static $class_name_gender = 'f';
 
     public static $member_fields = array('id' => 'Id',
-                         'tipus_quotes_fk' => 'Tipus',
-						 'import' => 'Import',
-						 'persones_fk' => 'Responsable'
-						 );
+					 'tipus_quotes_fk' => 'Tipus',
+					 'import' => 'Import',
+					 'id_responsables_fk' => 'Responsable'
+					 );
 
     public static $responsible_class = 'Persone';
     public static $responsible_field = 'id_responsables_fk';
@@ -44,16 +44,16 @@ class Quote extends Eloquent
                          'tipus_quotes' => 'Tipus',
                          'import' => 'Import',
                          'import_anual' => 'Total anual',
-                         'persones_fk' => 'Responsable',
+                         'id_responsables_fk' => 'Responsable',
                          'beneficiaris_list' => 'Beneficiaris'
                          );
     						 
     public static $default_values = array();
 
     public static $identifying_fields = array('tipus_quotes_fk',
-										      'persones_fk',
-										      'import'
-										      );
+					      'id_responsables_fk',
+					      'import'
+					      );
 
     public function beneficiaris()
     {

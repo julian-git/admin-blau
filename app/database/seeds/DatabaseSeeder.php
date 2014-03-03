@@ -127,16 +127,16 @@ class QuotesSeeder extends Seeder {
     public function run() {
 	Quote::create(array('id' => 1, 
 			    'tipus_quotes_fk' => 1,
-			    'persones_fk' => 2,
-                'import' => 0,
-                'activa' => 0,              
+			    'id_responsables_fk' => 2,
+			    'import' => 0,
+			    'activa' => 0,              
 			    ));
 
 	Quote::create(array('id' => 2, 
 			    'tipus_quotes_fk' => 2,
-			    'persones_fk' => 1,
-                'import' => 12,
-                'activa' => 1,              
+			    'id_responsables_fk' => 1,
+			    'import' => 12,
+			    'activa' => 1, 
 			    ));
     }
 }
