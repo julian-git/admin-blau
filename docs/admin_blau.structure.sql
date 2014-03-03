@@ -114,7 +114,7 @@ CREATE TABLE `castells` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categories` (
   `id` int(10) unsigned NOT NULL,
-  `tipus` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `tipus` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `comentari` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -170,6 +170,27 @@ CREATE TABLE `esdeveniments` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `familie_persone`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `familie_persone` (
+  `id` int(10) unsigned NOT NULL,
+  `persone_id` int(10) unsigned NOT NULL,
+  `familie_id` int(10) unsigned NOT NULL,
+  `es_responsable` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `familie_persone_persone_id_foreign` (`persone_id`),
+  KEY `familie_persone_familie_id_foreign` (`familie_id`),
+  CONSTRAINT `familie_persone_familie_id_foreign` FOREIGN KEY (`familie_id`) REFERENCES `families` (`id`),
+  CONSTRAINT `familie_persone_persone_id_foreign` FOREIGN KEY (`persone_id`) REFERENCES `persones` (`id`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `families`
 --
 
@@ -178,16 +199,9 @@ CREATE TABLE `esdeveniments` (
 CREATE TABLE `families` (
   `id` int(10) unsigned NOT NULL,
   `nom` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `activa` tinyint(1) NOT NULL DEFAULT '1',
-  `persona_membre_fk` int(10) unsigned NOT NULL,
-  `persona_responsable_fk` int(10) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`),
-  KEY `families_persona_membre_fk_foreign` (`persona_membre_fk`),
-  KEY `families_persona_responsable_fk_foreign` (`persona_responsable_fk`),
-  CONSTRAINT `families_persona_responsable_fk_foreign` FOREIGN KEY (`persona_responsable_fk`) REFERENCES `persones` (`id`),
-  CONSTRAINT `families_persona_membre_fk_foreign` FOREIGN KEY (`persona_membre_fk`) REFERENCES `persones` (`id`)
+  PRIMARY KEY (`id`)
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -246,48 +260,48 @@ CREATE TABLE `missatges` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `persones` (
   `id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `numero_soci` int(10) unsigned DEFAULT NULL,
-  `nom` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `cognom1` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `cognom2` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `mot` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `dni` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `naixement` date NOT NULL,
-  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `direccio` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `cp` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
-  `poblacio` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `provincia` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `pais` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Espanya',
-  `telefon` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
-  `mobil` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
-  `sexe` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
-  `alta` date NOT NULL,
+  `data_alta` date DEFAULT NULL,
+  `data_baixa` date DEFAULT NULL,
   `actiu` tinyint(1) NOT NULL DEFAULT '1',
-  `categories_fk` int(10) unsigned NOT NULL DEFAULT '1',
-  `rols_fk` int(10) unsigned NOT NULL DEFAULT '2',
-  `usuari` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `rebre_sms` tinyint(1) NOT NULL DEFAULT '1',
   `rebre_mail` tinyint(1) NOT NULL DEFAULT '1',
   `comentari` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `bic` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `categories_fk` int(10) unsigned NOT NULL DEFAULT '1',
+  `nom` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `cognom1` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `cognom2` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mot` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dni` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `naixement` date DEFAULT NULL,
+  `sexe` varchar(1) COLLATE utf8_unicode_ci NOT NULL,
+  `direccio` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cp` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `poblacio` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `provincia` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pais` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `telefon` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mobil` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
   `iban` varchar(34) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rols_fk` int(10) unsigned NOT NULL DEFAULT '1',
   `alcada-cadira` decimal(8,2) NOT NULL DEFAULT '0.00',
   `alcada-hombros` decimal(8,2) NOT NULL DEFAULT '0.00',
   `alcada-mans` decimal(8,2) NOT NULL DEFAULT '0.00',
   `amplada-hombros` decimal(8,2) NOT NULL DEFAULT '0.00',
   `circunferencia` decimal(8,2) NOT NULL DEFAULT '0.00',
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `persones_mot_unique` (`mot`),
   KEY `persones_categories_fk_foreign` (`categories_fk`),
   KEY `persones_rols_fk_foreign` (`rols_fk`),
+  KEY `persones_data_alta_index` (`data_alta`),
+  KEY `persones_data_baixa_index` (`data_baixa`),
+  KEY `persones_actiu_index` (`actiu`),
   KEY `persones_nom_index` (`nom`),
   KEY `persones_cognom1_index` (`cognom1`),
-  KEY `persones_alta_index` (`alta`),
-  KEY `persones_actiu_index` (`actiu`),
   CONSTRAINT `persones_rols_fk_foreign` FOREIGN KEY (`rols_fk`) REFERENCES `rols` (`id`),
   CONSTRAINT `persones_categories_fk_foreign` FOREIGN KEY (`categories_fk`) REFERENCES `categories` (`id`)
 );
@@ -349,14 +363,17 @@ CREATE TABLE `posicions` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `quotes` (
   `id` int(10) unsigned NOT NULL,
-  `periodicitat_mesos` int(10) unsigned NOT NULL,
-  `import` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `tipus_quotes_fk` int(10) unsigned NOT NULL,
   `id_responsables_fk` int(10) unsigned NOT NULL,
+  `import` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `activa` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
+  KEY `quotes_tipus_quotes_fk_foreign` (`tipus_quotes_fk`),
   KEY `quotes_id_responsables_fk_foreign` (`id_responsables_fk`),
-  CONSTRAINT `quotes_id_responsables_fk_foreign` FOREIGN KEY (`id_responsables_fk`) REFERENCES `persones` (`id`)
+  CONSTRAINT `quotes_id_responsables_fk_foreign` FOREIGN KEY (`id_responsables_fk`) REFERENCES `persones` (`id`),
+  CONSTRAINT `quotes_tipus_quotes_fk_foreign` FOREIGN KEY (`tipus_quotes_fk`) REFERENCES `tipus_quotes` (`id`)
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -368,9 +385,9 @@ CREATE TABLE `quotes` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rols` (
   `id` int(10) unsigned NOT NULL,
-  `tipus` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `tipus` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `nivell_permis` int(10) unsigned NOT NULL,
-  `comentari` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comentari` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -423,6 +440,23 @@ CREATE TABLE `tipus_esdeveniments` (
   KEY `tipus_esdeveniments_tipus_index` (`tipus`)
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tipus_quotes`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipus_quotes` (
+  `id` int(10) unsigned NOT NULL,
+  `tipus` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `comentari` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `periodicitat_mesos` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -430,4 +464,4 @@ CREATE TABLE `tipus_esdeveniments` (
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-02-26 13:00:21
+-- Dump completed on 2014-03-03 11:35:37
