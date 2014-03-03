@@ -44,62 +44,13 @@
     </div> {{-- panel --}}
 
     @if ($$class_instance_list->isEmpty())
-        <p>De moment no hi ha cap entrada.</p>
+
+      <p>De moment no hi ha cap entrada.</p>
+
     @else
-        <?php $fields_in_index = isset($CSN::$fields_in_index) 
-                               ? $CSN::$fields_in_index
-			       : $CSN::$member_fields ?>
-        <div class="table-responsive">
-          <table class="table table-striped table-bordered" id="indexDataTable">
-            <thead>
-                <tr>
-        @foreach ($fields_in_index as $field => $prompt)
-                   <th>{{ $prompt }}</th>
-	@endforeach
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($$class_instance_list as $instance)
-                <tr>
-                   @foreach(array_keys($fields_in_index) as $field)
-                     @if (!strcmp(substr($field, -3), '_fk'))
-                      <td><div id="{{ $field }}{{ $instance->id }}">{{ $instance->$field }}</div></td>
- 		     @else 
-                      <td>{{ $instance->$field }}</td>
-                     @endif
-		   @endforeach
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-      </div>
-    <script src="{{ asset('components/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('components/sb-admin-v2/js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
-    <script>
-      $(document).ready(function() {
-	      var iDT = $('#indexDataTable').dataTable({
-		  fnDrawCallback: function(){
-			  $("#indexDataTable tbody tr").click(function () {
-				  var position = iDT.fnGetPosition(this); //get position of the selected row
-				  var id = iDT.fnGetData(position)[0];    //value of the first column (can be hidden)
-				  document.location.href = "{{ strtolower($CSN) }}/edit/" + id;   //redirect
-			      });
-		      }
-		  });
 
-	      function update_new_button() {
-		      var id = $('#responsible_select option:selected').val();
-		      var href = $('#new_button').attr('href');
-		      var last_slash = href.lastIndexOf('/');
-		      $('#new_button').attr('href', href.substr(0, last_slash) + '/' + id);
-	      }
+      @include('generic/datatable')
 
-	      update_new_button();
-
-	      $("#responsible_select").click(function(){
-		      update_new_button();
-		  });
-      });
-    </script>
     @endif
+
 @stop

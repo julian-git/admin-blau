@@ -24,7 +24,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>l'Admin Blau</title>
+    <title>l'Admin Blau</title> <!-- this comma ' is for stupid emacs syntax highlighter-->
 
     <!-- Core CSS - Include with every page -->
     <link href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">

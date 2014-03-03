@@ -59,8 +59,18 @@
                !strcmp($dependent_fields, $field))
 
         <div class="form-group">
-fer aquí un input pels dependents
-        </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div id="dependent-field-panel" class="panel panel-default">
+                <ul id="dependent-field-ul">
+                </ul>
+              </div> <!-- panel -->
+            </div> <!-- col-md -->
+            <div class="col-md-6">
+
+            </div> <!-- col-md -->
+          </div> <!-- row -->
+        </div> <!-- form-group -->
 
 
       @else 
