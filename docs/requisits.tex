@@ -54,17 +54,19 @@
 \item \complert Un administrador ha de poder accedir a una part privada per afegir, editar i eliminar persones a la base de dades. 
 \item \falta Quan es doni d'alta una persona, enviar-li un mail informant-lo de l'alta i se li adjunten les dades per a que les comprovi. 
 \item \falta Quan es doni de baixa algú, enviar també mail informant. 
+\item \falta S'ha de preguntar cada vegada a l'administrador si enviar o no aquests mails.
 \end{itemize}
 
 \item[R02] \progres Agrupar persones per famílies 
 
- Les famílies estaran composades per diversos castellers ja existents a la base de persones.
+Les famílies estaran composades per diversos castellers ja existents a la base de persones.
 Cada persona només pot pertànyer a una família.
 
 \begin{itemize}
 \item \progres  L'administrador ha de poder afegir, editar i eliminar famílies. \falta el rol
-\item \falta Quan es doni d'alta una família, avisar a tots els responsables de que se'ls ha agrupat en una família. 
+\item \falta Quan es doni d'alta una família, avisar a tots els responsables de que se'ls ha agrupat en una família per mail. 
 \item \falta El mateix quan es doni de baixa. 
+\item \falta S'ha de preguntar cada vegada a l'administrador si enviar o no aquests mails.
 \end{itemize}
 
 
@@ -74,26 +76,33 @@ Cada persona només pot pertànyer a una família.
 \item \complert L'administrador ha de poder afegir, editar i eliminar quotes.
 \item \complert Una quota té un responsable (a la taula de persones), que és el titular del compte corrent al que es passa el rebut. 
 \item \complert Cada quota tindrà associat un llistat de un o més castellers als quals ``cobreix''. 
-\item \falta Cada vegada que es dóna d'alta/baixa una quota, enviar un mail al responsable informant-lo. 
+\item \falta Cada vegada que es dóna d'alta/baixa una quota, enviar un mail al responsable informant-lo.
+\item \falta S'ha de preguntar cada vegada a l'administrador si enviar o no aquests mails.
 \end{itemize}
 
 \item[R04] Generació de rebuts 
 
   \begin{itemize}
   \item\falta L'administrador ha de poder generar rebuts per a les quotes de manera periòdica.
-\item\falta Cada vegada que es generi un rebut, se seleccionaràn les quotes sobre les que es genera el rebut, es crearà un fitxer de text pla seguint el format N19 (o el IBAN directament, que és al que anem CAL MIRAR EL FORMAT!) per a descarregar (i després pujar-lo al banc) i es guardarà un històric de cada rebut passat a cada responsable de quota.
+\item\falta Cada vegada que es generi un rebut, se seleccionaràn les quotes sobre les que es genera el rebut, es crearà un fitxer de text pla seguint el format N19 (\guillem{cal mirar el format, crec que amb els IBAN canvia!}) per a descarregar (i després pujar-lo al banc) i es guardarà un històric de cada rebut passat a cada responsable de quota.
 \item\falta Guardar el fitxer de text generat.
 
 \item\falta Enviar un mail als responsables de la quota de que es passa la quota. Hi ha gent que es queixa de que no s'avisa quan es passen les quotes, d'aquesta manera se'ls avisaria de manera automàtica.
 
+\item\falta S'ha de poder generar un rebut de manera manual i sense que produeixi un fitxer de text. Això servirà per a re-cobrar els rebuts tornats en efectiu i mantenir un històric del que tornem.
   \end{itemize}
+  
+  \item[R05] Consulta de quotes 
+  \begin{itemize}
+\item\falta L'administrador ha de poder treure un llistat de totes les quotes actives i al corrent de pagament (\falta\guillem{hem de pensar com determinar si una quota està al corrent del pagament o no})
+\end{itemize}
 
 \end{description}
 
 \subsection{Tarees per completar la versió 0.5}
 
 \begin{itemize}
-\item Completar la taula Families i les seves taules auxiliars
+\item \complert Completar la taula Families i les seves taules auxiliars
 \item Decidir un gestor de rols 
 \end{itemize}
 
@@ -124,16 +133,14 @@ L'administrador ha de poder crear, modificar i esborrar esdeveniments.
 
 \item[R12] \complert Volem un llistat d'apuntats a una activitat 
 
-\item[R13] \falta Volem un llistat d'assistents a una activitat?? 
+\item[R13] \falta Volem un llistat d'assistents a una activitat?? \guillem{diria que mai es passa llista, no crec que calgui.}
 
 \item[R14] \complert Les quotes poden tenir una periodicitat diferent i un import diferent per cada casteller. 
 
 \begin{itemize}
-\item \complert Les periodicitats es definiran en mesos, i estaran predefinides en el sistema (trimestral, semestral, anual).  
+\item \complert Les periodicitats es definiran en mesos, i estaran predefinides en el sistema (trimestral o anual).  
 
 \item \complert S'han de poder afegir noves periodicitats en un futur (encara que sigui directament a la BD) 
-
-\item \complert Les periodicitats poden tenir un mes de cobrament (ex: anual, però cobrar al juliol). 
 \end{itemize}
 
 \end{description}
