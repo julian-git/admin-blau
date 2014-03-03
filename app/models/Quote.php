@@ -62,18 +62,15 @@ class Quote extends Eloquent
     
     public function getBeneficiarisListAttribute($value)
     {    
-        $res = '';
-        $firstOne=true;
-        $persones=$this->beneficiaris;
-        foreach($persones as $p)
+        $beneficiaris = array();
+        foreach($this->beneficiaris as $p)
         {
-            if (!$firstOne)
-               $res .=', ';
+	    $person = array();
             foreach(Persone::$identifying_short_fields as $f)
-                $res .= $p->$f . ' ';
-            $firstOne=false;
+                $person[] = $p->$f;
+	    $beneficiaris[] = join(' ', $person);
         }
-        return $res;
+        return join(', ', $beneficiaris);
     }
 
     public function getPersonesFkAttribute($value) 

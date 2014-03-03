@@ -46,20 +46,17 @@ class Familie extends Eloquent
     
     public function getMembresListAttribute($value)
     {    
-    	$res = '';
-    	$firstOne=true;
-    	$persones=$this->membres;
-        foreach($persones as $p)
+	$membres = array();
+    	foreach($this->membres as $p)
         {
-        	if (!$firstOne)
-        	   $res .=', ';
-	        foreach(Persone::$identifying_short_fields as $f)
-	            $res .= $p->$f . ' ';
-	        if ($p->pivot->es_responsable)
-    	        $res .= '(*)';
-	        $firstOne=false;
+	    $person = array();
+	    foreach(Persone::$identifying_short_fields as $f)
+		$person[] = $p->$f;
+	    if ($p->pivot->es_responsable)
+		$person[] = '(*)';
+	    $membres[] = join(' ', $person);
         }
-    	return $res;
+    	return join(', ', $membres);
     }
 }
 
