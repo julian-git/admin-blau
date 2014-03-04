@@ -25,7 +25,7 @@ class Familie extends Eloquent
     public static $class_name_gender = 'f';
 
     public static $member_fields = array('id' => 'Id',
-					 'nom' => 'Nom'
+                     'nom' => 'Nom'
                     );
 
     public static $fields_in_index = array('id' => 'Id',
@@ -41,22 +41,22 @@ class Familie extends Eloquent
 
     public function membres()
     {
-    	return $this->belongsToMany('Persone')->withPivot('es_responsable');
+        return $this->belongsToMany('Persone')->withPivot('es_responsable');
     }
     
     public function getMembresListAttribute($value)
     {    
-	$membres = array();
-    	foreach($this->membres as $p)
+        $membres = array();
+        foreach($this->membres as $p)
         {
-	    $person = array();
-	    foreach(Persone::$identifying_short_fields as $f)
-		$person[] = $p->$f;
-	    if ($p->pivot->es_responsable)
-		$person[] = '(*)';
-	    $membres[] = join(' ', $person);
+            $person = array();
+            foreach(Persone::$identifying_short_fields as $f)
+                $person[] = $p->$f;
+            if ($p->pivot->es_responsable)
+                $person[] = '(*)';
+            $membres[] = join(' ', $person);
         }
-    	return join(', ', $membres);
+        return join(', ', $membres);
     }
 }
 
