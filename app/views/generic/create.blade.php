@@ -69,7 +69,7 @@
             <div class="col-md-8">
               <div class="input-group custom-search-form">
                 <span class="input-group-btn">
-                  <button id="afegir-button" class="btn btn-default" type="button">Afegir</button>
+                  <button id="afegir-button" class="btn btn-default disabled" type="button">Afegir</button>
                 </span>
                 <input id="dependent-search" type="text" class="form-control" placeholder="Busca...">
                 <span class="input-group-btn">
@@ -93,11 +93,16 @@
 				  $('#dependent-search')
 				      .attr('dependent-id', dependentObject.id)
 				      .val(dependentObject.name);
+				  $('#afegir-button').removeClass('disabled');
                           }).fail(function(result) {
-                              $('#dependent-search').text("No es troba cap persona semblant.");
+                              $('#dependent-search').val("No es troba cap persona semblant.");
+				  $('#afegir-button').addClass('disabled');
 		          });
 		  }
 	      });
+              $('#afegir-button').click(function() {
+		      $('#dependent-field-ul').append('<li dependent-id="' + $('#dependent-search').attr('dependent-id') + '">' + $('#dependent-search').val() + '</li>');     
+		  });
         </script>
 
       @else 

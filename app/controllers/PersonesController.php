@@ -37,10 +37,18 @@ class PersonesController extends CVGController
 	    ->orWhere('nom', 'like', '%' . $search_string . '%')
 	    ->orWhere('mot', 'like', '%' . $search_string . '%')
 	    ->first();
-	return array(
+
+	return (isset($instance->cognom1))
+
+	    ? array(
 		     'id' => $instance->id,
 		     'name' => assemble_identifying_fields('Persone', $instance)
-		     );
+		     )
+
+	    : array(
+		    'id' => -1,
+		    'name' => $search_string
+		    );
     }
 
 }
