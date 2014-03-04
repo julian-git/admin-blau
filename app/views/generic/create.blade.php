@@ -94,7 +94,11 @@
 				  $('#dependent-search')
 				      .attr('dependent-id', dependentObject.id)
 				      .val(dependentObject.name);
-				  $('#afegir-button').removeClass('disabled');
+				  if (dependentObject.id != -1) {
+				      $('#afegir-button').removeClass('disabled');
+				  } else {
+				      $('#afegir-button').addClass('disabled');
+				  }
                           }).fail(function(result) {
                               $('#dependent-search').val("No es troba cap persona semblant.");
 				  $('#afegir-button').addClass('disabled');
@@ -102,7 +106,8 @@
 		  }
 	      });
               $('#afegir-button').click(function() {
-		      $('#dependent-field-list').append('<div dependent-id="' + $('#dependent-search').attr('dependent-id') + '">' + $('#dependent-search').val() + '</div>');     
+		      $('#dependent-field-list').append('<div dependent-id="' + $('#dependent-search').attr('dependent-id') + '">' + $('#dependent-search').val() + '</div>');   
+		      $('#dependent-search').val('');
 		  });
         </script>
 
