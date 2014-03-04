@@ -84,3 +84,4 @@ foreach(array('Categorie',
 Route::get("/esdeveniments/apuntats/{esdeveniment}", 'EsdevenimentsController@apuntats');
 Route::get("/actuacions/apuntats/{actuacion}", 'ActuacionsController@apuntats');
 Route::get("/persones/actives/{persone}", 'PersonesController@actives');
+Route::get("/persones/search/{first}", 'PersonesController@search');

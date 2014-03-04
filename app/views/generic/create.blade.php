@@ -60,18 +60,45 @@
 
         <div class="form-group">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div id="dependent-field-panel" class="panel panel-default">
                 <ul id="dependent-field-ul">
                 </ul>
               </div> <!-- panel -->
             </div> <!-- col-md -->
-            <div class="col-md-6">
+            <div class="col-md-8">
+              <div class="input-group custom-search-form">
+                <span class="input-group-btn">
+                  <button id="afegir-button" class="btn btn-default" type="button">Afegir</button>
+                </span>
+                <input id="dependent-search" type="text" class="form-control" placeholder="Busca...">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </span>
+              </div> <!-- input group -->
 
             </div> <!-- col-md -->
           </div> <!-- row -->
         </div> <!-- form-group -->
 
+        <script>
+	  $("#dependent-search").keyup(function(e){
+		  var minLength = 3;  // search with min of X characters
+		  var searchStr = $("#dependent-search").val();
+		  if (searchStr.length >= minLength) {
+		      $.getJSON('/{{ strtolower($CSN::$dependent_class) }}' + 's/search/' + searchStr, function() {
+			  }).done(function(dependentObject) {
+				  $('#dependent-search')
+				      .attr('dependent-id', dependentObject.id)
+				      .val(dependentObject.name);
+                          }).fail(function(result) {
+                              $('#dependent-search').text("No es troba cap persona semblant.");
+		          });
+		  }
+	      });
+        </script>
 
       @else 
 

@@ -30,7 +30,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($$class_instance_list as $instance)
+                @foreach($DataCSN::all() as $instance)
                 <tr>
                    @foreach(array_keys($fields_in_index) as $field)
                      @if (!strcmp(substr($field, -3), '_fk'))
@@ -50,11 +50,13 @@
       $(document).ready(function() {
 	      var iDT = $('#indexDataTable-{{ $DataCSN }}').dataTable({
 		  fnDrawCallback: function(){
+			  @if ($allow_edit)
 			  $("#indexDataTable-{{ $DataCSN }} tbody tr").click(function () {
 				  var position = iDT.fnGetPosition(this); //get position of the selected row
 				  var id = iDT.fnGetData(position)[0];    //value of the first column (can be hidden)
-				  document.location.href = "{{ strtolower($DataCSN) }}/edit/" + id;   //redirect
+				  document.location.href = "edit/" + id;   //redirect
 			      });
+			  @endif 
 		      }
 		  });
 

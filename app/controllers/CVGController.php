@@ -38,8 +38,8 @@ class CVGController extends BaseController
 	$this->ClassSingularName = $ClassSingularName;
 	$this->layout_data
 	    = array('CSN' => $ClassSingularName,
-		    'csn' => strtolower($ClassSingularName),
-		    'class_instance_list' => strtolower($ClassSingularName) . 's');
+		    'csn' => strtolower($ClassSingularName)
+		    );
     }
 
     public function index()
@@ -47,9 +47,7 @@ class CVGController extends BaseController
         // Show a listing.
 	$CSN = $this->ClassSingularName;
 	$csn = strtolower($CSN);
-	$listing = $CSN::all();
 	$extended_layout_data = $this->layout_data;
-	$extended_layout_data[$csn . 's'] = $listing;
 
 	if (isset($CSN::$responsible_class))
 	{

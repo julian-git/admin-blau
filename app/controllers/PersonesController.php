@@ -30,5 +30,18 @@ class PersonesController extends CVGController
 	return Esdeveniment::persones_actives();
     }
 
+    public static function search($search_string)
+    {
+	$instance = Persone::where('cognom1', 'like', '%' . $search_string . '%')
+	    ->orWhere('cognom2', 'like', '%' . $search_string . '%')
+	    ->orWhere('nom', 'like', '%' . $search_string . '%')
+	    ->orWhere('mot', 'like', '%' . $search_string . '%')
+	    ->first();
+	return array(
+		     'id' => $instance->id,
+		     'name' => assemble_identifying_fields('Persone', $instance)
+		     );
+    }
+
 }
  ?>

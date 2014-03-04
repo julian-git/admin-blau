@@ -48,7 +48,10 @@
       <p>De moment no hi ha cap entrada.</p>
 
     @else
-      <?php $DataCSN = $CSN ?>
+      <?php 
+        $DataCSN = $CSN;
+        $allow_edit = true;
+      ?>
       @include('generic/datatable')
 
     @endif
