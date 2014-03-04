@@ -62,8 +62,8 @@
           <div class="row">
             <div class="col-md-4">
               <div id="dependent-field-panel" class="panel panel-default">
-                <ul id="dependent-field-ul">
-                </ul>
+                <div id="dependent-field-list">
+                </div>
               </div> <!-- panel -->
             </div> <!-- col-md -->
             <div class="col-md-8">
@@ -84,6 +84,7 @@
         </div> <!-- form-group -->
 
         <script>
+          $("#dependent-search").val('');
 	  $("#dependent-search").keyup(function(e){
 		  var minLength = 3;  // search with min of X characters
 		  var searchStr = $("#dependent-search").val();
@@ -101,7 +102,7 @@
 		  }
 	      });
               $('#afegir-button').click(function() {
-		      $('#dependent-field-ul').append('<li dependent-id="' + $('#dependent-search').attr('dependent-id') + '">' + $('#dependent-search').val() + '</li>');     
+		      $('#dependent-field-list').append('<div dependent-id="' + $('#dependent-search').attr('dependent-id') + '">' + $('#dependent-search').val() + '</div>');     
 		  });
         </script>
 
