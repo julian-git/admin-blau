@@ -97,24 +97,32 @@ class CVGController extends BaseController
     public function handleCreate()
     {
 	$CSN = $this->ClassSingularName;
+	Log::info('before validator');
 	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
+	Log::info("after validator");
 	if ($validator->fails()) {
-	    return Redirect::to(strtolower($CSN) . '/create')
+	    $create_tail = Input::get('responsible_field_id');
+	    Log::info('responsible_field_id: ' . $create_tail);
+	    return Redirect::to(strtolower($CSN) . '/create/' . $create_tail)
 		->with($this->layout_data)
 		->withErrors($validator)
 		->withInput();
 	}
-
+	
+	Log::info("validator succeeded");
 	$class_instance_list = new $CSN;
 	foreach (array_keys($CSN::$member_fields) as $field) {
 	    if ($field != 'id') { 
 		$class_instance_list->$field = Input::get($field); 
+		Log::info($field . ' => ' . Input::get($field));
 	    }
 	    if ($class_instance_list->$field == '' &&
 		isset($CSN::$default_values[$field])) {
 		$class_instance_list->$field = $CSN::$default_values[$field];
+		Log::info($field . ' => default ' . $CSN::$default_values[$field]);
 	    }
 	}
+	Log::info('will save');
 	$class_instance_list->save();
 
 	return Redirect::action($CSN . 'sController@index');

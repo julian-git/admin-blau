@@ -45,15 +45,19 @@
 
         <div class="panel-body">
           {{ Form::select($field, $dropbox_options[$field]) }} 
+          {{ $errors->first($field, '<span class="error">:message</span>') }}
         </div>
 
 
       @elseif (isset($responsible_fields) &&
                !strcmp($responsible_fields['field'], $field))
 
-        <?php $RCL = $CSN::$responsible_class; ?>
+        <?php 
+          $RCL = $CSN::$responsible_class; 
+        ?>
 	  {{ $RCL::identifying_fields_of($responsible_fields['id']) }}
-
+          <input type="hidden" name="{{ $field }}" value="{{ $responsible_fields['id'] }}" />
+          <input type="hidden" name="responsible_field_id" value="{{ $responsible_fields['id'] }}" />
         
       @elseif (isset($dependent_fields) &&
                !strcmp($dependent_fields, $field))
@@ -62,8 +66,10 @@
           <div class="row">
             <div class="col-md-4">
               <div id="dependent-field-panel" class="panel panel-default">
+                {{ $errors->first($field, '<span class="error">:message</span>') }}
                 <div id="dependent-field-list">
                 </div>
+	        <input id="dependent-field-input" name="dependent-field-input" type="hidden" value="" />
               </div> <!-- panel -->
             </div> <!-- col-md -->
             <div class="col-md-8">
@@ -84,7 +90,19 @@
         </div> <!-- form-group -->
 
         <script>
+          function update_dependent_field_input() {
+	      var list = '';
+	      $('.dependent_list_item').each(function(){
+		      if (list.length > 0) {
+			  list += ',';
+		      }
+		      list += $(this).attr('dependent-id');
+		  });
+	      $('#dependent-field-input').val(list);
+	  }
+
           $("#dependent-search").val('');
+
 	  $("#dependent-search").keyup(function(e){
 		  var minLength = 3;  // search with min of X characters
 		  var searchStr = $("#dependent-search").val();
@@ -109,13 +127,15 @@
 		      var dependent_id = $('#dependent-search').attr('dependent-id');
 		      if (dependent_id != -1) {
 			  var delete_button = '<button id="dependent-delete-' + dependent_id + '" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span></button>';
-			  var dependent_div = '<div id="dependent-id-' + dependent_id + '" dependent-id="' + dependent_id + '"><span>' + $('#dependent-search').val() + '</span>' + delete_button + '</div>';
+			  var dependent_div = '<div id="dependent-id-' + dependent_id + '" dependent-id="' + dependent_id + '" class="dependent_list_item"><span>' + $('#dependent-search').val() + '</span>' + delete_button + '</div>';
 			  $('#dependent-field-list').append(dependent_div);   
 			  $('#dependent-search').val('');
 			  $('#afegir-button').addClass('disabled');
 			  $('#dependent-delete-' + dependent_id).click(function(){
 				  $('#dependent-id-' + dependent_id).remove();
+				  update_dependent_field_input();
 			      });
+			  update_dependent_field_input();
 		      }
 		  });
         </script>
