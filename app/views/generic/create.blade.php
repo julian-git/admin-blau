@@ -73,7 +73,7 @@
                 </span>
                 <input id="dependent-search" type="text" class="form-control" placeholder="Busca...">
                 <span class="input-group-btn">
-                  <button class="btn btn-default" type="button">
+                  <button class="btn btn-default disabled" type="button">
                     <i class="fa fa-search"></i>
                   </button>
                 </span>
@@ -106,8 +106,17 @@
 		  }
 	      });
               $('#afegir-button').click(function() {
-		      $('#dependent-field-list').append('<div dependent-id="' + $('#dependent-search').attr('dependent-id') + '">' + $('#dependent-search').val() + '</div>');   
-		      $('#dependent-search').val('');
+		      var dependent_id = $('#dependent-search').attr('dependent-id');
+		      if (dependent_id != -1) {
+			  var delete_button = '<button id="dependent-delete-' + dependent_id + '" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span></button>';
+			  var dependent_div = '<div id="dependent-id-' + dependent_id + '" dependent-id="' + dependent_id + '"><span>' + $('#dependent-search').val() + '</span>' + delete_button + '</div>';
+			  $('#dependent-field-list').append(dependent_div);   
+			  $('#dependent-search').val('');
+			  $('#afegir-button').addClass('disabled');
+			  $('#dependent-delete-' + dependent_id).click(function(){
+				  $('#dependent-id-' + dependent_id).remove();
+			      });
+		      }
 		  });
         </script>
 
