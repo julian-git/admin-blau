@@ -35,6 +35,7 @@ class Quote extends Eloquent
     public static $responsible_field = 'id_responsables_fk';
 
     public static $dependent_class = 'Persone';
+    public static $dependent_pivot_class = 'Beneficiari';
     public static $dependent_field = 'beneficiari';
     public static $dependent_field_search_message = 'Busca beneficiari per nom, cognom o mot...';
     public static $dependent_field_pivot_table = 'beneficiaris';
@@ -77,7 +78,7 @@ class Quote extends Eloquent
         return join(', ', $beneficiaris);
     }
 
-    public function getPersonesFkAttribute($value) 
+    public function getIdResponsablesFkAttribute($value) 
     {
        return resolve_foreign_key('Persone', $value);
     }

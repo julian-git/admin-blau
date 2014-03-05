@@ -23,7 +23,8 @@ class Beneficiari extends Eloquent
     public static $plural_class_name = 'Beneficiaris';
     public static $class_name_gender = 'm';
 
-    public static $member_fields = array();
+    public static $member_fields = array('quote_id' => 'Id de quota',
+					 'persone_id' => 'Id de persona');
 
     public static $validation_rules = array();
 

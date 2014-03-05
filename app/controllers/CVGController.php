@@ -148,7 +148,19 @@ class CVGController extends BaseController
 
     protected function save_dependent_fields($master_id, $dependent_ids)
     {
-
+	Log::info("dependent_ids: $dependent_ids");
+	$CSN = $this->ClassSingularName;
+	$master_id_field = strtolower($CSN) . '_id';
+	$dependent_id_field = strtolower($CSN::$dependent_class) . '_id';
+ 
+	foreach(explode(',', $dependent_ids) as $dependent_id)
+	{
+	    $pivot = new $CSN::$dependent_pivot_class;
+	    $pivot->$master_id_field = $master_id;
+	    $pivot->$dependent_id_field = $dependent_id;
+	    $pivot->timestamps = false;
+	    $pivot->save();
+	}
     }
 
     public function edit($class_instance)
