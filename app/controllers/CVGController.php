@@ -113,7 +113,6 @@ class CVGController extends BaseController
 		}
 	    }
 	    */
-	    Log::info("create_tail: $create_tail");
 	    return Redirect::to(strtolower($CSN) . '/create/' . $create_tail)
 		->with($this->layout_data)
 		->withErrors($validator)
@@ -148,7 +147,6 @@ class CVGController extends BaseController
 
     protected function save_dependent_fields($master_id, $dependent_ids)
     {
-	Log::info("dependent_ids: $dependent_ids");
 	$CSN = $this->ClassSingularName;
 	$master_id_field = strtolower($CSN) . '_id';
 	$dependent_id_field = strtolower($CSN::$dependent_class) . '_id';
@@ -180,7 +178,7 @@ class CVGController extends BaseController
         return View::make('generic.edit', $extended_layout_data);
     }
 
-    public function handleEdit()
+    public function handleEdit($id)
     {
         // Handle edit form submission.
 	$CSN = $this->ClassSingularName;

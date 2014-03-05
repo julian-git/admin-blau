@@ -1,17 +1,22 @@
+function dependent_list_entry(dependent_id, text) {
+    var delete_button = '<button id="dependent-delete-' + dependent_id + '" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span></button>';
+    return '<div id="dependent-id-' + dependent_id + '" dependent-id="' + dependent_id + '" class="dependent_list_item"><span>' + text + '</span>' + delete_button + '</div>';
+}
+
 function update_dependent_field_input() {
-    var list = '';
-    $('.dependent_list_item').each(function(){
-	if (list.length > 0) {
-	    list += ',';
+    var val_list = '';
+    $('.dependent_list_item').each(function() {
+	if (val_list.length > 0) {
+	    val_list += ',';
 	}
-	list += $(this).attr('dependent-id');
+	val_list += $(this).attr('dependent-id');
     });
-    $('#dependent-field-input').val(list);
+    $('#dependent-field-input').val(val_list);
 }
 
 $("#dependent-search").val('');
 
-$("#dependent-search").keyup(function(e){
+$("#dependent-search").keyup(function(e) {
     var minLength = 3;  // search with min of X characters
     var searchStr = $("#dependent-search").val();
     if (searchStr.length >= minLength) {
@@ -35,9 +40,8 @@ $("#dependent-search").keyup(function(e){
 $('#afegir-button').click(function() {
     var dependent_id = $('#dependent-search').attr('dependent-id');
     if (dependent_id != -1) {
-	var delete_button = '<button id="dependent-delete-' + dependent_id + '" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span></button>';
-	var dependent_div = '<div id="dependent-id-' + dependent_id + '" dependent-id="' + dependent_id + '" class="dependent_list_item"><span>' + $('#dependent-search').val() + '</span>' + delete_button + '</div>';
-	$('#dependent-field-list').append(dependent_div);   
+	var dependent_text = $('#dependent-search').val();
+	$('#dependent-field-list').append(dependent_list_entry(dependent_id, dependent_text));   
 	$('#dependent-search').val('');
 	$('#afegir-button').addClass('disabled');
 	$('#dependent-delete-' + dependent_id).click(function(){
