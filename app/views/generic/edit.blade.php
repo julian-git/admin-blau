@@ -61,22 +61,6 @@
              @endif
            </div> <!-- panel-body -->
 
-         @elseif(isset($multidropbox_options[$field]))
-	    
-           <div class="panel-body">
-             <div class="col-md-8">
-	    @foreach($multidropbox_options[$field] as $entry)
-		    <div>{{ $entry }}</div>
-            @endforeach 
-             </div>
-             <div class="col-md-4">
-               <a href="{{/* action($field . 'sController@multicreate/' . $$csn->id)*/ $field }}" class="btn btn-primary"> 
-		    Nou {{ $field }} -- compte: no funciona encara
-               </a>
-              <div>
-
-           </div> <!-- panel-body -->
-
          @else
 	     {{ Form::text ($field, $$csn->$field) }}
              {{ $errors->first($field, '<span class="error">:message</span>') }}
