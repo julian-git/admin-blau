@@ -45,7 +45,7 @@
 
         <div class="panel-body">
           {{ Form::select($field, $dropbox_options[$field]) }} 
-          {{ $errors->first($field, '<span class="error">:message</span>') }}
+          {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
         </div>
 
 

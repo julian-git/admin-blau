@@ -59,28 +59,6 @@ function dropbox_options_of($CSN)
     return $dropbox_options;
 }
 
-function multidropbox_options_of($CSN, $class_instance)
-{
-    $multidropbox_options = array();
-    if (!strcmp($CSN, 'Quote'))
-    {
-	$query_result = $class_instance->beneficiaris()->get();
-	$beneficiaris = array();
-	foreach ($query_result as $instance)
-	{
-	    $beneficiari = '';
-	    foreach (Persone::$identifying_fields as $field)
-	    {
-		$beneficiari .= $instance->$field . ' ';
-	    }
-	    $beneficiaris[] = $beneficiari;
-	}
-	$multidropbox_options['beneficiari'] = $beneficiaris;
-    }
-    return $multidropbox_options;
-}
-
-
 function dropbox_default_from_foreign_key($field, $value)
 {
     $class_name = foreign_table_of($field);

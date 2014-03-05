@@ -82,18 +82,6 @@ class CVGController extends BaseController
 	$this->layout->content = View::make('generic.create', $extended_layout_data);
     }
 
-    public function multicreate($instance)
-    {
-	// Create a new entry in an m-to-n table corresponding to a given first entry
-	// e.g., $instance will be of class Beneficiari
-
-	$CSN = $this->ClassSingularName;
-	$csn = strtolower($CSN);
-
-	$extended_layout_data = $this->layout_data;
-	$this->layout->content = View::make('generic.create', $extended_layout_data);
-    }
-
     public function handleCreate()
     {
 	$CSN = $this->ClassSingularName;
@@ -173,7 +161,6 @@ class CVGController extends BaseController
 	$extended_layout_data['dropbox_options'] = dropbox_options_of($CSN);
 	$extended_layout_data['dropbox_default'] = dropbox_default_of($CSN, $class_instance);
 	$extended_layout_data['foreign_table'] = foreign_tables_of($CSN);
-	$extended_layout_data['multidropbox_options'] = multidropbox_options_of($CSN, $class_instance);
 
         return View::make('generic.edit', $extended_layout_data);
     }
