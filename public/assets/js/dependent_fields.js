@@ -15,7 +15,7 @@ $("#dependent-search").keyup(function(e){
     var minLength = 3;  // search with min of X characters
     var searchStr = $("#dependent-search").val();
     if (searchStr.length >= minLength) {
-	$.getJSON('/{{ strtolower($CSN::$dependent_class) }}' + 's/search/' + searchStr, function() {
+	$.getJSON('/' + $('#dependent-search').attr('dependentClass') + 's/search/' + searchStr, function() {
 	}).done(function(dependentObject) {
 	    $('#dependent-search')
 		.attr('dependent-id', dependentObject.id)

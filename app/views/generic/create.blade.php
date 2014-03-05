@@ -65,7 +65,7 @@
           <div class="row">
             <div class="col-md-4">
               <div id="dependent-field-panel" class="panel panel-default">
-                {{ $errors->first($field, '<span class="error">:message</span>') }}
+                {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
                 <div id="dependent-field-list">
                 </div>
 	        <input id="dependent-field-input" name="dependent-field-input" type="hidden" value="" />
@@ -76,7 +76,7 @@
                 <span class="input-group-btn">
                   <button id="afegir-button" class="btn btn-default disabled" type="button">Afegir</button>
                 </span>
-                <input id="dependent-search" type="text" class="form-control" placeholder="{{ $CSN::$dependent_field_search_message }}">
+                <input id="dependent-search" type="text" class="form-control" dependentClass="{{ strtolower($CSN::$dependent_class) }}" placeholder="{{ $CSN::$dependent_field_search_message }}">
                 <span class="input-group-btn">
                   <button class="btn btn-default disabled" type="button">
                     <i class="fa fa-search"></i>
