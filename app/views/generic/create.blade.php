@@ -93,7 +93,7 @@
       @else 
 
         {{ Form::text($field, Input::old($field)) }}
-        {{ $errors->first($field, '<span class="error">:message</span>') }}
+        {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
 
       @endif 
      </div> <!-- form-group -->

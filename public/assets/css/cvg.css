@@ -31,3 +31,8 @@
 .cvg-missatge-llocs_fk {
     font-style: italic;
 }
+
+.cvg-error {
+    font-weight: bold;
+    color: red;
+}
