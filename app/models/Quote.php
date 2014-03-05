@@ -37,6 +37,7 @@ class Quote extends Eloquent
     public static $dependent_class = 'Persone';
     public static $dependent_field = 'beneficiari';
     public static $dependent_field_search_message = 'Busca beneficiari per nom, cognom o mot...';
+    public static $dependent_field_pivot_table = 'beneficiaris';
 
     public static $validation_rules = array(
 					    'import' => 'required|numeric'

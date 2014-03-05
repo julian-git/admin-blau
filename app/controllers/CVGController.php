@@ -121,7 +121,8 @@ class CVGController extends BaseController
 	}
 	
 	$class_instance_list = new $CSN;
-	foreach (Input::all() as $field => $value) {
+	$input = Input::all();
+	foreach ($input as $field => $value) {
 	    if (!strcmp($field, 'dependent-field-input')) {
 		continue;
 	    }
@@ -135,8 +136,19 @@ class CVGController extends BaseController
 	}
 	$class_instance_list->save();
 
+	if (isset($input['dependent-field-input']))
+	{
+	    $this->save_dependent_fields($class_instance_list->id, 
+					 $input['dependent-field-input']);
+	}
+
 	return Redirect::to(strtolower($CSN))
 	    ->with($this->layout_data);
+    }
+
+    protected function save_dependent_fields($master_id, $dependent_ids)
+    {
+
     }
 
     public function edit($class_instance)

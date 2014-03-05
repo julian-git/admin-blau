@@ -118,7 +118,17 @@ class CreateCastellers extends Migration {
 		    $table->foreign('id_responsables_fk')->references('id')->on('persones');
 		    $table->decimal('import')->default(0);
 		    $table->boolean('activa')->default(1);
+		    $table->timestamps();
 		});
+
+ 	    Schema::create('beneficiaris', function($table) {
+ 		    $table->increments('id');
+		    $table->integer('quote_id')->unsigned();
+		    $table->foreign('quote_id')->references('id')->on('quotes');
+		    $table->integer('persone_id')->unsigned();
+		    $table->foreign('persone_id')->references('id')->on('persones');
+ 		});
+
 		    
 	    CreateCastellers::fillBasicData();
 	    CreateCastellers::otherTablesForNextReleases();

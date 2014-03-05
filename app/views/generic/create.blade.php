@@ -63,7 +63,7 @@
 
         <div class="form-group">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-5">
               <div id="dependent-field-panel" class="panel panel-default">
                 {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
                 <div id="dependent-field-list">
@@ -71,7 +71,7 @@
 	        <input id="dependent-field-input" name="dependent-field-input" type="hidden" value="" />
               </div> <!-- panel -->
             </div> <!-- col-md -->
-            <div class="col-md-8">
+            <div class="col-md-7">
               <div class="input-group custom-search-form">
                 <span class="input-group-btn">
                   <button id="afegir-button" class="btn btn-default disabled" type="button">Afegir</button>

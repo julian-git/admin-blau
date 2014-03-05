@@ -148,33 +148,7 @@ class QuotesSeeder extends Seeder {
 			    ));
     }
 }
-class BeneficiarisSeeder extends Seeder {
 
-	DB::table($table_name)->insert(array(
-			      'persone_id' => '2',
-			      'familie_id' => '1',
-                  'es_responsable' => 0
-			      ));
-    }
-}
-
-class QuotesSeeder extends Seeder {
-    public function run() {
-	Quote::create(array('id' => 1, 
-			    'tipus_quotes_fk' => 1,
-			    'persones_fk' => 2,
-                'import' => 0,
-                'activa' => 0,              
-			    ));
-
-	Quote::create(array('id' => 2, 
-			    'tipus_quotes_fk' => 2,
-			    'persones_fk' => 1,
-                'import' => 12,
-                'activa' => 1,              
-			    ));
-    }
-}
 
 class BeneficiarisSeeder extends Seeder {
     public function run() {
