@@ -17,6 +17,15 @@
 */
 ?>
 
+<?php
+/*
+    This snippet needs two variables to be set:
+
+      $DataCSN = SomeClassSingularName (e.g. 'Persone');
+      $allow_edit = true/false;
+
+ */
+?>
         <?php $fields_in_index = isset($DataCSN::$fields_in_index) 
                                ? $DataCSN::$fields_in_index
 			       : $DataCSN::$member_fields ?>

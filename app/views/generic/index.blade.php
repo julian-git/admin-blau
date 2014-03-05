@@ -43,17 +43,10 @@
       </div> {{-- panel-body --}}
     </div> {{-- panel --}}
 
-    @if ($$class_instance_list->isEmpty())
-
-      <p>De moment no hi ha cap entrada.</p>
-
-    @else
-      <?php 
-        $DataCSN = $CSN;
-        $allow_edit = true;
-      ?>
-      @include('generic/datatable')
-
-    @endif
+    <?php 
+      $DataCSN = $CSN;
+      $allow_edit = true;
+    ?>
+    @include('generic/datatable')
 
 @stop

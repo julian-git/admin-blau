@@ -97,36 +97,46 @@ class CVGController extends BaseController
     public function handleCreate()
     {
 	$CSN = $this->ClassSingularName;
-	Log::info('before validator');
 	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
-	Log::info("after validator");
 	if ($validator->fails()) {
-	    $create_tail = Input::get('responsible_field_id');
+	    $create_tail = Input::get($CSN::$responsible_field);
+	    /*
 	    Log::info('responsible_field_id: ' . $create_tail);
+	    Log::info('size: ' . sizeof($validator->failed()));
+	    foreach($validator->failed() as $attr => $rule) {
+		Log::info("attr: $attr");
+		foreach($rule as $r => $param) {
+		    Log::info("rule: $r");
+		    foreach ($param as $a => $b) {
+			Log::info("param: $attr: $r => ($a => $b)");
+		    }
+		}
+	    }
+	    */
+	    Log::info("create_tail: $create_tail");
 	    return Redirect::to(strtolower($CSN) . '/create/' . $create_tail)
 		->with($this->layout_data)
 		->withErrors($validator)
 		->withInput();
 	}
 	
-	Log::info("validator succeeded");
 	$class_instance_list = new $CSN;
-	foreach (array_keys($CSN::$member_fields) as $field) {
+	foreach (Input::all() as $field => $value) {
+	    if (!strcmp($field, 'dependent-field-input')) {
+		continue;
+	    }
 	    if ($field != 'id') { 
-		$class_instance_list->$field = Input::get($field); 
-		Log::info($field . ' => ' . Input::get($field));
+		$class_instance_list->$field = $value;
 	    }
 	    if ($class_instance_list->$field == '' &&
 		isset($CSN::$default_values[$field])) {
 		$class_instance_list->$field = $CSN::$default_values[$field];
-		Log::info($field . ' => default ' . $CSN::$default_values[$field]);
 	    }
 	}
-	Log::info('will save');
 	$class_instance_list->save();
 
-	return Redirect::action($CSN . 'sController@index');
-
+	return Redirect::to(strtolower($CSN))
+	    ->with($this->layout_data);
     }
 
     public function edit($class_instance)
