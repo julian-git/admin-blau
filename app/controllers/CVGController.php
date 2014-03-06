@@ -73,12 +73,16 @@ class CVGController extends BaseController
 	$extended_layout_data['dropbox_default'] = $CSN::$default_values;
 	$extended_layout_data['foreign_table'] = foreign_tables_of($CSN);
 
-	if (isset($CSN::$responsible_field) &&
-	    isset($responsible_id)) 
+	if (isset($CSN::$responsible_field)) 
 	{
+	    $CSN_responsible_field = $CSN::$responsible_field;
 	    $extended_layout_data['responsible_fields'] 
-		= array('field' => $CSN::$responsible_field,
-			'id' => $responsible_id);
+		= array('field' => $CSN_responsible_field,
+			'id' => (isset($responsible_id)
+				 ? $responsible_id 
+				 : $class_instance->responsable()->first()->pluck('id'))
+			);
+	    Log::info("log: " . $extended_layout_data['responsible_fields']['id']);
 	}
 
 	if (isset($CSN::$dependent_field)) 

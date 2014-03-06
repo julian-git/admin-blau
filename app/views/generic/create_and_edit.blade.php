@@ -42,7 +42,7 @@
   </div>
   <div class="col-md-10">
     <div class="form-group">
-
+	{{ $field }}
       @if (isset($dropbox_options[$field]))
 
         <div class="panel-body">

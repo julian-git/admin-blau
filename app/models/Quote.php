@@ -79,10 +79,17 @@ class Quote extends Eloquent
         return join(', ', $beneficiaris);
     }
 
+    public function responsable()
+    {
+	return $this->hasOne('Persone', 'id', 'id_responsables_fk');
+    }
+
+    /*
     public function getIdResponsablesFkAttribute($value) 
     {
        return resolve_foreign_key('Persone', $value);
     }
+    */
 
     public function getTipusQuotesAttribute($value) 
     {
