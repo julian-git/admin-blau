@@ -72,7 +72,7 @@
 			  $("#indexDataTable-{{ $DataCSN }} tbody tr").click(function () {
 				  var position = iDT.fnGetPosition(this); //get position of the selected row
 				  var id = iDT.fnGetData(position)[0];    //value of the first column (can be hidden)
-				  document.location.href = "edit/" + id;   //redirect
+				  document.location.href = "{{ strtolower($DataCSN) }}/edit/" + id;   //redirect
 			      });
 			  @endif 
 		      }

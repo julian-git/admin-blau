@@ -51,14 +51,7 @@
 
            <div class="panel-body">
              {{ Form::select($field, $dropbox_options[$field], $dropbox_default[$field]) }} 
-
-             @if (strcmp($field, 'rols_fk') && strcmp($field, 'categories_fk'))
-               <?php $ft = $foreign_table[$field] ?>
-               <a href="{{ action($ft . 'sController@create') }}" class="btn btn-primary">
-	          {{ $ft::$class_name_gender == 'm' ? 'Nou' : 'Nova' }}
-	          {{ $ft::$singular_class_name }}
-               </a>
-             @endif
+             {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
            </div> <!-- panel-body -->
 
          @else
