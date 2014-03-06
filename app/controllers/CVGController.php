@@ -53,26 +53,45 @@ class CVGController extends BaseController
 
     public function create($responsible_id=null)
     {
+	$this->create_and_edit_impl('create', $responsible_id, null);
+    }
+
+    public function edit($class_instance)
+    {
+	$this->create_and_edit_impl('edit', null, $class_instance);
+    }
+
+    protected function create_and_edit_impl($action, $responsible_id, $class_instance)
+    {
         // Show the create form.
 	$CSN = $this->ClassSingularName;
 	$csn = strtolower($CSN);
 
 	$extended_layout_data = $this->layout_data;
+	$extended_layout_data['action'] = $action;
 	$extended_layout_data['dropbox_options'] = dropbox_options_of($CSN);
 	$extended_layout_data['dropbox_default'] = $CSN::$default_values;
 	$extended_layout_data['foreign_table'] = foreign_tables_of($CSN);
-	if (isset($CSN::$responsible_field)) 
+
+	if (isset($CSN::$responsible_field) &&
+	    isset($responsible_id)) 
 	{
 	    $extended_layout_data['responsible_fields'] 
 		= array('field' => $CSN::$responsible_field,
 			'id' => $responsible_id);
 	}
+
 	if (isset($CSN::$dependent_field)) 
 	{
 	    $extended_layout_data['dependent_fields'] = $CSN::$dependent_field;
 	}
 
-	$this->layout->content = View::make('generic.create', $extended_layout_data);
+	if (isset($class_instance))
+	{
+	    $extended_layout_data[$csn] = $class_instance;
+	}
+
+	$this->layout->content = View::make('generic.create_and_edit', $extended_layout_data);
     }
 
     public function handleCreate()
@@ -140,22 +159,6 @@ class CVGController extends BaseController
 	    $pivot->timestamps = false;
 	    $pivot->save();
 	}
-    }
-
-    public function edit($class_instance)
-    {
-        // Show the edit form.
-	$CSN = $this->ClassSingularName;
-	$csn = strtolower($CSN);
-
-	$extended_layout_data = $this->layout_data;
-	$extended_layout_data[$csn] = $class_instance;
-
-	$extended_layout_data['dropbox_options'] = dropbox_options_of($CSN);
-	$extended_layout_data['dropbox_default'] = dropbox_default_of($CSN, $class_instance);
-	$extended_layout_data['foreign_table'] = foreign_tables_of($CSN);
-
-        return View::make('generic.edit', $extended_layout_data);
     }
 
     public function handleEdit($id)
