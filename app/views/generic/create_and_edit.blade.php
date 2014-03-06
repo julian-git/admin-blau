@@ -66,7 +66,12 @@
 
       @else 
 
-        {{ Form::text($field, Input::old($field)) }}
+        @if ($action=='Editar')
+          {{ Form::text ($field, $$csn->$field) }}
+        @else
+          {{ Form::text($field, Input::old($field)) }}
+        @endif
+
         {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
 
       @endif 
