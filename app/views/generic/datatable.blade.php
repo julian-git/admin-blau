@@ -58,6 +58,15 @@
     <script>
       $(document).ready(function() {
 	      var iDT = $('#indexDataTable-{{ $DataCSN }}').dataTable({
+                  'oLanguage': {
+		      'sSearch': 'Filtrar per: ',
+		      'sInfo': "Mostrant entrades _START_ a _END_ d'un total de _TOTAL_",
+			      'sLengthMenu': '_MENU_ entrades per pàgina',
+		      'oPaginate' : {
+			  'sPrevious': 'Anterior',
+			  'sNext': 'Següent'
+			      } 
+		      },
 		  fnDrawCallback: function(){
 			  @if ($allow_edit)
 			  $("#indexDataTable-{{ $DataCSN }} tbody tr").click(function () {
