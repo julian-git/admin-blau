@@ -48,13 +48,6 @@ class CVGController extends BaseController
 	$CSN = $this->ClassSingularName;
 	$csn = strtolower($CSN);
 	$extended_layout_data = $this->layout_data;
-
-	if (isset($CSN::$responsible_class))
-	{
-	    $extended_layout_data['potential_responsibles_list'] 
-		= list_all_by_identifying_fields($CSN::$responsible_class);
-	}
-
 	$this->layout->content = View::make("generic.index", $extended_layout_data);
     }
 

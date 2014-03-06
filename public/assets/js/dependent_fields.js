@@ -19,6 +19,7 @@ $("#dependent-search").val('');
 $("#dependent-search").keyup(function(e) {
     var minLength = 3;  // search with min of X characters
     var searchStr = $("#dependent-search").val();
+    var dependentButton = $('#dependent-search').attr('dependentButton');
     if (searchStr.length >= minLength) {
 	$.getJSON('/' + $('#dependent-search').attr('dependentClass') + 's/search/' + searchStr, function() {
 	}).done(function(dependentObject) {
@@ -26,13 +27,18 @@ $("#dependent-search").keyup(function(e) {
 		.attr('dependent-id', dependentObject.id)
 		.val(dependentObject.name);
 	    if (dependentObject.id != -1) {
-		$('#afegir-button').removeClass('disabled');
+		$('#' + dependentButton).removeClass('disabled');
+		var href = $('#' + dependentButton).attr('href');
+		if (href.length > 0) {
+		    var last_slash = href.lastIndexOf('/');
+		    $('#' + dependentButton).attr('href', href.substr(0, last_slash) + '/' + dependentObject.id);
+		}
 	    } else {
-		$('#afegir-button').addClass('disabled');
+		$('#' + dependentButton).addClass('disabled');
 	    }
         }).fail(function(result) {
             $('#dependent-search').val("No es troba cap persona semblant.");
-	    $('#afegir-button').addClass('disabled');
+	    $('#' + dependentButton).addClass('disabled');
 	});
     }
 });

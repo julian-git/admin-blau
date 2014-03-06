@@ -60,10 +60,7 @@
         
       @elseif (isset($dependent_fields) &&
                !strcmp($dependent_fields, $field))
-        <?php 
-          $DCL = $CSN::$dependent_class; 
-        ?>
-        @include('generic/dependent_class_form');
+        @include('generic/dependent_class_form', array('DCL' => $CSN::$dependent_class));
 
       @else 
 

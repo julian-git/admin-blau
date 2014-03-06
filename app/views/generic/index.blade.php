@@ -27,17 +27,25 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="col-md-2">
-          <a id="new_button" href="{{ action($CSN . 'sController@create', -1) }}" class="btn btn-primary">
+          <a id="new-button" href="{{ action($CSN . 'sController@create', -1) }}" class="btn btn-primary disabled">
 	    {{ $CSN::$class_name_gender == 'm' ? 'Nou' : 'Nova' }}
 	    {{ $CSN::$singular_class_name }}
           </a>
         </div> {{-- col-md-2 --}}
 
         @if (isset($CSN::$responsible_class))
-          <div class="col-md-6">
-            responsable: &nbsp;
-	{{ Form::select('responsible_select', $potential_responsibles_list, null, array('id' => 'responsible_select')) }}
+          <div class="col-md-8">
+            <?php
+              $include_args 
+	    = array('search_description_text' => $CSN::$member_fields[$CSN::$responsible_field], 
+		    'search_class' => strtolower($CSN::$responsible_class), 
+		    'search_message' => $CSN::$responsible_field_search_message,
+		    'dependent_button' => 'new-button'
+		    ); // We put it here because @include breaks with newlines
+            ?>
+            @include('generic/dependent_class_search', $include_args)
           </div>
+          <script src="{{ asset('assets/js/dependent_fields.js') }}"></script>
         @endif
 
       </div> {{-- panel-body --}}

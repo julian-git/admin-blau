@@ -17,18 +17,13 @@
 */
 ?>
 
-  <div class="input-group custom-search-form">
-    @if (isset($button_action_text) && strlen($button_action_text) > 0)
-    <span class="input-group-btn">
-      <button id="afegir-button" class="btn btn-default disabled" type="button">
-        {{ $button_action_text }}
-      </button>
+@foreach(explode(',', Input::old('dependent-field-input')) as $dependent_id)
+  <div id="dependent-id-{{ $dependent_id }}" dependent-id="{{ $dependent_id }}" class="dependent_list_item">
+    <span>
+      {{ assemble_identifying_fields($DCL, $DCL::findOrFail($dependent_id)) }}
     </span>
-  @endif
-  <input id="dependent-search" type="text" class="form-control" dependentClass="{{ $search_class }}" dependentButton="{{ $dependent_button }}" placeholder="{{ $search_message }}">
-  <span class="input-group-btn">
-    <button class="btn btn-default disabled" type="button">
-      <i class="fa fa-search"></i>
+    <button id="dependent-delete-{{ $dependent_id }}" class="btn btn-default btn-xs">
+      <span class="glyphicon glyphicon-remove"></span>
     </button>
-  </span>
-</div> <!-- input group -->
+  </div>
+@endforeach

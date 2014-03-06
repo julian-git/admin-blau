@@ -33,6 +33,7 @@ class Quote extends Eloquent
 
     public static $responsible_class = 'Persone';
     public static $responsible_field = 'id_responsables_fk';
+    public static $responsible_field_search_message = 'Busca responsable per nom, cognom o mot...';
 
     public static $dependent_class = 'Persone';
     public static $dependent_pivot_class = 'Beneficiari';

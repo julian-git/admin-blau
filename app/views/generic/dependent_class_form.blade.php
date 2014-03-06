@@ -27,27 +27,20 @@
         <div class="form-group">
           <input id="dependent-field-input" name="dependent-field-input" type="hidden" value="{{ Input::old('dependent-field-input') }}" />
           @if (sizeof(Input::old('dependent-field-input')))
-          @foreach(explode(',', Input::old('dependent-field-input')) as $dependent_id)
-            <div id="dependent-id-{{ $dependent_id }}" dependent-id="{{ $dependent_id }}" class="dependent_list_item">
-              <span>
-                {{ assemble_identifying_fields($DCL, $DCL::findOrFail($dependent_id)) }}
-              </span>
-              <button id="dependent-delete-{{ $dependent_id }}" class="btn btn-default btn-xs">
-                <span class="glyphicon glyphicon-remove"></span>
-              </button>
-            </div>
-          @endforeach
+            @include('generic/old_dependent_input')
           @endif
         </div>
       </div> <!-- panel -->
     </div> <!-- col-md -->
     <div class="col-md-7">
-      <?php 
-        $button_action_text = 'Afegir';
-        $search_class = strtolower($CSN::$dependent_class);
-        $search_message = $CSN::$dependent_field_search_message;
-      ?>
-      @include('generic/dependent_class_search')
+     <?php
+        $include_args = array('button_action_text' => 'Afegir', 
+			      'search_class' => strtolower($CSN::$dependent_class), 
+			      'search_message' => $CSN::$dependent_field_search_message,
+			      'dependent_button' => 'afegir-button'
+			      ); // We put it here because @include breaks with newlines
+     ?>
+     @include('generic/dependent_class_search', $include_args)
 
     </div> <!-- col-md -->
   </div> <!-- row -->
