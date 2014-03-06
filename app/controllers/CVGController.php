@@ -80,8 +80,11 @@ class CVGController extends BaseController
 		= array('field' => $CSN_responsible_field,
 			'id' => (isset($responsible_id)
 				 ? $responsible_id 
-				 : $class_instance->responsable()->first()->pluck('id'))
+				 : $class_instance->responsible()->pluck('id'))
 			);
+	    Log::info(isset($responsible_id) ? "yes" : "no");
+	    Log::info($class_instance->id);
+	    Log::info($class_instance->responsable()->get());
 	    Log::info("log: " . $extended_layout_data['responsible_fields']['id']);
 	}
 

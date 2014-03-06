@@ -81,17 +81,20 @@ class Quote extends Eloquent
 
     public function responsable()
     {
-	return $this->hasOne('Persone', 'id', 'id_responsables_fk');
+	return $this->belongsTo('Persone', 'id_responsables_fk', 'id');
     }
 
-    /*
-    public function getIdResponsablesFkAttribute($value) 
+    public function responsible()
     {
-       return resolve_foreign_key('Persone', $value);
+	return $this->responsable();
     }
-    */
 
-    public function getTipusQuotesAttribute($value) 
+    public function id_responsables_fk_resolver()
+    {
+	return resolve_foreign_key('Persone', $this->id_responsables_fk);
+    }
+
+    public function tipus_quotes_fk_resolver() 
     {
        return resolve_foreign_key('TipusQuote', $this->tipus_quotes_fk);
     }
