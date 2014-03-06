@@ -153,6 +153,10 @@ class CVGController extends BaseController
  
 	foreach(explode(',', $dependent_ids) as $dependent_id)
 	{
+	    if (strlen($dependent_id) == 0) 
+	    {
+		continue;
+	    }
 	    $pivot = new $CSN::$dependent_pivot_class;
 	    $pivot->$master_id_field = $master_id;
 	    $pivot->$dependent_id_field = $dependent_id;
