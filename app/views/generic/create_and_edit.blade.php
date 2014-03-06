@@ -22,13 +22,15 @@
 <?php include_once(dirname(dirname(dirname(__FILE__))) . "/models/$CSN.php"); ?>
 
 <div class="page-header">
-  <h1>Crear 
-    {{ $CSN::$class_name_gender == 'm' ? 'nou' : 'nova' }}
-    {{ $CSN::$singular_class_name }}
+  <h1>{{ $action }} 
+    @if(!strcmp($action, 'Crear'))
+      {{ $CSN::$class_name_gender == 'm' ? 'nou' : 'nova' }}
+    @endif
+      {{ $CSN::$singular_class_name }}
   </h1>
 </div>
 
-<form action="{{ action($CSN . 'sController@handleCreate') }}" method="post" role="form">
+<form action="{{ action($CSN . 'sController@handle' . $action) }}" method="post" role="form">
 
 @foreach ($CSN::$member_fields as $field => $prompt)
 @if ($field != 'id')

@@ -53,12 +53,12 @@ class CVGController extends BaseController
 
     public function create($responsible_id=null)
     {
-	$this->create_and_edit_impl('create', $responsible_id, null);
+	$this->create_and_edit_impl('Crear', $responsible_id, null);
     }
 
     public function edit($class_instance)
     {
-	$this->create_and_edit_impl('edit', null, $class_instance);
+	$this->create_and_edit_impl('Editar', null, $class_instance);
     }
 
     protected function create_and_edit_impl($action, $responsible_id, $class_instance)
@@ -94,12 +94,24 @@ class CVGController extends BaseController
 	$this->layout->content = View::make('generic.create_and_edit', $extended_layout_data);
     }
 
-    public function handleCreate()
+    public function handleCrear()
+    {
+	return handle_create_and_edit_impl('create');
+    }
+
+    public function handleEditar()
+    {
+	return handle_create_and_edit_impl('edit');
+    }
+
+    protected function handle_create_and_edit_impl($action)
     {
 	$CSN = $this->ClassSingularName;
 	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
 	if ($validator->fails()) {
-	    $create_tail = Input::get($CSN::$responsible_field);
+	    $action_tail = (!strcmp($action, 'create'))
+		? Input::get($CSN::$responsible_field)
+		: Input::get('id');
 	    /*
 	    Log::info('responsible_field_id: ' . $create_tail);
 	    Log::info('size: ' . sizeof($validator->failed()));
@@ -113,7 +125,7 @@ class CVGController extends BaseController
 		}
 	    }
 	    */
-	    return Redirect::to(strtolower($CSN) . '/create/' . $create_tail)
+	    return Redirect::to(strtolower($CSN) . '/' . $action . '/' . $action_tail)
 		->with($this->layout_data)
 		->withErrors($validator)
 		->withInput();
@@ -125,9 +137,9 @@ class CVGController extends BaseController
 	    if (!strcmp($field, 'dependent-field-input')) {
 		continue;
 	    }
-	    if ($field != 'id') { 
+	    if ($field != 'id' || $action == 'edit') { 
 		$class_instance_list->$field = $value;
-	    }
+	    } 
 	    if ($class_instance_list->$field == '' &&
 		isset($CSN::$default_values[$field])) {
 		$class_instance_list->$field = $CSN::$default_values[$field];
@@ -150,14 +162,16 @@ class CVGController extends BaseController
 	$CSN = $this->ClassSingularName;
 	$master_id_field = strtolower($CSN) . '_id';
 	$dependent_id_field = strtolower($CSN::$dependent_class) . '_id';
- 
+	$pivot_class = $CSN::$dependent_pivot_class;
+
+	$pivot_class::where($master_id_field, '=', $master_id)->delete();
 	foreach(explode(',', $dependent_ids) as $dependent_id)
 	{
 	    if (strlen($dependent_id) == 0) 
 	    {
 		continue;
 	    }
-	    $pivot = new $CSN::$dependent_pivot_class;
+	    $pivot = new $pivot_class;
 	    $pivot->$master_id_field = $master_id;
 	    $pivot->$dependent_id_field = $dependent_id;
 	    $pivot->timestamps = false;
