@@ -47,10 +47,10 @@ class Quote extends Eloquent
 
     public static $fields_in_index = array(
                          'id' => 'Id',
+                         'id_responsables_fk' => 'Responsable',
                          'tipus_quotes' => 'Tipus',
                          'import' => 'Import',
                          'import_anual' => 'Total anual',
-                         'id_responsables_fk' => 'Responsable',
                          'beneficiaris_list' => 'Beneficiaris'
                          );
     						 
