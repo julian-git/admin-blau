@@ -94,46 +94,27 @@ class CVGController extends BaseController
 	$this->layout->content = View::make('generic.create_and_edit', $extended_layout_data);
     }
 
-    public function handleCrear()
+    protected function log_failed_validator_entries($action_tail, $validator)
     {
-	return handle_create_and_edit_impl('create');
-    }
-
-    public function handleEditar()
-    {
-	return handle_create_and_edit_impl('edit');
-    }
-
-    protected function handle_create_and_edit_impl($action)
-    {
-	$CSN = $this->ClassSingularName;
-	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
-	if ($validator->fails()) {
-	    $action_tail = (!strcmp($action, 'create'))
-		? Input::get($CSN::$responsible_field)
-		: Input::get('id');
-	    /*
-	    Log::info('responsible_field_id: ' . $create_tail);
-	    Log::info('size: ' . sizeof($validator->failed()));
-	    foreach($validator->failed() as $attr => $rule) {
-		Log::info("attr: $attr");
-		foreach($rule as $r => $param) {
-		    Log::info("rule: $r");
-		    foreach ($param as $a => $b) {
-			Log::info("param: $attr: $r => ($a => $b)");
-		    }
+	Log::info('responsible_field_id: ' . $action_tail);
+	Log::info('size: ' . sizeof($validator->failed()));
+	foreach($validator->failed() as $attr => $rule) {
+	    Log::info("attr: $attr");
+	    foreach($rule as $r => $param) {
+		Log::info("rule: $r");
+		foreach ($param as $a => $b) {
+		    Log::info("param: $attr: $r => ($a => $b)");
 		}
 	    }
-	    */
-	    return Redirect::to(strtolower($CSN) . '/' . $action . '/' . $action_tail)
-		->with($this->layout_data)
-		->withErrors($validator)
-		->withInput();
 	}
-	
+    }
+
+    protected function save_instance($CSN)
+    {
 	$class_instance_list = new $CSN;
 	$input = Input::all();
-	foreach ($input as $field => $value) {
+	foreach ($input as $field => $value) 
+        {
 	    if (!strcmp($field, 'dependent-field-input')) {
 		continue;
 	    }
@@ -148,13 +129,11 @@ class CVGController extends BaseController
 	$class_instance_list->save();
 
 	if (isset($input['dependent-field-input']))
-	{
+        {
 	    $this->save_dependent_fields($class_instance_list->id, 
 					 $input['dependent-field-input']);
 	}
 
-	return Redirect::to(strtolower($CSN))
-	    ->with($this->layout_data);
     }
 
     protected function save_dependent_fields($master_id, $dependent_ids)
@@ -164,12 +143,17 @@ class CVGController extends BaseController
 	$dependent_id_field = strtolower($CSN::$dependent_class) . '_id';
 	$pivot_class = $CSN::$dependent_pivot_class;
 
+	// first delete all dependent entries 
 	$pivot_class::where($master_id_field, '=', $master_id)->delete();
+
+	// then insert the active ones
 	foreach(explode(',', $dependent_ids) as $dependent_id)
 	{
 	    if (strlen($dependent_id) == 0) 
 	    {
-		continue;
+		// This catches empty dependent fields 
+		// when we return from an unsuccessful validation
+		continue; 
 	    }
 	    $pivot = new $pivot_class;
 	    $pivot->$master_id_field = $master_id;
@@ -178,6 +162,39 @@ class CVGController extends BaseController
 	    $pivot->save();
 	}
     }
+
+    public function handleCrear()
+    {
+	return $this->handle_create_and_edit_impl('create');
+    }
+
+    public function handleEditar()
+    {
+	return $this->handle_create_and_edit_impl('edit');
+    }
+
+    protected function handle_create_and_edit_impl($action)
+    {
+	$CSN = $this->ClassSingularName;
+	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
+	if ($validator->fails()) {
+	    $action_tail = (!strcmp($action, 'create'))
+		? Input::get($CSN::$responsible_field)
+		: Input::get('id');
+	    // If you ever need to see the failed validation tests, uncomment the following:
+	    // $this->log_failed_validator_entries($action_tail, $validator);
+	    return Redirect::to(strtolower($CSN) . '/' . $action . '/' . $action_tail)
+		->with($this->layout_data)
+		->withErrors($validator)
+		->withInput();
+	}
+
+	$this->save_instance($CSN);
+
+	return Redirect::to(strtolower($CSN))
+	    ->with($this->layout_data);
+    }
+
 
     public function handleEdit($id)
     {
