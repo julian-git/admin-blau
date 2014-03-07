@@ -75,9 +75,8 @@ class CVGController extends BaseController
 
 	if (isset($CSN::$responsible_field)) 
 	{
-	    $CSN_responsible_field = $CSN::$responsible_field;
 	    $extended_layout_data['responsible_fields'] 
-		= array('field' => $CSN_responsible_field,
+		= array('field' => $CSN::$responsible_field,
 			'id' => (isset($responsible_id)
 				 ? $responsible_id 
 				 : $class_instance->responsible()->pluck('id'))
@@ -99,7 +98,7 @@ class CVGController extends BaseController
 		{
 		    $dependents[] = $dep->id;
 		}
-		$class_instance['dependent-field-input'] = join(',', $dependents);
+		$class_instance['dependent_field_input'] = join(',', $dependents);
 	    }
 	    Log::info("class_instance: $class_instance");
 	    $extended_layout_data[$csn] = $class_instance;
@@ -129,7 +128,7 @@ class CVGController extends BaseController
 	$input = Input::all();
 	foreach ($input as $field => $value) 
         {
-	    if (!strcmp($field, 'dependent-field-input')) {
+	    if (!strcmp($field, 'dependent_field_input')) {
 		continue;
 	    }
 	    if ($field != 'id' || $action == 'edit') { 
@@ -142,10 +141,10 @@ class CVGController extends BaseController
 	}
 	$class_instance_list->save();
 
-	if (isset($input['dependent-field-input']))
+	if (isset($input['dependent_field_input']))
         {
 	    $this->save_dependent_fields($class_instance_list->id, 
-					 $input['dependent-field-input']);
+					 $input['dependent_field_input']);
 	}
 
     }

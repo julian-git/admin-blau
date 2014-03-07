@@ -30,7 +30,11 @@
   </h1>
 </div>
 
-<form action="{{ action($CSN . 'sController@handle' . $action) }}" method="post" role="form">
+@if (!strcmp($action, 'Editar'))
+  {{ Form::model($csn, array('route' => array("$csn.edit", $$csn->id))) }}
+@else
+  {{ Form::open() }}
+@endif
 
 @foreach ($CSN::$member_fields as $field => $prompt)
 @if ($field != 'id')
@@ -62,12 +66,15 @@
         
       @elseif (isset($dependent_fields) &&
                !strcmp($dependent_fields, $field))
+        <?php
+	      
+        ?>
         @include('generic/dependent_class_form', array('DCL' => $CSN::$dependent_class));
 
       @else 
 
         @if ($action=='Editar')
-          {{ Form::text ($field, $$csn->$field) }}
+          {{ Form::text($field, $$csn->$field) }}
         @else
           {{ Form::text($field, Input::old($field)) }}
         @endif
@@ -83,5 +90,7 @@
 
         <input type="submit" value="Crear" class="btn btn-primary" />
        <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel&middot;lar</a>
-    </form>
+	   {{ Form::close() }}
+
+
 @stop

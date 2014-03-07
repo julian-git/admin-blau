@@ -17,7 +17,7 @@
 */
 ?>
 
-@foreach(explode(',', Input::old('dependent-field-input')) as $dependent_id)
+@foreach(explode(',', Input::old('dependent_field_input')) as $dependent_id)
 @if(strlen($dependent_id) > 0)
 {{-- this test is to catch empty dependent field list upon validation of input --}}
   <div id="dependent-id-{{ $dependent_id }}" dependent-id="{{ $dependent_id }}" class="dependent_list_item">

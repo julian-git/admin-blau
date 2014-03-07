@@ -62,12 +62,12 @@ foreach(array('Categorie',
     $csn = strtolower($CSN);
 
     // Bind route parameters.
-    Route::model($csn, $CSN); // e.g., model('casteller', 'Casteller');
+    Route::model($csn, $CSN); // e.g., model('persone', 'Persone');
 
     // Show pages.
     Route::get("/$csn", "{$CSN}sController@index");
     Route::get("/$csn/create/{responsable?}", "{$CSN}sController@create");
-    Route::get("/$csn/edit/{" . $csn . '}', "{$CSN}sController@edit");
+    Route::get("/$csn/edit/{" . $csn . '}', array('uses' => "{$CSN}sController@edit", 'as' => "$csn.edit"));
     Route::get("/$csn/delete/{" . $csn . '}', "{$CSN}sController@delete");
     /*
     Route::get("/$csn/json", function() use ($CSN) {

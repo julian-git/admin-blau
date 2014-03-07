@@ -25,10 +25,11 @@
         <div id="dependent-field-list">
         </div>
         <div class="form-group">
-          <input id="dependent-field-input" name="dependent-field-input" type="hidden" value="{{ Input::old('dependent-field-input') }}" />
-          @if (sizeof(Input::old('dependent-field-input')))
-            @include('generic/old_dependent_input')
-          @endif
+        @if ($action=='Editar')
+          {{ Form::hidden('dependent_field_input', $$csn->dependent_field_input) }}
+        @else
+          {{ Form::hidden('dependent_field_input', Input::old('dependent_field_input')) }}
+        @endif
         </div>
       </div> <!-- panel -->
     </div> <!-- col-md -->
