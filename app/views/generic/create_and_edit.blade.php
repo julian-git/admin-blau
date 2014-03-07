@@ -46,11 +46,9 @@
   </div>
   <div class="col-md-10">
     <div class="form-group">
-	{{ $field }}
       @if (isset($dropbox_options[$field]))
-
         <div class="panel-body">
-          {{ Form::select($field, $dropbox_options[$field]) }} 
+          {{ Form::select($field, $dropbox_options[$field], $dropbox_default[$field]) }} 
           {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
         </div>
 
@@ -69,7 +67,7 @@
         <?php
 	      
         ?>
-        @include('generic/dependent_class_form', array('DCL' => $CSN::$dependent_class));
+        @include('generic/dependent_class_form', array('DCL' => $CSN::$dependent_class))
 
       @else 
 
@@ -88,7 +86,7 @@
     @endif
 @endforeach
 
-        <input type="submit" value="Crear" class="btn btn-primary" />
+        <input type="submit" value="{{ ($action == 'Crear') ? 'Crear' : 'Guardar' }}" class="btn btn-primary" />
        <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel&middot;lar</a>
 	   {{ Form::close() }}
 

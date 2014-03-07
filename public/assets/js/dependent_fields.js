@@ -1,5 +1,5 @@
 function dependent_list_entry(dependent_id, text) {
-    var delete_button = '<button id="dependent-delete-' + dependent_id + '" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span></button>';
+    var delete_button = '<button dependent-id="' + dependent_id + '" class="btn btn-default btn-xs cvg-remove-button"><span class="glyphicon glyphicon-remove"></span></button>';
     return '<div id="dependent-id-' + dependent_id + '" dependent-id="' + dependent_id + '" class="dependent_list_item"><span>' + text + '</span>' + delete_button + '</div>';
 }
 
@@ -11,10 +11,20 @@ function update_dependent_field_input() {
 	}
 	val_list += $(this).attr('dependent-id');
     });
-    $('#dependent-field-input').val(val_list);
+    $('#dependent_field_input').val(val_list);
+}
+
+function remove_button_clicked(dependent_id)
+{
+    $('#dependent-id-' + dependent_id).remove();
+    update_dependent_field_input();
 }
 
 $("#dependent-search").val('');
+
+$('.cvg-remove-button').click(function() {
+    remove_button_clicked($(this).attr('dependent-id'));
+});
 
 $("#dependent-search").keyup(function(e) {
     var minLength = 3;  // search with min of X characters
@@ -50,9 +60,8 @@ $('#afegir-button').click(function() {
 	$('#dependent-field-list').append(dependent_list_entry(dependent_id, dependent_text));   
 	$('#dependent-search').val('');
 	$('#afegir-button').addClass('disabled');
-	$('#dependent-delete-' + dependent_id).click(function(){
-	    $('#dependent-id-' + dependent_id).remove();
-	    update_dependent_field_input();
+	$('.cvg-remove-button').click(function() {
+	    remove_button_clicked($(this).attr('dependent-id'));
 	});
 	update_dependent_field_input();
     }

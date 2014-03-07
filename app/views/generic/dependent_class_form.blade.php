@@ -22,14 +22,14 @@
     <div class="col-md-5">
       <div id="dependent-field-panel" class="panel panel-default">
         {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
+        <?php 
+           $the_dependent_input = ($action=='Editar')
+				   ? $$csn->dependent_field_input
+				   : Input::old('dependent_field_input');
+        ?>
+	   {{ Form::hidden('dependent_field_input', $the_dependent_input, array('id' => 'dependent_field_input')) }}
         <div id="dependent-field-list">
-        </div>
-        <div class="form-group">
-        @if ($action=='Editar')
-          {{ Form::hidden('dependent_field_input', $$csn->dependent_field_input) }}
-        @else
-          {{ Form::hidden('dependent_field_input', Input::old('dependent_field_input')) }}
-        @endif
+          @include('generic/assemble_dependent_input')
         </div>
       </div> <!-- panel -->
     </div> <!-- col-md -->

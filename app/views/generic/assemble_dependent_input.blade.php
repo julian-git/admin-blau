@@ -17,14 +17,14 @@
 */
 ?>
 
-@foreach(explode(',', Input::old('dependent_field_input')) as $dependent_id)
+@foreach(explode(',', $the_dependent_input) as $dependent_id)
 @if(strlen($dependent_id) > 0)
 {{-- this test is to catch empty dependent field list upon validation of input --}}
   <div id="dependent-id-{{ $dependent_id }}" dependent-id="{{ $dependent_id }}" class="dependent_list_item">
     <span>
    {{ assemble_identifying_fields($DCL, $DCL::find($dependent_id)) }}
     </span>
-    <button id="dependent-delete-{{ $dependent_id }}" class="btn btn-default btn-xs">
+    <button dependent-id="{{ $dependent_id }}" class="btn btn-default btn-xs cvg-remove-button">
       <span class="glyphicon glyphicon-remove"></span>
     </button>
   </div>
