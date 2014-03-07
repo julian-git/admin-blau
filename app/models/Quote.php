@@ -95,6 +95,11 @@ class Quote extends ResolvingEloquent
 	return $this->responsable();
     }
 
+    public function dependents()
+    {
+	return $this->beneficiaris();
+    }
+
     public function getImportAnualAttribute($value) 
     {
         $tipus = TipusQuote::findOrFail($this->tipus_quotes_fk);
