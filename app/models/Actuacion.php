@@ -18,7 +18,7 @@
 
 require_once('util.php');
 
-class Actuacion extends Eloquent
+class Actuacion extends ResolvingEloquent
 {
 
     /*
@@ -37,6 +37,11 @@ class Actuacion extends Eloquent
 					 'data' => 'Data',
 					 'llocs_fk' => 'Lloc'
 					 );
+
+    protected $resolving_table = array(
+					 'tipus_actuacions_fk' => 'TipusActuacio',
+					 'llocs_fk' => 'Lloc'
+				       );
 
     public static $validation_rules = array('id' => 'required|integer',
 					    'data' => 'required|date'

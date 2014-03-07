@@ -18,7 +18,7 @@
 
 require_once('util.php');
 
-class Castell extends Eloquent
+class Castell extends ResolvingEloquent
 {
     public static $singular_class_name = 'Castell';
     public static $plural_class_name = 'Castells';
@@ -30,6 +30,11 @@ class Castell extends Eloquent
 					 'ordre' => 'Ordre a Plaça'
 					 );
 
+    protected $resolving_table = array(
+					 'tipus_castells_fk' => 'TipusCastell',
+					 'actuacions_fk' => 'Actuacion'
+				       );
+
     public static $validation_rules = array('id' => 'required|integer',
 					    'placa_o_assaig' => 'in:P,A',
 					    'resultat' => 'in:,c,id,i'
@@ -40,16 +45,6 @@ class Castell extends Eloquent
     public static $identifying_fields = array('tipus_castells_fk',
 					      'actuacions_fk'
 					      );
-
-    public function getActuacionsFkAttribute($value) 
-    {
-	return resolve_foreign_key('Actuacion', $value);
-    }
-
-    public function getTipusCastellsFkAttribute($value) 
-    {
-	return resolve_foreign_key('TipusCastell', $value);
-    }
 
     public function tipus()
     {

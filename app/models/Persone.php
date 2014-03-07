@@ -16,10 +16,13 @@
     GNU General Public License for more details.
 */
 
+use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\Reminders\RemindableInterface;
+
 require_once(dirname(__FILE__) . '/../util.php');
 require_once('util.php');
 
-class Persone extends Eloquent
+class Persone extends ResolvingEloquent implements UserInterface, RemindableInterface 
 {
     /*
     public function __construct() 
@@ -60,6 +63,11 @@ class Persone extends Eloquent
 					 'iban' => 'IBAN'
 					 );
 
+    protected $resolving_table = array(
+				       'categories_fk' => 'Categorie',
+				       'rols_fk' => 'Rol'
+				       );
+
     public static $fields_in_index = array('id' => 'Id',
 					   'num_soci' => 'N&uacute;mero de soci',
 					   'nom_complert' => 'Nom',
@@ -88,12 +96,55 @@ class Persone extends Eloquent
 
     public static $identifying_short_fields = array('nom',
 						    'cognom1');
-    
-    public function getCategoriesFKAttribute($value)
-    {
-	return resolve_foreign_key('Categorie', $value);
-    }
 
+    // Now stuff from the UserInterface and the RemindableInterface
+
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
+	protected $table = 'persones';
+
+	/**
+	 * The attributes excluded from the model's JSON form.
+	 *
+	 * @var array
+	 */
+	protected $hidden = array('password');
+
+	/**
+	 * Get the unique identifier for the user.
+	 *
+	 * @return mixed
+	 */
+	public function getAuthIdentifier()
+	{
+		return $this->getKey();
+	}
+
+	/**
+	 * Get the password for the user.
+	 *
+	 * @return string
+	 */
+	public function getAuthPassword()
+	{
+		return $this->password;
+	}
+
+	/**
+	 * Get the e-mail address where password reminders are sent.
+	 *
+	 * @return string
+	 */
+	public function getReminderEmail()
+	{
+		return $this->email;
+	}
+
+	// done interfaces
+    
     public function getNomComplertAttribute()
     {
     	return $this->nom.' '.$this->cognom1.' '.$this->cognom2;

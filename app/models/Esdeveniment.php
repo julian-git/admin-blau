@@ -18,7 +18,7 @@
 
 require_once('util.php');
 
-class Esdeveniment extends Eloquent
+class Esdeveniment extends ResolvingEloquent
 {
     public static $singular_class_name = 'Esdeveniment';
     public static $plural_class_name = 'Esdeveniments';
@@ -37,6 +37,11 @@ class Esdeveniment extends Eloquent
 					 'cost_estimat' => 'Cost Estimat',
 					 'cost_real' => 'Cost Real'
 					 );
+
+    protected $resolving_table = array(
+				       'tipus_esdeveniments_fk' => 'TipusEsdeveniment',
+				       'llocs_fk' => 'Lloc'
+				       );
 
     public static $fields_in_index = array('id' => 'Id',
 					   'titol' => 'Titol',
@@ -67,16 +72,6 @@ class Esdeveniment extends Eloquent
     public function getHoraAttribute($value)
     {
 	return date('H:i', strtotime($value));
-    }
-
-    public function getTipusEsdevenimentsFkAttribute($value) 
-    {
-	return resolve_foreign_key('TipusEsdeveniment', $value);
-    }
-
-    public function getLlocsFkAttribute($value) 
-    {
-	return resolve_foreign_key('Lloc', $value);
     }
 
     public static function details($id)

@@ -18,7 +18,7 @@
 
 require_once('util.php');
 
-class Quote extends Eloquent
+class Quote extends ResolvingEloquent
 {
     public static $singular_class_name = 'Quota';
     public static $plural_class_name = 'Quotes';
@@ -30,6 +30,11 @@ class Quote extends Eloquent
 					 'id_responsables_fk' => 'Responsable',
 					 'beneficiari' => 'Beneficiaris'
 					 );
+
+    protected $resolving_table = array(
+				       'tipus_quotes_fk' => 'TipusQuote',
+				       'id_responsables_fk' => 'Persone'
+				       );
 
     public static $responsible_class = 'Persone';
     public static $responsible_field = 'id_responsables_fk';
@@ -48,7 +53,7 @@ class Quote extends Eloquent
     public static $fields_in_index = array(
                          'id' => 'Id',
                          'id_responsables_fk' => 'Responsable',
-                         'tipus_quotes' => 'Tipus',
+                         'tipus_quotes_fk' => 'Tipus',
                          'import' => 'Import',
                          'import_anual' => 'Total anual',
                          'beneficiaris_list' => 'Beneficiaris'
@@ -56,8 +61,9 @@ class Quote extends Eloquent
     						 
     public static $default_values = array();
 
-    public static $identifying_fields = array('tipus_quotes_fk',
+    public static $identifying_fields = array(
 					      'id_responsables_fk',
+					      'tipus_quotes_fk',
 					      'import'
 					      );
 
@@ -87,16 +93,6 @@ class Quote extends Eloquent
     public function responsible()
     {
 	return $this->responsable();
-    }
-
-    public function id_responsables_fk_resolver()
-    {
-	return resolve_foreign_key('Persone', $this->id_responsables_fk);
-    }
-
-    public function tipus_quotes_fk_resolver() 
-    {
-       return resolve_foreign_key('TipusQuote', $this->tipus_quotes_fk);
     }
 
     public function getImportAnualAttribute($value) 

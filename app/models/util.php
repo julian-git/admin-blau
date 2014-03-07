@@ -32,4 +32,14 @@ function local_date($date)
     setlocale(LC_TIME, 'ca_ES', 'ca_ES.UTF-8', 'Catalan_Spain', 'Catalan');
     return strftime("%A, %e de %B", strtotime($date));
 }
+
+class ResolvingEloquent extends Eloquent
+{
+    public function resolver($field) 
+    {
+	return (isset($this->resolving_table[$field])
+		? resolve_foreign_key($this->resolving_table[$field], $this->$field)
+		: $this->$field);
+    }
+}
 ?>

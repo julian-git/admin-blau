@@ -42,12 +42,7 @@
                 @foreach($DataCSN::all() as $instance)
                 <tr>
                    @foreach(array_keys($fields_in_index) as $field)
-                     @if (!strcmp(substr($field, -3), '_fk'))
-		     <?php $field_resolver = $field . '_resolver' ?>
-		     <td><div id="{{ $field }}{{ $instance->id }}">{{ $instance->$field_resolver() }}</div></td>
- 		     @else 
-                      <td>{{ $instance->$field }}</td>
-                     @endif
+		     <td>{{ $instance->resolver($field) }}</td>
 		   @endforeach
                 </tr>
                 @endforeach
