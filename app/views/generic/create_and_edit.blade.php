@@ -86,7 +86,7 @@
     @endif
 @endforeach
 
-        <input type="submit" value="{{ ($action == 'Crear') ? 'Crear' : 'Guardar' }}" class="btn btn-primary" />
+        <input type="submit" value="{{ ($action == 'Crear') ? 'Crear' : 'Desar' }}" class="btn btn-primary" />
        <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel&middot;lar</a>
 	   {{ Form::close() }}
 
