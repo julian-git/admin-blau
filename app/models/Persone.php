@@ -70,7 +70,7 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 				       );
 
     public static $fields_in_index = array('id' => 'Id',
-					   'num_soci' => 'N&uacute;mero de soci',
+					   'numero_soci' => 'N&uacute;mero de soci',
 					   'nom_complert' => 'Nom',
 					   'mot' => 'Mot',
 					   'telefon' => 'Tel&egrave;fon',

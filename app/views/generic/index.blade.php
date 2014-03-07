@@ -41,7 +41,7 @@
 		    'search_class' => strtolower($CSN::$responsible_class), 
 		    'search_message' => $CSN::$responsible_field_search_message,
 		    'dependent_button' => 'new-button'
-		    ); // We put it here because @include breaks with newlines
+		    ); // Put this array here because the following @include breaks with newlines
             ?>
             @include('generic/dependent_class_search', $include_args)
           </div>

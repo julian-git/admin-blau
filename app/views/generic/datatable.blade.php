@@ -63,6 +63,7 @@
 			  'sNext': 'Següent'
 			      } 
 		      },
+		  'aoColumnDefs': [{ "bVisible": false, "aTargets": [0] }],
 		  fnDrawCallback: function(){
 			  @if ($allow_edit)
 			  $("#indexDataTable-{{ $DataCSN }} tbody tr").click(function () {
