@@ -12,15 +12,19 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 		
 		foreach(array('castell_persone',
-			 'actuacion_persone',
-			 'esdeveniment_persone',
-			 'beneficiaris',
-			 'quotes',
-			 'persones',
-			 'castells',
-			 'actuacions',
-			 'families',
-			 'esdeveniments'
+			      'actuacion_persone',
+			      'esdeveniment_persone',
+			      'familie_persone',
+			      'beneficiaris',
+			      'quotes',
+			      'persones',
+			      'castells',
+			      'actuacions',
+			      'families',
+			      'tipus_esdeveniments',
+			      'esdeveniments',
+			      'missatges',
+			      'llocs'
 			 ) as $table)
 		{
 		    DB::table($table)->delete();
@@ -62,6 +66,7 @@ class PersonesSeeder extends Seeder {
     public function run() {
 	DB::table('persones')->delete();
 	Persone::create(array('id' => 1, 
+			      'numero_soci' => 1001,
 			      'cognom1' => 'García', 
 			      'cognom2' => 'González',
 			      'nom' => 'Josep Maria',
@@ -73,6 +78,7 @@ class PersonesSeeder extends Seeder {
 			      ));
 
 	Persone::create(array('id' => 2, 
+			      'numero_soci' => 1002,
 			      'cognom1' => 'López', 
 			      'cognom2' => 'García',
 			      'nom' => 'Joana',
@@ -84,6 +90,7 @@ class PersonesSeeder extends Seeder {
 			      ));
 
 	Persone::create(array('id' => 3, 
+			      'numero_soci' => 1003,
 			      'cognom1' => 'Terç', 
 			      'cognom2' => 'Patufet',
 			      'nom' => 'Marta',

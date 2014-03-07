@@ -34,7 +34,8 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
     public static $plural_class_name = 'Persones';
     public static $class_name_gender = 'f';
 
-    public static $member_fields = array('id' => 'N&uacute;mero de soci',
+    public static $member_fields = array('id' => 'Id',
+					 'numero_soci' => 'N&uacute;mero de soci',
 					 'cognom1' => 'Cognom 1',
 					 'cognom2' => 'Cognom 2',
 					 'nom' => 'Nom',
