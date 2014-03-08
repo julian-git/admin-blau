@@ -41,5 +41,10 @@ class ResolvingEloquent extends Eloquent
 		? resolve_foreign_key($this->resolving_class[$field], $this->$field)
 		: $this->$field);
     }
+
+    public static function is_right_aligned($field)
+    {
+	return false;
+    }
 }
 ?>

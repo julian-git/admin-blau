@@ -42,7 +42,7 @@
                 @foreach($DataCSN::all() as $instance)
                 <tr>
                    @foreach(array_keys($fields_in_index) as $field)
-		     <td>{{ $instance->resolve($field) }}</td>
+		   <td {{ $DataCSN::is_right_aligned($field) ? 'class="right"' : '' }}>{{ $instance->resolve($field) }}</td>
 		   @endforeach
                 </tr>
                 @endforeach

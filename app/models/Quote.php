@@ -100,10 +100,22 @@ class Quote extends ResolvingEloquent
 	return $this->beneficiaris();
     }
 
+    public function getImportAttribute($value) 
+    {
+    	return number_format($value, 2, ',', '.');
+    }
+
     public function getImportAnualAttribute($value) 
     {
         $tipus = TipusQuote::findOrFail($this->tipus_quotes_fk);
-    	return $tipus->periodicitat_mesos*$this->import;
+    	return number_format($tipus->periodicitat_mesos * $this->import, 2, ',', '.');
+    }
+
+    public static function is_right_aligned($field)
+    {
+	return 
+	    $field == 'import' ||
+	    $field == 'import_anual';
     }
 }
 
