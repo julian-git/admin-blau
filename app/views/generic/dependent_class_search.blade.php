@@ -20,12 +20,12 @@
   <div class="input-group custom-search-form">
     @if (isset($button_action_text) && strlen($button_action_text) > 0)
     <span class="input-group-btn">
-      <button id="afegir-button" class="btn btn-default disabled" type="button">
+      <button id="{{ $dependent_button }}" searchField="{{ $DF }}-search" class="btn btn-default afegir-button disabled" type="button">
         {{ $button_action_text }}
       </button>
     </span>
   @endif
-  <input id="dependent-search" type="text" class="form-control" dependentClass="{{ $search_class }}" dependentButton="{{ $dependent_button }}" placeholder="{{ $search_message }}">
+  <input id="{{ $DF }}-search" type="text" class="form-control dependent-search" dependentClass="{{ $search_class }}" dependentButton="{{ $dependent_button }}" placeholder="{{ $search_message }}">
   <span class="input-group-btn">
     <button class="btn btn-default disabled" type="button">
       <i class="fa fa-search"></i>

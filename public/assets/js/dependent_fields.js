@@ -20,20 +20,21 @@ function remove_button_clicked(dependent_id)
     update_dependent_field_input();
 }
 
-$("#dependent-search").val('');
+$('.dependent-search').val('');
 
 $('.cvg-remove-button').click(function() {
     remove_button_clicked($(this).attr('dependent-id'));
 });
 
-$("#dependent-search").keyup(function(e) {
+$('.dependent-search').keyup(function(e) {
     var minLength = 3;  // search with min of X characters
-    var searchStr = $("#dependent-search").val();
-    var dependentButton = $('#dependent-search').attr('dependentButton');
+    var searchStr = $(this).val();
+    var dependentButton = $(this).attr('dependentButton');
+    var searchId = $(this).attr('id');
     if (searchStr.length >= minLength) {
-	$.getJSON('/' + $('#dependent-search').attr('dependentClass') + 's/search/' + searchStr, function() {
+	$.getJSON('/' + $(this).attr('dependentClass') + 's/search/' + searchStr, function() {
 	}).done(function(dependentObject) {
-	    $('#dependent-search')
+	    $('#' + searchId)
 		.attr('dependent-id', dependentObject.id)
 		.val(dependentObject.name);
 	    if (dependentObject.id != -1) {
@@ -47,19 +48,20 @@ $("#dependent-search").keyup(function(e) {
 		$('#' + dependentButton).addClass('disabled');
 	    }
         }).fail(function(result) {
-            $('#dependent-search').val("No es troba cap persona semblant.");
+            $('#' + searchId).val("No es troba cap persona semblant.");
 	    $('#' + dependentButton).addClass('disabled');
 	});
     }
 });
 
-$('#afegir-button').click(function() {
-    var dependent_id = $('#dependent-search').attr('dependent-id');
+$('.afegir-button').click(function() {
+    var dependent_search = $(this).attr('searchField');
+    var dependent_id = $('#' + dependent_search).attr('dependent-id');
     if (dependent_id != -1) {
-	var dependent_text = $('#dependent-search').val();
+	var dependent_text = $('#' + dependent_search).val();
 	$('#dependent-field-list').append(dependent_list_entry(dependent_id, dependent_text));   
-	$('#dependent-search').val('');
-	$('#afegir-button').addClass('disabled');
+	$('#' + dependent_search).val('');
+	$(this).addClass('disabled');
 	$('.cvg-remove-button').click(function() {
 	    remove_button_clicked($(this).attr('dependent-id'));
 	});

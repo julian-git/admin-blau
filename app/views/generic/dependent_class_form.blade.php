@@ -20,15 +20,15 @@
 <div class="form-group">
   <div class="row">
     <div class="col-md-5">
-      <div id="dependent-field-panel" class="panel panel-default">
+      <div id="{{ $DF }}-field-panel" class="panel panel-default">
         {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
         <?php 
-           $the_dependent_input = ($action=='Editar')
-				   ? $$csn->dependent_field_input
-				   : Input::old('dependent_field_input');
+           $the_df_input = (($action=='Editar')
+			    ? $$csn->$DFI
+			    : Input::old($DFI));
         ?>
-	   {{ Form::hidden('dependent_field_input', $the_dependent_input, array('id' => 'dependent_field_input')) }}
-        <div id="dependent-field-list">
+	   {{ Form::hidden($DFI, $the_df_input, array('id' => $DFI)) }}
+        <div id="{{ $DF }}-field-list">
           @include('generic/assemble_dependent_input')
         </div>
       </div> <!-- panel -->
@@ -38,7 +38,7 @@
         $include_args = array('button_action_text' => 'Afegir', 
 			      'search_class' => strtolower($CSN::$dependent_class), 
 			      'search_message' => $CSN::$dependent_field_search_message,
-			      'dependent_button' => 'afegir-button'
+			      'dependent_button' => "afegir-$DF-button"
 			      ); // We put it here because @include breaks with newlines
      ?>
      @include('generic/dependent_class_search', $include_args)

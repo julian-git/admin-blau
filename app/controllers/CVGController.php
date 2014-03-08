@@ -97,7 +97,7 @@ class CVGController extends BaseController
 		{
 		    $dependents[] = $dep->id;
 		}
-		$class_instance['dependent_field_input'] = join(',', $dependents);
+		$class_instance[$CSN::$dependent_field . '_input'] = join(',', $dependents);
 	    }
 	    Log::info("class_instance: $class_instance");
 	    $extended_layout_data[$csn] = $class_instance;
@@ -134,7 +134,7 @@ class CVGController extends BaseController
 	foreach ($input as $field => $value) 
         {
 	    Log::info("processing field $field");
-	    if (!strcmp($field, 'dependent_field_input') ||
+	    if (!strcmp($field, $CSN::$dependent_field . '_input') ||
 		!strcmp($field, '_token')) {
 		continue;
 	    }
@@ -153,7 +153,7 @@ class CVGController extends BaseController
 	if (isset($CSN::$dependent_field_pivot_table))
         {
 	    $this->save_dependent_fields_to_pivot_table($class_instance->id, 
-							$input['dependent_field_input']);
+							$input[$CSN::dependent_field . '_input']);
 	}
 
     }
