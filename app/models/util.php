@@ -35,7 +35,7 @@ function local_date($date)
 
 class ResolvingEloquent extends Eloquent
 {
-    public function resolver($field) 
+    public function resolve($field) 
     {
 	return (isset($this->resolving_table[$field])
 		? resolve_foreign_key($this->resolving_table[$field], $this->$field)

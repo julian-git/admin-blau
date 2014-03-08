@@ -148,23 +148,29 @@ class CVGController extends BaseController
 	Log::info("will save $class_instance");
 	$class_instance->save();
 
-	if (isset($input['dependent_field_input']))
+	if (isset($CSN::$dependent_field_pivot_table))
         {
-	    $this->save_dependent_fields($class_instance->id, 
-					 $input['dependent_field_input']);
+	    $this->save_dependent_fields_to_pivot_table($class_instance->id, 
+							$input['dependent_field_input']);
 	}
 
     }
 
-    protected function save_dependent_fields($master_id, $dependent_ids)
+    protected function delete_dependent_fields_from_pivot_table($CSN, $master_id)
+    {
+	$pivot_class = $CSN::$dependent_pivot_class;
+	$master_id_field = strtolower($CSN) . '_id';
+	$pivot_class::where($master_id_field, '=', $master_id)->delete();
+    }
+
+    protected function save_dependent_fields_to_pivot_table($master_id, $dependent_ids)
     {
 	$CSN = $this->ClassSingularName;
 	$master_id_field = strtolower($CSN) . '_id';
 	$dependent_id_field = strtolower($CSN::$dependent_class) . '_id';
-	$pivot_class = $CSN::$dependent_pivot_class;
 
 	// first delete all dependent entries 
-	$pivot_class::where($master_id_field, '=', $master_id)->delete();
+	$this->delete_dependent_fields_from_pivot_table($CSN, $master_id);
 
 	// then insert the active ones
 	foreach(explode(',', $dependent_ids) as $dependent_id)
@@ -216,29 +222,6 @@ class CVGController extends BaseController
     }
 
 
-    public function handleEdit($id)
-    {
-        // Handle edit form submission.
-	$CSN = $this->ClassSingularName;
-	$class_instance = $CSN::findOrFail(Input::get('id'));
-
-	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
-	if ($validator->fails()) {
-	    return Redirect::to(strtolower($CSN) . '/edit/' . Input::get('id'))
-		->with($this->layout_data)
-		->withErrors($validator)
-		->withInput();
-	}
-
-	foreach (array_keys($CSN::$member_fields) as $field) 
-	{
-	    $class_instance->$field = Input::get($field); 
-	}
-
-	$class_instance->save();
-	return Redirect::action($CSN . 'sController@index');
-    }
-
     public function delete($class_instance)
     {
         // Show delete confirmation page.
@@ -256,6 +239,11 @@ class CVGController extends BaseController
         // Handle the delete confirmation.
 	$CSN = $this->ClassSingularName;
 	$class_instance = $CSN::findOrFail(Input::get(strtolower($CSN)));
+
+	if (isset($CSN::$dependent_field))
+        {
+	    $this->delete_dependent_fields_from_pivot_table($CSN, $class_instance->id);
+	}
 	$class_instance->delete();
 	return Redirect::action($CSN . 'sController@index');
     }

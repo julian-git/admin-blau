@@ -86,8 +86,15 @@
     @endif
 @endforeach
 
+  <div class="col-md-8">
         <input type="submit" value="{{ ($action == 'Crear') ? 'Crear' : 'Desar' }}" class="btn btn-primary" />
        <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel&middot;lar</a>
+  </div>
+@if($action == 'Editar')
+  <div class="col-md-4">
+        <a href="{{ action($CSN . 'sController@delete', $$csn->id) }}" class="btn btn-danger">Esborrar</a>
+  </div>
+@endif
 	   {{ Form::close() }}
 
 

@@ -20,19 +20,18 @@
 
 @section('content')
 
-    <div class="page-header">
     <?php $idf = $CSN::$identifying_fields; ?>
     <h1> Esborrar
         <?php 
-            echo $$csn->$idf[0];
+            echo $$csn->resolve($idf[0]);
             if (sizeof($idf)>1)
             {
                 echo " (";
             	for ($i=1; $i < sizeof($idf); $i++)
-		        {
-			       $$csn->$idf[$i];
-		        }
-	            echo ")";
+                {
+		    echo $$csn->resolve($idf[$i]);
+		}
+		echo ")";
             }
         ?>
         <br>

@@ -42,7 +42,7 @@
                 @foreach($DataCSN::all() as $instance)
                 <tr>
                    @foreach(array_keys($fields_in_index) as $field)
-		     <td>{{ $instance->resolver($field) }}</td>
+		     <td>{{ $instance->resolve($field) }}</td>
 		   @endforeach
                 </tr>
                 @endforeach
