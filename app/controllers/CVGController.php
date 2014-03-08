@@ -124,8 +124,9 @@ class CVGController extends BaseController
 	}
     }
 
-    protected function save_instance($CSN, $action)
+    protected function save_instance($action)
     {
+	$CSN = $this->ClassSingularName;
 	$class_instance = (($action == 'create')
 			   ? new $CSN
 			   : $CSN::findOrFail(Input::get('id')));
@@ -148,6 +149,7 @@ class CVGController extends BaseController
 	Log::info("will save $class_instance");
 	$class_instance->save();
 
+	Log::info("will save dependent classes");
 	if (isset($CSN::$dependent_field_pivot_table))
         {
 	    $this->save_dependent_fields_to_pivot_table($class_instance->id, 
@@ -156,8 +158,9 @@ class CVGController extends BaseController
 
     }
 
-    protected function delete_dependent_fields_from_pivot_table($CSN, $master_id)
+    protected function delete_dependent_fields_from_pivot_table($master_id)
     {
+	$CSN = $this->ClassSingularName;
 	$pivot_class = $CSN::$dependent_pivot_class;
 	$master_id_field = strtolower($CSN) . '_id';
 	$pivot_class::where($master_id_field, '=', $master_id)->delete();
@@ -170,7 +173,7 @@ class CVGController extends BaseController
 	$dependent_id_field = strtolower($CSN::$dependent_class) . '_id';
 
 	// first delete all dependent entries 
-	$this->delete_dependent_fields_from_pivot_table($CSN, $master_id);
+	$this->delete_dependent_fields_from_pivot_table($master_id);
 
 	// then insert the active ones
 	foreach(explode(',', $dependent_ids) as $dependent_id)
@@ -181,12 +184,13 @@ class CVGController extends BaseController
 		// when we return from an unsuccessful validation
 		continue; 
 	    }
-	    $pivot = new $pivot_class;
+	    $pivot = new $CSN::$dependent_pivot_class;
 	    $pivot->$master_id_field = $master_id;
 	    $pivot->$dependent_id_field = $dependent_id;
 	    $pivot->timestamps = false;
 	    $pivot->save();
 	}
+	Log::info("saved dependent fields");
     }
 
     public function handleCrear()
@@ -215,7 +219,7 @@ class CVGController extends BaseController
 		->withInput();
 	}
 
-	$this->save_instance($CSN, $action);
+	$this->save_instance($action);
 
 	return Redirect::to(strtolower($CSN))
 	    ->with($this->layout_data);

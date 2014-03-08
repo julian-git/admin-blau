@@ -64,7 +64,7 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					 'iban' => 'IBAN'
 					 );
 
-    protected $resolving_table = array(
+    protected $resolving_class = array(
 				       'categories_fk' => 'Categorie',
 				       'rols_fk' => 'Rol'
 				       );

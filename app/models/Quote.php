@@ -31,7 +31,7 @@ class Quote extends ResolvingEloquent
 					 'beneficiari' => 'Beneficiaris'
 					 );
 
-    protected $resolving_table = array(
+    protected $resolving_class = array(
 				       'tipus_quotes_fk' => 'TipusQuote',
 				       'id_responsables_fk' => 'Persone'
 				       );

@@ -38,7 +38,7 @@ class Esdeveniment extends ResolvingEloquent
 					 'cost_real' => 'Cost Real'
 					 );
 
-    protected $resolving_table = array(
+    protected $resolving_class = array(
 				       'tipus_esdeveniments_fk' => 'TipusEsdeveniment',
 				       'llocs_fk' => 'Lloc'
 				       );

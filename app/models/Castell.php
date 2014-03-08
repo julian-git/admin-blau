@@ -30,7 +30,7 @@ class Castell extends ResolvingEloquent
 					 'ordre' => 'Ordre a Plaça'
 					 );
 
-    protected $resolving_table = array(
+    protected $resolving_class = array(
 					 'tipus_castells_fk' => 'TipusCastell',
 					 'actuacions_fk' => 'Actuacion'
 				       );

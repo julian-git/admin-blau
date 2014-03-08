@@ -38,7 +38,7 @@ class Actuacion extends ResolvingEloquent
 					 'llocs_fk' => 'Lloc'
 					 );
 
-    protected $resolving_table = array(
+    protected $resolving_class = array(
 					 'tipus_actuacions_fk' => 'TipusActuacio',
 					 'llocs_fk' => 'Lloc'
 				       );
