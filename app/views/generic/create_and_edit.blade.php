@@ -36,6 +36,8 @@
   {{ Form::open() }}
 @endif
 
+{{ Form::hidden('id', $$csn->id) }}
+
 @foreach ($CSN::$member_fields as $field => $prompt)
 @if ($field != 'id')
 <div class="row">
@@ -64,9 +66,7 @@
         
       @elseif (isset($dependent_fields) &&
                !strcmp($dependent_fields, $field))
-        <?php
-	      
-        ?>
+
         @include('generic/dependent_class_form', array('DCL' => $CSN::$dependent_class))
 
       @else 

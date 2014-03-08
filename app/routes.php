@@ -77,7 +77,7 @@ foreach(array('Categorie',
 
     // Handle form submissions.
     Route::post("/$csn/create", "{$CSN}sController@handleCrear");
-    Route::post("/$csn/edit", "{$CSN}sController@handleEditar");
+    Route::post("/$csn/edit/{" . $csn . '}', "{$CSN}sController@handleEditar");
     Route::post("/$csn/delete", "{$CSN}sController@handleDelete");
 }
 

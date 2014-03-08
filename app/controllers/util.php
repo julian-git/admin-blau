@@ -81,7 +81,8 @@ function dropbox_default_of($CSN, $class_instance)
     {
 	if (!strcmp(substr($field, -3), '_fk'))
 	{
-	    $dropbox_default[$field] = dropbox_default_from_foreign_key($field, $class_instance->$field);
+	    $dropbox_default[$field] = $class_instance->$field; //dropbox_default_from_foreign_key($field, $class_instance->$field);
+	    Log::info("default for $field, " . $class_instance->$field .  ": " . $dropbox_default[$field]);
 	}
     }
     return $dropbox_default;

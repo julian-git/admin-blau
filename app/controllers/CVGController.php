@@ -124,28 +124,33 @@ class CVGController extends BaseController
 	}
     }
 
-    protected function save_instance($CSN)
+    protected function save_instance($CSN, $action)
     {
-	$class_instance_list = new $CSN;
+	$class_instance = (($action == 'create')
+			   ? new $CSN
+			   : $CSN::findOrFail(Input::get('id')));
 	$input = Input::all();
 	foreach ($input as $field => $value) 
         {
-	    if (!strcmp($field, 'dependent_field_input')) {
+	    Log::info("processing field $field");
+	    if (!strcmp($field, 'dependent_field_input') ||
+		!strcmp($field, '_token')) {
 		continue;
 	    }
 	    if ($field != 'id' || $action == 'edit') { 
-		$class_instance_list->$field = $value;
+		$class_instance->$field = $value;
 	    } 
-	    if ($class_instance_list->$field == '' &&
+	    if ($class_instance->$field == '' &&
 		isset($CSN::$default_values[$field])) {
-		$class_instance_list->$field = $CSN::$default_values[$field];
+		$class_instance->$field = $CSN::$default_values[$field];
 	    }
 	}
-	$class_instance_list->save();
+	Log::info("will save $class_instance");
+	$class_instance->save();
 
 	if (isset($input['dependent_field_input']))
         {
-	    $this->save_dependent_fields($class_instance_list->id, 
+	    $this->save_dependent_fields($class_instance->id, 
 					 $input['dependent_field_input']);
 	}
 
@@ -204,7 +209,7 @@ class CVGController extends BaseController
 		->withInput();
 	}
 
-	$this->save_instance($CSN);
+	$this->save_instance($CSN, $action);
 
 	return Redirect::to(strtolower($CSN))
 	    ->with($this->layout_data);
