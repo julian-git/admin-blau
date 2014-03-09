@@ -64,9 +64,9 @@ $('.afegir-button').click(function() {
     var dependent_id = $('#' + dependent_search).attr(dependentField + '-id');
     if (dependent_id != -1) {
 	var dependent_text = $('#' + dependent_search).val();
-	$('#' + dependentField + '-field-list').append(dependent_list_entry(dependentField, dependent_id, dependent_text));   
 	$('#' + dependent_search).val('');
 	$(this).addClass('disabled');
+	$('#' + dependentField + '-field-list').append(dependent_list_entry(dependentField, dependent_id, dependent_text));   
 	$('#remove-' + dependentField + '-id-' + dependent_id).click(function() {
 	    var dependentField = $(this).attr('dependentField');
 	    remove_button_clicked(dependentField, $(this).attr(dependentField + '-id'));
