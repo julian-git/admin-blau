@@ -25,7 +25,7 @@
       </button>
     </span>
   @endif
-  <input id="{{ $DF }}-search" type="text" class="form-control dependent-search" dependentClass="{{ $search_class }}" dependentButton="{{ $dependent_button }}" placeholder="{{ $search_message }}">
+  <input id="{{ $DF }}-search" type="text" class="form-control dependent-search" dependentClass="{{ $search_class }}" dependentField="{{ $DF }}" dependentButton="{{ $dependent_button }}" placeholder="{{ $search_message }}">
   <span class="input-group-btn">
     <button class="btn btn-default disabled" type="button">
       <i class="fa fa-search"></i>
