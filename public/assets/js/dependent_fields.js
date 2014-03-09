@@ -1,5 +1,5 @@
 function dependent_list_entry(dependentField, dependent_id, text) {
-    var delete_button = '<button ' + dependentField + '-id="' + dependent_id + '" class="btn btn-default btn-xs cvg-remove-button"><span class="glyphicon glyphicon-remove"></span></button>';
+    var delete_button = '<button id="remove-' + dependentField + '-id-' + dependent_id + '" ' + dependentField + '-id="' + dependent_id + '" dependentField="' + dependentField + '" class="btn btn-default btn-xs cvg-remove-button"><span class="glyphicon glyphicon-remove"></span></button>';
     return '<div id="' + dependentField + '-id-' + dependent_id + '" ' + dependentField + '-id="' + dependent_id + '" class="dependent_list_item"><span>' + text + '</span>' + delete_button + '</div>';
 }
 
@@ -25,7 +25,8 @@ function remove_button_clicked(dependentField, dependent_id)
 $('.dependent-search').val('');
 
 $('.cvg-remove-button').click(function() {
-    remove_button_clicked($(this).attr('dependentField'), $(this).attr('dependent-id'));
+    var dependentField = $(this).attr('dependentField');
+    remove_button_clicked(dependentField, $(this).attr(dependentField + '-id'));
 });
 
 $('.dependent-search').keyup(function(e) {
@@ -40,18 +41,16 @@ $('.dependent-search').keyup(function(e) {
 	    $('#' + searchId)
 		.attr(dependentField + '-id', dependentObject.id)
 		.val(dependentObject.name);
-	    if (dependentObject.id != -1) {
-		$('#' + dependentButton).removeClass('disabled');
-		if (!! $('#' + dependentButton).attr('href')) { // checks against undefined and false
-		    var href = $('#' + dependentButton).attr('href');
-		    if (href.length > 0) {
-			var last_slash = href.lastIndexOf('/');
-			$('#' + dependentButton).attr('href', href.substr(0, last_slash) + '/' + dependentObject.id);
-		    }
-		}
-	    } else {
+	    if (dependentObject.id == -1) {
 		$('#' + dependentButton).addClass('disabled');
-	    }
+	    } else {
+		$('#' + dependentButton).removeClass('disabled');
+		var href = $('#' + dependentButton).attr('href');
+		if (!!href) { // checks against undefined and false
+		    var last_slash = href.lastIndexOf('/');
+		    $('#' + dependentButton).attr('href', href.substr(0, last_slash) + '/' + dependentObject.id);
+		}
+	    } 
         }).fail(function(result) {
             $('#' + searchId).val("No es troba cap persona semblant.");
 	    $('#' + dependentButton).addClass('disabled');
@@ -68,8 +67,9 @@ $('.afegir-button').click(function() {
 	$('#' + dependentField + '-field-list').append(dependent_list_entry(dependentField, dependent_id, dependent_text));   
 	$('#' + dependent_search).val('');
 	$(this).addClass('disabled');
-	$('.cvg-remove-button').click(function() {
-	    remove_button_clicked(dependentField, dependent_id);
+	$('#remove-' + dependentField + '-id-' + dependent_id).click(function() {
+	    var dependentField = $(this).attr('dependentField');
+	    remove_button_clicked(dependentField, $(this).attr(dependentField + '-id'));
 	});
 	update_dependent_field_input(dependentField);
     }
