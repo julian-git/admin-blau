@@ -18,7 +18,7 @@
 
 require_once('util.php');
 
-class Familie extends Eloquent
+class Familie extends ResolvingEloquent
 {
     public static $singular_class_name = 'Família';
     public static $plural_class_name = 'Famílies';

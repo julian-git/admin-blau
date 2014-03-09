@@ -40,7 +40,10 @@
 	    = array('search_description_text' => $CSN::$member_fields[$CSN::$responsible_field], 
 		    'search_class' => strtolower($CSN::$responsible_class), 
 		    'search_message' => $CSN::$responsible_field_search_message,
-		    'dependent_button' => 'new-button'
+		    'dependent_button' => 'new-button',
+		    'DCL' => $CSN::$responsible_class, 
+		    'DF' => $CSN::$responsible_field, 
+		    'DFI' => $CSN::$responsible_field . '_input'
 		    ); // Put this array here because the following @include breaks with newlines
             ?>
             @include('generic/dependent_class_search', $include_args)
