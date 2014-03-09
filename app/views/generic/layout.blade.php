@@ -64,7 +64,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/">
-		       <img src="{{ asset('favicon.ico') }}"/> L'Admin Blau
+		       <img src="{{ asset('favicon.ico') }}"/> L'Admin Blau <!--'-->
                 </a>
             </div>
             <!-- /.navbar-header -->

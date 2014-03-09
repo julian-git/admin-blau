@@ -51,7 +51,8 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					 'telefon' => 'Telèfon',
 					 'mobil' => 'Mòvil',
 					 'sexe' => 'Sexe',
-					 'alta' => "Data d'alta",
+					 'data_alta' => "Data d'alta",
+					 'data_baixa' => "Data de baixa",
 					 'actiu' => 'Actiu',
 					 'categories_fk' => 'Categoria',
 					 'rols_fk' => 'Rol',
@@ -61,8 +62,63 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					 'rebre_mail' => 'Vol rebre mail',
 					 'comentari' => 'Comentaris',
 					 'bic' => 'BIC',
-					 'iban' => 'IBAN'
+					 'iban' => 'IBAN',
+					 'alcada-cadira' => 'Alçada cadira',
+					 'alcada-hombros' => 'Alçada hombros',
+					 'alcada-mans' => 'Alçada mans',
+					 'amplada-hombros' => 'Amplada hombros',
+					 'circunferencia' => 'Circunferencia',
+					 'forca' => 'Força'
 					 );
+	
+    public static $panels = array('Dades personals' => array(
+							     'nom' => 'Nom',
+							     'cognom1' => 'Cognom 1',
+							     'cognom2' => 'Cognom 2',
+							     'mot' => 'Mot',
+							     'dni' => 'DNI',
+							     'naixement' => 'Data de naixement',
+							     'sexe' => 'Sexe'
+							     ),
+				  'Dades CVG' => array(
+						       'numero_soci' => 'N&uacute;mero de soci',
+						       'data_alta' => "Data d'alta",
+						       'data_baixa' => "Data de baixa",
+						       'actiu' => 'Actiu',
+						       'rebre_sms' => 'Vol rebre SMS',
+						       'rebre_mail' => 'Vol rebre mail',
+						       'comentari' => 'Comentaris',
+						       'categories_fk' => 'Categoria'
+						       ),
+				  'Adreça postal' => array(
+							   'direccio' => 'Adreça postal',
+							   'cp' => 'CP',
+							   'poblacio' => 'Població',
+							   'provincia' => 'Provincia',
+							   'pais' => 'Pais'
+							   ),
+				  'Dades de contacte' => array(
+							       'email' => 'email',
+							       'telefon' => 'Telèfon',
+							       'mobil' => 'Mòvil'
+							       ),
+				  'Dades finançeres' => array(
+							      'iban' => 'IBAN'
+							      ),
+				  "Dades d'accés" => array(
+					 'password' => 'Password',
+					 'rols_fk' => 'Rol'
+							   ),
+				  'Dades físiques' => array(
+					 'alcada-cadira' => 'Alçada cadira',
+					 'alcada-hombros' => 'Alçada hombros',
+					 'alcada-mans' => 'Alçada mans',
+					 'amplada-hombros' => 'Amplada hombros',
+					 'circunferencia' => 'Circunferencia',
+					 'forca' => 'Força'
+							    )
+				  );
+
 
     protected $resolving_class = array(
 				       'categories_fk' => 'Categorie',

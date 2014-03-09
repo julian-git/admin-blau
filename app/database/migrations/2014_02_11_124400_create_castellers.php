@@ -92,6 +92,8 @@ class CreateCastellers extends Migration {
 		    $table->decimal('alcada-mans')->default(0);
 		    $table->decimal('amplada-hombros')->default(0);
 		    $table->decimal('circunferencia')->default(0);
+		    $table->decimal('forca')->default(0);
+
 		});
 
 	    Schema::create('families', function($table) {
