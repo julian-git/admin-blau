@@ -134,7 +134,7 @@ class CVGController extends BaseController
 	foreach ($input as $field => $value) 
         {
 	    Log::info("processing field $field");
-	    if (!strcmp($field, $CSN::$dependent_field . '_input') ||
+	    if (isset($CSN::$dependent_field) && !strcmp($field, $CSN::$dependent_field . '_input') ||
 		!strcmp($field, '_token')) {
 		continue;
 	    }

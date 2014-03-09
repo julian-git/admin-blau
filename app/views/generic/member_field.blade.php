@@ -33,6 +33,17 @@
 	      <?php $dfi = $CSN::$dependent_field . '_input' ?>
 	      @include('generic/dependent_class_form', array('DCL' => $CSN::$dependent_class, 'DF' => $CSN::$dependent_field, 'DFI' => $dfi))
 
+      @elseif ($CSN::is_checkbox($field))
+
+        @if ($action=='Editar')
+          {{ Form::checkbox($field, $$csn->$field, $$csn->$field) }}
+        @else
+	  {{ Form::checkbox($field, Input::old($field), Input::old($field)) }}
+        @endif
+
+        {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
+
+
       @else 
 
         @if ($action=='Editar')

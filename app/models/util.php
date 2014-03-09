@@ -46,5 +46,10 @@ class ResolvingEloquent extends Eloquent
     {
 	return false;
     }
+
+    public static function is_checkbox($field)
+    {
+	return false;
+    }
 }
 ?>

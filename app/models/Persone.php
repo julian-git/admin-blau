@@ -147,6 +147,15 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 
     public static $default_values = array();
 
+    public static function is_checkbox($field)
+    {
+	return 
+	    $field == 'actiu' ||
+	    $field == 'rebre_sms' ||
+	    $field == 'rebre_mail'
+	    ;
+    }
+
     public static $identifying_fields = array('nom',
 					      'cognom1',
 					      'cognom2');

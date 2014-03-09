@@ -29,7 +29,7 @@
         ?>
 	   {{ Form::hidden($DFI, $the_df_input, array('id' => $DFI)) }}
         <div id="{{ $DF }}-field-list">
-          @include('generic/assemble_dependent_input')
+           @include('generic/assemble_dependent_input', array('DF' => $DF))
         </div>
       </div> <!-- panel -->
     </div> <!-- col-md -->
@@ -38,7 +38,8 @@
         $include_args = array('button_action_text' => 'Afegir', 
 			      'search_class' => strtolower($CSN::$dependent_class), 
 			      'search_message' => $CSN::$dependent_field_search_message,
-			      'dependent_button' => "afegir-$DF-button"
+			      'dependent_button' => "afegir-$DF-button",
+			      'DF' => $DF
 			      ); // We put it here because @include breaks with newlines
      ?>
      @include('generic/dependent_class_search', $include_args)
