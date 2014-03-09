@@ -293,6 +293,7 @@ CREATE TABLE `persones` (
   `alcada-mans` decimal(8,2) NOT NULL DEFAULT '0.00',
   `amplada-hombros` decimal(8,2) NOT NULL DEFAULT '0.00',
   `circunferencia` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `forca` decimal(8,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `persones_mot_unique` (`mot`),
   KEY `persones_categories_fk_foreign` (`categories_fk`),
@@ -464,4 +465,4 @@ CREATE TABLE `tipus_quotes` (
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-03 11:35:37
+-- Dump completed on 2014-03-10  0:27:18

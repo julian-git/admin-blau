@@ -11,5 +11,5 @@ admin_blau.structure.sql: \
 	2014_02_20_225631_messages.php
 	mysqldump --skip-opt --no-data -u admin_blau -padmin_blau admin_blau > admin_blau.structure.sql
 
-requisits.pdf: requisits.tex DbSchemaAdminBlau.png
+requisits.pdf: requisits.tex DbSchemaAdminBlau.png DbSchemaAdminBlau_persones_quotes_families.png
 	pdflatex requisits
