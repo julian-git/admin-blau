@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder {
 			      'castells',
 			      'actuacions',
 			      'families',
-			      'tipus_esdeveniments',
 			      'esdeveniments',
+			      'tipus_esdeveniments',
 			      'missatges',
 			      'llocs'
 			 ) as $table)
@@ -86,7 +86,10 @@ class PersonesSeeder extends Seeder {
 			      'naixement' => '1979-11-04',
 			      'dni' => '87654321J',
 			      'email' => 'jgl@gmail.com',
-			      'sexe' => 'D'
+			      'sexe' => 'D',
+			      'rebre_sms' => 0,
+			      'rebre_mail' => 0,
+			      'actiu' => 1
 			      ));
 
 	Persone::create(array('id' => 3, 
