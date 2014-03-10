@@ -54,6 +54,10 @@ function dropbox_options_of($CSN)
 	   )
 	{
 	    $dropbox_options[$field] = dropbox_options_from_foreign_key($field);
+	} 
+	elseif (isset($CSN::$dropbox_options_of[$field]))
+	{
+	    $dropbox_options[$field] = $CSN::$dropbox_options_of[$field];
 	}
     }
     return $dropbox_options;
@@ -79,11 +83,11 @@ function dropbox_default_of($CSN, $class_instance)
     $dropbox_default = array();
     foreach (array_keys($CSN::$member_fields) as $field) 
     {
-	if (!strcmp(substr($field, -3), '_fk'))
+	if (!strcmp(substr($field, -3), '_fk') ||
+	    isset($CSN::$dropbox_options_of[$field]))
 	{
-	    $dropbox_default[$field] = $class_instance->$field; //dropbox_default_from_foreign_key($field, $class_instance->$field);
-	    Log::info("default for $field, " . $class_instance->$field .  ": " . $dropbox_default[$field]);
-	}
+	    $dropbox_default[$field] = $class_instance->$field;
+	} 
     }
     return $dropbox_default;
 }

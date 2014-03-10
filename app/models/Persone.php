@@ -159,9 +159,14 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 	    ;
     }
 
+    public static $dropbox_options_of = array(
+					      'sexe' => array('H', 'D')
+					      );
+
     public static $identifying_fields = array('nom',
 					      'cognom1',
-					      'cognom2');
+					      'cognom2', 
+					      'mot');
 
     public static $identifying_short_fields = array('nom',
 						    'cognom1');

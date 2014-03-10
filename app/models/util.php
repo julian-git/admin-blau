@@ -51,5 +51,7 @@ class ResolvingEloquent extends Eloquent
     {
 	return false;
     }
+
+    public static $dropbox_options_of = array();
 }
 ?>
