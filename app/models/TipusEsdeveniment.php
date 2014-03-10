@@ -16,6 +16,7 @@
     GNU General Public License for more details.
 */
 
+require_once('util.php');
 
 class TipusEsdeveniment extends ResolvingEloquent
 {
