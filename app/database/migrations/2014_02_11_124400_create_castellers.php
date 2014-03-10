@@ -82,6 +82,7 @@ class CreateCastellers extends Migration {
 		    $table->string('mobil', 12)->nullable();
             //Dades financeres
 		    $table->string('iban', 34)->nullable();
+		    $table->string('bic', 12)->nullable(); 
             //Dades d'accés a l'aplicació
 		    $table->string('password', 64)->nullable();
 		    $table->integer('rols_fk')->unsigned()->default(1);

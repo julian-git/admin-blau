@@ -87,7 +87,8 @@ class PersonesSeeder extends Seeder {
 			      'mobil' => '605 554 232',
 			      'rebre_sms' => 1,
 			      'rebre_mail' => 0,
-			      'iban' => 'ES07657657'
+			      'iban' => 'ES07657657',
+			      'bic' => 'CAHMMMYYY'
 			      ));
 
 	Persone::create(array('id' => 2, 
@@ -113,7 +114,8 @@ class PersonesSeeder extends Seeder {
 			      'mobil' => '605 776 443',
 			      'rebre_sms' => 0,
 			      'rebre_mail' => 1,
-			      'iban' => 'ES034343422'
+			      'iban' => 'ES034343422',
+			      'bic' => 'CAHMMMXXX'
 			      ));
 
 	Persone::create(array('id' => 3, 
@@ -137,7 +139,8 @@ class PersonesSeeder extends Seeder {
 			      'mobil' => '605 222 333',
 			      'rebre_sms' => 1,
 			      'rebre_mail' => 1,
-			      'iban' => 'ES0213123123'
+			      'iban' => 'ES0213123123',
+			      'bic' => 'CAHMMMZZZ'
 			      ));
 
     }

@@ -102,7 +102,8 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 							       'rebre_mail' => 'Vol rebre mail'
 							       ),
 				  'Dades finançeres' => array(
-							      'iban' => 'IBAN'
+							      'iban' => 'IBAN',
+							      'bic' => 'BIC'
 							      ),
 				  "Dades d'accés" => array(
 					 'password' => 'Password',
