@@ -18,7 +18,7 @@
 
 require_once('util.php');
 
-class Rol extends Eloquent
+class Rol extends ResolvingEloquent
 {
     public static $singular_class_name = 'Rol';
     public static $plural_class_name = 'Rols';

@@ -17,7 +17,7 @@
 */
 
 
-class TipusActuacion extends Eloquent
+class TipusActuacion extends ResolvingEloquent
 {
     public static $singular_class_name = 'Tipus de Actuació';
     public static $plural_class_name = 'Tipus de Actuacions';

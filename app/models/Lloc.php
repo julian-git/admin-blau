@@ -18,7 +18,7 @@
 
 require_once('util.php');
 
-class Lloc extends Eloquent
+class Lloc extends ResolvingEloquent
 {
     public static $singular_class_name = 'Lloc';
     public static $plural_class_name = 'Llocs';

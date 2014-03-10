@@ -17,7 +17,7 @@
 */
 
 
-class TipusEsdeveniment extends Eloquent
+class TipusEsdeveniment extends ResolvingEloquent
 {
     public static $singular_class_name = "Tipus d'Esdeveniment";
     public static $plural_class_name = "Tipus d'Esdeveniments";

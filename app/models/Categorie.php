@@ -17,7 +17,7 @@
 */
 
 
-class Categorie extends Eloquent
+class Categorie extends ResolvingEloquent
 {
     public static $singular_class_name = 'Categoria';
     public static $plural_class_name = 'Categories';

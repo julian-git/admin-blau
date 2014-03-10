@@ -18,7 +18,7 @@
 
 require_once('util.php');
 
-class TipusCastell extends Eloquent
+class TipusCastell extends ResolvingEloquent
 {
     public static $singular_class_name = 'Tipus de Castell';
     public static $plural_class_name = 'Tipus de Castells';

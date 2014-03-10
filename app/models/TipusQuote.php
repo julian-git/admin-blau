@@ -17,7 +17,7 @@
 */
 
 
-class TipusQuote extends Eloquent
+class TipusQuote extends ResolvingEloquent
 {
     public static $singular_class_name = 'Tipus de quota';
     public static $plural_class_name = 'Tipus de quotes';

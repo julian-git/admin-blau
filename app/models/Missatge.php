@@ -18,7 +18,7 @@
 
 require_once('util.php');
 
-class Missatge extends Eloquent
+class Missatge extends ResolvingEloquent
 {
     public static $singular_class_name = 'Missatge';
     public static $plural_class_name = 'Missatges';
