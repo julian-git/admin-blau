@@ -61,6 +61,7 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					 'rebre_sms' => 'Vol rebre SMS',
 					 'rebre_mail' => 'Vol rebre mail',
 					 'comentari' => 'Comentaris',
+					 'quote' => 'Quota',
 					 'bic' => 'BIC',
 					 'iban' => 'IBAN',
 					 'alcada-cadira' => 'Alçada cadira',
@@ -129,7 +130,8 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 							       ),
 				  'Dades finançeres' => array(
 							      'iban' => 'IBAN',
-							      'bic' => 'BIC'
+							      'bic' => 'BIC',
+							      'quote' => 'Quota'
 							      ),
 				  "Dades d'accés" => array(
 					 'password' => 'Password',
@@ -272,6 +274,17 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
     public function esdeveniments()
     {
         return $this->belongsToMany('Esdeveniment');
+    }
+
+    public function getQuoteAttribute()
+    {
+	$quote = '';
+	$quote_instance = Quote::where('id_responsables_fk', '=', $this->id)->first();
+	foreach (Quote::$identifying_short_fields as $field)
+	{
+	    $quote .= $quote_instance->resolve($field) . ' ';
+	}
+	return $quote;
     }
 
     public static function identifying_fields_of($id)

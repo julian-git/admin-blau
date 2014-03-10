@@ -67,6 +67,11 @@ class Quote extends ResolvingEloquent
 					      'import'
 					      );
 
+    public static $identifying_short_fields = array(
+						    'tipus_quotes_fk',
+						    'import'
+						    );
+
     public function beneficiaris()
     {
     	return $this->belongsToMany('Persone', 'beneficiaris');
