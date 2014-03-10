@@ -56,6 +56,7 @@ return array(
 	),
 	"not_in"           => "The selected :attribute is invalid.",
 	"numeric"          => "El camp :attribute nom&egrave;s pot contenir xifres.",
+        "num_whitespace"   => "El camp :attribute nom&eacute;s pot contenir xifres i espais.",
 	"regex"            => "The :attribute format is invalid.",
 	"required"         => "El camp :attribute &eacute;s imprescindible.",
 	"required_if"      => "The :attribute field is required when :other is :value.",

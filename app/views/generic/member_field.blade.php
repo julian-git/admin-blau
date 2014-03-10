@@ -45,15 +45,25 @@
 
         {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
 
+      @elseif ($CSN::is_textarea($field))
+
+        @if ($action=='Dades de')
+          {{ $$csn->resolve($field) }}
+        @elseif ($action=='Editar')
+          {{ Form::textarea($field, $$csn->$field, array('size' => $$csn->display_size_of($field))) }}
+        @else
+          {{ Form::textarea($field, Input::old($field), array('size' => $$csn->display_size_of($field))) }}
+        @endif
+
 
       @else 
 
         @if ($action=='Dades de')
           {{ $$csn->resolve($field) }}
         @elseif ($action=='Editar')
-          {{ Form::text($field, $$csn->$field) }}
+          {{ Form::text($field, $$csn->$field, array('size' => $$csn->display_size_of($field))) }}
         @else
-          {{ Form::text($field, Input::old($field)) }}
+          {{ Form::text($field, Input::old($field), array('size' => $$csn->display_size_of($field))) }}
         @endif
 
         {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}

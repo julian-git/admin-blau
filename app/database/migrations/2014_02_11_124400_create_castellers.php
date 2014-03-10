@@ -55,7 +55,7 @@ class CreateCastellers extends Migration {
             //Dades CVG
 		    $table->integer('numero_soci')->unsigned()->nullable();
 		    $table->date('data_alta')->index()->nullable();
-		    $table->date('data_baixa')->index()->nullable();
+		    $table->date('data_baixa')->index()->nullable()->default(null);
 		    $table->boolean('actiu')->default(1)->index();
 		    $table->boolean('rebre_sms')->default(1);
 		    $table->boolean('rebre_mail')->default(1);

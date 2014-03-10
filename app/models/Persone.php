@@ -70,6 +70,32 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					 'circunferencia' => 'Circunferencia',
 					 'forca' => 'Força'
 					 );
+
+    public $display_size_of_field = array('id' => 4,
+					  'numero_soci' => 5, 
+					  'cognom1' => 30,
+					  'cognom2' => 30,
+					  'nom' => 30,
+					  'mot' => 30,
+					  'naixement' => 10,
+					  'dni' => 15,
+					  'email' => 30,
+					  'direccio' => 30,
+					  'cp' => 8,
+					  'poblacio' => 30,
+					  'provincia' => 30,
+					  'pais' => 30,
+					  'telefon' => 12,
+					  'mobil' => 12,
+					  'sexe' => 1,
+					  'data_alta' => 10,
+					  'data_baixa' => 10,
+					  'actiu' => 1,
+					  'password' => 30,
+					  'comentari' => '60x3',
+					  'bic' => 12,
+					  'iban' => 34
+					  );
 	
     public static $panels = array('Afiliació' => array(
 						       'numero_soci' => 'N&uacute;mero de soci',
@@ -144,8 +170,8 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					    'dni' => 'alpha_num|max:12',
 					    'email' => 'email',
 					    'cp' => 'alpha_num',
-					    'telefon' => 'alpha_num',
-					    'mobil' => 'alpha_num',
+					    'telefon' => 'num_whitespace',
+					    'mobil' => 'num_whitespace',
 					    'sexe' => 'in:H,D');
 
     public static $default_values = array();
@@ -159,8 +185,16 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 	    ;
     }
 
+    public static function is_textarea($field)
+    {
+	return 
+	    $field == 'comentari'
+	    ;
+    }
+
     public static $dropbox_options_of = array(
-					      'sexe' => array('H', 'D')
+					      'sexe' => array('H' => 'H', 
+							      'D' => 'D')
 					      );
 
     public static $identifying_fields = array('nom',

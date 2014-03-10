@@ -21,6 +21,11 @@ Validator::extend('alpha_whitespace', function($attribute, $value)
     return preg_match('/^([a-z_-\s])+$/i', $value);
 });
 
+Validator::extend('num_whitespace', function($attribute, $value)
+{
+    return preg_match('/^([0-9\s])+$/i', $value);
+});
+
 Validator::extend('integer_size', function($attribute, $value, $param)
 {
     return 

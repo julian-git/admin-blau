@@ -41,7 +41,7 @@ class ResolvingEloquent extends Eloquent
 		? resolve_foreign_key($this->resolving_class[$field], $this->$field)
 		: $this->$field);
     }
-
+    
     public static function is_right_aligned($field)
     {
 	return false;
@@ -52,6 +52,20 @@ class ResolvingEloquent extends Eloquent
 	return false;
     }
 
+    public static function is_textarea($field)
+    {
+	return false;
+    }
+
     public static $dropbox_options_of = array();
+
+    public $display_size_of_field = array('default' => 15);
+
+    public function display_size_of($field)
+    {
+	return (isset($this->display_size_of_field[$field])
+		? $this->display_size_of_field[$field]
+		: 15);
+    }
 }
 ?>
