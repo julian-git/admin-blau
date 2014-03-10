@@ -53,15 +53,20 @@ class CVGController extends BaseController
 
     public function create($responsible_id=null)
     {
-	$this->create_and_edit_impl('Crear', $responsible_id, null);
+	$this->create_edit_inspect_impl('Crear', $responsible_id, null);
     }
 
     public function edit($class_instance)
     {
-	$this->create_and_edit_impl('Editar', null, $class_instance);
+	$this->create_edit_inspect_impl('Editar', null, $class_instance);
     }
 
-    protected function create_and_edit_impl($action, $responsible_id, $class_instance)
+    public function inspect($class_instance)
+    {
+	$this->create_edit_inspect_impl('Dades de', null, $class_instance);
+    }
+
+    protected function create_edit_inspect_impl($action, $responsible_id, $class_instance)
     {
         // Show the create form.
 	$CSN = $this->ClassSingularName;
@@ -89,8 +94,7 @@ class CVGController extends BaseController
 
 	if (isset($class_instance))
 	{
-	    if (isset($CSN::$dependent_field) && 
-		!strcmp($action, 'Editar')) // should be redundant
+	    if (isset($CSN::$dependent_field))
 	    {
 		$dependents = array();
 		foreach($class_instance->dependents()->get() as $dep)
@@ -106,7 +110,7 @@ class CVGController extends BaseController
 	    $extended_layout_data['dropbox_default'] = $CSN::$default_values;
 	}
 
-	$this->layout->content = View::make('generic.create_and_edit', $extended_layout_data);
+	$this->layout->content = View::make('generic.create_edit_inspect', $extended_layout_data);
     }
 
     protected function log_failed_validator_entries($action_tail, $validator)

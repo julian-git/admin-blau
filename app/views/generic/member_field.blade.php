@@ -8,14 +8,14 @@
   <div class="col-md-9">
     <div class="form-group">
       @if (isset($dropbox_options[$field]))
-        <div class="panel-body">
-          @if (isset($dropbox_default[$field]))
+          @if ($action == 'Dades de')
+            {{ $$csn->resolve($field) }}
+          @elseif (isset($dropbox_default[$field]))
             {{ Form::select($field, $dropbox_options[$field], $dropbox_default[$field]) }} 
           @else
             {{ Form::select($field, $dropbox_options[$field]) }} 
           @endif
           {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
-        </div>
 
 
       @elseif (isset($responsible_fields) &&
@@ -35,7 +35,9 @@
 
       @elseif ($CSN::is_checkbox($field))
 
-        @if ($action=='Editar')
+        @if ($action=='Dades de')
+          {{ ($$csn->$field) ? 'Sí' : 'No' }}
+        @elseif ($action=='Editar')
           {{ Form::checkbox($field, $$csn->$field, $$csn->$field) }}
         @else
 	  {{ Form::checkbox($field, Input::old($field), Input::old($field)) }}
@@ -46,7 +48,9 @@
 
       @else 
 
-        @if ($action=='Editar')
+        @if ($action=='Dades de')
+          {{ $$csn->resolve($field) }}
+        @elseif ($action=='Editar')
           {{ Form::text($field, $$csn->$field) }}
         @else
           {{ Form::text($field, Input::old($field)) }}

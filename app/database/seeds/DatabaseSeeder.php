@@ -67,6 +67,9 @@ class PersonesSeeder extends Seeder {
 	DB::table('persones')->delete();
 	Persone::create(array('id' => 1, 
 			      'numero_soci' => 1001,
+			      'data_alta' => '2001-03-05',
+			      'data_baixa' => '2009-03-05',
+			      'actiu' => 0,
 			      'cognom1' => 'García', 
 			      'cognom2' => 'González',
 			      'nom' => 'Josep Maria',
@@ -74,11 +77,22 @@ class PersonesSeeder extends Seeder {
 			      'naixement' => '1980-10-03',
 			      'dni' => '12345678K',
 			      'email' => 'jmg@hotmail.com',
-			      'sexe' => 'H'
+			      'sexe' => 'H',
+			      'direccio' => 'Carrer Blau Marí',
+			      'cp' => '28035',
+			      'poblacio' => 'Barcelona',
+			      'provincia' => 'Barcelona',
+			      'pais' => 'Espanya',
+			      'telefon' => '93 111 22 33',
+			      'mobil' => '605 554 232',
+			      'rebre_sms' => 1,
+			      'rebre_mail' => 0,
+			      'iban' => 'ES07657657'
 			      ));
 
 	Persone::create(array('id' => 2, 
 			      'numero_soci' => 1002,
+			      'data_alta' => '2003-04-06',
 			      'cognom1' => 'López', 
 			      'cognom2' => 'García',
 			      'nom' => 'Joana',
@@ -89,11 +103,23 @@ class PersonesSeeder extends Seeder {
 			      'sexe' => 'D',
 			      'rebre_sms' => 0,
 			      'rebre_mail' => 0,
-			      'actiu' => 1
+			      'actiu' => 1,
+			      'direccio' => 'Carrer Alzina 4',
+			      'cp' => '28034',
+			      'poblacio' => 'Barcelona',
+			      'provincia' => 'Barcelona',
+			      'pais' => 'Espanya',
+			      'telefon' => '93 444 55 66',
+			      'mobil' => '605 776 443',
+			      'rebre_sms' => 0,
+			      'rebre_mail' => 1,
+			      'iban' => 'ES034343422'
 			      ));
 
 	Persone::create(array('id' => 3, 
 			      'numero_soci' => 1003,
+			      'data_alta' => '2008-03-05',
+			      'actiu' => 1,
 			      'cognom1' => 'Terç', 
 			      'cognom2' => 'Patufet',
 			      'nom' => 'Marta',
@@ -101,7 +127,17 @@ class PersonesSeeder extends Seeder {
 			      'naixement' => '1973-12-04',
 			      'dni' => '78563412J',
 			      'email' => 'marta@patufeta.org',
-			      'sexe' => 'D'
+			      'sexe' => 'D',
+			      'direccio' => 'Carrer Gran de Gràcia, 54',
+			      'cp' => '28032',
+			      'poblacio' => 'Barcelona',
+			      'provincia' => 'Barcelona',
+			      'pais' => 'Espanya',
+			      'telefon' => '93 000 44 55',
+			      'mobil' => '605 222 333',
+			      'rebre_sms' => 1,
+			      'rebre_mail' => 1,
+			      'iban' => 'ES0213123123'
 			      ));
 
     }

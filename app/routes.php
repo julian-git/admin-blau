@@ -68,6 +68,7 @@ foreach(array('Categorie',
     Route::get("/$csn", "{$CSN}sController@index");
     Route::get("/$csn/create/{responsable?}", "{$CSN}sController@create");
     Route::get("/$csn/edit/{" . $csn . '}', array('uses' => "{$CSN}sController@edit", 'as' => "$csn.edit"));
+    Route::get("/$csn/inspect/{" . $csn . '}', array('uses' => "{$CSN}sController@inspect", 'as' => "$csn.inspect"));
     Route::get("/$csn/delete/{" . $csn . '}', "{$CSN}sController@delete");
     /*
     Route::get("/$csn/json", function() use ($CSN) {

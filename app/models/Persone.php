@@ -71,25 +71,22 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					 'forca' => 'Força'
 					 );
 	
-    public static $panels = array('Dades personals' => array(
-							     'nom' => 'Nom',
-							     'cognom1' => 'Cognom 1',
-							     'cognom2' => 'Cognom 2',
-							     'mot' => 'Mot',
-							     'dni' => 'DNI',
-							     'naixement' => 'Data de naixement',
-							     'sexe' => 'Sexe'
-							     ),
-				  'Dades CVG' => array(
+    public static $panels = array('Afiliació' => array(
 						       'numero_soci' => 'N&uacute;mero de soci',
 						       'data_alta' => "Data d'alta",
 						       'data_baixa' => "Data de baixa",
 						       'actiu' => 'Actiu',
-						       'rebre_sms' => 'Vol rebre SMS',
-						       'rebre_mail' => 'Vol rebre mail',
-						       'comentari' => 'Comentaris',
 						       'categories_fk' => 'Categoria'
 						       ),
+				  'Dades personals' => array(
+							     'nom' => 'Nom',
+							     'cognom1' => 'Cognom 1',
+							     'cognom2' => 'Cognom 2',
+							     'mot' => 'Mot',
+							     'dni' => 'DNI / NIE / passaport',
+							     'naixement' => 'Data de naixement',
+							     'sexe' => 'Sexe'
+							     ),
 				  'Adreça postal' => array(
 							   'direccio' => 'Adreça postal',
 							   'cp' => 'CP',
@@ -98,9 +95,11 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 							   'pais' => 'Pais'
 							   ),
 				  'Dades de contacte' => array(
-							       'email' => 'email',
 							       'telefon' => 'Telèfon',
-							       'mobil' => 'Mòvil'
+							       'mobil' => 'Mòvil',
+							       'rebre_sms' => 'Vol rebre SMS',
+							       'email' => 'email',
+							       'rebre_mail' => 'Vol rebre mail'
 							       ),
 				  'Dades finançeres' => array(
 							      'iban' => 'IBAN'
@@ -116,7 +115,10 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					 'amplada-hombros' => 'Amplada hombros',
 					 'circunferencia' => 'Circunferencia',
 					 'forca' => 'Força'
-							    )
+							    ),
+				  'Comentaris' => array(
+						       'comentari' => 'Comentaris'
+							)
 				  );
 
 

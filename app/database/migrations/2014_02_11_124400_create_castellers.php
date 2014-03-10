@@ -140,7 +140,7 @@ class CreateCastellers extends Migration {
 	{
 	    DB::table('categories')
 		->insert(array(array('id' => 1,
-				     'tipus' => 'Casteller',
+				     'tipus' => 'Casteller/a',
 				     'created_at' => date('Y-m-d H:i:s'),
 				     'updated_at' => date('Y-m-d H:i:s')
 				     ),

@@ -37,7 +37,10 @@
   {{ Form::open() }}
 @endif
 
+@include ('generic/crud_buttons')
+
 @if (isset($CSN::$panels))
+
   @foreach($CSN::$panels as $panel_title => $fields)
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -60,21 +63,17 @@
       </div>
     </div>
   @endforeach
-@else
+
+@else {{-- !isset($CSN::$panels)) --}}
+
   @foreach ($CSN::$member_fields as $field => $prompt)
     @include('generic/member_field')
   @endforeach
+
 @endif
 
-  <div class="col-md-8">
-        <input type="submit" value="{{ ($action == 'Crear') ? 'Crear' : 'Desar' }}" class="btn btn-primary" />
-       <a href="{{ action($CSN . 'sController@index') }}" class="btn btn-link">Cancel&middot;lar</a>
-  </div>
-@if($action == 'Editar')
-  <div class="col-md-4">
-        <a href="{{ action($CSN . 'sController@delete', $$csn->id) }}" class="btn btn-danger">Esborrar</a>
-  </div>
-@endif
+@include ('generic/crud_buttons')
+
 	   {{ Form::close() }}
 
 
