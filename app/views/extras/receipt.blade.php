@@ -105,7 +105,7 @@
     </div>
     <div class="col-md-6">
      @foreach($instance->beneficiaris()->get() as $beneficiari)
-     <div> {{ assemble_identifying_fields('Persone', $beneficiari) }} </div>
+     <div> {{ assemble_identifying_short_fields('Persone', $beneficiari) }} </div>
      @endforeach
     </div>
   </div>

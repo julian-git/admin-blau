@@ -22,14 +22,24 @@ function toCamelCase($field)
     return $CamelCase;
 }
 
-function assemble_identifying_fields($class_name, $instance)
+function assemble_fields_impl($class_name, $instance, $field_list)
 {
     $str = '';
-    foreach ($class_name::$identifying_fields as $f)
+    foreach ($class_name::$$field_list as $f)
     {
 	$str .= $instance->$f . ' ';
     }
     return $str;
+}
+
+function assemble_identifying_fields($class_name, $instance)
+{
+    return assemble_fields_impl($class_name, $instance, 'identifying_fields');
+}
+
+function assemble_identifying_short_fields($class_name, $instance)
+{
+    return assemble_fields_impl($class_name, $instance, 'identifying_short_fields');
 }
 
 ?>
