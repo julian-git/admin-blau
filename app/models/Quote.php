@@ -105,6 +105,8 @@ class Quote extends ResolvingEloquent
 	    ;
     }
 
+    public static $extra_inspect = 'quote';
+
     public static $identifying_fields = array(
 					      'id_responsables_fk',
 					      'tipus_quotes_fk',
@@ -147,6 +149,11 @@ class Quote extends ResolvingEloquent
     public function dependents()
     {
 	return $this->beneficiaris();
+    }
+
+    public function rebuts()
+    {
+	return $this->hasMany('Rebut', 'id', 'quote_id');
     }
 
     public function getImportAttribute($value) 

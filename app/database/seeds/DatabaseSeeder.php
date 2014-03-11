@@ -232,18 +232,21 @@ class RebutsSeeder extends Seeder {
 				 'id' => 1,
 				 'quote_id' => 1,
 				 'data' => '2013-06-01',
+				 'import' => 23.50,
 				 'estat' => 'Pagat'
 				 ),
 			   array(
 				 'id' => 2,
 				 'quote_id' => 1,
 				 'data' => '2014-01-01',
+				 'import' => 100.50,
 				 'estat' => 'Retornat'
 				 ),
 			   array(
 				 'id' => 3,
 				 'quote_id' => 2,
 				 'data' => '2013-06-01',
+				 'import' => 23.50,
 				 'estat' => 'Pagat'
 				 )
 			   ));

@@ -39,7 +39,13 @@
 
 @include ('generic/snippets/crud_buttons')
 
-@if (isset($CSN::$panels))
+@if (!isset($CSN::$panels))
+
+  @foreach ($CSN::$member_fields as $field => $prompt)
+    @include('generic/snippets/member_field')
+  @endforeach
+
+@else
 
   @foreach($CSN::$panels as $panel_title => $fields)
     <div class="panel panel-primary">
@@ -64,17 +70,15 @@
     </div>
   @endforeach
 
-@else {{-- !isset($CSN::$panels)) --}}
-
-  @foreach ($CSN::$member_fields as $field => $prompt)
-    @include('generic/snippets/member_field')
-  @endforeach
-
-@endif
+@endif {{-- !isset($CSN::$panels)) --}}
 
 @include ('generic/snippets/crud_buttons')
 
-	   {{ Form::close() }}
+@if (!strcmp($action, 'Dades de') && isset($CSN::$extra_inspect))
+  @include('extras/' . $CSN::$extra_inspect)
+@endif
+
+{{ Form::close() }}
 
 
 @stop

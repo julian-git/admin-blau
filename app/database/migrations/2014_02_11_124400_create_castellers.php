@@ -138,6 +138,7 @@ class CreateCastellers extends Migration {
 		    $table->integer('quote_id')->unsigned();
 		    $table->foreign('quote_id')->references('id')->on('quotes');
 		    $table->date('data')->index();
+		    $table->decimal('import')->default(0);
 		    $table->string('estat', 20);
 		    $table->timestamps();		    
 		});
