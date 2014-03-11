@@ -4,7 +4,7 @@
       </div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-10">
+          <div class="col-md-9">
             <?php 
 	      $DataCSN = 'Rebut';
                 $instances = $quote->rebuts()->get();
@@ -12,7 +12,7 @@
             ?>
             @include('generic/snippets/datatable')
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <a class="btn btn-warning" href="/quote/generar_rebut/{{ $quote->id }}">Generar nou rebut</a>
           </div>
         </div>
