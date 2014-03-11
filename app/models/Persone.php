@@ -146,7 +146,7 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					 'forca' => 'Força'
 							    ),
 				  'Comentaris' => array(
-						       'comentari' => 'Comentaris'
+						       'comentari' => 'Comentari'
 							)
 				  );
 

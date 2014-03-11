@@ -29,7 +29,7 @@
         ?>
 	   {{ Form::hidden($DFI, $the_df_input, array('id' => $DFI)) }}
         <div id="{{ $DF }}-field-list">
-           @include('generic/assemble_dependent_input', array('DF' => $DF))
+           @include('generic/snippets/assemble_dependent_input', array('DF' => $DF))
         </div>
       </div> <!-- panel -->
     </div> <!-- col-md -->
@@ -42,7 +42,7 @@
 			      'DF' => $DF
 			      ); // We put it here because @include breaks with newlines
      ?>
-     @include('generic/dependent_class_search', $include_args)
+     @include('generic/snippets/dependent_class_search', $include_args)
 
     </div> <!-- col-md -->
   </div> <!-- row -->

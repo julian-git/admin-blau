@@ -26,10 +26,40 @@ class Quote extends ResolvingEloquent
 
     public static $member_fields = array('id' => 'Id',
 					 'tipus_quotes_fk' => 'Tipus',
+					 'activa' => 'Activa',
 					 'import' => 'Import',
 					 'id_responsables_fk' => 'Responsable',
-					 'beneficiari' => 'Beneficiaris'
+					 'beneficiari' => 'Beneficiaris',
+					 'iban' => 'IBAN',
+					 'bic' => 'BIC'
 					 );
+
+    public $display_size_of_field = array('id' => 4,
+					  'import' => 8,
+					  'iban' => 34,
+					  'bic' => 12,
+					  'comentari' => '60x3'
+					  );
+
+    public static $panels = array('Quota' => array(
+						   'activa' => 'Activa',
+						   'tipus_quotes_fk' => 'Tipus',
+						   'import' => 'Import'
+						   ),
+				  'Responsable' => array(
+							 'id_responsables_fk' => 'Responsable',
+							 'iban' => 'IBAN',
+							 'bic' => 'BIC'
+							 ),
+				  'Beneficiaris' => array(
+							  'beneficiari' => 'Beneficiaris'
+							  ),
+				  'Comentaris' => array(
+						       'comentari' => 'Comentari'
+							)
+				  );
+	  
+						   
 
     protected $resolving_class = array(
 				       'tipus_quotes_fk' => 'TipusQuote',
@@ -60,6 +90,20 @@ class Quote extends ResolvingEloquent
                          );
     						 
     public static $default_values = array();
+
+    public static function is_checkbox($field)
+    {
+	return 
+	    $field == 'activa'
+	    ;
+    }
+
+    public static function is_textarea($field)
+    {
+	return 
+	    $field == 'comentari'
+	    ;
+    }
 
     public static $identifying_fields = array(
 					      'id_responsables_fk',
@@ -116,6 +160,16 @@ class Quote extends ResolvingEloquent
     	return number_format($tipus->periodicitat_mesos * $this->import, 2, ',', '.');
     }
 
+    public function getIbanAttribute($value)
+    {
+	return $this->responsible()->pluck('iban');
+    }
+
+    public function getBicAttribute($value)
+    {
+	return $this->responsible()->pluck('bic');
+    }
+    
     public static function is_right_aligned($field)
     {
 	return 

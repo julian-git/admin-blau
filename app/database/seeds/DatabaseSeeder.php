@@ -186,7 +186,8 @@ class QuotesSeeder extends Seeder {
 			    'tipus_quotes_fk' => 1,
 			    'id_responsables_fk' => 2,
 			    'import' => 0,
-			    'activa' => 0,              
+			    'activa' => 0,
+			    'comentari' => 'Comentari 1'
 			    ));
 
 	Quote::create(array('id' => 2, 
@@ -194,6 +195,7 @@ class QuotesSeeder extends Seeder {
 			    'id_responsables_fk' => 1,
 			    'import' => 12,
 			    'activa' => 1, 
+			    'comentari' => 'Comentari 2'
 			    ));
     }
 }

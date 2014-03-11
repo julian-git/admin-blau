@@ -121,6 +121,7 @@ class CreateCastellers extends Migration {
 		    $table->foreign('id_responsables_fk')->references('id')->on('persones');
 		    $table->decimal('import')->default(0);
 		    $table->boolean('activa')->default(1);
+		    $table->string('comentari', 200)->nullable();
 		    $table->timestamps();
 		});
 

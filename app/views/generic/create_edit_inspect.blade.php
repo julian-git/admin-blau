@@ -37,7 +37,7 @@
   {{ Form::open() }}
 @endif
 
-@include ('generic/crud_buttons')
+@include ('generic/snippets/crud_buttons')
 
 @if (isset($CSN::$panels))
 
@@ -51,7 +51,7 @@
           <div class="col-md-6">
             <?php $i = 0; $n = ceil(sizeof($fields)/2) ?>
             @foreach ($fields as $field => $prompt)
-              @include('generic/member_field')
+              @include('generic/snippets/member_field')
               <?php $i++ ?>
               @if ($i==$n)
           </div>
@@ -67,12 +67,12 @@
 @else {{-- !isset($CSN::$panels)) --}}
 
   @foreach ($CSN::$member_fields as $field => $prompt)
-    @include('generic/member_field')
+    @include('generic/snippets/member_field')
   @endforeach
 
 @endif
 
-@include ('generic/crud_buttons')
+@include ('generic/snippets/crud_buttons')
 
 	   {{ Form::close() }}
 

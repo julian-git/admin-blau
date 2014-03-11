@@ -46,7 +46,7 @@
 		    'DFI' => $CSN::$responsible_field . '_input'
 		    ); // Put this array here because the following @include breaks with newlines
             ?>
-            @include('generic/dependent_class_search', $include_args)
+            @include('generic/snippets/dependent_class_search', $include_args)
           </div>
           <script src="{{ asset('assets/js/dependent_fields.js') }}"></script>
         @endif
