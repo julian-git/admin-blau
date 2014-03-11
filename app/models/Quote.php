@@ -71,6 +71,10 @@ class Quote extends ResolvingEloquent
 				       'id_responsables_fk' => 'Persone'
 				       );
 
+    public static $foreign_class = array(
+					 'beneficiari' => 'Persone'
+					 );
+
     public static $responsible_class = 'Persone';
     public static $responsible_field = 'id_responsables_fk';
     public static $responsible_field_search_message = 'Busca responsable per nom, cognom o mot...';
@@ -95,6 +99,12 @@ class Quote extends ResolvingEloquent
                          );
     						 
     public static $default_values = array();
+
+    public static function is_foreign_choices($field)
+    {
+	return $field == 'beneficiari'
+	    ;
+    }
 
     public static function is_checkbox($field)
     {

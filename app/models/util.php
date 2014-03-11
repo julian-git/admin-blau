@@ -47,6 +47,11 @@ class ResolvingEloquent extends Eloquent
 	return false;
     }
 
+    public static function is_foreign_choices($field)
+    {
+	return false;
+    }
+
     public static function is_checkbox($field)
     {
 	return false;

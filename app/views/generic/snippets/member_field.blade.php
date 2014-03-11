@@ -7,16 +7,20 @@
   </div>
   <div class="col-md-9">
     <div class="form-group">
-      @if (isset($dropbox_options[$field]))
-          @if ($action == 'Mostrar')
-            {{ $$csn->resolve($field) }}
-          @elseif (isset($dropbox_default[$field]))
-            {{ Form::select($field, $dropbox_options[$field], $dropbox_default[$field]) }} 
-          @else
-            {{ Form::select($field, $dropbox_options[$field]) }} 
-          @endif
-          {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
+      @if ($CSN::is_foreign_choices($field))
+          <?php $foreigns = $field . 's' ?>
+          @foreach($$csn->$foreigns()->get() as $foreign)
+            <div id="{{ $field }}-id-{{ $foreign->id }}" foreign_id="{{ $foreign->id }}" class="dependent_list_item">
+              {{ assemble_identifying_short_fields($CSN::$foreign_class[$field], $foreign) }}
+            </div>
+            @if ($action == 'Editar')
+              <button df="{{ $field }}" dependent-id="{{ $foreign->id }}" class="btn btn-default btn-xs cvg-remove-button">
+               <span class="glyphicon glyphicon-remove"></span>
+              </button>
+            @endif
+          @endforeach
 
+          {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
 
       @elseif (isset($responsible_fields) &&
                !strcmp($responsible_fields['field'], $field))
