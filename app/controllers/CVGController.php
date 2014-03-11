@@ -63,7 +63,7 @@ class CVGController extends BaseController
 
     public function inspect($class_instance)
     {
-	$this->create_edit_inspect_impl('Dades de', null, $class_instance);
+	$this->create_edit_inspect_impl('Mostrar', null, $class_instance);
     }
 
     protected function create_edit_inspect_impl($action, $responsible_id, $class_instance)

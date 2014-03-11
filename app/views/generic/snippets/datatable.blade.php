@@ -19,9 +19,10 @@
 
 <?php
 /*
-    This snippet needs two variables to be set:
+    This snippet needs the following variables to be set:
 
       $DataCSN = SomeClassSingularName (e.g. 'Persone');
+      $instances = a query result, e.g. $DataCSN::all()
       $allow_edit = true/false;
 
  */
@@ -39,7 +40,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($DataCSN::all() as $instance)
+                @foreach($instances as $instance)
                 <tr>
                    @foreach(array_keys($fields_in_index) as $field)
 		   <td {{ $DataCSN::is_right_aligned($field) ? 'class="right"' : '' }}>{{ $instance->resolve($field) }}</td>

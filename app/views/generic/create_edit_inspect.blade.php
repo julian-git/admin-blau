@@ -26,7 +26,7 @@
     @if(!strcmp($action, 'Crear'))
       {{ $CSN::$class_name_gender == 'm' ? 'nou' : 'nova' }}
     @endif
-      {{ $CSN::$singular_class_name }}
+      {{ strtolower($CSN::$singular_class_name) }}
   </h1>
 </div>
 
@@ -74,9 +74,11 @@
 
 @include ('generic/snippets/crud_buttons')
 
-@if (!strcmp($action, 'Dades de') && isset($CSN::$extra_inspect))
+@if (!strcmp($action, 'Mostrar') && isset($CSN::$extra_inspect))
   @include('extras/' . $CSN::$extra_inspect)
 @endif
+
+{{--  @include('generic/snippets/query_log') --}}
 
 {{ Form::close() }}
 

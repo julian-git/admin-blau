@@ -7,7 +7,7 @@
           <div class="col-md-10">
             <?php 
 	      $DataCSN = 'Rebut';
-              $instances = $quote->rebuts()->first();
+                $instances = $quote->rebuts()->get();
               $allow_edit = false;
             ?>
             @include('generic/snippets/datatable')
@@ -19,4 +19,3 @@
       </div>
     </div>
 
-	 @include('generic/snippets/query_log')

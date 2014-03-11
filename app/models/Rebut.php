@@ -52,6 +52,12 @@ class Rebut extends ResolvingEloquent
 	return $this->belongsTo('Quote');
     }
 
+    public static function is_right_aligned($field)
+    {
+	return 
+	    $field == 'import'
+	    ;
+    }
 }
 
 ?>
