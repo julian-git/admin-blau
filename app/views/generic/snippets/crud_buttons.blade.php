@@ -18,17 +18,23 @@
 ?>
 
 <div class="panel-body">
+
 @if ($action=='Mostrar')
+
      <a class="btn btn-warning pull-right" href="/{{ strtolower($CSN) }}/edit/{{ $$csn->id }}">Editar</a>
      &nbsp;
      <a class="btn btn-primary pull-right" href="/{{ strtolower($CSN) }}/">Tornar a l&lsquo;índex</a>
+
 @else
+
      <input type="submit" value="{{ ($action == 'Crear') ? 'Crear' : 'Desar' }}" class="btn btn-success pull-right" />
-&nbsp;
        <a href="/{{ strtolower($CSN) }}/inspect/{{ $$csn->id }}" class="btn btn-primary pull-right">Cancel&middot;lar</a>
+
   @if($action == 'Editar')
-&nbsp;
+
         <a href="{{ action($CSN . 'sController@delete', $$csn->id) }}" class="btn btn-danger pull-right">Esborrar</a>
+
   @endif
+
 @endif
 </div>

@@ -13,7 +13,7 @@
             @include('generic/snippets/datatable')
           </div>
           <div class="col-md-2">
-            buttons
+            <a class="btn btn-warning" href="/quote/generar_rebut/{{ $quote->id }}">Generar nou rebut</a>
           </div>
         </div>
       </div>
