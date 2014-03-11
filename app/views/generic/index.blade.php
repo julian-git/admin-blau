@@ -58,6 +58,6 @@
       $DataCSN = $CSN;
       $allow_edit = true;
     ?>
-    @include('generic/datatable')
+    @include('generic/snippets/datatable')
 
 @stop
