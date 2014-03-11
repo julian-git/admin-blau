@@ -18,7 +18,7 @@
 ?>
 
 <div class="panel-body">
-@if ($action=='Dades de')
+@if ($action=='Mostrar')
      <a class="btn btn-warning pull-right" href="/{{ strtolower($CSN) }}/edit/{{ $$csn->id }}">Editar</a>
      &nbsp;
      <a class="btn btn-primary pull-right" href="/{{ strtolower($CSN) }}/">Tornar a l&lsquo;índex</a>

@@ -8,7 +8,7 @@
   <div class="col-md-9">
     <div class="form-group">
       @if (isset($dropbox_options[$field]))
-          @if ($action == 'Dades de')
+          @if ($action == 'Mostrar')
             {{ $$csn->resolve($field) }}
           @elseif (isset($dropbox_default[$field]))
             {{ Form::select($field, $dropbox_options[$field], $dropbox_default[$field]) }} 
@@ -35,7 +35,7 @@
 
       @elseif ($CSN::is_checkbox($field))
 
-        @if ($action=='Dades de')
+        @if ($action=='Mostrar')
           {{ ($$csn->$field) ? 'Sí' : 'No' }}
         @elseif ($action=='Editar')
           {{ Form::checkbox($field, $$csn->$field, $$csn->$field) }}
@@ -47,7 +47,7 @@
 
       @elseif ($CSN::is_textarea($field))
 
-        @if ($action=='Dades de')
+        @if ($action=='Mostrar')
           {{ $$csn->resolve($field) }}
         @elseif ($action=='Editar')
           {{ Form::textarea($field, $$csn->$field, array('size' => $$csn->display_size_of($field))) }}
@@ -58,7 +58,7 @@
 
       @else 
 
-        @if ($action=='Dades de')
+        @if ($action=='Mostrar')
           {{ $$csn->resolve($field) }}
         @elseif ($action=='Editar')
           {{ Form::text($field, $$csn->$field, array('size' => $$csn->display_size_of($field))) }}
