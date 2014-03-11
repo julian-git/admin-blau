@@ -109,12 +109,6 @@
   </div> <!-- /panel -->
 @endforeach
 
-		    {{--
-@foreach(DB::connection()->getQueryLog() as $query)
-		<div>{{ $query['query'] }} {{ var_dump($query['bindings']) }} </div>
-@endforeach
-			--}}
-
 <script>
 $(function() {
 	$('.esdeveniment-details').each(function() {

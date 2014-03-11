@@ -17,7 +17,6 @@
 */
 ?>
 
-@foreach(explode(',', $the_df_input) as $dependent_id)
 @if(strlen($dependent_id) > 0)
 {{-- this test is to catch empty dependent field list upon validation of input --}}
   <div id="{{ $DF }}-id-{{ $dependent_id }}" dependent-id="{{ $dependent_id }}" class="dependent_list_item">
@@ -29,4 +28,3 @@
     </button>
   </div>
 @endif
-@endforeach

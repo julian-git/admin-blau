@@ -20,6 +20,11 @@ require_once('util.php');
 
 class Quote extends ResolvingEloquent
 {
+    public function __construct() 
+    {
+	DB::connection()->enableQueryLog();
+    }
+
     public static $singular_class_name = 'Quota';
     public static $plural_class_name = 'Quotes';
     public static $class_name_gender = 'f';
@@ -153,7 +158,7 @@ class Quote extends ResolvingEloquent
 
     public function rebuts()
     {
-	return $this->hasMany('Rebut', 'id', 'quote_id');
+	return $this->hasMany('Rebut');
     }
 
     public function getImportAttribute($value) 

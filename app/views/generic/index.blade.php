@@ -56,6 +56,7 @@
 
     <?php 
       $DataCSN = $CSN;
+      $instances = $DataCSN::all();
       $allow_edit = true;
     ?>
     @include('generic/snippets/datatable')

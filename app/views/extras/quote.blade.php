@@ -4,14 +4,19 @@
       </div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-6">
-            @foreach ($$csn->rebuts() as $rebut)
-              @include ('generic/snippets/assemble_dependent_input', array('DCL' => 'Rebut', 'dependent_id' => $rebut->id))
-            @endforeach
+          <div class="col-md-10">
+            <?php 
+	      $DataCSN = 'Rebut';
+              $instances = $quote->rebuts()->first();
+              $allow_edit = false;
+            ?>
+            @include('generic/snippets/datatable')
           </div>
-          <div class="col-md-6">
+          <div class="col-md-2">
             buttons
           </div>
         </div>
       </div>
     </div>
+
+	 @include('generic/snippets/query_log')

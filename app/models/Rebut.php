@@ -34,11 +34,11 @@ class Rebut extends ResolvingEloquent
 
     public static $default_values = array();
 
-    public static $identifying_fields = array('quote_id' => 'Id de quota',
-					 'data' => 'Data',
-					 'import' => 'Import',
-					 'estat' => 'Estat'
-					 );
+    public static $identifying_fields = array(
+					      'data',
+					      'import',
+					      'estat'
+					      );
 
     public static $dropbox_options_of = array(
 					      'estat' => array(
@@ -47,9 +47,9 @@ class Rebut extends ResolvingEloquent
 							       'Retornat' => 'Retornat'
 							       )
 					      );
-    public function quota()
+    public function quote()
     {
-	return $this->belongsTo('Quote', 'quote_id', 'id');
+	return $this->belongsTo('Quote');
     }
 
 }

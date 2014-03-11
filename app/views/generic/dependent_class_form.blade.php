@@ -29,8 +29,10 @@
         ?>
 	   {{ Form::hidden($DFI, $the_df_input, array('id' => $DFI)) }}
         <div id="{{ $DF }}-field-list">
-           @include('generic/snippets/assemble_dependent_input', array('DF' => $DF))
-        </div>
+           @foreach(explode(',', $the_df_input) as $dependent_id)
+             @include('generic/snippets/assemble_dependent_input', array('DF' => $DF))
+           @endforeach  
+      </div>
       </div> <!-- panel -->
     </div> <!-- col-md -->
     <div class="col-md-7">
