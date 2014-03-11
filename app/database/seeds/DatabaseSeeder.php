@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder {
 			      'actuacion_persone',
 			      'esdeveniment_persone',
 			      'familie_persone',
+			      'rebuts',
 			      'beneficiaris',
 			      'quotes',
 			      'persones',
@@ -38,6 +39,7 @@ class DatabaseSeeder extends Seeder {
                      'PersonesFamiliesSeeder',
                      'QuotesSeeder',
                      'BeneficiarisSeeder',
+		     'RebutsSeeder',
 
                      //Esdeveniments
                      'TipusEsdevenimentsSeeder',
@@ -217,6 +219,32 @@ class BeneficiarisSeeder extends Seeder {
 			   array(
 				 'quote_id' => 1,
 				 'persone_id' => 2
+				 )
+			   ));
+    }
+}
+
+class RebutsSeeder extends Seeder {
+    public function run() {
+	DB::table('rebuts')
+	    ->insert(array(
+			   array(
+				 'id' => 1,
+				 'quote_id' => 1,
+				 'data' => '2013-06-01',
+				 'estat' => 'Pagat'
+				 ),
+			   array(
+				 'id' => 2,
+				 'quote_id' => 1,
+				 'data' => '2014-01-01',
+				 'estat' => 'Retornat'
+				 ),
+			   array(
+				 'id' => 3,
+				 'quote_id' => 2,
+				 'data' => '2013-06-01',
+				 'estat' => 'Pagat'
 				 )
 			   ));
     }
