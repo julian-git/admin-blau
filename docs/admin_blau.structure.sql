@@ -286,6 +286,7 @@ CREATE TABLE `persones` (
   `telefon` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mobil` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
   `iban` varchar(34) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bic` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `rols_fk` int(10) unsigned NOT NULL DEFAULT '1',
   `alcada-cadira` decimal(8,2) NOT NULL DEFAULT '0.00',
@@ -368,6 +369,7 @@ CREATE TABLE `quotes` (
   `id_responsables_fk` int(10) unsigned NOT NULL,
   `import` decimal(8,2) NOT NULL DEFAULT '0.00',
   `activa` tinyint(1) NOT NULL DEFAULT '1',
+  `comentari` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
@@ -375,6 +377,27 @@ CREATE TABLE `quotes` (
   KEY `quotes_id_responsables_fk_foreign` (`id_responsables_fk`),
   CONSTRAINT `quotes_id_responsables_fk_foreign` FOREIGN KEY (`id_responsables_fk`) REFERENCES `persones` (`id`),
   CONSTRAINT `quotes_tipus_quotes_fk_foreign` FOREIGN KEY (`tipus_quotes_fk`) REFERENCES `tipus_quotes` (`id`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `rebuts`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rebuts` (
+  `id` int(10) unsigned NOT NULL,
+  `quote_id` int(10) unsigned NOT NULL,
+  `data` date NOT NULL,
+  `import` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `estat` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `rebuts_quote_id_foreign` (`quote_id`),
+  KEY `rebuts_data_index` (`data`),
+  CONSTRAINT `rebuts_quote_id_foreign` FOREIGN KEY (`quote_id`) REFERENCES `quotes` (`id`)
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -465,4 +488,4 @@ CREATE TABLE `tipus_quotes` (
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-10  0:27:18
+-- Dump completed on 2014-03-11 14:16:10
