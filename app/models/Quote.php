@@ -33,7 +33,7 @@ class Quote extends ResolvingEloquent
 					 'tipus_quotes_fk' => 'Tipus',
 					 'activa' => 'Activa',
 					 'import' => 'Import',
-					 'id_responsables_fk' => 'Responsable',
+					 'responsable' => 'Responsable',
 					 'beneficiari' => 'Beneficiaris',
 					 'iban' => 'IBAN',
 					 'bic' => 'BIC'
@@ -52,7 +52,7 @@ class Quote extends ResolvingEloquent
 						   'import' => 'Import'
 						   ),
 				  'Responsable' => array(
-							 'id_responsables_fk' => 'Responsable',
+							 'responsables' => 'Responsable',
 							 'iban' => 'IBAN',
 							 'bic' => 'BIC'
 							 ),
@@ -72,7 +72,8 @@ class Quote extends ResolvingEloquent
 				       );
 
     public static $foreign_class = array(
-					 'beneficiari' => 'Persone'
+					 'beneficiari' => 'Persone',
+					 'responsable' => 'Persone'
 					 );
 
     public static $responsible_class = 'Persone';
@@ -102,7 +103,9 @@ class Quote extends ResolvingEloquent
 
     public static function is_foreign_choices($field)
     {
-	return $field == 'beneficiari'
+	return 
+	    $field == 'beneficiari' ||
+	    $field == 'responsable'
 	    ;
     }
 
@@ -133,7 +136,7 @@ class Quote extends ResolvingEloquent
 						    'import'
 						    );
 
-    public function beneficiaris()
+    public function beneficiari()
     {
     	return $this->belongsToMany('Persone', 'beneficiaris');
     }
@@ -163,7 +166,7 @@ class Quote extends ResolvingEloquent
 
     public function dependents()
     {
-	return $this->beneficiaris();
+	return $this->beneficiari();
     }
 
     public function rebuts()
