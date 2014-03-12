@@ -16,24 +16,10 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Installation
 
-This installation process is adapted from http://daylerees.com/codebright/getting-started .
-
 * Install git, php, mysql.
 
-* Create a mysql user. Log into mysql using ```mysql -u root -p``` and say
-```
-create user 'admin_blau'@'localhost' identified by 'admin_blau';
-grant all on admin_blau.* to 'admin_blau'@'localhost';
-create database admin_blau;
-```
+* Download this repository using ```git clone https://github.com/julian-git/admin-blau```. This will put all files into a new subdirectory ```admin-blau``` inside the directory you called ```git clone``` from.
 
-* Clone the Laravel framework via ```git clone https://github.com/laravel/laravel.git admin-blau/```
-
-* Rename git origins:
-```
-    git remote rename origin laravel
-    git remote add origin https://github.com/julian-git/admin-blau.git
-```
 
 * Edit ```.git/config``` to say
 ```
@@ -42,16 +28,11 @@ create database admin_blau;
         merge = master
 ```
 
-* Say 
+* Create a mysql user. Log into mysql using ```mysql -u root -p``` and say
 ```
-git rm artisan
-git commit -am "artisan"
-rm composer.lock
-```
-
-* Say 
-```
-git pull -s recursive -X theirs
+create user 'admin_blau'@'localhost' identified by 'admin_blau';
+grant all on admin_blau.* to 'admin_blau'@'localhost';
+create database admin_blau;
 ```
 
 * Say
