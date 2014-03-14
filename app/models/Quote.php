@@ -34,7 +34,9 @@ class Quote extends ResolvingEloquent
 					 'activa' => 'Activa',
 					 'import' => 'Import',
 					 'responsable' => 'Responsable',
+					 'input_responsable' => 'Triar responsable',
 					 'beneficiari' => 'Beneficiaris',
+					 'input_beneficiari' => 'Triar beneficiaris',
 					 'iban' => 'IBAN',
 					 'bic' => 'BIC'
 					 );

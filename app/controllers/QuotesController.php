@@ -25,7 +25,7 @@ class QuotesController extends CVGController
 
     public function generar_rebut($quote)
     {
-	return View::make('extras.receipt', array('instance' => $quote));
+	return View::make('specialized.receipt', array('instance' => $quote));
     }
 
 }

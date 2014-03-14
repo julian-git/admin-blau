@@ -57,7 +57,7 @@
           <div class="col-md-6">
             <?php $i = 0; $n = ceil(sizeof($fields)/2) ?>
             @foreach ($fields as $field => $prompt)
-              @include('generic/snippets/member_field')
+              @include('specialized/snippets/member_field')
               <?php $i++ ?>
               @if ($i==$n)
           </div>

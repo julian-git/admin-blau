@@ -25,20 +25,9 @@
 
           {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
 
-      @elseif (isset($responsible_fields) &&
-               !strcmp($responsible_fields['field'], $field))
+      @elseif (!strcmp(substr($field, 0, strlen('input_'), 'input_')))
 
-        <?php 
-          $RCL = $CSN::$responsible_class; 
-        ?>
-	  {{ $RCL::identifying_fields_of($responsible_fields['id']) }}
-          <input type="hidden" name="{{ $field }}" value="{{ $responsible_fields['id'] }}" />
-        
-      @elseif (isset($dependent_fields) &&
-               !strcmp($dependent_fields, $field))
 
-	      <?php $dfi = $CSN::$dependent_field . '_input' ?>
-	      @include('generic/dependent_class_form', array('DCL' => $CSN::$dependent_class, 'DF' => $CSN::$dependent_field, 'DFI' => $dfi))
 
       @elseif ($CSN::is_checkbox($field))
 
