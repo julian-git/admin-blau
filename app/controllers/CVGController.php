@@ -154,10 +154,10 @@ class CVGController extends BaseController
 	$class_instance->save();
 
 	Log::info("will save dependent classes");
-	if (isset($CSN::$dependent_field_pivot_table))
+	foreach($CSN::$foreign_class as $f => $c)
         {
 	    $this->save_dependent_fields_to_pivot_table($class_instance->id, 
-							$input[$CSN::dependent_field . '_input']);
+							$input['input_' . $f]);
 	}
 
     }

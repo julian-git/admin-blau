@@ -47,6 +47,8 @@ class ResolvingEloquent extends Eloquent
 	return false;
     }
 
+    public static $foreign_class = array();
+    
     public static function is_foreign_selection($field)
     {
 	return false;

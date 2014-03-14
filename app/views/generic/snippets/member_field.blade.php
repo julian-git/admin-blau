@@ -7,10 +7,19 @@
   </div>
   <div class="col-md-9">
     <div class="form-group">
-
+	{{ $field }}
       @if ($CSN::is_foreign_selection($field))
 
         @include('generic/snippets/foreign_selection')
+
+      @elseif($action == 'Editar' && $CSN::is_foreign_chooser($field))
+
+        <?php
+          $include_args = array('button_action_text' => 'Afegir', 
+				'dependent_button' => "afegir-$field-button"
+				); // We put it here because @include breaks with newlines
+        ?>
+        @include('generic/snippets/foreign_chooser', $include_args)
 
       @elseif ($CSN::is_checkbox($field))
 

@@ -55,11 +55,13 @@ class Quote extends ResolvingEloquent
 						   ),
 				  'Responsable' => array(
 							 'id_responsables_fk' => 'Responsable',
+							 'input_id_responsables_fk' => 'Triar responsable',
 							 'iban' => 'IBAN',
 							 'bic' => 'BIC'
 							 ),
 				  'Beneficiaris' => array(
-							  'id_beneficiaris_list' => 'Beneficiaris'
+							  'id_beneficiaris_list' => 'Beneficiaris',
+							  'input_id_beneficiaris_list' => 'Triar beneficiaris'
 							  ),
 				  'Comentaris' => array(
 						       'comentari' => 'Comentari'
@@ -75,15 +77,15 @@ class Quote extends ResolvingEloquent
 
     public static $foreign_class = array(
 					 'id_beneficiaris_list' => 'Persone',
-					 'id_responsables_fk' => 'Persone'
+					 'input_id_beneficiaris_list' => 'Persone',
+					 'id_responsables_fk' => 'Persone',
+					 'input_id_responsables_fk' => 'Persone'
 					 );
 
     public static $search_message = array(
-					  'id_responsables_fk' => 'Busca responsable per nom, cognom o mot...',
-					  'id_beneficiaris_list' =>  'Busca beneficiari per nom, cognom o mot...'
+					  'input_id_responsables_fk' => 'Busca responsable per nom, cognom o mot...',
+					  'input_id_beneficiaris_list' =>  'Busca beneficiari per nom, cognom o mot...'
 					  );
-
-    public static $dependent_field_pivot_table = 'beneficiaris';
 
     public static $validation_rules = array(
 					    'import' => 'required|numeric'
@@ -103,16 +105,16 @@ class Quote extends ResolvingEloquent
     public static function is_foreign_selection($field)
     {
 	return 
-	    $field == 'id_beneficiaris_list' ||
-	    $field == 'id_responsables_fk'
+	    $field == 'id_responsables_fk' ||
+	    $field == 'id_beneficiaris_list' 
 	    ;
     }
 
     public static function is_foreign_chooser($field)
     {
 	return 
-	    $field == 'input_beneficiari' ||
-	    $field == 'input_responsable'
+	    $field == 'input_id_responsables_fk' ||
+	    $field == 'input_id_beneficiaris_list' 
 	    ;
     }
 
