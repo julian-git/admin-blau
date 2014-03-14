@@ -157,7 +157,7 @@ class Quote extends ResolvingEloquent
         {
 	    $id_beneficiaris[] = $p->id;
         }
-        return join(', ', $id_beneficiaris);
+        return join(',', $id_beneficiaris);
     }
 
     public function getBeneficiarisListAttribute($value)

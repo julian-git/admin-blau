@@ -1,18 +1,18 @@
 function dependent_list_entry(dependentField, dependent_id, text) {
     var delete_button = '<button id="remove-' + dependentField + '-id-' + dependent_id + '" ' + dependentField + '-id="' + dependent_id + '" dependentField="' + dependentField + '" class="btn btn-default btn-xs cvg-remove-button"><span class="glyphicon glyphicon-remove"></span></button>';
-    return '<div id="' + dependentField + '-id-' + dependent_id + '" ' + dependentField + '-id="' + dependent_id + '" class="dependent_list_item"><span>' + text + '</span>' + delete_button + '</div>';
+    return '<div id="' + dependentField + '-id-' + dependent_id + '" ' + dependentField + '-id="' + dependent_id + '" class="' + dependentField + '_item"><span>' + text + '</span>' + delete_button + '</div>';
 }
 
 function update_dependent_field_input(dependentField) {
     var val_list = '';
-    $('.dependent_list_item').each(function() {
+    $('.' + dependentField + '_item').each(function() {
 	if (val_list.length > 0) {
 	    val_list += ',';
 	}
 	val_list += $(this).attr(dependentField + '-id');
     });
-    alert ("updated to " + val_list);
-    $('#' + dependentField + '_input').val(val_list);
+    alert (dependentField + " updated to " + val_list);
+    $('#' + dependentField).val(val_list);
 }
 
 function remove_button_clicked(dependentField, dependent_id)
@@ -59,12 +59,12 @@ $('.dependent-search').keyup(function(e) {
 });
 
 $('.afegir-button').click(function() {
-    var dependent_search = $(this).attr('searchField');
-    var dependentField = $('#' + dependent_search).attr('dependentField');
-    var dependent_id = $('#' + dependent_search).attr(dependentField + '-id');
+    var searchField = $(this).attr('searchField');
+    var dependentField = $('#' + searchField).attr('dependentField');
+    var dependent_id = $('#' + searchField).attr(dependentField + '-id');
     if (dependent_id != -1) {
-	var dependent_text = $('#' + dependent_search).val();
-	$('#' + dependent_search).val('');
+	var dependent_text = $('#' + searchField).val();
+	$('#' + searchField).val('');
 	$(this).addClass('disabled');
 	$('#' + dependentField + '-field-list').append(dependent_list_entry(dependentField, dependent_id, dependent_text));   
 	$('#remove-' + dependentField + '-id-' + dependent_id).click(function() {
