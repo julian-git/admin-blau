@@ -57,7 +57,7 @@
           <div class="col-md-6">
             <?php $i = 0; $n = ceil(sizeof($fields)/2) ?>
             @foreach ($fields as $field => $prompt)
-              @include('specialized/snippets/member_field')
+              @include('generic/snippets/member_field')
               <?php $i++ ?>
               @if ($i==$n)
           </div>
@@ -74,13 +74,14 @@
 
 @include ('generic/snippets/crud_buttons')
 
-@if (!strcmp($action, 'Mostrar') && isset($CSN::$extra_inspect))
-  @include('extras/' . $CSN::$extra_inspect)
+@if (!strcmp($action, 'Mostrar') && isset($CSN::$specialized_inspect))
+  @include('specialized/' . $CSN::$specialized_inspect)
 @endif
 
 {{--  @include('generic/snippets/query_log') --}}
 
 {{ Form::close() }}
 
+<script src="{{ asset('assets/js/dependent_fields.js') }}"></script>
 
 @stop

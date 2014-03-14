@@ -24,7 +24,11 @@ function foreign_table_of($field)
     {
 	return 'Persone';
     } 
-    else 
+    elseif (!strcmp(substr($field, 0, strlen('input_')), 'input_'))
+    {
+	return foreign_table_of(substr($field, strlen('input_')));
+    }
+    else
     {
 	return toCamelCase(substr($field, 0, -4)); // remove also plural 's'
     }

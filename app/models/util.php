@@ -47,7 +47,12 @@ class ResolvingEloquent extends Eloquent
 	return false;
     }
 
-    public static function is_foreign_choices($field)
+    public static function is_foreign_selection($field)
+    {
+	return false;
+    }
+
+    public static function is_foreign_chooser($field)
     {
 	return false;
     }

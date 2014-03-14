@@ -17,16 +17,19 @@
 */
 ?>
 
-@if(strlen($dependent_id) > 0)
-{{-- this test is to catch empty dependent field list upon validation of input --}}
-  <div id="{{ $field }}-id-{{ $dependent_id }}" dependent-id="{{ $dependent_id }}" class="dependent_list_item">
-    <span>
-   {{ assemble_identifying_fields($DCL, $DCL::find($dependent_id)) }}
-    </span>
-    @if ($action == 'Edit')
-      <button df="{{ $field }}" dependent-id="{{ $dependent_id }}" class="btn btn-default btn-xs cvg-remove-button">
-        <span class="glyphicon glyphicon-remove"></span>
-      </button>
-    @endif
-  </div>
-@endif
+<div class="form-group">
+        <?php 
+           $the_df_input = (($action == 'Editar' ||
+			     $action == 'Mostrar')
+			    ? $$csn->$field
+			    : Input::old($field));
+        ?>
+	   {{ Form::hidden($field, $the_df_input) }}
+        <div id="{{ $field }}-field-list">
+           @foreach(explode(',', $the_df_input) as $dependent_id)
+	       @include('generic/snippets/assemble_dependent_input', array('DCL' => $CSN::$foreign_class[$field]))
+           @endforeach  
+      </div>
+        {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
+</div> <!-- form-group -->
+

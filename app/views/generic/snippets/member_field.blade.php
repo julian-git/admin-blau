@@ -8,26 +8,9 @@
   <div class="col-md-9">
     <div class="form-group">
 
-      @if ($CSN::is_foreign_choices($field))
+      @if ($CSN::is_foreign_selection($field))
 
-          @foreach($$csn->$field()->get() as $foreign)
-            <div id="{{ $field }}-id-{{ $foreign->id }}" foreign_id="{{ $foreign->id }}" class="dependent_list_item">
-              <span>
-                {{ assemble_identifying_short_fields($CSN::$foreign_class[$field], $foreign) }}
-              </span>
-              @if ($action == 'Editar')
-                <button df="{{ $field }}" dependent-id="{{ $foreign->id }}" class="btn btn-default btn-xs cvg-remove-button">
-                 <span class="glyphicon glyphicon-remove"></span>
-                </button>
-              @endif
-            </div>
-          @endforeach
-
-          {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
-
-      @elseif (!strcmp(substr($field, 0, strlen('input_'), 'input_')))
-
-
+        @include('generic/snippets/foreign_selection')
 
       @elseif ($CSN::is_checkbox($field))
 

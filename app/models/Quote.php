@@ -33,10 +33,10 @@ class Quote extends ResolvingEloquent
 					 'tipus_quotes_fk' => 'Tipus',
 					 'activa' => 'Activa',
 					 'import' => 'Import',
-					 'responsable' => 'Responsable',
-					 'input_responsable' => 'Triar responsable',
-					 'beneficiari' => 'Beneficiaris',
-					 'input_beneficiari' => 'Triar beneficiaris',
+					 'id_responsables_fk' => 'Responsable',
+					 'input_id_responsables_fk' => 'Triar responsable',
+					 'id_beneficiaris_list' => 'Beneficiaris',
+					 'input_id_beneficiaris_list' => 'Triar beneficiaris',
 					 'iban' => 'IBAN',
 					 'bic' => 'BIC'
 					 );
@@ -54,12 +54,12 @@ class Quote extends ResolvingEloquent
 						   'import' => 'Import'
 						   ),
 				  'Responsable' => array(
-							 'responsables' => 'Responsable',
+							 'id_responsables_fk' => 'Responsable',
 							 'iban' => 'IBAN',
 							 'bic' => 'BIC'
 							 ),
 				  'Beneficiaris' => array(
-							  'beneficiari' => 'Beneficiaris'
+							  'id_beneficiaris_list' => 'Beneficiaris'
 							  ),
 				  'Comentaris' => array(
 						       'comentari' => 'Comentari'
@@ -74,18 +74,15 @@ class Quote extends ResolvingEloquent
 				       );
 
     public static $foreign_class = array(
-					 'beneficiari' => 'Persone',
-					 'responsable' => 'Persone'
+					 'id_beneficiaris_list' => 'Persone',
+					 'id_responsables_fk' => 'Persone'
 					 );
 
-    public static $responsible_class = 'Persone';
-    public static $responsible_field = 'id_responsables_fk';
-    public static $responsible_field_search_message = 'Busca responsable per nom, cognom o mot...';
+    public static $search_message = array(
+					  'id_responsables_fk' => 'Busca responsable per nom, cognom o mot...',
+					  'id_beneficiaris_list' =>  'Busca beneficiari per nom, cognom o mot...'
+					  );
 
-    public static $dependent_class = 'Persone';
-    public static $dependent_pivot_class = 'Beneficiari';
-    public static $dependent_field = 'beneficiari';
-    public static $dependent_field_search_message = 'Busca beneficiari per nom, cognom o mot...';
     public static $dependent_field_pivot_table = 'beneficiaris';
 
     public static $validation_rules = array(
@@ -103,11 +100,19 @@ class Quote extends ResolvingEloquent
     						 
     public static $default_values = array();
 
-    public static function is_foreign_choices($field)
+    public static function is_foreign_selection($field)
     {
 	return 
-	    $field == 'beneficiari' ||
-	    $field == 'responsable'
+	    $field == 'id_beneficiaris_list' ||
+	    $field == 'id_responsables_fk'
+	    ;
+    }
+
+    public static function is_foreign_chooser($field)
+    {
+	return 
+	    $field == 'input_beneficiari' ||
+	    $field == 'input_responsable'
 	    ;
     }
 
@@ -125,7 +130,7 @@ class Quote extends ResolvingEloquent
 	    ;
     }
 
-    public static $extra_inspect = 'quote';
+    public static $specialized_inspect = 'quote';
 
     public static $identifying_fields = array(
 					      'id_responsables_fk',
@@ -143,6 +148,16 @@ class Quote extends ResolvingEloquent
     	return $this->belongsToMany('Persone', 'beneficiaris');
     }
     
+    public function getIdBeneficiarisListAttribute($value)
+    {    
+        $id_beneficiaris = array();
+        foreach($this->beneficiari()->get() as $p)
+        {
+	    $id_beneficiaris[] = $p->id;
+        }
+        return join(', ', $id_beneficiaris);
+    }
+
     public function getBeneficiarisListAttribute($value)
     {    
         $beneficiaris = array();
