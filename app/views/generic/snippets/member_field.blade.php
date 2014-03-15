@@ -7,7 +7,7 @@
   </div>
   <div class="col-md-9">
     <div class="form-group">
-	{{ $field }}
+
       @if ($CSN::is_foreign_selection($field))
 
         @include('generic/snippets/foreign_selection')
