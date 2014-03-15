@@ -24,7 +24,7 @@
    {{ assemble_identifying_fields($DCL, $DCL::find($dependent_id)) }}
     </span>
     @if ($action == 'Editar')
-      <button df="{{ $field }}" dependent-id="{{ $dependent_id }}" class="btn btn-default btn-xs cvg-remove-button">
+      <button dependentField="{{ $field }}" {{ $field }}-id="{{ $dependent_id }}" class="btn btn-danger btn-xs cvg-remove-button">
         <span class="glyphicon glyphicon-remove"></span>
       </button>
     @endif

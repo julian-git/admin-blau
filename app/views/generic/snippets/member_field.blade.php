@@ -12,7 +12,7 @@
 
         @include('generic/snippets/foreign_selection')
 
-      @elseif($action == 'Editar' && $CSN::is_foreign_chooser($field))
+      @elseif($CSN::is_foreign_chooser($field))
 
         <?php
           $include_args = array('button_action_text' => 'Afegir', 

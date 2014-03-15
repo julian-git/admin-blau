@@ -1,5 +1,5 @@
 function dependent_list_entry(dependentField, dependent_id, text) {
-    var delete_button = '<button id="remove-' + dependentField + '-id-' + dependent_id + '" ' + dependentField + '-id="' + dependent_id + '" dependentField="' + dependentField + '" class="btn btn-default btn-xs cvg-remove-button"><span class="glyphicon glyphicon-remove"></span></button>';
+    var delete_button = '<button id="remove-' + dependentField + '-id-' + dependent_id + '" ' + dependentField + '-id="' + dependent_id + '" dependentField="' + dependentField + '" class="btn btn-danger btn-xs cvg-remove-button"><span class="glyphicon glyphicon-remove"></span></button>';
     return '<div id="' + dependentField + '-id-' + dependent_id + '" ' + dependentField + '-id="' + dependent_id + '" class="' + dependentField + '_item"><span>' + text + '</span>' + delete_button + '</div>';
 }
 
@@ -58,15 +58,33 @@ $('.dependent-search').keyup(function(e) {
     }
 });
 
+function append_dependent_field(dependent_id, dependentField, searchField)
+{
+    var dependent_text = $('#' + searchField).val();
+    $('#' + searchField).val('');
+    $('#' + dependentField + '-field-list').append(dependent_list_entry(dependentField, dependent_id, dependent_text));   
+}
+
+function can_add_id(dependent_id, dependentField)
+{
+    if (dependent_id == -1) {
+	return false;
+    }
+    current_vals = $('#' + dependentField).val();
+//	alert('Aquesta entrada ja hi existeix a la llista');
+
+    return true; // FIXME how to split a string in javascript?
+}
+
 $('.afegir-button').click(function() {
     var searchField = $(this).attr('searchField');
     var dependentField = $('#' + searchField).attr('dependentField');
     var dependent_id = $('#' + searchField).attr(dependentField + '-id');
-    if (dependent_id != -1) {
-	var dependent_text = $('#' + searchField).val();
-	$('#' + searchField).val('');
-	$(this).addClass('disabled');
-	$('#' + dependentField + '-field-list').append(dependent_list_entry(dependentField, dependent_id, dependent_text));   
+    $(this).addClass('disabled');
+    if (!can_add_id(dependent_id, dependentField)) {
+	$('#' + searchField).val('');	
+    } else {
+	append_dependent_field(dependent_id, dependentField, searchField);
 	$('#remove-' + dependentField + '-id-' + dependent_id).click(function() {
 	    var dependentField = $(this).attr('dependentField');
 	    remove_button_clicked(dependentField, $(this).attr(dependentField + '-id'));

@@ -21,11 +21,11 @@
     @if (isset($button_action_text) && strlen($button_action_text) > 0)
     <span class="input-group-btn">
       <button id="{{ $dependent_button }}" searchField="{{ $field }}-search" class="btn btn-default afegir-button disabled" type="button">
-        {{ $button_action_text }}
+      {{ ($action != 'Editar') ? ' Inactiu' : $button_action_text }}
       </button>
     </span>
   @endif
-  <input id="{{ $field }}-search" type="text" class="form-control dependent-search" dependentClass="{{ strtolower($CSN::$foreign_class[$field]) }}" dependentField="{{ substr($field, strlen('input_')) }}" dependentButton="{{ $dependent_button }}" placeholder="{{ $CSN::$search_message[$field] }}">
+  <input id="{{ $field }}-search" type="text" class="form-control dependent-search" dependentClass="{{ strtolower($CSN::$foreign_class[$field]) }}" dependentField="{{ substr($field, strlen('input_')) }}" dependentButton="{{ $dependent_button }}" placeholder="{{ ($action != 'Editar') ? 'Clica Editar a dalt per activar' : $CSN::$search_message[$field] }}" {{ ($action != 'Editar') ? 'disabled' : '' }}>
   <span class="input-group-btn">
     <button class="btn btn-default disabled" type="button">
       <i class="fa fa-search"></i>
