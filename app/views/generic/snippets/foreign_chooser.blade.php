@@ -20,7 +20,7 @@
   <div class="input-group custom-search-form">
     @if (isset($button_action_text) && strlen($button_action_text) > 0)
     <span class="input-group-btn">
-      <button id="{{ $dependent_button }}" searchField="{{ $field }}-search" class="btn btn-default afegir-button disabled" type="button">
+      <button id="{{ $dependent_button }}" searchField="{{ $field }}-search" class="btn {{ $action=='Editar' ? 'btn-primary' : 'btn-default' }} afegir-button disabled" type="button">
       {{ ($action != 'Editar') ? ' Inactiu' : $button_action_text }}
       </button>
     </span>

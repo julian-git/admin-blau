@@ -27,7 +27,15 @@ function assemble_fields_impl($class_name, $instance, $field_list)
     $str = '';
     foreach ($class_name::$$field_list as $f)
     {
+	if (!strcmp($f, 'mot'))
+	{
+	    $str .= '<i>';
+	}
 	$str .= $instance->$f . ' ';
+	if (!strcmp($f, 'mot'))
+	{
+	    $str .= '</i>';
+	}
     }
     return $str;
 }

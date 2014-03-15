@@ -22,7 +22,16 @@ function resolve_foreign_key($class, $value)
     $res = '';
     foreach($class::$identifying_fields as $f)
     {
+	Log::info("rfk: f=$f");
+	if (!strcmp($f, 'mot'))
+	{
+	    $res .= '<i>';
+	}
 	$res .= $foreign_object->$f . ' ';
+	if (!strcmp($f, 'mot'))
+	{
+	    $res .= '</i>';
+	}
     }
     return $res;
 }

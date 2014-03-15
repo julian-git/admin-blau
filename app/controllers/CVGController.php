@@ -103,7 +103,6 @@ class CVGController extends BaseController
 		}
 		$class_instance[$CSN::$dependent_field . '_input'] = join(',', $dependents);
 	    }
-	    Log::info("class_instance: $class_instance");
 	    $extended_layout_data[$csn] = $class_instance;
 	    $extended_layout_data['dropbox_default'] = dropbox_default_of($CSN, $class_instance);
 	} else {
@@ -156,8 +155,11 @@ class CVGController extends BaseController
 	Log::info("will save dependent classes");
 	foreach($CSN::$foreign_class as $f => $c)
         {
-	    $this->save_dependent_fields_to_pivot_table($class_instance->id, 
-							$input['input_' . $f]);
+	    if (!strcmp(substr($f, 0, strlen('input_')), 'input_'))
+	    {
+		$this->save_dependent_fields_to_pivot_table($class_instance->id,
+							    $input[$f]);
+	    }
 	}
 
     }
