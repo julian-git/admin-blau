@@ -118,6 +118,13 @@ class Quote extends ResolvingEloquent
 	    ;
     }
 
+    public static function is_single_entry_list($field)
+    {
+	return 
+	    $field == 'id_responsables_fk';
+	    ;
+    }
+
     public static function is_checkbox($field)
     {
 	return 

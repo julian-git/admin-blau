@@ -59,6 +59,11 @@ class ResolvingEloquent extends Eloquent
 	return false;
     }
 
+    public static function is_single_entry_list($field)
+    {
+	return false;
+    }
+
     public static function is_checkbox($field)
     {
 	return false;

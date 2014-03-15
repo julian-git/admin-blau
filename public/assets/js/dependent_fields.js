@@ -11,13 +11,13 @@ function update_dependent_field_input(dependentField) {
 	}
 	val_list += $(this).attr(dependentField + '-id');
     });
-    alert (dependentField + " updated to " + val_list);
+//    alert (dependentField + " updated to " + val_list);
     $('#' + dependentField).val(val_list);
 }
 
 function remove_button_clicked(dependentField, dependent_id)
 {
-    alert("will remove " + dependentField + '-id-' + dependent_id);
+//    alert("will remove " + dependentField + '-id-' + dependent_id);
     $('#' + dependentField + '-id-' + dependent_id).remove();
     update_dependent_field_input(dependentField);
 }
@@ -65,15 +65,35 @@ function append_dependent_field(dependent_id, dependentField, searchField)
     $('#' + dependentField + '-field-list').append(dependent_list_entry(dependentField, dependent_id, dependent_text));   
 }
 
+Array.prototype.in_array = function(search_term) {
+    var i = this.length - 1;
+    if (i >= 0) {
+	do {
+	    if (this[i] === search_term) {
+		return true;
+	    }
+	} while (i--);
+    }
+    return false;
+}
+
 function can_add_id(dependent_id, dependentField)
 {
     if (dependent_id == -1) {
 	return false;
     }
-    current_vals = $('#' + dependentField).val();
-//	alert('Aquesta entrada ja hi existeix a la llista');
-
-    return true; // FIXME how to split a string in javascript?
+    var field = $('#' + dependentField);
+    var field_val = field.val();
+    if (field.hasClass('cvg-single-entry') &&
+	field_val.length > 0) {
+	alert('Només pot haber-hi una entrada en aquesta llista');
+	return false;
+    }
+    if (field_val.split(',').in_array(dependent_id)) {
+	alert('Aquesta entrada ja hi existeix a la llista');
+	return false;
+    }
+    return true;
 }
 
 $('.afegir-button').click(function() {

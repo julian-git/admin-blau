@@ -24,7 +24,7 @@
 			    ? $$csn->$field
 			    : Input::old($field));
         ?>
-	   {{ Form::hidden($field, $the_df_input) }}
+        {{ Form::hidden($field, $the_df_input, array('class' =>  ($CSN::is_single_entry_list($field) ? 'cvg-single-entry' : ''))) }}
         <div id="{{ $field }}-field-list">
            @foreach(explode(',', $the_df_input) as $dependent_id)
 	       @include('generic/snippets/assemble_dependent_input', array('DCL' => $CSN::$foreign_class[$field]))
