@@ -1,23 +1,23 @@
 function dependent_list_entry(dependentField, dependent_id, text) {
-    var delete_button = '<button id="remove-' + dependentField + '-id-' + dependent_id + '" ' + dependentField + '-id="' + dependent_id + '" dependentField="' + dependentField + '" class="btn btn-default btn-xs cvg-remove-button"><span class="glyphicon glyphicon-remove"></span></button>';
-    return '<div id="' + dependentField + '-id-' + dependent_id + '" ' + dependentField + '-id="' + dependent_id + '" class="dependent_list_item"><span>' + text + '</span>' + delete_button + '</div>';
+    var delete_button = '<button id="remove-' + dependentField + '-id-' + dependent_id + '" ' + dependentField + '-id="' + dependent_id + '" dependentField="' + dependentField + '" class="btn btn-danger btn-xs cvg-remove-button"><span class="glyphicon glyphicon-remove"></span></button>';
+    return '<div id="' + dependentField + '-id-' + dependent_id + '" ' + dependentField + '-id="' + dependent_id + '" class="' + dependentField + '_item"><span>' + text + '</span>' + delete_button + '</div>';
 }
 
 function update_dependent_field_input(dependentField) {
     var val_list = '';
-    $('.dependent_list_item').each(function() {
+    $('.' + dependentField + '_item').each(function() {
 	if (val_list.length > 0) {
 	    val_list += ',';
 	}
 	val_list += $(this).attr(dependentField + '-id');
     });
-    alert ("updated to " + val_list);
-    $('#' + dependentField + '_input').val(val_list);
+//    alert (dependentField + " updated to " + val_list);
+    $('#' + dependentField).val(val_list);
 }
 
 function remove_button_clicked(dependentField, dependent_id)
 {
-    alert("will remove " + dependentField + '-id-' + dependent_id);
+//    alert("will remove " + dependentField + '-id-' + dependent_id);
     $('#' + dependentField + '-id-' + dependent_id).remove();
     update_dependent_field_input(dependentField);
 }
@@ -58,15 +58,53 @@ $('.dependent-search').keyup(function(e) {
     }
 });
 
+function append_dependent_field(dependent_id, dependentField, searchField)
+{
+    var dependent_text = $('#' + searchField).val();
+    $('#' + searchField).val('');
+    $('#' + dependentField + '-field-list').append(dependent_list_entry(dependentField, dependent_id, dependent_text));   
+}
+
+Array.prototype.in_array = function(search_term) {
+    var i = this.length - 1;
+    if (i >= 0) {
+	do {
+	    if (this[i] === search_term) {
+		return true;
+	    }
+	} while (i--);
+    }
+    return false;
+}
+
+function can_add_id(dependent_id, dependentField)
+{
+    if (dependent_id == -1) {
+	return false;
+    }
+    var field = $('#' + dependentField);
+    var field_val = field.val();
+    if (field.hasClass('cvg-single-entry') &&
+	field_val.length > 0) {
+	alert('Només pot haber-hi una entrada en aquesta llista');
+	return false;
+    }
+    if (field_val.split(',').in_array(dependent_id)) {
+	alert('Aquesta entrada ja hi existeix a la llista');
+	return false;
+    }
+    return true;
+}
+
 $('.afegir-button').click(function() {
-    var dependent_search = $(this).attr('searchField');
-    var dependentField = $('#' + dependent_search).attr('dependentField');
-    var dependent_id = $('#' + dependent_search).attr(dependentField + '-id');
-    if (dependent_id != -1) {
-	var dependent_text = $('#' + dependent_search).val();
-	$('#' + dependent_search).val('');
-	$(this).addClass('disabled');
-	$('#' + dependentField + '-field-list').append(dependent_list_entry(dependentField, dependent_id, dependent_text));   
+    var searchField = $(this).attr('searchField');
+    var dependentField = $('#' + searchField).attr('dependentField');
+    var dependent_id = $('#' + searchField).attr(dependentField + '-id');
+    $(this).addClass('disabled');
+    if (!can_add_id(dependent_id, dependentField)) {
+	$('#' + searchField).val('');	
+    } else {
+	append_dependent_field(dependent_id, dependentField, searchField);
 	$('#remove-' + dependentField + '-id-' + dependent_id).click(function() {
 	    var dependentField = $(this).attr('dependentField');
 	    remove_button_clicked(dependentField, $(this).attr(dependentField + '-id'));

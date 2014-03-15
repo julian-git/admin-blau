@@ -7,31 +7,19 @@
   </div>
   <div class="col-md-9">
     <div class="form-group">
-      @if (isset($dropbox_options[$field]))
-          @if ($action == 'Mostrar')
-            {{ $$csn->resolve($field) }}
-          @elseif (isset($dropbox_default[$field]))
-            {{ Form::select($field, $dropbox_options[$field], $dropbox_default[$field]) }} 
-          @else
-            {{ Form::select($field, $dropbox_options[$field]) }} 
-          @endif
-          {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
 
+      @if ($CSN::is_foreign_selection($field))
 
-      @elseif (isset($responsible_fields) &&
-               !strcmp($responsible_fields['field'], $field))
+        @include('generic/snippets/foreign_selection')
 
-        <?php 
-          $RCL = $CSN::$responsible_class; 
+      @elseif($CSN::is_foreign_chooser($field))
+
+        <?php
+          $include_args = array('button_action_text' => 'Afegir', 
+				'dependent_button' => "afegir-$field-button"
+				); // We put it here because @include breaks with newlines
         ?>
-	  {{ $RCL::identifying_fields_of($responsible_fields['id']) }}
-          <input type="hidden" name="{{ $field }}" value="{{ $responsible_fields['id'] }}" />
-        
-      @elseif (isset($dependent_fields) &&
-               !strcmp($dependent_fields, $field))
-
-	      <?php $dfi = $CSN::$dependent_field . '_input' ?>
-	      @include('generic/dependent_class_form', array('DCL' => $CSN::$dependent_class, 'DF' => $CSN::$dependent_field, 'DFI' => $dfi))
+        @include('generic/snippets/foreign_chooser', $include_args)
 
       @elseif ($CSN::is_checkbox($field))
 

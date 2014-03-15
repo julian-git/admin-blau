@@ -19,12 +19,14 @@
 
 @if(strlen($dependent_id) > 0)
 {{-- this test is to catch empty dependent field list upon validation of input --}}
-  <div id="{{ $DF }}-id-{{ $dependent_id }}" dependent-id="{{ $dependent_id }}" class="dependent_list_item">
+<div id="{{ $field }}-id-{{ $dependent_id }}" {{ $field }}-id="{{ $dependent_id }}" class="{{ $field }}_item">
     <span>
    {{ assemble_identifying_fields($DCL, $DCL::find($dependent_id)) }}
     </span>
-    <button df="{{ $DF }}" dependent-id="{{ $dependent_id }}" class="btn btn-default btn-xs cvg-remove-button">
-      <span class="glyphicon glyphicon-remove"></span>
-    </button>
+    @if ($action == 'Editar')
+      <button dependentField="{{ $field }}" {{ $field }}-id="{{ $dependent_id }}" class="btn btn-danger btn-xs cvg-remove-button">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    @endif
   </div>
 @endif

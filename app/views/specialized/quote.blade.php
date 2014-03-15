@@ -7,7 +7,7 @@
           <div class="col-md-9">
             <?php 
 	      $DataCSN = 'Rebut';
-                $instances = $quote->rebuts()->get();
+              $instances = $quote->rebuts()->get();
               $allow_edit = false;
             ?>
             @include('generic/snippets/datatable')

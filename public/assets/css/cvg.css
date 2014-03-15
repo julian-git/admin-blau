@@ -2,6 +2,10 @@ td.right {
   text-align: right;
 }
 
+.form-group {
+    margin-bottom: 10px;
+}
+
 .cvg-esdeveniment-titol {
     font-weight: bold;
 }

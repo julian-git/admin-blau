@@ -74,13 +74,14 @@
 
 @include ('generic/snippets/crud_buttons')
 
-@if (!strcmp($action, 'Mostrar') && isset($CSN::$extra_inspect))
-  @include('extras/' . $CSN::$extra_inspect)
+@if (!strcmp($action, 'Mostrar') && isset($CSN::$specialized_inspect))
+  @include('specialized/' . $CSN::$specialized_inspect)
 @endif
 
 {{--  @include('generic/snippets/query_log') --}}
 
 {{ Form::close() }}
 
+<script src="{{ asset('assets/js/dependent_fields.js') }}"></script>
 
 @stop
