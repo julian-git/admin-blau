@@ -21,6 +21,10 @@
         ?>
         @include('generic/snippets/foreign_chooser', $include_args)
 
+      @elseif($action == 'Editar' && isset($dropbox_options[$field]))
+
+        {{ Form::select($field, $dropbox_options[$field], $dropbox_default[$field]) }}
+
       @elseif ($CSN::is_checkbox($field))
 
         @if ($action=='Mostrar')
