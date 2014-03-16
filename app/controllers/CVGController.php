@@ -134,10 +134,12 @@ class CVGController extends BaseController
 			   ? new $CSN
 			   : $CSN::findOrFail(Input::get('id')));
 	$input = Input::all();
+	Log::info('input: ');
+	Log::info($input);
 	foreach ($input as $field => $value) 
         {
 	    Log::info("processing field $field");
-	    if (isset($CSN::$dependent_field) && !strcmp($field, $CSN::$dependent_field . '_input') ||
+	    if (in_array($field, array_keys($CSN::$foreign_class)) ||
 		!strcmp($field, '_token')) {
 		continue;
 	    }
@@ -155,7 +157,8 @@ class CVGController extends BaseController
 	Log::info("will save dependent classes");
 	foreach($CSN::$foreign_class as $f => $c)
         {
-	    if (!strcmp(substr($f, 0, strlen('input_')), 'input_'))
+	    if (strcmp(substr($f, 0, strlen('input_')), 'input_'))
+		// it does _not_ start with "input_"
 	    {
 		$this->save_dependent_fields_to_pivot_table($class_instance->id,
 							    $input[$f]);
