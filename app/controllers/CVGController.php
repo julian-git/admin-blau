@@ -142,10 +142,10 @@ class CVGController extends BaseController
 	    if (!strcmp($field, '_token')) {
 		continue;
 	    }
-	    elseif ((in_array($field, array_keys($CSN::$foreign_class)) &&
-		     ! $CSN::is_single_entry_list($field))
+	    elseif (in_array($field, array_keys($CSN::$foreign_class)) &&
+		    ! $CSN::is_single_entry_list($field))
 	    {
-		$this->save_dependent_fields_to_pivot_table($input->id, $field, $value);
+		$this->save_dependent_fields_to_pivot_table($input['id'], $field, $value);
 	    } 
             elseif (($field != 'id' || $action == 'edit') && $value != '') 
             {
@@ -172,6 +172,7 @@ class CVGController extends BaseController
     {
 	$CSN = $this->ClassSingularName;
 	$master_id_field = strtolower($CSN) . '_id';
+	$dependent_id_field = strtolower($CSN::$foreign_class[$dependent_field]) . '_id';
 
 	// first delete all dependent entries 
 	$this->delete_dependent_fields_from_pivot_table($master_id, $dependent_field);
@@ -185,9 +186,9 @@ class CVGController extends BaseController
 		// when we return from an unsuccessful validation
 		continue; 
 	    }
-	    $pivot = new $CSN::$foreign_class[$dependent_field];
+	    $pivot = new $CSN::$pivot_class[$dependent_field];
 	    $pivot->$master_id_field = $master_id;
-	    $pivot->$dependent_field = $dependent_id;
+	    $pivot->$dependent_id_field = $dependent_id;
 	    $pivot->timestamps = false;
 	    $pivot->save();
 	}
