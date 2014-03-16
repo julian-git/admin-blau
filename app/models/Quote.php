@@ -186,7 +186,7 @@ class Quote extends ResolvingEloquent
     public function getBeneficiarisListAttribute($value)
     {    
         $beneficiaris = array();
-        foreach($this->beneficiaris as $p)
+        foreach($this->beneficiari()->get() as $p)
         {
 	    $person = array();
             foreach(Persone::$identifying_short_fields as $f)
