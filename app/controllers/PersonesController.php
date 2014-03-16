@@ -51,5 +51,9 @@ class PersonesController extends CVGController
 		    );
     }
 
+    public static function search_id($search_string)
+    {
+	return Persone::where('id', '=', $search_string)->get();
+    }
 }
  ?>

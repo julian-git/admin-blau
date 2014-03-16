@@ -33,7 +33,7 @@
 	       $extra_data['update-display-after-edit'] 
 		   = $CSN::$update_display_after_edit[$field];
 	       $extra_data['master-class']
-		   = strtolower($CSN);
+		   = strtolower($CSN::$foreign_class[$field]);
 	   }
         ?>
         {{ Form::hidden($field, $the_df_input, $extra_data) }}

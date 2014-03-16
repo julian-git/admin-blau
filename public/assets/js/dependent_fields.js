@@ -15,27 +15,21 @@ function dependent_list_entry(dependentField, dependent_id, text) {
     return '<div id="' + dependentField + '-id-' + dependent_id + '" ' + dependentField + '-id="' + dependent_id + '" class="' + dependentField + '_item"><span>' + text + '</span>' + delete_button + '</div>';
 }
 
-function set_dependent_field(field, master_class, master_id) {
-    alert('set_dependent_field(' + field + ',' + master_class + ',' + master_id + ')');
-    if (!master_id) {
-	$("[field='" + field + "']").text('');
-	return;
+function set_dependent_fields(fields, masterObject) {
+    alert('set_dependent_fields(' + fields + ';' + masterObject + ')');
+    var field_array = fields.split(',');
+    for (var i=0; i < field_array.length; i++) {
+	var the_value = ((masterObject == undefined) 
+			 ? '' 
+			 : masterObject[field_array[i]]);
+	alert('field: ' + field_array[i] + '; val: ' + the_value);
+	$("[field='" + field_array[i] + "']").text(the_value);
     }
-    if (!! master_id.indexOf(',')) {
-	alert("Només puc tractar valors únics"); 
-	return;
-    }
-    $.getJSON('/' + master_class + 's/search/' + master_id, function() {
-    }).done(function(masterObject) {
-	$("[field='" + field + "']").text(masterObject.field);
-    }).fail(function(result) {
-        alert("Did not find the object!");
-    });
 }
 
 function update_dependent_field_input(dependentField) {
     var val_list = '';
-    $('#' + dependentField + '.' + dependentField + '_item').each(function() {
+    $('.' + dependentField + '_item').each(function() {
 	if (val_list.length > 0) {
 	    val_list += ',';
 	}
@@ -44,13 +38,19 @@ function update_dependent_field_input(dependentField) {
     alert (dependentField + " updated to " + val_list);
     $('#' + dependentField).val(val_list);
     var udae = $('#' + dependentField).attr('update-display-after-edit');
-    alert('udae: ' + udae);
     if ( !! udae ) {
-	var fields = udae.split(',');
-	alert('fields: ' + fields  + ', length: ' + fields.length);
-	for (var i=0; i < fields.length; i++) {
-	    alert('field: ' + fields[i]);
-	    set_dependent_field(fields[i], $('#' + dependentField).attr('master-class'), val_list);
+	if (val_list.indexOf(',') != -1) {
+	    alert("Només puc tractar valors únics"); 
+	    return;
+	} else if (val_list.length == 0) {
+	    set_dependent_fields(udae, undefined);
+	} else {
+	    $.getJSON('/' + $('#' + dependentField).attr('master-class') + 's/search_id/' + val_list, function() {
+	    }).done(function(masterObject) {
+		set_dependent_fields(udae, masterObject);
+	    }).fail(function(result) {
+		alert("Did not find the object!");
+	    });
 	}
     }
 }

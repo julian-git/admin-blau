@@ -86,4 +86,5 @@ Route::get("/esdeveniments/apuntats/{esdeveniment}", 'EsdevenimentsController@ap
 Route::get("/actuacions/apuntats/{actuacion}", 'ActuacionsController@apuntats');
 Route::get("/persones/actives/{persone}", 'PersonesController@actives');
 Route::get("/persones/search/{first}", 'PersonesController@search');
+Route::get("/persones/search_id/{first}", 'PersonesController@search_id');
 Route::get("/quote/generar_rebut/{quote}", 'QuotesController@generar_rebut');
