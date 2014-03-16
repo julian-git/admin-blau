@@ -18,22 +18,7 @@
 
 function resolve_foreign_key($class, $value) 
 {
-    $foreign_object = $class::findOrFail($value);
-    $res = '';
-    foreach($class::$identifying_fields as $f)
-    {
-	Log::info("rfk: f=$f");
-	if (!strcmp($f, 'mot'))
-	{
-	    $res .= '<i>';
-	}
-	$res .= $foreign_object->$f . ' ';
-	if (!strcmp($f, 'mot'))
-	{
-	    $res .= '</i>';
-	}
-    }
-    return $res;
+    return assemble_identifying_fields($class, $class::findOrFail($value));
 }
 
 function local_date($date)

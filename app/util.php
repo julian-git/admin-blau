@@ -29,13 +29,14 @@ function assemble_fields_impl($class_name, $instance, $field_list)
     {
 	if (!strcmp($f, 'mot'))
 	{
-	    $str .= '<i>';
+	    $str .= '(';
 	}
-	$str .= $instance->$f . ' ';
+	$str .= $instance->$f;
 	if (!strcmp($f, 'mot'))
 	{
-	    $str .= '</i>';
+	    $str .= ')';
 	}
+	$str .= ' ';
     }
     return $str;
 }
