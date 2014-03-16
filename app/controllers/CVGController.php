@@ -139,50 +139,42 @@ class CVGController extends BaseController
 	foreach ($input as $field => $value) 
         {
 	    Log::info("processing field $field");
-	    if (in_array($field, array_keys($CSN::$foreign_class)) ||
-		!strcmp($field, '_token')) {
+	    if (!strcmp($field, '_token')) {
 		continue;
 	    }
-	    if ($field != 'id' || $action == 'edit') { 
+	    elseif ((in_array($field, array_keys($CSN::$foreign_class)) &&
+		     ! $CSN::is_single_entry_list($field))
+	    {
+		$this->save_dependent_fields_to_pivot_table($input->id, $field, $value);
+	    } 
+            elseif (($field != 'id' || $action == 'edit') && $value != '') 
+            {
 		$class_instance->$field = $value;
 	    } 
-	    if ($class_instance->$field == '' &&
-		isset($CSN::$default_values[$field])) {
+            elseif ($value == '' && isset($CSN::$default_values[$field])) 
+            {
 		$class_instance->$field = $CSN::$default_values[$field];
 	    }
 	}
 	Log::info("will save $class_instance");
 	$class_instance->save();
-
-	Log::info("will save dependent classes");
-	foreach($CSN::$foreign_class as $f => $c)
-        {
-	    if (strcmp(substr($f, 0, strlen('input_')), 'input_'))
-		// it does _not_ start with "input_"
-	    {
-		$this->save_dependent_fields_to_pivot_table($class_instance->id,
-							    $input[$f]);
-	    }
-	}
-
     }
 
-    protected function delete_dependent_fields_from_pivot_table($master_id)
+    protected function delete_dependent_fields_from_pivot_table($master_id, $dependent_field)
     {
 	$CSN = $this->ClassSingularName;
-	$pivot_class = $CSN::$dependent_pivot_class;
+	$pivot_class = $CSN::$pivot_class[$dependent_field];
 	$master_id_field = strtolower($CSN) . '_id';
 	$pivot_class::where($master_id_field, '=', $master_id)->delete();
     }
 
-    protected function save_dependent_fields_to_pivot_table($master_id, $dependent_ids)
+    protected function save_dependent_fields_to_pivot_table($master_id, $dependent_field, $dependent_ids)
     {
 	$CSN = $this->ClassSingularName;
 	$master_id_field = strtolower($CSN) . '_id';
-	$dependent_id_field = strtolower($CSN::$dependent_class) . '_id';
 
 	// first delete all dependent entries 
-	$this->delete_dependent_fields_from_pivot_table($master_id);
+	$this->delete_dependent_fields_from_pivot_table($master_id, $dependent_field);
 
 	// then insert the active ones
 	foreach(explode(',', $dependent_ids) as $dependent_id)
@@ -193,9 +185,9 @@ class CVGController extends BaseController
 		// when we return from an unsuccessful validation
 		continue; 
 	    }
-	    $pivot = new $CSN::$dependent_pivot_class;
+	    $pivot = new $CSN::$foreign_class[$dependent_field];
 	    $pivot->$master_id_field = $master_id;
-	    $pivot->$dependent_id_field = $dependent_id;
+	    $pivot->$dependent_field = $dependent_id;
 	    $pivot->timestamps = false;
 	    $pivot->save();
 	}
