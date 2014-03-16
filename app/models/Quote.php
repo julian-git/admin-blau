@@ -125,6 +125,10 @@ class Quote extends ResolvingEloquent
 	    ;
     }
 
+    public static $update_display_after_edit = array(
+						     'id_responsables_fk' => 'bic,iban'
+						     );
+
     public static function is_checkbox($field)
     {
 	return 
@@ -136,6 +140,14 @@ class Quote extends ResolvingEloquent
     {
 	return 
 	    $field == 'comentari'
+	    ;
+    }
+
+    public static function is_editable($field)
+    {
+	return 
+	    $field != 'iban' &&
+	    $field != 'bic'
 	    ;
     }
 
@@ -202,13 +214,13 @@ class Quote extends ResolvingEloquent
 
     public function getImportAttribute($value) 
     {
-    	return number_format($value, 2, ',', '.');
+    	return number_format($value, 2); //, ',', '.');
     }
 
     public function getImportAnualAttribute($value) 
     {
         $tipus = TipusQuote::findOrFail($this->tipus_quotes_fk);
-    	return number_format($tipus->periodicitat_mesos * $this->import, 2, ',', '.');
+    	return number_format($tipus->periodicitat_mesos * $this->import, 2); //, ',', '.');
     }
 
     public function getIbanAttribute($value)

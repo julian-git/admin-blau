@@ -26,6 +26,11 @@ Validator::extend('num_whitespace', function($attribute, $value)
     return preg_match('/^([0-9\s])+$/i', $value);
 });
 
+Validator::extend('currency', function($attribute, $value)
+{
+    return is_numeric(str_replace(',', '.', $value));
+});
+
 Validator::extend('integer_size', function($attribute, $value, $param)
 {
     return 

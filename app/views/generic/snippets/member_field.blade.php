@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="col-md-9">
-    <div class="form-group">
+    <div class="form-group" field="{{ $field }}">
 
       @if ($CSN::is_foreign_selection($field))
 
@@ -50,7 +50,7 @@
 
       @else 
 
-        @if ($action=='Mostrar')
+        @if ($action=='Mostrar' || ! $CSN::is_editable($field))
           {{ $$csn->resolve($field) }}
         @elseif ($action=='Editar')
           {{ Form::text($field, $$csn->$field, array('size' => $$csn->display_size_of($field))) }}

@@ -29,6 +29,7 @@ return array(
 		"array"   => "The :attribute must have between :min and :max items.",
 	),
 	"confirmed"        => "The :attribute confirmation does not match.",
+	'currency'         => "El camp :attribute pot contenir només xifres i comas",
 	"date"             => "The :attribute is not a valid date.",
 	"date_format"      => "The :attribute does not match the format :format.",
 	"different"        => "The :attribute and :other must be different.",

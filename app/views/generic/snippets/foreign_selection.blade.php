@@ -23,8 +23,20 @@
 			     $action == 'Mostrar')
 			    ? $$csn->$field
 			    : Input::old($field));
+           $extra_data = array();
+           if ($CSN::is_single_entry_list($field)) 
+	   {
+	       $extra_data['class'] = 'cvg-single-entry';
+	   }
+           if (isset($CSN::$update_display_after_edit[$field]))
+	   {
+	       $extra_data['update-display-after-edit'] 
+		   = $CSN::$update_display_after_edit[$field];
+	       $extra_data['master-class']
+		   = strtolower($CSN);
+	   }
         ?>
-        {{ Form::hidden($field, $the_df_input, array('class' =>  ($CSN::is_single_entry_list($field) ? 'cvg-single-entry' : ''))) }}
+        {{ Form::hidden($field, $the_df_input, $extra_data) }}
         <div id="{{ $field }}-field-list">
            @foreach(explode(',', $the_df_input) as $dependent_id)
 	       @include('generic/snippets/assemble_dependent_input', array('DCL' => $CSN::$foreign_class[$field]))
