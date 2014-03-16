@@ -16,13 +16,11 @@ function dependent_list_entry(dependentField, dependent_id, text) {
 }
 
 function set_dependent_fields(fields, masterObject) {
-    alert('set_dependent_fields(' + fields + ';' + masterObject + ')');
     var field_array = fields.split(',');
     for (var i=0; i < field_array.length; i++) {
 	var the_value = ((masterObject == undefined) 
 			 ? '' 
-			 : masterObject[field_array[i]]);
-	alert('field: ' + field_array[i] + '; val: ' + the_value);
+			 : masterObject[0][field_array[i]]);
 	$("[field='" + field_array[i] + "']").text(the_value);
     }
 }
@@ -35,7 +33,7 @@ function update_dependent_field_input(dependentField) {
 	}
 	val_list += $(this).attr(dependentField + '-id');
     });
-    alert (dependentField + " updated to " + val_list);
+//    alert (dependentField + " updated to " + val_list);
     $('#' + dependentField).val(val_list);
     var udae = $('#' + dependentField).attr('update-display-after-edit');
     if ( !! udae ) {
