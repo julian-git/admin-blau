@@ -19,10 +19,12 @@
 
 <div class="form-group">
         <?php 
-           $the_df_input = (($action == 'Editar' ||
-			     $action == 'Mostrar')
+           $the_df_input = ($action == 'Editar' ||
+			     $action == 'Mostrar' ||
+			     ( $action == 'Crear' && $field == 'id_responsables_fk' )
+			    )
 			    ? $$csn->$field
-			    : Input::old($field));
+			    : Input::old($field);
            $extra_data = array();
            if ($CSN::is_single_entry_list($field)) 
 	   {
@@ -38,10 +40,13 @@
         ?>
         {{ Form::hidden($field, $the_df_input, $extra_data) }}
         <div id="{{ $field }}-field-list">
+	    <?php $DCL = $CSN::$foreign_class[$field] ?>
            @foreach(explode(',', $the_df_input) as $dependent_id)
-	       @include('generic/snippets/assemble_dependent_input', array('DCL' => $CSN::$foreign_class[$field]))
+	       @include('generic/snippets/assemble_dependent_input')
            @endforeach  
-      </div>
+           @if ($action == 'Mostrar' && $CSN == 'Persone')
+	    <a class="btn btn-success btn-xs" href="/{{ strtolower($DCL) }}/create/{{ $$csn->id }}">{{ $DCL::$class_name_gender == 'm' ? 'Nou' : 'Nova' }} {{ strtolower($DCL::$singular_class_name) }}</a>
+    @endif      </div>
         {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
 </div> <!-- form-group -->
 

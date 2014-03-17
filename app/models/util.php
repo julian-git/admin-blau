@@ -60,6 +60,11 @@ class ResolvingEloquent extends Eloquent
 	return false;
     }
 
+    public static function is_editable_foreign_field($field)
+    {
+	return false;
+    }
+
     public static $update_display_after_edit = array();
 
     public static function is_checkbox($field)

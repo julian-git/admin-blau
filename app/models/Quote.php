@@ -114,14 +114,17 @@ class Quote extends ResolvingEloquent
 					   'beneficiaris_list' => 'Beneficiaris'
 					   );
     						 
-    // fields that store an index to (an array of) foreign key values
     // id_beneficiaris_list is actually a fake field, in that it doesn't correspond to
-    // a field in the database, but rather to all the matching entries in the pivot table
+    // a field in the database, but rather to all the matching entries in the pivot table.
+    // It works because of the function getBeneficiarisListAttribute() below.
+    // Similarly for import_anual.
+
+    // fields that store an index to (an array of) foreign key values
     public static function is_foreign_selection($field)
     {
 	return 
 	    $field == 'id_responsables_fk' ||
-	    $field == 'id_beneficiaris_list' 
+	    $field == 'id_beneficiaris_list' // this is also a fake field
 	    ;
     }
 
@@ -130,6 +133,14 @@ class Quote extends ResolvingEloquent
 	return 
 	    $field == 'input_id_responsables_fk' ||
 	    $field == 'input_id_beneficiaris_list' 
+	    ;
+    }
+
+    // The fields that may be edited in the create/edit/inspect view
+    public static function is_editable_foreign_field($field)
+    {
+	return 
+	    $field == 'id_beneficiaris_list'
 	    ;
     }
 
@@ -181,7 +192,8 @@ class Quote extends ResolvingEloquent
 
     public static $identifying_short_fields = array(
 						    'tipus_quotes_fk',
-						    'import'
+						    'import',
+						    'beneficiaris_list'
 						    );
 
     public function beneficiari()

@@ -79,11 +79,16 @@ class CVGController extends BaseController
 
 	if (isset($class_instance))
 	{
-	    $extended_layout_data[$csn] = $class_instance;
 	    $extended_layout_data['dropbox_default'] = dropbox_default_of($CSN, $class_instance);
 	} else {
+	    $class_instance = new $CSN;
 	    $extended_layout_data['dropbox_default'] = $CSN::$default_values;
+	    if (isset($responsible_id))
+	    {
+		$class_instance->id_responsables_fk = $responsible_id;
+	    }
 	}
+	$extended_layout_data[$csn] = $class_instance;
 
 	$this->layout->content = View::make('generic.create_edit_inspect', $extended_layout_data);
     }
@@ -137,8 +142,10 @@ class CVGController extends BaseController
 
 	Log::info("will save dependent fields");
 	foreach ($input as $field => $value) 
-        {  // now complete the action left over from before
+	{   // now complete the action left over from before, 
+	    // but check whether the field is editable
 	    if (in_array($field, array_keys($CSN::$foreign_class)) &&
+		$CSN::is_editable_foreign_field($field) &&
 		! $CSN::is_single_entry_list($field))
 	    {
 		$this->save_dependent_fields_to_pivot_table($class_instance->id, $field, $value);
@@ -181,7 +188,7 @@ class CVGController extends BaseController
 	Log::info("saved dependent fields");
     }
 
-    public function handleCrear()
+    public function handleCrear($arg=null)
     {
 	return $this->handle_create_and_edit_impl('create');
     }
@@ -197,7 +204,7 @@ class CVGController extends BaseController
 	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
 	if ($validator->fails()) {
 	    $action_tail = (!strcmp($action, 'create') && !strcmp($CSN, 'Quote'))
-		? Input::get($CSN::$responsible_field)
+		? Input::get('id_responsables_fk')
 		: Input::get('id');
 	    // If you ever need to see the failed validation tests, uncomment the following:
 	    // $this->log_failed_validator_entries($action_tail, $validator);

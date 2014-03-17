@@ -86,7 +86,7 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 
     public static $validation_rules = array('cognom1' => 'required|alpha',
 					    'cognom2' => 'alpha',
-					    'nom' => 'required|alpha',
+					    'nom' => 'required|alpha_whitespace',
 					    'mot' => 'required|alpha',
 					    'naixement' => 'date',
 					    'dni' => 'alpha_num|max:12',
@@ -186,10 +186,6 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
     public static $foreign_class = array(
 					 'id_quotes_list' => 'Quote'
 					 );
-
-    public static $pivot_class = array(
-				       'id_quotes_list' => 'Responsable'
-				       );
 
     // what will be displayed in the index listing
     public static $fields_in_index = array('id' => 'Id',

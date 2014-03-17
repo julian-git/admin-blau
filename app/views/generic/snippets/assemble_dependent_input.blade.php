@@ -23,10 +23,12 @@
     <span>
    {{ assemble_identifying_short_fields($DCL, $DCL::find($dependent_id)) }}
     </span>
-    @if ($action == 'Editar')
+    @if ($action == 'Editar' && $CSN::is_editable_foreign_field($field))
       <button dependentField="{{ $field }}" {{ $field }}-id="{{ $dependent_id }}" class="btn btn-danger btn-xs cvg-remove-button">
         <span class="glyphicon glyphicon-remove"></span>
       </button>
+    @elseif ($action == 'Mostrar' && $CSN == 'Persone')
+      <a class="btn btn-warning btn-xs" href="/{{ strtolower($DCL) }}/edit/{{ $dependent_id }}">Editar</a>
     @endif
   </div>
 @endif
