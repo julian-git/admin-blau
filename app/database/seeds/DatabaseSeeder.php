@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder {
 		foreach(array('castell_persone',
 			      'actuacion_persone',
 			      'esdeveniment_persone',
-			      'familie_persone',
+			      'familie_persones',
 			      'rebuts',
 			      'beneficiaris',
 			      'quotes',
@@ -164,20 +164,20 @@ class FamiliesSeeder extends Seeder {
 
 class PersonesFamiliesSeeder extends Seeder {
     public function run() {
-    $table_name='familie_persone';
+    $table_name='familie_persones';
 	DB::table($table_name)->delete();
 
 	DB::table($table_name)->insert(array(
-                  'persone_id' => '1',
-			      'familie_id' => '1',
-                  'es_responsable' => 1
-			      ));
-
+					     'persone_id' => '1',
+					     'familie_id' => '1',
+					     'es_responsable' => 1
+					     ));
+	
 	DB::table($table_name)->insert(array(
-			      'persone_id' => '2',
-			      'familie_id' => '1',
-                  'es_responsable' => 0
-			      ));
+					     'persone_id' => '2',
+					     'familie_id' => '1',
+					     'es_responsable' => 0
+					     ));
     }
 }
 

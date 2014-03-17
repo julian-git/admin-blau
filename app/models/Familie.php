@@ -33,7 +33,9 @@ class Familie extends ResolvingEloquent
     public static $member_fields = array('id' => 'Id',
 					 'nom' => 'Nom',
 					 'id_membres_no_responsables' => 'Membres',
-					 'id_membres_responsables' => 'Responsable'
+					 'input_id_membres_no_responsables' => 'Triar membres',
+					 'id_membres_responsables' => 'Responsable',
+					 'input_id_membres_responsables' => 'Triar responsables',
 					 );
 
     public static $fields_in_index = array('id' => 'Id',
@@ -46,18 +48,33 @@ class Familie extends ResolvingEloquent
 						     'nom' => 'Nom'
 						     ),
 				  'Responsables' => array(
-							  'id_membres_responsables' => 'Responsables'
+							  'id_membres_responsables' => 'Responsables',
+							  'input_id_membres_responsables' => 'Triar responsables'
 							  ),
 				  'Membres' => array(
-						     'id_membres_no_responsables' => 'Membres'
+						     'id_membres_no_responsables' => 'Membres',
+						     'input_id_membres_no_responsables' => 'Triar membres',
 						     )
 				  );
 
     // this is for searchboxes containing foreign keys
     public static $foreign_class = array(
 					 'id_membres_responsables' => 'Persone',
-					 'id_membres_no_responsables' => 'Persone'
+					 'input_id_membres_responsables' => 'Persone',
+					 'id_membres_no_responsables' => 'Persone',
+					 'input_id_membres_no_responsables' => 'Persone'
 					 );
+
+    public static $pivot_class = array(
+				       'id_membres_responsables' => 'FamiliePersone',
+				       'id_membres_no_responsables' => 'FamiliePersone'
+				       );
+
+    public static $search_message = array(
+					  'input_id_membres_responsables' => 'Busca responsable per nom, cognom o mot...',
+					  'input_id_membres_no_responsables' =>  'Busca membre per nom, cognom o mot...'
+					  );
+
 
     public static function is_foreign_selection($field)
     {
@@ -67,7 +84,22 @@ class Familie extends ResolvingEloquent
 	    ;
     }
 
+    public static function is_foreign_chooser($field)
+    {
+	return 
+	    $field == 'input_id_membres_responsables' ||
+	    $field == 'input_id_membres_no_responsables' 
+	    ;
+    }
 
+    // The fields that may be edited in the create/edit/inspect view
+    public static function is_editable_foreign_field($field)
+    {
+	return 
+	    $field == 'id_membres_responsables' ||
+	    $field == 'id_membres_no_responsables' 
+	    ;
+    }
 
     public static $validation_rules = array('nom' => 'required');
 
@@ -77,17 +109,18 @@ class Familie extends ResolvingEloquent
 
     public function membres_no_responsables()
     {
-        return $this->belongsToMany('Persone')->withPivot('es_responsable')->where('es_responsable', '=', 0)->get();
+        return $this->belongsToMany('Persone', 'familie_persones')->withPivot('es_responsable')->where('es_responsable', '=', 0)->get();
     }
 
     public function membres_responsables()
     {
-        return $this->belongsToMany('Persone')->withPivot('es_responsable')->where('es_responsable', '=', 1)->get();
+        return $this->belongsToMany('Persone', 'familie_persones')->withPivot('es_responsable')->where('es_responsable', '=', 1)->get();
     }
     
     public function getIdMembresNoResponsablesAttribute($value)
     {    
         $membres = array();
+	Log::info($this->belongsToMany('Persone', 'familie_persones')->withPivot('es_responsable')->where('es_responsable', '=', 0)->toSql());
         foreach($this->membres_no_responsables() as $p)
         {
 	    $membres[] = $p->id;
