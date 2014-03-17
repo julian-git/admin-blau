@@ -294,11 +294,14 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
     {
 	$quote = '';
 	$quote_instance = Quote::where('id_responsables_fk', '=', $this->id)->first();
-	foreach (Quote::$identifying_short_fields as $field)
+	if (isset($quote_instance->id))
 	{
-	    $quote .= $quote_instance->resolve($field) . ' ';
-	}
-	return $quote;
+	    foreach (Quote::$identifying_short_fields as $field)
+		{
+		    $quote .= $quote_instance->resolve($field) . ' ';
+		}
+	    return $quote;
+	} else return 'Sense quota';
     }
 
 }
