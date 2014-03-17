@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder {
 			      'familie_persone',
 			      'rebuts',
 			      'beneficiaris',
-			      'responsables',
 			      'quotes',
 			      'persones',
 			      'castells',
@@ -40,7 +39,6 @@ class DatabaseSeeder extends Seeder {
                      'PersonesFamiliesSeeder',
                      'QuotesSeeder',
                      'BeneficiarisSeeder',
-		     'ResponsablesSeeder',
 		     'RebutsSeeder',
 
                      //Esdeveniments
@@ -228,27 +226,6 @@ class BeneficiarisSeeder extends Seeder {
 				 ),
 			   array(
 				 'quote_id' => 1,
-				 'persone_id' => 2
-				 )
-			   ));
-    }
-}
-
-class ResponsablesSeeder extends Seeder {
-    public function run() {
-	DB::table('responsables')->delete();
-	
-	DB::table('responsables')
-	    ->insert(array(array(
-				 'quote_id' => 1,
-				 'persone_id' => 2
-				 ),
-			   array(
-				 'quote_id' => 2,
-				 'persone_id' => 1
-				 ),
-			   array(
-				 'quote_id' => 3,
 				 'persone_id' => 2
 				 )
 			   ));

@@ -311,7 +311,7 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 
     public function quotes()
     {
-        return $this->belongsToMany('Quote', 'responsables');
+        return $this->hasMany('Quote', 'id_responsables_fk');
     }
     
     public function getIdQuotesListAttribute($value)
@@ -325,5 +325,8 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
     }
 
 }
+
+// work around the fact that PHP doesn't allow constexpr computations on static variables
+Persone::$default_values['data_alta'] = date('Y-m-d');
 
 ?>
