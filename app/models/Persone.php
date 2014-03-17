@@ -24,7 +24,7 @@ require_once('util.php');
 
 class Persone extends ResolvingEloquent implements UserInterface, RemindableInterface 
 {
-    /*
+ /*
     public function __construct() 
     {
 	DB::connection()->enableQueryLog();
@@ -72,6 +72,30 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					 'forca' => 'Força'
 					 );
 
+    public static $default_values = array(
+					  'actiu' => 1,
+					  'poblacio' => 'Barcelona',
+					  'provincia' => 'Barcelona',
+					  'data_alta' => '',
+					  'rebre_sms' => 1,
+					  'rebre_mail' => 1,
+					  'categories_fk' => 1,
+					  'sexe' => 'D',
+					  'rols_fk' => 1
+					  );
+
+    public static $validation_rules = array('cognom1' => 'required|alpha',
+					    'cognom2' => 'alpha',
+					    'nom' => 'required|alpha',
+					    'mot' => 'required|alpha',
+					    'naixement' => 'date',
+					    'dni' => 'alpha_num|max:12',
+					    'email' => 'email',
+					    'cp' => 'alpha_num',
+					    'telefon' => 'num_whitespace',
+					    'mobil' => 'num_whitespace',
+					    'sexe' => 'in:H,D');
+
     public static $display_size_of_field = array('id' => 4,
 						 'numero_soci' => 5, 
 						 'cognom1' => 30,
@@ -98,6 +122,7 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 						 'iban' => 34
 						 );
 	
+    // this controls the appearance of the create/edit/inspect page
     public static $panels = array('Afiliació' => array(
 						       'numero_soci' => 'N&uacute;mero de soci',
 						       'data_alta' => "Data d'alta",
@@ -151,11 +176,13 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 				  );
 
 
+    // this is for dropboxes containing foreign keys
     protected $resolving_class = array(
 				       'categories_fk' => 'Categorie',
 				       'rols_fk' => 'Rol'
 				       );
 
+    // what will be displayed in the index listing
     public static $fields_in_index = array('id' => 'Id',
 					   'numero_soci' => 'N&uacute;mero de soci',
 					   'nom_complert' => 'Nom',
@@ -164,19 +191,6 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					   'mobil' => 'M&ograve;bil'
 					   );					 
 
-    public static $validation_rules = array('cognom1' => 'required|alpha',
-					    'cognom2' => 'alpha',
-					    'nom' => 'required|alpha',
-					    'mot' => 'required|alpha',
-					    'naixement' => 'date',
-					    'dni' => 'alpha_num|max:12',
-					    'email' => 'email',
-					    'cp' => 'alpha_num',
-					    'telefon' => 'num_whitespace',
-					    'mobil' => 'num_whitespace',
-					    'sexe' => 'in:H,D');
-
-    public static $default_values = array();
 
     public static function is_checkbox($field)
     {
@@ -287,10 +301,6 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 	return $quote;
     }
 
-    public static function identifying_fields_of($id)
-    {
-	return assemble_identifying_fields('Persone', Persone::findOrFail($id));
-    }
 }
 
 ?>

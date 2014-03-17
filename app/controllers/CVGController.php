@@ -196,7 +196,7 @@ class CVGController extends BaseController
 	$CSN = $this->ClassSingularName;
 	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
 	if ($validator->fails()) {
-	    $action_tail = (!strcmp($action, 'create'))
+	    $action_tail = (!strcmp($action, 'create') && !strcmp($CSN, 'Quote'))
 		? Input::get($CSN::$responsible_field)
 		: Input::get('id');
 	    // If you ever need to see the failed validation tests, uncomment the following:
