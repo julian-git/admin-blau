@@ -57,8 +57,12 @@
           {{ $$csn->resolve($field) }}
         @elseif ($action=='Editar')
           {{ Form::text($field, $$csn->$field, array('size' => display_size_of($CSN, $field))) }}
-        @else
+        @elseif (sizeof(Input::old($field)))
           {{ Form::text($field, Input::old($field), array('size' => display_size_of($CSN, $field))) }}
+        @elseif (isset($CSN::$default_values[$field]))
+          {{ Form::text($field, $CSN::$default_values[$field], array('size' => display_size_of($CSN, $field))) }}
+        @else
+          {{ Form::text($field, null, array('size' => display_size_of($CSN, $field))) }}
         @endif
 
         {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}

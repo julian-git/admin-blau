@@ -19,6 +19,10 @@
 
 <div class="panel-body">
 
+@if ($action != 'Crear')
+        <a href="{{ action($CSN . 'sController@delete', $$csn->id) }}" class="btn btn-danger pull-right">Esborrar</a>
+@endif
+
 @if ($action=='Mostrar')
 
      <a class="btn btn-warning pull-right" href="/{{ strtolower($CSN) }}/edit/{{ $$csn->id }}">Editar</a>
@@ -32,7 +36,6 @@
 @if($action == 'Editar')
 
        <a href="/{{ strtolower($CSN) }}/inspect/{{ $$csn->id }}" class="btn btn-primary pull-right">Cancel&middot;lar</a>
-        <a href="{{ action($CSN . 'sController@delete', $$csn->id) }}" class="btn btn-danger pull-right">Esborrar</a>
 
 @else
        <a href="/{{ strtolower($CSN) }}" class="btn btn-primary pull-right">Cancel&middot;lar</a>
