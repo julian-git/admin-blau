@@ -21,7 +21,7 @@
         ?>
         @include('generic/snippets/foreign_chooser', $include_args)
 
-      @elseif($action == 'Editar' && isset($dropbox_options[$field]))
+      @elseif($action != 'Mostrar' && isset($dropbox_options[$field]))
 
         {{ Form::select($field, $dropbox_options[$field], $dropbox_default[$field]) }}
 
@@ -31,8 +31,10 @@
           {{ ($$csn->$field) ? 'Sí' : 'No' }}
         @elseif ($action=='Editar')
           {{ Form::checkbox($field, $$csn->$field, $$csn->$field) }}
-        @else
+        @elseif (sizeof(Input::old($field)) > 0)
 	  {{ Form::checkbox($field, Input::old($field), Input::old($field)) }}
+        @else
+          {{ Form::checkbox($field, $CSN::$default_values[$field], $CSN::$default_values[$field]) }}
         @endif
 
         {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}

@@ -105,7 +105,8 @@ class Quote extends ResolvingEloquent
                          );
     						 
     public static $default_values = array(
-					  'activa' => '1'
+					  'activa' => '1',
+					  'tipus_quotes_fk' => '1'
 					  );
 
     public static function is_foreign_selection($field)

@@ -121,7 +121,7 @@ class CVGController extends BaseController
 	    elseif (in_array($field, array_keys($CSN::$foreign_class)) &&
 		    ! $CSN::is_single_entry_list($field))
 	    {
-		$this->save_dependent_fields_to_pivot_table($input['id'], $field, $value);
+		continue; // defer this until after we definitely have a $class_instance->id
 	    } 
             elseif (($field != 'id' || $action == 'edit') && $value != '') 
             {
@@ -134,6 +134,16 @@ class CVGController extends BaseController
 	}
 	Log::info("will save $class_instance");
 	$class_instance->save();
+
+	Log::info("will save dependent fields");
+	foreach ($input as $field => $value) 
+        {  // now complete the action left over from before
+	    if (in_array($field, array_keys($CSN::$foreign_class)) &&
+		! $CSN::is_single_entry_list($field))
+	    {
+		$this->save_dependent_fields_to_pivot_table($class_instance->id, $field, $value);
+	    }
+	}
     }
 
     protected function delete_dependent_fields_from_pivot_table($master_id, $dependent_field)
