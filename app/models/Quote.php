@@ -41,6 +41,15 @@ class Quote extends ResolvingEloquent
 					 'bic' => 'BIC'
 					 );
 
+    public static $default_values = array(
+					  'activa' => '1',
+					  'tipus_quotes_fk' => '1'
+					  );
+
+    public static $validation_rules = array(
+					    'import' => 'required|numeric'
+					    );
+
     public static $display_size_of_field = array('id' => 4,
 						 'import' => 8,
 						 'iban' => 34,
@@ -48,6 +57,7 @@ class Quote extends ResolvingEloquent
 						 'comentari' => '60x3'
 						 );
 
+    // this controls the appearance of the create/edit/inspect page
     public static $panels = array('Quota' => array(
 						   'activa' => 'Activa',
 						   'tipus_quotes_fk' => 'Tipus',
@@ -69,12 +79,13 @@ class Quote extends ResolvingEloquent
 				  );
 	  
 						   
-
+    // this is for dropboxes containing foreign keys
     protected $resolving_class = array(
 				       'tipus_quotes_fk' => 'TipusQuote',
 				       'id_responsables_fk' => 'Persone'
 				       );
 
+    // this is for searchboxes containing foreign keys
     public static $foreign_class = array(
 					 'id_beneficiaris_list' => 'Persone',
 					 'input_id_beneficiaris_list' => 'Persone',
@@ -91,24 +102,19 @@ class Quote extends ResolvingEloquent
 					  'input_id_beneficiaris_list' =>  'Busca beneficiari per nom, cognom o mot...'
 					  );
 
-    public static $validation_rules = array(
-					    'import' => 'required|numeric'
-					    );
-
+    // what will be displayed in the index listing
     public static $fields_in_index = array(
-                         'id' => 'Id',
-                         'id_responsables_fk' => 'Responsable',
-                         'tipus_quotes_fk' => 'Tipus',
-                         'import' => 'Import',
-                         'import_anual' => 'Total anual',
-                         'beneficiaris_list' => 'Beneficiaris'
-                         );
+					   'id' => 'Id',
+					   'id_responsables_fk' => 'Responsable',
+					   'tipus_quotes_fk' => 'Tipus',
+					   'import' => 'Import',
+					   'import_anual' => 'Total anual',
+					   'beneficiaris_list' => 'Beneficiaris'
+					   );
     						 
-    public static $default_values = array(
-					  'activa' => '1',
-					  'tipus_quotes_fk' => '1'
-					  );
-
+    // fields that store an index to (an array of) foreign key values
+    // id_beneficiaris_list is actually a fake field, in that it doesn't correspond to
+    // a field in the database, but rather to all the matching entries in the pivot table
     public static function is_foreign_selection($field)
     {
 	return 
@@ -125,6 +131,7 @@ class Quote extends ResolvingEloquent
 	    ;
     }
 
+    // some foreign key entries are only allowed to have one value
     public static function is_single_entry_list($field)
     {
 	return 
@@ -132,6 +139,8 @@ class Quote extends ResolvingEloquent
 	    ;
     }
 
+    // sometimes several fields belonging to a foreign key record are displayed as well.
+    // when that happens and the foreign key is edited, the display has to update accordingly
     public static $update_display_after_edit = array(
 						     'id_responsables_fk' => 'bic,iban'
 						     );
@@ -150,6 +159,7 @@ class Quote extends ResolvingEloquent
 	    ;
     }
 
+    // fields belonging to the foreign key record are not editable 
     public static function is_editable($field)
     {
 	return 
@@ -158,6 +168,7 @@ class Quote extends ResolvingEloquent
 	    ;
     }
 
+    // Show specialized code in inspect/ views. This @includes specialized/quote.blade.php
     public static $specialized_inspect = 'quote';
 
     public static $identifying_fields = array(
@@ -189,12 +200,9 @@ class Quote extends ResolvingEloquent
     public function getBeneficiarisListAttribute($value)
     {    
         $beneficiaris = array();
-        foreach($this->beneficiari()->get() as $p)
+        foreach($this->beneficiari()->get() as $b)
         {
-	    $person = array();
-            foreach(Persone::$identifying_short_fields as $f)
-                $person[] = $p->$f;
-	    $beneficiaris[] = join(' ', $person);
+	    $beneficiaris[] = assemble_identifying_short_fields('Persone', $b);
         }
         return join(', ', $beneficiaris);
     }
@@ -207,11 +215,6 @@ class Quote extends ResolvingEloquent
     public function responsible()
     {
 	return $this->responsable();
-    }
-
-    public function dependents()
-    {
-	return $this->beneficiari();
     }
 
     public function rebuts()
