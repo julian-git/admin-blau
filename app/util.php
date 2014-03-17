@@ -25,13 +25,17 @@ function toCamelCase($field)
 function assemble_fields_impl($class_name, $instance, $field_list)
 {
     $str = '';
+    if (! isset($instance->id)) 
+    {
+	return $str;
+    }
     foreach ($class_name::$$field_list as $f)
     {
 	if (!strcmp($f, 'mot'))
 	{
 	    $str .= '(';
 	}
-	$str .= $instance->$f;
+	$str .= $instance->resolve($f);
 	if (!strcmp($f, 'mot'))
 	{
 	    $str .= ')';

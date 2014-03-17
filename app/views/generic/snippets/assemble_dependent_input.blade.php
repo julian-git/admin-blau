@@ -21,7 +21,7 @@
 {{-- this test is to catch empty dependent field list upon validation of input --}}
 <div id="{{ $field }}-id-{{ $dependent_id }}" {{ $field }}-id="{{ $dependent_id }}" class="{{ $field }}_item">
     <span>
-   {{ assemble_identifying_fields($DCL, $DCL::find($dependent_id)) }}
+   {{ assemble_identifying_short_fields($DCL, $DCL::find($dependent_id)) }}
     </span>
     @if ($action == 'Editar')
       <button dependentField="{{ $field }}" {{ $field }}-id="{{ $dependent_id }}" class="btn btn-danger btn-xs cvg-remove-button">

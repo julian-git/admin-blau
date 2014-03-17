@@ -31,6 +31,8 @@ class ResolvingEloquent extends Eloquent
 {
     public function resolve($field) 
     {
+	if (isset($this->resolving_class[$field]))
+	    Log::info("resolving $field in " . $this->resolving_class[$field]);
 	return (isset($this->resolving_class[$field])
 		? resolve_foreign_key($this->resolving_class[$field], $this->$field)
 		: $this->$field);

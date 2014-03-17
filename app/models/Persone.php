@@ -319,10 +319,9 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
         $quotes = array();
         foreach($this->quotes()->get() as $q)
         {
-	    $quotes[] = assemble_identifying_short_fields('Quote', $q);
-	    Log::info("ql: $q");
-        }
-        return join(', ', $quotes);
+	    $quotes[] = $q->id;
+	}
+        return join(',', $quotes);
     }
 
 }
