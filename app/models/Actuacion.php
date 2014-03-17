@@ -80,12 +80,11 @@ class Actuacion extends ResolvingEloquent
 
     public static function details($actuacion_id)
     {
-	$actuacion = Actuacion::findOrFail($actuacion_id);
-	$the_castells = $actuacion->castells->all();
 	$res = array();
-	foreach ($the_castells as $c) 
+	foreach (Actuacion::findOrFail($actuacion_id)->castells->all() as $c) 
 	{
-	    $res[] = array($c->id, $c->tipus_castells_fk);
+	    $tc = TipusCastell::where('id', '=', $c->tipus_castells_fk)->first();
+	    $res[] = array($c->id, $tc->nom);
 	}
 	return $res;
     }
