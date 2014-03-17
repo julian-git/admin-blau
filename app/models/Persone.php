@@ -324,9 +324,12 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 }
 
 // work around the fact that PHP doesn't allow constexpr computations on static variables
+// inside the class body
+
 Persone::$default_values['data_alta'] = date('Y-m-d');
+
 $max_value = DB::table('persones')
     ->select(DB::raw('max(numero_soci) as max'))->pluck('max');
-
 Persone::$default_values['numero_soci'] = $max_value + 1;
+
 ?>
