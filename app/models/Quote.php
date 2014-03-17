@@ -96,8 +96,7 @@ class Quote extends ResolvingEloquent
 					 );
 
     public static $pivot_class = array(
-				       'id_beneficiaris_list' => 'Beneficiari',
-				       'id_responsables_fk' => 'Responsable'
+				       'id_beneficiaris_list' => 'Beneficiari'
 				       );
 
     public static $search_message = array(
