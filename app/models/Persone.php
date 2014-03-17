@@ -156,7 +156,7 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 				  'Dades finançeres' => array(
 							      'iban' => 'IBAN',
 							      'bic' => 'BIC',
-							      'quote' => 'Quota'
+							      'id_quotes_list' => 'Quotes'
 							      ),
 				  "Dades d'accés" => array(
 					 'password' => 'Password',
@@ -182,6 +182,15 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 				       'rols_fk' => 'Rol'
 				       );
 
+    // this is for searchboxes containing foreign keys
+    public static $foreign_class = array(
+					 'id_quotes_list' => 'Quote'
+					 );
+
+    public static $pivot_class = array(
+				       'id_quotes_list' => 'Responsable'
+				       );
+
     // what will be displayed in the index listing
     public static $fields_in_index = array('id' => 'Id',
 					   'numero_soci' => 'N&uacute;mero de soci',
@@ -191,6 +200,16 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					   'mobil' => 'M&ograve;bil'
 					   );					 
 
+
+    // fields that store an index to (an array of) foreign key values
+    // id_beneficiaris_list is actually a fake field, in that it doesn't correspond to
+    // a field in the database, but rather to all the matching entries in the pivot table
+    public static function is_foreign_selection($field)
+    {
+	return 
+	    $field == 'id_quotes_list'
+	    ;
+    }
 
     public static function is_checkbox($field)
     {
@@ -290,18 +309,20 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
         return $this->belongsToMany('Esdeveniment');
     }
 
-    public function getQuoteAttribute()
+    public function quotes()
     {
-	$quote = '';
-	$quote_instance = Quote::where('id_responsables_fk', '=', $this->id)->first();
-	if (isset($quote_instance->id))
-	{
-	    foreach (Quote::$identifying_short_fields as $field)
-		{
-		    $quote .= $quote_instance->resolve($field) . ' ';
-		}
-	    return $quote;
-	} else return 'Sense quota';
+        return $this->belongsToMany('Quote', 'responsables');
+    }
+    
+    public function getIdQuotesListAttribute($value)
+    {
+        $quotes = array();
+        foreach($this->quotes()->get() as $q)
+        {
+	    $quotes[] = assemble_identifying_short_fields('Quote', $q);
+	    Log::info("ql: $q");
+        }
+        return join(', ', $quotes);
     }
 
 }

@@ -20,10 +20,12 @@ require_once('util.php');
 
 class Quote extends ResolvingEloquent
 {
+    /*
     public function __construct() 
     {
 	DB::connection()->enableQueryLog();
     }
+    */
 
     public static $singular_class_name = 'Quota';
     public static $plural_class_name = 'Quotes';
