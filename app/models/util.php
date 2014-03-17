@@ -77,13 +77,6 @@ class ResolvingEloquent extends Eloquent
 
     public static $dropbox_options_of = array();
 
-    public $display_size_of_field = array('default' => 15);
-
-    public function display_size_of($field)
-    {
-	return (isset($this->display_size_of_field[$field])
-		? $this->display_size_of_field[$field]
-		: 15);
-    }
+    public static $display_size_of_field = array('default' => 15);
 }
 ?>

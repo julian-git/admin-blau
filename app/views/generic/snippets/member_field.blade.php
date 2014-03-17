@@ -42,20 +42,21 @@
         @if ($action=='Mostrar')
           {{ $$csn->resolve($field) }}
         @elseif ($action=='Editar')
-          {{ Form::textarea($field, $$csn->$field, array('size' => $$csn->display_size_of($field))) }}
+          {{ Form::textarea($field, $$csn->$field, array('size' => display_size_of($CSN, $field))) }}
         @else
-          {{ Form::textarea($field, Input::old($field), array('size' => $$csn->display_size_of($field))) }}
+          {{ Form::textarea($field, Input::old($field), array('size' => display_size_of($CSN, $field))) }}
         @endif
 
 
       @else 
 
-        @if ($action=='Mostrar' || ! $CSN::is_editable($field))
+        @if ($action=='Mostrar' || 
+	     ($action != 'Crear' && ! $CSN::is_editable($field)))
           {{ $$csn->resolve($field) }}
         @elseif ($action=='Editar')
-          {{ Form::text($field, $$csn->$field, array('size' => $$csn->display_size_of($field))) }}
+          {{ Form::text($field, $$csn->$field, array('size' => display_size_of($CSN, $field))) }}
         @else
-          {{ Form::text($field, Input::old($field), array('size' => $$csn->display_size_of($field))) }}
+          {{ Form::text($field, Input::old($field), array('size' => display_size_of($CSN, $field))) }}
         @endif
 
         {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}

@@ -28,13 +28,16 @@
 @else
 
      <input type="submit" value="{{ ($action == 'Crear') ? 'Crear' : 'Desar' }}" class="btn btn-success pull-right" />
+
+@if($action == 'Editar')
+
        <a href="/{{ strtolower($CSN) }}/inspect/{{ $$csn->id }}" class="btn btn-primary pull-right">Cancel&middot;lar</a>
-
-  @if($action == 'Editar')
-
         <a href="{{ action($CSN . 'sController@delete', $$csn->id) }}" class="btn btn-danger pull-right">Esborrar</a>
 
-  @endif
+@else
+       <a href="/{{ strtolower($CSN) }}" class="btn btn-primary pull-right">Cancel&middot;lar</a>
+
+@endif
 
 @endif
 </div>

@@ -77,32 +77,8 @@ class CVGController extends BaseController
 	$extended_layout_data['dropbox_options'] = dropbox_options_of($CSN);
 	$extended_layout_data['foreign_table'] = foreign_tables_of($CSN);
 
-	if (isset($CSN::$responsible_field)) 
-	{
-	    $extended_layout_data['responsible_fields'] 
-		= array('field' => $CSN::$responsible_field,
-			'id' => (isset($responsible_id)
-				 ? $responsible_id 
-				 : $class_instance->responsible()->pluck('id'))
-			);
-	}
-
-	if (isset($CSN::$dependent_field)) 
-	{
-	    $extended_layout_data['dependent_fields'] = $CSN::$dependent_field;
-	}
-
 	if (isset($class_instance))
 	{
-	    if (isset($CSN::$dependent_field))
-	    {
-		$dependents = array();
-		foreach($class_instance->dependents()->get() as $dep)
-		{
-		    $dependents[] = $dep->id;
-		}
-		$class_instance[$CSN::$dependent_field . '_input'] = join(',', $dependents);
-	    }
 	    $extended_layout_data[$csn] = $class_instance;
 	    $extended_layout_data['dropbox_default'] = dropbox_default_of($CSN, $class_instance);
 	} else {

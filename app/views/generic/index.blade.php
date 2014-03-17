@@ -27,7 +27,7 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <div class="col-md-2">
-          <a id="new-button" href="{{ action($CSN . 'sController@create', -1) }}" class="btn btn-primary disabled">
+          <a id="new-button" href="{{ action($CSN . 'sController@create') }}" class="btn btn-primary">
 	    {{ $CSN::$class_name_gender == 'm' ? 'Nou' : 'Nova' }}
 	    {{ $CSN::$singular_class_name }}
           </a>

@@ -41,12 +41,12 @@ class Quote extends ResolvingEloquent
 					 'bic' => 'BIC'
 					 );
 
-    public $display_size_of_field = array('id' => 4,
-					  'import' => 8,
-					  'iban' => 34,
-					  'bic' => 12,
-					  'comentari' => '60x3'
-					  );
+    public static $display_size_of_field = array('id' => 4,
+						 'import' => 8,
+						 'iban' => 34,
+						 'bic' => 12,
+						 'comentari' => '60x3'
+						 );
 
     public static $panels = array('Quota' => array(
 						   'activa' => 'Activa',
@@ -104,7 +104,9 @@ class Quote extends ResolvingEloquent
                          'beneficiaris_list' => 'Beneficiaris'
                          );
     						 
-    public static $default_values = array();
+    public static $default_values = array(
+					  'activa' => '1'
+					  );
 
     public static function is_foreign_selection($field)
     {

@@ -51,4 +51,11 @@ function assemble_identifying_short_fields($class_name, $instance)
     return assemble_fields_impl($class_name, $instance, 'identifying_short_fields');
 }
 
+function display_size_of($class, $field)
+{
+    return (isset($class::$display_size_of_field[$field])
+	    ? $class::$display_size_of_field[$field]
+	    : 15);
+}
+
 ?>
