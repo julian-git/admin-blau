@@ -232,9 +232,14 @@ class CVGController extends BaseController
 	$CSN = $this->ClassSingularName;
 	$class_instance = $CSN::findOrFail(Input::get(strtolower($CSN)));
 
-	if (isset($CSN::$dependent_field))
+	foreach (array_keys($CSN::$foreign_class) as $field)
         {
-	    $this->delete_dependent_fields_from_pivot_table($CSN, $class_instance->id);
+	    if (! $CSN::is_single_entry_list($field) &&
+		strcmp(substr($field, 0, strlen('input_')), 'input_')) 
+		// it doesn't start with "input"
+	    {
+		$this->delete_dependent_fields_from_pivot_table($class_instance->id, $field);
+	    }
 	}
 	$class_instance->delete();
 	return Redirect::action($CSN . 'sController@index');
