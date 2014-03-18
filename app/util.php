@@ -25,6 +25,7 @@ function toCamelCase($field)
 function assemble_fields_impl($class_name, $instance, $field_list)
 {
     $str = '';
+    //    Log::info("assemble_fields_impl: instance $instance field_list $field_list");
     if (! isset($instance->id)) 
     {
 	return $str;

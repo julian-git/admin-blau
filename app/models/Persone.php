@@ -24,12 +24,12 @@ require_once('util.php');
 
 class Persone extends ResolvingEloquent implements UserInterface, RemindableInterface 
 {
- /*
+    /*
     public function __construct() 
     {
 	DB::connection()->enableQueryLog();
     }
-*/
+    */
     public static $singular_class_name = 'Persona';
     public static $plural_class_name = 'Persones';
     public static $class_name_gender = 'f';
@@ -138,7 +138,9 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 							     'mot' => 'Mot',
 							     'dni' => 'DNI / NIE / passaport',
 							     'naixement' => 'Data de naixement',
-							     'sexe' => 'Sexe'
+							     'sexe' => 'Sexe',
+							     'id_responsable_familia_list' => 'Responsable per famílie',
+							     'id_membre_familia_list' => 'Membre de famílie'
 							     ),
 				  'Adreça postal' => array(
 							   'direccio' => 'Adreça postal',
@@ -185,7 +187,9 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 
     // this is for searchboxes containing foreign keys
     public static $foreign_class = array(
-					 'id_quotes_list' => 'Quote'
+					 'id_quotes_list' => 'Quote',
+					 'id_responsable_familia_list' => 'Familie',
+					 'id_membre_familia_list' => 'Familie'
 					 );
 
     // what will be displayed in the index listing
@@ -199,12 +203,14 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 
 
     // fields that store an index to (an array of) foreign key values
-    // id_beneficiaris_list is actually a fake field, in that it doesn't correspond to
+    // The *_list fields are actually fake, in that they don't correspond to
     // a field in the database, but rather to all the matching entries in the pivot table
     public static function is_foreign_selection($field)
     {
 	return 
-	    $field == 'id_quotes_list'
+	    $field == 'id_quotes_list' ||
+	    $field == 'id_responsable_familia_list' ||
+	    $field == 'id_membre_familia_list' 
 	    ;
     }
 
@@ -321,6 +327,35 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
         return join(',', $quotes);
     }
 
+    public function responsable_familia()
+    {
+	return $this->belongsToMany('Familie', 'familie_responsables');
+    }
+
+    public function getIdResponsableFamiliaListAttribute($value)
+    {
+	$families = array();
+	foreach ($this->responsable_familia()->get() as $f)
+	{
+	    $families[] = $f->id;
+	}
+	return join(',', $families);
+    }
+
+    public function membre_familia()
+    {
+	return $this->belongsToMany('Familie', 'familie_membres');
+    }
+
+    public function getIdMembreFamiliaListAttribute($value)
+    {
+	$families = array();
+	foreach ($this->membre_familia()->get() as $f)
+	{
+	    $families[] = $f->id;
+	}
+	return join(',', $families);
+    }
 }
 
 // work around the fact that PHP doesn't allow constexpr computations on static variables

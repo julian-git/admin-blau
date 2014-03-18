@@ -107,6 +107,8 @@ class Familie extends ResolvingEloquent
 
     public static $identifying_fields = array('nom');
 
+    public static $identifying_short_fields = array('nom');
+
     public function membres()
     {
         return $this->belongsToMany('Persone', 'familie_membres');

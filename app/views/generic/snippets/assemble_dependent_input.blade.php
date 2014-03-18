@@ -20,14 +20,15 @@
 @if(strlen($dependent_id) > 0)
 {{-- this test is to catch empty dependent field list upon validation of input --}}
 <div id="{{ $field }}-id-{{ $dependent_id }}" {{ $field }}-id="{{ $dependent_id }}" class="{{ $field }}_item">
+    <?php $dcl_entries = $DCL::find($dependent_id); ?>
     <span>
-   {{ assemble_identifying_short_fields($DCL, $DCL::find($dependent_id)) }}
+   {{ assemble_identifying_short_fields($DCL, $dcl_entries) }}
     </span>
-    @if ($action == 'Editar' && $CSN::is_editable_foreign_field($field))
+    @if ($action == 'Editar' && $CSN::is_editable_foreign_field($field) && sizeof($dcl_entries)>0)
       <button dependentField="{{ $field }}" {{ $field }}-id="{{ $dependent_id }}" class="btn btn-danger btn-xs cvg-remove-button">
         <span class="glyphicon glyphicon-remove"></span>
       </button>
-    @elseif ($action == 'Mostrar' && $CSN == 'Persone')
+    @elseif ($action == 'Mostrar' && $CSN == 'Persone' && sizeof($dcl_entries)>0)
       <a class="btn btn-warning btn-xs" href="/{{ strtolower($DCL) }}/edit/{{ $dependent_id }}">Editar</a>
     @endif
   </div>
