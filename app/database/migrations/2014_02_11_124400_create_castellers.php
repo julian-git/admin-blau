@@ -103,13 +103,21 @@ class CreateCastellers extends Migration {
 		    $table->timestamps();
 		});
 
-   	    Schema::create('familie_persones', function($table) {
+   	    Schema::create('familie_membres', function($table) {
 		    $table->increments('id');
 		    $table->integer('persone_id')->unsigned();
 		    $table->foreign('persone_id')->references('id')->on('persones');
 		    $table->integer('familie_id')->unsigned();
 		    $table->foreign('familie_id')->references('id')->on('families');
-		    $table->boolean('es_responsable')->default(0);
+		    $table->timestamps();
+		});
+
+   	    Schema::create('familie_responsables', function($table) {
+		    $table->increments('id');
+		    $table->integer('persone_id')->unsigned();
+		    $table->foreign('persone_id')->references('id')->on('persones');
+		    $table->integer('familie_id')->unsigned();
+		    $table->foreign('familie_id')->references('id')->on('families');
 		    $table->timestamps();
 		});
 
@@ -278,7 +286,8 @@ class CreateCastellers extends Migration {
 	    Schema::dropIfExists('rebuts');
 	    Schema::dropIfExists('beneficiaris');
 	    Schema::dropIfExists('quotes');
-	    Schema::dropIfExists('familie_persones');
+	    Schema::dropIfExists('familie_membres');
+	    Schema::dropIfExists('familie_responsables');
 	    Schema::dropIfExists('families');
 	    Schema::dropIfExists('persones');
 	    Schema::dropIfExists('tipus_quotes');

@@ -17,7 +17,7 @@
 */
 
 
-class FamiliePersone extends Eloquent
+class FamilieMembre extends Eloquent
 {
     public static $singular_class_name = 'Membre';
     public static $plural_class_name = 'Membres';

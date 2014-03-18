@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder {
 		foreach(array('castell_persone',
 			      'actuacion_persone',
 			      'esdeveniment_persone',
-			      'familie_persones',
+			      'familie_membres',
+			      'familie_responsables',
 			      'rebuts',
 			      'beneficiaris',
 			      'quotes',
@@ -36,7 +37,8 @@ class DatabaseSeeder extends Seeder {
                      //Core
                      'PersonesSeeder',
                      'FamiliesSeeder',
-                     'PersonesFamiliesSeeder',
+                     'FamilieMembresSeeder',
+		     'FamilieResponsablesSeeder',
                      'QuotesSeeder',
                      'BeneficiarisSeeder',
 		     'RebutsSeeder',
@@ -162,29 +164,35 @@ class FamiliesSeeder extends Seeder {
     }
 }
 
-class PersonesFamiliesSeeder extends Seeder {
+class FamilieMembresSeeder extends Seeder {
     public function run() {
-    $table_name='familie_persones';
+    $table_name='familie_membres';
 	DB::table($table_name)->delete();
 
 	DB::table($table_name)->insert(array(array(
 						   'id' => 1,
-						   'persone_id' => '1',
-						   'familie_id' => '1',
-						   'es_responsable' => 1
-						   ),
-					     array(
-						   'id' => 2,
-						   'persone_id' => '2',
-						   'familie_id' => '2',
-						   'es_responsable' => 1
-						   ),
-					     array(
-						   'id' => 3,
 						   'persone_id' => '3',
-						   'familie_id' => '1',
-						   'es_responsable' => 0
+						   'familie_id' => '1'
 						   )
+					     ));
+    }
+}
+
+class FamilieResponsablesSeeder extends Seeder {
+    public function run() {
+    $table_name='familie_responsables';
+	DB::table($table_name)->delete();
+
+	DB::table($table_name)->insert(array(array(
+						   'id' => 1,
+                                                  'persone_id' => '1',
+                                                  'familie_id' => '1'
+                                                  ),
+                                            array(
+                                                  'id' => 2,
+                                                  'persone_id' => '2',
+                                                  'familie_id' => '2'
+						  )
 					     ));
     }
 }

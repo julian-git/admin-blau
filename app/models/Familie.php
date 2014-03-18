@@ -32,63 +32,63 @@ class Familie extends ResolvingEloquent
 
     public static $member_fields = array('id' => 'Id',
 					 'nom' => 'Nom',
-					 'id_membres_no_responsables_list' => 'Membres',
-					 'input_id_membres_no_responsables_list' => 'Triar membres',
-					 'id_membres_responsables_list' => 'Responsable',
-					 'input_id_membres_responsables_list' => 'Triar responsables',
+					 'id_membres_list' => 'Membres',
+					 'input_id_membres_list' => 'Triar membres',
+					 'id_responsables_list' => 'Responsable',
+					 'input_id_responsables_list' => 'Triar responsables',
 					 );
 
     public static $fields_in_index = array('id' => 'Id',
 					   'nom' => 'Nom',
-					   'membres_responsables_list' => 'Responsables',
-					   'membres_no_responsables_list' => 'Membres'
+					   'responsables_list' => 'Responsables',
+					   'membres_list' => 'Membres'
                        );                    
 
     public static $panels = array('Família' => array(
 						     'nom' => 'Nom'
 						     ),
 				  'Responsables' => array(
-							  'id_membres_responsables_list' => 'Responsables',
-							  'input_id_membres_responsables_list' => 'Triar responsables'
+							  'id_responsables_list' => 'Responsables',
+							  'input_id_responsables_list' => 'Triar responsables'
 							  ),
 				  'Membres' => array(
-						     'id_membres_no_responsables_list' => 'Membres',
-						     'input_id_membres_no_responsables_list' => 'Triar membres',
+						     'id_membres_list' => 'Membres',
+						     'input_id_membres_list' => 'Triar membres',
 						     )
 				  );
 
     // this is for searchboxes containing foreign keys
     public static $foreign_class = array(
-					 'id_membres_responsables_list' => 'Persone',
-					 'input_id_membres_responsables_list' => 'Persone',
-					 'id_membres_no_responsables_list' => 'Persone',
-					 'input_id_membres_no_responsables_list' => 'Persone'
+					 'id_responsables_list' => 'Persone',
+					 'input_id_responsables_list' => 'Persone',
+					 'id_membres_list' => 'Persone',
+					 'input_id_membres_list' => 'Persone'
 					 );
 
     public static $pivot_class = array(
-				       'id_membres_responsables_list' => 'FamiliePersone',
-				       'id_membres_no_responsables_list' => 'FamiliePersone'
+				       'id_responsables_list' => 'FamilieResponsable',
+				       'id_membres_list' => 'FamilieMembre'
 				       );
 
     public static $search_message = array(
-					  'input_id_membres_responsables_list' => 'Busca responsable per nom, cognom o mot...',
-					  'input_id_membres_no_responsables_list' =>  'Busca membre per nom, cognom o mot...'
+					  'input_id_responsables_list' => 'Busca responsable per nom, cognom o mot...',
+					  'input_id_membres_list' =>  'Busca membre per nom, cognom o mot...'
 					  );
 
 
     public static function is_foreign_selection($field)
     {
 	return 
-	    $field == 'id_membres_responsables_list' ||
-	    $field == 'id_membres_no_responsables_list'
+	    $field == 'id_responsables_list' ||
+	    $field == 'id_membres_list'
 	    ;
     }
 
     public static function is_foreign_chooser($field)
     {
 	return 
-	    $field == 'input_id_membres_responsables_list' ||
-	    $field == 'input_id_membres_no_responsables_list' 
+	    $field == 'input_id_responsables_list' ||
+	    $field == 'input_id_membres_list' 
 	    ;
     }
 
@@ -96,8 +96,8 @@ class Familie extends ResolvingEloquent
     public static function is_editable_foreign_field($field)
     {
 	return 
-	    $field == 'id_membres_responsables_list' ||
-	    $field == 'id_membres_no_responsables_list' 
+	    $field == 'id_responsables_list' ||
+	    $field == 'id_membres_list' 
 	    ;
     }
 
@@ -107,50 +107,50 @@ class Familie extends ResolvingEloquent
 
     public static $identifying_fields = array('nom');
 
-    public function membres_no_responsables()
+    public function membres()
     {
-        return $this->belongsToMany('Persone', 'familie_persones')->withPivot('es_responsable')->where('es_responsable', '=', 0)->get();
+        return $this->belongsToMany('Persone', 'familie_membres');
     }
 
-    public function membres_responsables()
+    public function responsables()
     {
-        return $this->belongsToMany('Persone', 'familie_persones')->withPivot('es_responsable')->where('es_responsable', '=', 1)->get();
+        return $this->belongsToMany('Persone', 'familie_responsables');
     }
     
-    public function getIdMembresNoResponsablesListAttribute($value)
+    public function getIdMembresListAttribute($value)
     {    
         $membres = array();
-        foreach($this->membres_no_responsables() as $p)
+        foreach($this->membres()->get() as $p)
         {
 	    $membres[] = $p->id;
 	}
         return join(', ', $membres);
     }
 
-    public function getIdMembresResponsablesListAttribute($value)
+    public function getIdResponsablesListAttribute($value)
     {    
         $membres = array();
-        foreach($this->membres_responsables() as $p)
+        foreach($this->responsables()->get() as $p)
         {
 	    $membres[] = $p->id;
 	}
         return join(', ', $membres);
     }
 
-    public function getMembresNoResponsablesListAttribute($value)
+    public function getMembresListAttribute($value)
     {    
         $membres = array();
-        foreach($this->membres_no_responsables() as $p)
+        foreach($this->membres()->get() as $p)
         {
 	    $membres[] = assemble_identifying_short_fields('Persone', $p);
 	}
         return join(', ', $membres);
     }
 
-    public function getMembresResponsablesListAttribute($value)
+    public function getResponsablesListAttribute($value)
     {    
         $membres = array();
-        foreach($this->membres_responsables() as $p)
+        foreach($this->responsables()->get() as $p)
         {
 	    $membres[] = assemble_identifying_short_fields('Persone', $p);
 	}
