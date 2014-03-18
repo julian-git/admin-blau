@@ -139,8 +139,8 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 							     'dni' => 'DNI / NIE / passaport',
 							     'naixement' => 'Data de naixement',
 							     'sexe' => 'Sexe',
-							     'id_responsable_familia_list' => 'Responsable per famílie',
-							     'id_membre_familia_list' => 'Membre de famílie'
+							     'id_responsable_familia_list' => 'Responsable per família',
+							     'id_membre_familia_list' => 'Membre de família'
 							     ),
 				  'Adreça postal' => array(
 							   'direccio' => 'Adreça postal',
