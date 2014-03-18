@@ -170,23 +170,42 @@ CREATE TABLE `esdeveniments` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `familie_persone`
+-- Table structure for table `familie_membres`
 --
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `familie_persone` (
+CREATE TABLE `familie_membres` (
   `id` int(10) unsigned NOT NULL,
   `persone_id` int(10) unsigned NOT NULL,
   `familie_id` int(10) unsigned NOT NULL,
-  `es_responsable` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  KEY `familie_persone_persone_id_foreign` (`persone_id`),
-  KEY `familie_persone_familie_id_foreign` (`familie_id`),
-  CONSTRAINT `familie_persone_familie_id_foreign` FOREIGN KEY (`familie_id`) REFERENCES `families` (`id`),
-  CONSTRAINT `familie_persone_persone_id_foreign` FOREIGN KEY (`persone_id`) REFERENCES `persones` (`id`)
+  KEY `familie_membres_persone_id_foreign` (`persone_id`),
+  KEY `familie_membres_familie_id_foreign` (`familie_id`),
+  CONSTRAINT `familie_membres_familie_id_foreign` FOREIGN KEY (`familie_id`) REFERENCES `families` (`id`),
+  CONSTRAINT `familie_membres_persone_id_foreign` FOREIGN KEY (`persone_id`) REFERENCES `persones` (`id`)
+);
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `familie_responsables`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `familie_responsables` (
+  `id` int(10) unsigned NOT NULL,
+  `persone_id` int(10) unsigned NOT NULL,
+  `familie_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `familie_responsables_persone_id_foreign` (`persone_id`),
+  KEY `familie_responsables_familie_id_foreign` (`familie_id`),
+  CONSTRAINT `familie_responsables_familie_id_foreign` FOREIGN KEY (`familie_id`) REFERENCES `families` (`id`),
+  CONSTRAINT `familie_responsables_persone_id_foreign` FOREIGN KEY (`persone_id`) REFERENCES `persones` (`id`)
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -488,4 +507,4 @@ CREATE TABLE `tipus_quotes` (
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-11 14:16:10
+-- Dump completed on 2014-03-18 10:03:10
