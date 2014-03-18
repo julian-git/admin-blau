@@ -301,7 +301,7 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Persones<span class="fa arrow"></a>
+				<a href="tables.html"><i class="fa fa-table fa-fw"></i> Persones, Famílies, Quotes<span class="fa arrow"></a>
                         <ul class="nav nav-second-level">
                         @foreach(['Persone',
                               'Familie',

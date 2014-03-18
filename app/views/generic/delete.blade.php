@@ -21,7 +21,7 @@
 @section('content')
 
     <?php $idf = $CSN::$identifying_fields; ?>
-    <h1> Esborrar
+<h1> Esborrar {{ strtolower($CSN::$singular_class_name) }} 
         <?php 
             echo $$csn->resolve($idf[0]);
             if (sizeof($idf)>1)
