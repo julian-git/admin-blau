@@ -167,16 +167,24 @@ class PersonesFamiliesSeeder extends Seeder {
     $table_name='familie_persones';
 	DB::table($table_name)->delete();
 
-	DB::table($table_name)->insert(array(
-					     'persone_id' => '1',
-					     'familie_id' => '1',
-					     'es_responsable' => 1
-					     ));
-	
-	DB::table($table_name)->insert(array(
-					     'persone_id' => '2',
-					     'familie_id' => '1',
-					     'es_responsable' => 0
+	DB::table($table_name)->insert(array(array(
+						   'id' => 1,
+						   'persone_id' => '1',
+						   'familie_id' => '1',
+						   'es_responsable' => 1
+						   ),
+					     array(
+						   'id' => 2,
+						   'persone_id' => '2',
+						   'familie_id' => '2',
+						   'es_responsable' => 1
+						   ),
+					     array(
+						   'id' => 3,
+						   'persone_id' => '3',
+						   'familie_id' => '1',
+						   'es_responsable' => 0
+						   )
 					     ));
     }
 }

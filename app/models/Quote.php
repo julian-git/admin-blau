@@ -114,7 +114,7 @@ class Quote extends ResolvingEloquent
 					   'beneficiaris_list' => 'Beneficiaris'
 					   );
     						 
-    // id_beneficiaris_list is actually a fake field, in that it doesn't correspond to
+    // beneficiaris_list is actually a fake field, in that it doesn't correspond to
     // a field in the database, but rather to all the matching entries in the pivot table.
     // It works because of the function getBeneficiarisListAttribute() below.
     // Similarly for import_anual.
