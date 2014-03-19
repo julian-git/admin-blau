@@ -32,23 +32,7 @@ class PersonesController extends CVGController
 
     public static function search($search_string)
     {
-	$instance = Persone::where('cognom1', 'like', '%' . $search_string . '%')
-	    ->orWhere('cognom2', 'like', '%' . $search_string . '%')
-	    ->orWhere('nom', 'like', '%' . $search_string . '%')
-	    ->orWhere('mot', 'like', '%' . $search_string . '%')
-	    ->first();
-
-	return (isset($instance->cognom1))
-
-	    ? array(
-		     'id' => $instance->id,
-		     'name' => assemble_identifying_fields('Persone', $instance)
-		     )
-
-	    : array(
-		    'id' => -1,
-		    'name' => $search_string
-		    );
+	return Persone::where('search', 'like', '%' . $search_string . '%')->select('id', DB::raw('search as value'))->get();
     }
 
     public static function search_id($search_string)

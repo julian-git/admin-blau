@@ -67,6 +67,7 @@ $('.cvg-remove-button').click(function() {
     remove_button_clicked(dependentField, $(this).attr(dependentField + '-id'));
 });
 
+/*
 $('.dependent-search').keyup(function(e) {
     var minLength = 3;  // search with min of X characters
     var searchStr = $(this).val();
@@ -94,6 +95,26 @@ $('.dependent-search').keyup(function(e) {
 	    $('#' + dependentButton).addClass('disabled');
 	});
     }
+});
+*/
+
+$('.dependent-search').each(function() {
+    var searchBox = new Bloodhound({
+	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+	queryTokenizer: Bloodhound.tokenizers.whitespace,
+//	prefetch: '../data/films/post_1960.json',
+	remote: {
+	    url: '/' + $(this).attr('dependentClass') + 's/search/%QUERY',
+	}
+    });
+ 
+    searchBox.initialize();
+
+    $(this).typeahead(null, {
+	displayKey: 'value',
+	source: searchBox.ttAdapter()
+    });
+
 });
 
 function append_dependent_field(dependent_id, dependentField, searchField)

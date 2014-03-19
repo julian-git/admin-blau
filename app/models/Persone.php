@@ -72,6 +72,17 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					 'forca' => 'Força'
 					 );
 
+    protected static $search_field = 'search';
+
+    protected function build_search_field()
+    {
+	return 
+	    $this->nom . ' ' .
+	    $this->cognom1 . ' ' .
+	    (strlen($this->cognom2) > 0 ? $this->cognom2 : '') .
+	    '(' . $this->mot . ')';
+    }
+
     public static $default_values = array(
 					  'numero_soci' => '',
 					  'actiu' => 1,

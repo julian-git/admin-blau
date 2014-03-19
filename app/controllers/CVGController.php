@@ -137,6 +137,13 @@ class CVGController extends BaseController
 		$class_instance->$field = $CSN::$default_values[$field];
 	    }
 	}
+
+	if (isset($CSN::$search_field))
+	{
+	    $sf = $CSN::$search_field;
+	    $this->$$sf = $this->build_search_field();
+	}
+	
 	Log::info("will save $class_instance");
 	$class_instance->save();
 

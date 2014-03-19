@@ -80,8 +80,9 @@
 
 {{--  @include('generic/snippets/query_log') --}}
 
-{{ Form::close() }}
 
+<script src="{{ asset('assets/js/typeahead.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/js/dependent_fields.js') }}"></script>
 
+{{ Form::close() }}
 @stop
