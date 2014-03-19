@@ -85,16 +85,12 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					  'rols_fk' => 1
 					  );
 
-    public static $validation_rules = array('cognom1' => 'required|alpha',
-					    'cognom2' => 'alpha',
-					    'nom' => 'required|alpha_whitespace',
-					    'mot' => 'required|alpha',
+    public static $validation_rules = array('cognom1' => 'required',
+					    'nom' => 'required',
+					    'mot' => 'required',
 					    'naixement' => 'date',
 					    'dni' => 'alpha_num|max:12',
 					    'email' => 'email',
-					    'cp' => 'alpha_num',
-					    'telefon' => 'num_whitespace',
-					    'mobil' => 'num_whitespace',
 					    'sexe' => 'in:H,D');
 
     public static $display_size_of_field = array('id' => 4,
