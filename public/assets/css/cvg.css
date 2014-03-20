@@ -6,6 +6,10 @@ td.right {
     margin-bottom: 10px;
 }
 
+.dependent-search .tt-dropdown-menu {
+max-height: 150px;
+overflow-y: auto;
+}
 .cvg-esdeveniment-titol {
     font-weight: bold;
 }

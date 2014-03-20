@@ -62,6 +62,8 @@ function remove_button_clicked(dependentField, dependent_id)
 
 $('.dependent-search').val('');
 
+$('.tt-hint').addClass('form-control');
+
 $('.cvg-remove-button').click(function() {
     var dependentField = $(this).attr('dependentField');
     remove_button_clicked(dependentField, $(this).attr(dependentField + '-id'));
