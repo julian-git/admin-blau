@@ -40,5 +40,8 @@
 </div>
 @endforeach
 
+<input type="submit" value="Afegir a la cua de correus" class="btn btn-success" />
+
+
 {{ Form::close() }}
 @stop

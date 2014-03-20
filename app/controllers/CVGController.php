@@ -272,5 +272,26 @@ class CVGController extends BaseController
 	$this->layout->content = View::make("generic.send_mail", $extended_layout_data);
     }
 
+    public function handleSendMail()
+    {
+	$CSN = $this->ClassSingularName;
+	foreach(Input::all() as $field => $value)
+	{
+	    if (($pos = strpos($field, '-id-')) === false) continue;
+	    $foreign_field = substr($field, 0, $pos);
+	    $id = substr($field, $pos + strlen('-id-'));
+	    $FC = $CSN::$foreign_class[$foreign_field];
+	    $instance = $FC::findOrFail($id);
+	    Mail::queue(array('text' => 'emails.confirmatori_canvi'), 
+			$instance->toArray(), 
+			function($message) use ($instance, $FC) {
+		    $message->to($instance->email, 
+				 assemble_identifying_short_fields($FC, $instance))
+			->subject('Confirmació de canvis')
+			->cc('info@cvg.cat');
+		});
+	}
+	
+    }
 }
  ?>
