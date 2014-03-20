@@ -7,17 +7,16 @@
           <div class="col-md-9">
             <?php 
 	      $DataCSN = 'Rebut';
-Log::info('in quote.blade');
-Log::info($csn);
-Log::info($$csn);
               $instances = $$csn->rebuts()->get();
               $allow_edit = false;
             ?>
             @include('generic/snippets/datatable')
           </div>
-          <div class="col-md-3">
-            <a class="btn btn-warning" href="/quote/generar_rebut/{{ $quote->id }}">Generar nou rebut</a>
-          </div>
+          @if ($action != 'Enviar correu')
+            <div class="col-md-3">
+              <a class="btn btn-warning" href="/quote/generar_rebut/{{ $quote->id }}">Generar nou rebut</a>
+            </div>
+          @endif
         </div>
       </div>
     </div>
