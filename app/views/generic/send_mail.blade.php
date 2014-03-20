@@ -22,10 +22,12 @@
 <?php include_once(dirname(dirname(dirname(__FILE__))) . "/models/$CSN.php"); ?>
 
 <div class="page-header">
-    <h1>Enviar correus confirmatoris de canvis en {{ strtolower($CSN) }}</h1>
+    <h1>Enviar correus confirmatoris de canvis en {{ $csn }}</h1>
 </div>
 
 {{ Form::open() }}
+
+{{ Form::hidden('id', $$csn->id) }}
 
 @foreach($CSN::$send_mail_to as $field => $prompt)
 <div class="row">

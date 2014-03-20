@@ -278,12 +278,14 @@ class CVGController extends BaseController
 	foreach(Input::all() as $field => $value)
 	{
 	    if (($pos = strpos($field, '-id-')) === false) continue;
+
 	    $foreign_field = substr($field, 0, $pos);
 	    $id = substr($field, $pos + strlen('-id-'));
 	    $FC = $CSN::$foreign_class[$foreign_field];
 	    $instance = $FC::findOrFail($id);
-	    Mail::queue(array('text' => 'emails.confirmatori_canvi'), 
-			$instance->toArray(), 
+
+	    Mail::queue(array('text' => 'emails.confirmatori_canvi'),
+			array('instance' => $instance->toArray()),
 			function($message) use ($instance, $FC) {
 		    $message->to($instance->email, 
 				 assemble_identifying_short_fields($FC, $instance))
