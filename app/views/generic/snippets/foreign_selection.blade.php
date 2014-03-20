@@ -21,6 +21,7 @@
         <?php 
            $the_df_input = ($action == 'Editar' ||
 			     $action == 'Mostrar' ||
+			     $action == 'Enviar correu' ||
 			     ( $action == 'Crear' && $field == 'id_responsables_fk' )
 			    )
 			    ? $$csn->$field

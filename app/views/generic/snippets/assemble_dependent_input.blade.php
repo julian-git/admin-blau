@@ -21,8 +21,11 @@
 {{-- this test is to catch empty dependent field list upon validation of input --}}
 <div id="{{ $field }}-id-{{ $dependent_id }}" {{ $field }}-id="{{ $dependent_id }}" class="{{ $field }}_item">
     <?php $dcl_entries = $DCL::find($dependent_id); ?>
+    @if ($action == 'Enviar correu')
+      {{ Form::checkbox($field . '-id-' . $dependent_id, 1, 1) }}
+    @endif
     <span>
-   {{ assemble_identifying_short_fields($DCL, $dcl_entries) }}
+      {{ assemble_identifying_short_fields($DCL, $dcl_entries) }}
     </span>
     @if ($action == 'Editar' && $CSN::is_editable_foreign_field($field) && sizeof($dcl_entries)>0)
       <button dependentField="{{ $field }}" {{ $field }}-id="{{ $dependent_id }}" class="btn btn-danger btn-xs cvg-remove-button">

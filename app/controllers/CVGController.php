@@ -208,6 +208,7 @@ class CVGController extends BaseController
     protected function handle_create_and_edit_impl($action)
     {
 	$CSN = $this->ClassSingularName;
+	$csn = strtolower($CSN);
 	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
 	if ($validator->fails()) {
 	    $action_tail = (!strcmp($action, 'create') && !strcmp($CSN, 'Quote'))
@@ -215,15 +216,17 @@ class CVGController extends BaseController
 		: Input::get('id');
 	    // If you ever need to see the failed validation tests, uncomment the following:
 	    // $this->log_failed_validator_entries($action_tail, $validator);
-	    return Redirect::to(strtolower($CSN) . '/' . $action . '/' . $action_tail)
+	    return Redirect::to($csn . '/' . $action . '/' . $action_tail)
 		->with($this->layout_data)
 		->withErrors($validator)
 		->withInput();
 	}
 
 	$this->save_instance($action);
-
-	return Redirect::to(strtolower($CSN))
+	
+	return Redirect::to(isset($CSN::$send_mail_to)
+			    ? $csn . '/send-mail'
+			    : $csn)
 	    ->with($this->layout_data);
     }
 
@@ -258,5 +261,16 @@ class CVGController extends BaseController
 	$class_instance->delete();
 	return Redirect::action($CSN . 'sController@index');
     }
+
+    public function sendMail($class_instance) 
+    {
+        // Show a listing.
+	$CSN = $this->ClassSingularName;
+	$csn = strtolower($CSN);
+	$extended_layout_data = $this->layout_data;
+	$extended_layout_data[$csn] = $class_instance;
+	$this->layout->content = View::make("generic.send_mail", $extended_layout_data);
+    }
+
 }
  ?>

@@ -195,6 +195,11 @@ class Quote extends ResolvingEloquent
 						    'beneficiaris_list'
 						    );
 
+    public static $send_mail_to = array(
+					'id_responsables_fk' => 'Responsable',
+					'id_beneficiaris_list' => 'Beneficiaris'
+					);
+
     public function beneficiari()
     {
     	return $this->belongsToMany('Persone', 'beneficiaris');

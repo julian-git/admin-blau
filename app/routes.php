@@ -89,3 +89,13 @@ Route::get("/persones/actives/{persone}", 'PersonesController@actives');
 Route::get("/persones/search/{first}", 'PersonesController@search');
 Route::get("/persones/search_id/{first}", 'PersonesController@search_id');
 Route::get("/quote/generar_rebut/{quote}", 'QuotesController@generar_rebut');
+
+foreach(array(
+	      'Persone',
+	      'Quote'
+	      ) as $CSN)
+{
+    $csn = strtolower($CSN);
+    Route::get ("/$csn/send-mail/{" . $csn . '}', "{$CSN}sController@sendMail");
+    Route::post("/$csn/send-mail/{" . $csn . '}', "{$CSN}sController@handleSendMail");
+}
