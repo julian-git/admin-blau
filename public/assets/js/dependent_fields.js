@@ -104,7 +104,6 @@ $('.dependent-search').each(function() {
     var searchBox = new Bloodhound({
 	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
 	queryTokenizer: Bloodhound.tokenizers.whitespace,
-//	prefetch: '../data/films/post_1960.json',
 	remote: {
 	    url: '/' + $(this).attr('dependentClass') + 's/search/%QUERY',
 	}
