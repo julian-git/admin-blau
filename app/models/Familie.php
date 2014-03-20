@@ -109,6 +109,11 @@ class Familie extends ResolvingEloquent
 
     public static $identifying_short_fields = array('nom');
 
+    public static $send_mail_to = array(
+					'id_responsables_fk' => 'Responsables',
+					'id_membres_list' => 'Membres'
+					);
+
     public function membres()
     {
         return $this->belongsToMany('Persone', 'familie_membres');

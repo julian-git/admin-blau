@@ -386,7 +386,7 @@
 
     <!-- Page-Level Demo Scripts - Blank - Use for reference -->
 
-<footer><a href="http://github.com/julian-git/admin-blau">L&lsquo;Admin Blau</a> &eacute;s <a href="https://www.gnu.org/copyleft/gpl.html">software lliure</a> basada en <a href="http://laravel.com">Laravel</a>, <a href="http://getbootstrap.com/">bootstrap</a>, <a href="http://startbootstrap.com/sb-admin-v2">sb-admin-v2</a> i <a href="https://github.com/twitter/typeahead.js">typeahead.js (MIT License)</a>.
+<footer><a href="http://github.com/julian-git/admin-blau">L&lsquo;Admin Blau</a> &eacute;s <a href="https://www.gnu.org/copyleft/gpl.html">software lliure</a> basada en <a href="http://laravel.com">Laravel</a>, <a href="http://getbootstrap.com/">bootstrap</a>, <a href="http://startbootstrap.com/sb-admin-v2">sb-admin-v2</a> i <a href="https://github.com/twitter/typeahead.js">typeahead.js</a>.
 </footer>
 </body>
 
