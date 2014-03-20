@@ -275,6 +275,12 @@ class CVGController extends BaseController
     public function handleSendMail()
     {
 	$CSN = $this->ClassSingularName;
+	$csn = strtolower($CSN);
+	$extended_layout_data = $this->layout_data;
+	$extended_layout_data[$csn] = $CSN::where('id', '=', Input::get('id'))->first();
+	$extended_layout_data['action'] = 'Enviar correu';
+	$extended_layout_data['signatari'] = 'Administració CVG';
+
 	foreach(Input::all() as $field => $value)
 	{
 	    if (($pos = strpos($field, '-id-')) === false) continue;
@@ -282,18 +288,23 @@ class CVGController extends BaseController
 	    $foreign_field = substr($field, 0, $pos);
 	    $id = substr($field, $pos + strlen('-id-'));
 	    $FC = $CSN::$foreign_class[$foreign_field];
-	    $instance = $FC::findOrFail($id);
+	    $foreign_class_instance = $FC::where('id', '=', $id)->first();
+	    Log::info($id);
+	    Log::info($foreign_class_instance);
 
-	    Mail::queue(array('text' => 'emails.confirmatori_canvi'),
-			array('instance' => $instance->toArray()),
-			function($message) use ($instance, $FC) {
-		    $message->to($instance->email, 
-				 assemble_identifying_short_fields($FC, $instance))
-			->subject('Confirmació de canvis')
-			->cc('info@cvg.cat');
+	    Mail::queue(array('emails.confirmatori_canvi', 'generic.create_edit_inspect'),
+			$extended_layout_data,
+			function($message) use ($foreign_class_instance, $FC, $CSN) {
+		    $message->to($foreign_class_instance->email, 
+				 assemble_identifying_short_fields($FC, $foreign_class_instance))
+			->subject('Confirmació de canvis en ' 
+				  . strtolower($CSN::$singular_class_name)
+				  )
+			//			->cc('info@cvg.cat')
+			;
 		});
 	}
-	
+	return Redirect::action($CSN . 'sController@index');
     }
 }
  ?>

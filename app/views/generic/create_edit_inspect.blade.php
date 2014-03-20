@@ -37,7 +37,9 @@
   {{ Form::open() }}
 @endif
 
-@include ('generic/snippets/crud_buttons')
+@if ($action != 'Enviar correu')
+  @include ('generic/snippets/crud_buttons')
+@endif
 
 @if (!isset($CSN::$panels))
 
@@ -72,9 +74,11 @@
 
 @endif {{-- !isset($CSN::$panels)) --}}
 
-@include ('generic/snippets/crud_buttons')
+@if ($action != 'Enviar correu')
+  @include ('generic/snippets/crud_buttons')
+@endif
 
-@if (!strcmp($action, 'Mostrar') && isset($CSN::$specialized_inspect))
+@if (in_array($action, array('Mostrar', 'Enviar correu')) && isset($CSN::$specialized_inspect))
   @include('specialized/' . $CSN::$specialized_inspect)
 @endif
 

@@ -7,7 +7,10 @@
           <div class="col-md-9">
             <?php 
 	      $DataCSN = 'Rebut';
-              $instances = $quote->rebuts()->get();
+Log::info('in quote.blade');
+Log::info($csn);
+Log::info($$csn);
+              $instances = $$csn->rebuts()->get();
               $allow_edit = false;
             ?>
             @include('generic/snippets/datatable')
