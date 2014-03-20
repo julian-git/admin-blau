@@ -6,6 +6,10 @@ td.right {
     margin-bottom: 10px;
 }
 
+.twitter-typeahead {
+    padding-top: 5px;
+}
+
 .twitter-typeahead .tt-hint {
     display: block;
     height: 34px;
@@ -44,6 +48,8 @@ overflow-y: auto;
 .tt-hint {
      width: 100%;
 }
+
+
 
 .cvg-esdeveniment-titol {
     font-weight: bold;

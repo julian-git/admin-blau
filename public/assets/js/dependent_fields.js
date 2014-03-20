@@ -62,43 +62,11 @@ function remove_button_clicked(dependentField, dependent_id)
 
 $('.dependent-search').val('');
 
-$('.tt-hint').addClass('form-control');
-
 $('.cvg-remove-button').click(function() {
     var dependentField = $(this).attr('dependentField');
     remove_button_clicked(dependentField, $(this).attr(dependentField + '-id'));
 });
 
-/*
-$('.dependent-search').keyup(function(e) {
-    var minLength = 3;  // search with min of X characters
-    var searchStr = $(this).val();
-    var dependentButton = $(this).attr('dependentButton');
-    var dependentField = $(this).attr('dependentField');
-    var searchId = $(this).attr('id');
-    if (searchStr.length >= minLength) {
-	$.getJSON('/' + $(this).attr('dependentClass') + 's/search/' + searchStr, function() {
-	}).done(function(dependentObject) {
-	    $('#' + searchId)
-		.attr(dependentField + '-id', dependentObject.id)
-		.val(dependentObject.name);
-	    if (dependentObject.id == -1) {
-		$('#' + dependentButton).addClass('disabled');
-	    } else {
-		$('#' + dependentButton).removeClass('disabled');
-		var href = $('#' + dependentButton).attr('href');
-		if (!!href) { // checks against undefined and false
-		    var last_slash = href.lastIndexOf('/');
-		    $('#' + dependentButton).attr('href', href.substr(0, last_slash) + '/' + dependentObject.id);
-		}
-	    } 
-        }).fail(function(result) {
-            $('#' + searchId).val("No es troba cap persona semblant.");
-	    $('#' + dependentButton).addClass('disabled');
-	});
-    }
-});
-*/
 
 $('.dependent-search').each(function() {
     var searchBox = new Bloodhound({
@@ -106,7 +74,7 @@ $('.dependent-search').each(function() {
 	queryTokenizer: Bloodhound.tokenizers.whitespace,
 	remote: {
 	    url: '/' + $(this).attr('dependentClass') + 's/search/%QUERY',
-	}
+	},
     });
  
     searchBox.initialize();
@@ -116,6 +84,21 @@ $('.dependent-search').each(function() {
 	source: searchBox.ttAdapter()
     });
 
+});
+
+$('.dependent-search').bind('typeahead:selected', function(obj, datum, name) {
+    var dependentButton = $(this).attr('dependentButton');
+    var dependentField = $(this).attr('dependentField');
+
+    $(this).attr(dependentField + '-id', datum.id);
+
+    $('#' + dependentButton).removeClass('disabled');
+
+    var href = $('#' + dependentButton).attr('href');
+    if (!!href) { // checks against undefined and false
+	var last_slash = href.lastIndexOf('/');
+	$('#' + dependentButton).attr('href', href.substr(0, last_slash) + '/' + dependentObject.id);
+    }    
 });
 
 function append_dependent_field(dependent_id, dependentField, searchField)

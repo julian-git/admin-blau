@@ -67,7 +67,6 @@ class Quote extends ResolvingEloquent
 						   ),
 				  'Responsable' => array(
 							 'id_responsables_fk' => 'Responsable',
-							 'input_id_responsables_fk' => 'Triar responsable',
 							 'iban' => 'IBAN',
 							 'bic' => 'BIC'
 							 ),
