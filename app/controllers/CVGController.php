@@ -289,8 +289,6 @@ class CVGController extends BaseController
 	    $id = substr($field, $pos + strlen('-id-'));
 	    $FC = $CSN::$foreign_class[$foreign_field];
 	    $foreign_class_instance = $FC::where('id', '=', $id)->first();
-	    Log::info($id);
-	    Log::info($foreign_class_instance);
 
 	    Mail::queue(array('emails.confirmatori_canvi', 'generic.create_edit_inspect'),
 			$extended_layout_data,
