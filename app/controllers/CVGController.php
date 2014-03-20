@@ -115,11 +115,8 @@ class CVGController extends BaseController
 			   ? new $CSN
 			   : $CSN::findOrFail(Input::get('id')));
 	$input = Input::all();
-	Log::info('input: ');
-	Log::info($input);
 	foreach ($input as $field => $value) 
         {
-	    Log::info("processing field $field");
 	    if (!strcmp($field, '_token')) {
 		continue;
 	    }
@@ -144,10 +141,10 @@ class CVGController extends BaseController
 	    $this->$$sf = $this->build_search_field();
 	}
 	
-	Log::info("will save $class_instance");
+	//	Log::info("will save $class_instance");
 	$class_instance->save();
 
-	Log::info("will save dependent fields");
+	// Log::info("will save dependent fields");
 	foreach ($input as $field => $value) 
 	{   // now complete the action left over from before, 
 	    // but check whether the field is editable
@@ -192,7 +189,7 @@ class CVGController extends BaseController
 	    $pivot->timestamps = false;
 	    $pivot->save();
 	}
-	Log::info("saved dependent fields");
+	//	Log::info("saved dependent fields");
     }
 
     public function handleCrear($arg=null)
@@ -225,7 +222,7 @@ class CVGController extends BaseController
 	$this->save_instance($action);
 	
 	return Redirect::to(isset($CSN::$send_mail_to)
-			    ? $csn . '/send-mail'
+			    ? $csn . '/send-mail/' . Input::get('id')
 			    : $csn)
 	    ->with($this->layout_data);
     }
@@ -281,20 +278,29 @@ class CVGController extends BaseController
 	$extended_layout_data['action'] = 'Enviar correu';
 	$extended_layout_data['signatari'] = 'Administració CVG';
 
-	foreach(Input::all() as $field => $value)
+	foreach(Input::all() as $field_and_id => $value)
 	{
-	    if (($pos = strpos($field, '-id-')) === false) continue;
+	    if (($pos = strpos($field_and_id, '-id-')) === false) continue;
 
-	    $foreign_field = substr($field, 0, $pos);
-	    $id = substr($field, $pos + strlen('-id-'));
-	    $FC = $CSN::$foreign_class[$foreign_field];
-	    $foreign_class_instance = $FC::where('id', '=', $id)->first();
+	    $field = substr($field_and_id, 0, $pos);
+	    $id = substr($field_and_id, $pos + strlen('-id-'));
+
+	    if ($CSN::is_foreign_selection($field))
+	    {
+		$C = $CSN::$foreign_class[$field];
+		$instance = $C::where('id', '=', $id)->first();
+	    } 
+	    else 
+	    {
+		$C = $CSN;
+		$instance = $extended_layout_data[$csn];
+	    }
 
 	    Mail::queue(array('emails.confirmatori_canvi', 'generic.create_edit_inspect'),
 			$extended_layout_data,
-			function($message) use ($foreign_class_instance, $FC, $CSN) {
-		    $message->to($foreign_class_instance->email, 
-				 assemble_identifying_short_fields($FC, $foreign_class_instance))
+			function($message) use ($instance, $C, $CSN) {
+		    $message->to($instance->email, 
+				 assemble_identifying_short_fields($C, $instance))
 			->subject('Confirmació de canvis en ' 
 				  . strtolower($CSN::$singular_class_name)
 				  )

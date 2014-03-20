@@ -22,7 +22,7 @@
 <?php include_once(dirname(dirname(dirname(__FILE__))) . "/models/$CSN.php"); ?>
 
 <div class="page-header">
-    <h1>Enviar correus confirmatoris de canvis en {{ $csn }}</h1>
+    <h1>Enviar correus confirmatoris de canvis en {{ strtolower($CSN::$singular_class_name) }}</h1>
 </div>
 
 {{ Form::open() }}
@@ -37,7 +37,12 @@
     </div>
   </div>
   <div class="col-md-9">
-    @include('generic/snippets/foreign_selection', array('action' => 'Enviar correu'))
+    @if ($CSN::is_foreign_selection($field))
+      @include('generic/snippets/foreign_selection', array('action' => 'Enviar correu'))
+    @else
+      {{ Form::checkbox($field . '-id-' . $$csn->id, 1, 1) }}
+      {{ $$csn->$field }}
+    @endif
   </div>
 </div>
 @endforeach

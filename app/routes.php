@@ -92,7 +92,8 @@ Route::get("/quote/generar_rebut/{quote}", 'QuotesController@generar_rebut');
 
 foreach(array(
 	      'Persone',
-	      'Quote'
+	      'Quote',
+	      'Familie'
 	      ) as $CSN)
 {
     $csn = strtolower($CSN);

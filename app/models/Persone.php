@@ -250,6 +250,10 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
     public static $identifying_short_fields = array('nom',
 						    'cognom1');
 
+    public static $send_mail_to = array(
+					'id' => 'Destinatari'
+					);
+
     // Now stuff from the UserInterface and the RemindableInterface
 
 	/**
