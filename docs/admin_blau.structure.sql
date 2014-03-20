@@ -314,6 +314,7 @@ CREATE TABLE `persones` (
   `amplada-hombros` decimal(8,2) NOT NULL DEFAULT '0.00',
   `circunferencia` decimal(8,2) NOT NULL DEFAULT '0.00',
   `forca` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `search` varchar(155) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `persones_mot_unique` (`mot`),
   KEY `persones_categories_fk_foreign` (`categories_fk`),
@@ -323,6 +324,7 @@ CREATE TABLE `persones` (
   KEY `persones_actiu_index` (`actiu`),
   KEY `persones_nom_index` (`nom`),
   KEY `persones_cognom1_index` (`cognom1`),
+  KEY `persones_search_index` (`search`),
   CONSTRAINT `persones_rols_fk_foreign` FOREIGN KEY (`rols_fk`) REFERENCES `rols` (`id`),
   CONSTRAINT `persones_categories_fk_foreign` FOREIGN KEY (`categories_fk`) REFERENCES `categories` (`id`)
 );
@@ -507,4 +509,4 @@ CREATE TABLE `tipus_quotes` (
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-18 10:03:10
+-- Dump completed on 2014-03-20 14:52:52
