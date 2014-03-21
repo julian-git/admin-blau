@@ -37,6 +37,12 @@ td.right {
     line-height: 1.33;
 }
 
+.typeahead_wrapper { display: block; height: 30px; }
+.typeahead_photo { float: left; max-width: 30px; max-height: 30px; margin-right: 5px; }
+.typeahead_labels { float: left; height: 30px; }
+.typeahead_primary { font-weight: bold; }
+.typeahead_secondary { font-size: .8em; margin-top: -5px; }
+
 .dependent-search .tt-dropdown-menu {
 max-height: 150px;
 overflow-y: auto;

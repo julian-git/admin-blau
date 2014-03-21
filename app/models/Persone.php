@@ -93,7 +93,10 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 		       'direccio'
 		       ) as $field)
         {
-	   $search[] = Persone::$member_fields[$field] . ':' . $this->$field;
+	    if (strlen($this->$field) > 0)
+	    {
+		$search[] = Persone::$member_fields[$field] . ':' . $this->$field;
+	    }
 	}
 	return join('\\', $search);
     }

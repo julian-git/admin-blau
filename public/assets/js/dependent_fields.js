@@ -115,22 +115,31 @@ $('.dependent-search').each(function() {
 	queryTokenizer: Bloodhound.tokenizers.whitespace,
 	remote: {
 	    url: '/' + $(this).attr('dependentClass') + 's/search/%QUERY',
-	    filter: function (parsedResponse) {
-		// parsedResponse is the array returned from your backend
-		console.log(parsedResponse);
-
-		// do whatever processing you need here
-		return parsedResponse;
-	    }
 	},
+/*
+	template: [
+	    '<div class="typeahead-wrapper"><div class="typeahead-labels">',
+	    '<div class="typeahead-primary">{{ id }}</div>',
+	    '<div class="typeahead-secondary">{{ search }}</div>',
+	    '</div></div>'
+	].join(''),
+*/
     });
  
     searchBox.initialize();
 
     $(this).typeahead(null, {
 	displayKey: function(obj) { // what's displayed in the dropdown
-	    console.log(obj);
-	    return obj.search + obj.search + obj.search;
+	    var fields = obj.search.split('\\');
+	    var response = '<div class="typeahead-wrapper"><div class="typeahead-labels">';
+	    for (var i=0; i<3; i++) {
+		response += '<div class="typeahead-primary">' + fields[i] + '</div>';
+	    }
+	    for (var i=3; i<fields.length; i++) {
+		response += '<div class="typeahead-secondary">' + fields[i] + '</div>';
+	    }
+	    response += '</div></div>';
+	    return response;
 	},
 	source: searchBox.ttAdapter()
     });
