@@ -96,9 +96,7 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					  'rols_fk' => 1
 					  );
 
-    public static $validation_rules = array('cognom1' => 'required',
-					    'nom' => 'required',
-					    'mot' => 'required',
+    public static $validation_rules = array('nom' => 'required',
 					    'naixement' => 'date',
 					    'dni' => 'alpha_num|max:12',
 					    'email' => 'email',
