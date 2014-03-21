@@ -75,6 +75,13 @@ class Familie extends ResolvingEloquent
 					  'input_id_membres_list' =>  'Busca membre per nom, cognom o mot...'
 					  );
 
+    // anytime an entry is added to list $f, it's also added to $slave_list_of[$f]
+    public static $has_slave_lists = true;
+
+    public static $slave_list_of = array(
+					  'id_responsables_list' => 'id_membres_list'
+					  );
+
 
     public static function is_foreign_selection($field)
     {

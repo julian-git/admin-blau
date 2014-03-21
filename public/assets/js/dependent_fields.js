@@ -33,7 +33,7 @@ function update_dependent_field_input(dependentField) {
 	}
 	val_list += $(this).attr(dependentField + '-id');
     });
-//    alert (dependentField + " updated to " + val_list);
+    // alert (dependentField + " updated to " + val_list);
     $('#' + dependentField).val(val_list);
     var udae = $('#' + dependentField).attr('update-display-after-edit');
     if ( !! udae ) {
@@ -70,7 +70,7 @@ $('.cvg-remove-button').click(function() {
 
 $('.dependent-search').each(function() {
     var searchBox = new Bloodhound({
-	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('search'),
 	queryTokenizer: Bloodhound.tokenizers.whitespace,
 	remote: {
 	    url: '/' + $(this).attr('dependentClass') + 's/search/%QUERY',
@@ -80,7 +80,7 @@ $('.dependent-search').each(function() {
     searchBox.initialize();
 
     $(this).typeahead(null, {
-	displayKey: 'value',
+	displayKey: 'search',
 	source: searchBox.ttAdapter()
     });
 
@@ -104,11 +104,22 @@ $('.dependent-search').bind('typeahead:selected', function(obj, datum, name) {
 function append_dependent_field(dependent_id, dependentField, searchField)
 {
     var dependent_text = $('#' + searchField).val();
-    $('#' + searchField).val('');
-    $('#' + dependentField + '-field-list').append(dependent_list_entry(dependentField, dependent_id, dependent_text));   
+    var dependent_field = $('#' + dependentField + '-field-list');
+    dependent_field.append(dependent_list_entry(dependentField, dependent_id, dependent_text));
+    update_dependent_field_input(dependentField);
+
+    var slave_list = dependent_field.attr('slaveList');
+    if (!! slave_list && can_add_id(dependent_id, slave_list, true)) {
+	append_dependent_field(dependent_id, slave_list, searchField);
+    }
+
+    $('#remove-' + dependentField + '-id-' + dependent_id).click(function() {
+	var dependentField = $(this).attr('dependentField');
+	remove_button_clicked(dependentField, $(this).attr(dependentField + '-id'));
+    });
 }
 
-function can_add_id(dependent_id, dependentField)
+function can_add_id(dependent_id, dependentField, quiet=false)
 {
     if (dependent_id == -1) {
 	return false;
@@ -117,11 +128,15 @@ function can_add_id(dependent_id, dependentField)
     var field_val = field.val();
     if (field.hasClass('cvg-single-entry') &&
 	field_val.length > 0) {
-	alert('Només pot haber-hi una entrada en aquesta llista');
+	if (!quiet) {
+	    alert('Només pot haber-hi una entrada en aquesta llista');
+	}
 	return false;
     }
     if (field_val.split(',').in_array(dependent_id)) {
-	alert('Aquesta entrada ja hi existeix a la llista');
+	if (!quiet) {
+	    alert('Aquesta entrada ja hi existeix a la llista');
+	}
 	return false;
     }
     return true;
@@ -132,14 +147,8 @@ $('.afegir-button').click(function() {
     var dependentField = $('#' + searchField).attr('dependentField');
     var dependent_id = $('#' + searchField).attr(dependentField + '-id');
     $(this).addClass('disabled');
-    if (!can_add_id(dependent_id, dependentField)) {
-	$('#' + searchField).val('');	
-    } else {
+    if (can_add_id(dependent_id, dependentField)) {
 	append_dependent_field(dependent_id, dependentField, searchField);
-	$('#remove-' + dependentField + '-id-' + dependent_id).click(function() {
-	    var dependentField = $(this).attr('dependentField');
-	    remove_button_clicked(dependentField, $(this).attr(dependentField + '-id'));
-	});
-	update_dependent_field_input(dependentField);
     }
+    $('#' + searchField).val('');	
 });

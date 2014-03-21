@@ -32,7 +32,9 @@ class PersonesController extends CVGController
 
     public static function search($search_string)
     {
-	return Persone::where('search', 'like', '%' . $search_string . '%')->select('id', DB::raw('search as value'))->get();
+	return Persone::where('search', 'like', '%' . $search_string . '%')
+	    ->select('id', 'search')
+	    ->get();
     }
 
     public static function search_id($search_string)

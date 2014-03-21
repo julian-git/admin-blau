@@ -25,5 +25,5 @@
       </button>
     </span>
   @endif
-    <input id="{{ $field }}-search" type="text" class="dependent-search typeahead form-control" dependentClass="{{ strtolower($CSN::$foreign_class[$field]) }}" dependentField="{{ substr($field, strlen('input_')) }}" dependentButton="{{ $dependent_button }}" placeholder="{{ ($action == 'Mostrar') ? "Clica 'Editar' a dalt per activar" : $CSN::$search_message[$field] }}" {{ ($action == 'Mostrar') ? 'disabled' : '' }}>
+      <input id="{{ $field }}-search" type="text" class="dependent-search typeahead form-control" dependentClass="{{ strtolower($CSN::$foreign_class[$field]) }}" dependentField="{{ substr($field, strlen('input_')) }}" dependentButton="{{ $dependent_button }}" placeholder="{{ ($action == 'Mostrar') ? "Clica 'Editar' a dalt per activar" : $CSN::$search_message[$field] }}" {{ ($action == 'Mostrar') ? 'disabled' : '' }}>
 </div> <!-- input group -->

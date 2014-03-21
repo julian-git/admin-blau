@@ -40,7 +40,7 @@
 	   }
         ?>
         {{ Form::hidden($field, $the_df_input, $extra_data) }}
-        <div id="{{ $field }}-field-list">
+<div id="{{ $field }}-field-list" {{ isset($CSN::$has_slave_lists) && isset($CSN::$slave_list_of[$field]) ? 'slaveList="' . $CSN::$slave_list_of[$field] . '"' : '' }}>
 	    <?php $DCL = $CSN::$foreign_class[$field] ?>
            @foreach(explode(',', $the_df_input) as $dependent_id)
 	       @include('generic/snippets/assemble_dependent_input')

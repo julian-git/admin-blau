@@ -176,6 +176,16 @@ class FamilieMembresSeeder extends Seeder {
 						   'id' => 1,
 						   'persone_id' => '3',
 						   'familie_id' => '1'
+						   ),
+					     array(
+						   'id' => 2,
+						   'persone_id' => '1',
+						   'familie_id' => '1'
+						   ),
+					     array(
+						   'id' => 3,
+						   'persone_id' => '2',
+						   'familie_id' => '2'
 						   )
 					     ));
     }
