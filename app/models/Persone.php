@@ -74,13 +74,28 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 
     protected static $search_field = 'search';
 
-    protected function build_search_field()
+    public function build_search_field()
     {
-	return 
-	    $this->nom . ' ' .
-	    $this->cognom1 . ' ' .
-	    (strlen($this->cognom2) > 0 ? $this->cognom2 : '') .
-	    '(' . $this->mot . ')';
+	$search = array();
+	foreach (array('nom',
+		       'cognom1',
+		       'cognom2',
+		       'mot',
+		       'numero_soci',
+		       'dni',
+		       'email',
+		       'telefon',
+		       'mobil',
+		       'bic',
+		       'iban',
+		       'naixement',
+		       'data_alta',
+		       'direccio'
+		       ) as $field)
+        {
+	   $search[] = Persone::$member_fields[$field] . ':' . $this->$field;
+	}
+	return join('\\', $search);
     }
 
     public static $default_values = array(

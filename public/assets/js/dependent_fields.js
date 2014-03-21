@@ -115,6 +115,13 @@ $('.dependent-search').each(function() {
 	queryTokenizer: Bloodhound.tokenizers.whitespace,
 	remote: {
 	    url: '/' + $(this).attr('dependentClass') + 's/search/%QUERY',
+	    filter: function (parsedResponse) {
+		// parsedResponse is the array returned from your backend
+		console.log(parsedResponse);
+
+		// do whatever processing you need here
+		return parsedResponse;
+	    }
 	},
     });
  
@@ -123,7 +130,7 @@ $('.dependent-search').each(function() {
     $(this).typeahead(null, {
 	displayKey: function(obj) { // what's displayed in the dropdown
 	    console.log(obj);
-	    return obj.search;
+	    return obj.search + obj.search + obj.search;
 	},
 	source: searchBox.ttAdapter()
     });

@@ -149,7 +149,12 @@ class PersonesSeeder extends Seeder {
 			      'iban' => 'ES0213123123',
 			      'bic' => 'CAHMMMZZZ'
 			      ));
-
+	for ($i=1; $i<4; $i++)
+	{
+	    $p = Persone::find($i);
+	    $p->search = $p->build_search_field();
+	    $p->save();
+	}
     }
 }
 
