@@ -60,47 +60,6 @@ function remove_button_clicked(dependentField, dependent_id)
     update_dependent_field_input(dependentField);
 }
 
-$('.dependent-search').val('');
-
-$('.cvg-remove-button').click(function() {
-    var dependentField = $(this).attr('dependentField');
-    remove_button_clicked(dependentField, $(this).attr(dependentField + '-id'));
-});
-
-
-$('.dependent-search').each(function() {
-    var searchBox = new Bloodhound({
-	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('search'),
-	queryTokenizer: Bloodhound.tokenizers.whitespace,
-	remote: {
-	    url: '/' + $(this).attr('dependentClass') + 's/search/%QUERY',
-	},
-    });
- 
-    searchBox.initialize();
-
-    $(this).typeahead(null, {
-	displayKey: 'search',
-	source: searchBox.ttAdapter()
-    });
-
-});
-
-$('.dependent-search').bind('typeahead:selected', function(obj, datum, name) {
-    var dependentButton = $(this).attr('dependentButton');
-    var dependentField = $(this).attr('dependentField');
-
-    $(this).attr(dependentField + '-id', datum.id);
-
-    $('#' + dependentButton).removeClass('disabled');
-
-    var href = $('#' + dependentButton).attr('href');
-    if (!!href) { // checks against undefined and false
-	var last_slash = href.lastIndexOf('/');
-	$('#' + dependentButton).attr('href', href.substr(0, last_slash) + '/' + dependentObject.id);
-    }    
-});
-
 function append_dependent_field(dependent_id, dependentField, searchField)
 {
     var dependent_text = $('#' + searchField).val();
@@ -141,6 +100,50 @@ function can_add_id(dependent_id, dependentField, quiet=false)
     }
     return true;
 }
+
+$('.dependent-search').val('');
+
+$('.cvg-remove-button').click(function() {
+    var dependentField = $(this).attr('dependentField');
+    remove_button_clicked(dependentField, $(this).attr(dependentField + '-id'));
+});
+
+
+$('.dependent-search').each(function() {
+    var searchBox = new Bloodhound({
+	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('search'),
+	queryTokenizer: Bloodhound.tokenizers.whitespace,
+	remote: {
+	    url: '/' + $(this).attr('dependentClass') + 's/search/%QUERY',
+	},
+    });
+ 
+    searchBox.initialize();
+
+    $(this).typeahead(null, {
+	displayKey: function(obj) { // what's displayed in the dropdown
+	    console.log(obj);
+	    return obj.search;
+	},
+	source: searchBox.ttAdapter()
+    });
+
+});
+
+$('.dependent-search').bind('typeahead:selected', function(obj, datum, name) {
+    var dependentButton = $(this).attr('dependentButton');
+    var dependentField = $(this).attr('dependentField');
+
+    $(this).attr(dependentField + '-id', datum.id);
+
+    $('#' + dependentButton).removeClass('disabled');
+
+    var href = $('#' + dependentButton).attr('href');
+    if (!!href) { // checks against undefined and false
+	var last_slash = href.lastIndexOf('/');
+	$('#' + dependentButton).attr('href', href.substr(0, last_slash) + '/' + dependentObject.id);
+    }    
+});
 
 $('.afegir-button').click(function() {
     var searchField = $(this).attr('searchField');
