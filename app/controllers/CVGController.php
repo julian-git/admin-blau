@@ -360,12 +360,12 @@ class CVGController extends BaseController
 	    return join(',', $vals);
 
 	case 'xml':
-	    $xml = '<row>';
+	    $xml = "  <row>\n";
 	    foreach(json_decode($value) as $f => $v)
 	    {	
-		$xml .= '<' . $f . '>' . $v . '</' . $f . '>';
+		$xml .= '    <' . $f . '>' . $v . '</' . $f . ">\n";
 	    }
-	    return $xml . '</row>';
+	    return $xml . '  </row>';
 
 	default:
 	    App::abort(403, 'El format ' . $fmt . ' és desconegut');
@@ -383,14 +383,15 @@ class CVGController extends BaseController
 	}
 	if ($fmt == 'xml') 
 	{
-	    fwrite($handle, '<dataset>');
-	    fwrite($handle, '<date>' . date('Y-m-d') . '</date>');
+	    fwrite($handle, "<dataset>\n");
+	    fwrite($handle, '  <date>' . date('Y-m-d') . "</date>\n");
 	}
 	foreach (Input::all() as $field => $value)
 	{
 	    if (substr($field, 0, strlen('id-')) == 'id-')
 	    {
 		fwrite($handle, $this->format($fmt, $value));
+		fwrite($handle, "\n");
 	    }
 	}
 	if ($fmt == 'xml') 
