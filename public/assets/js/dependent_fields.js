@@ -126,17 +126,22 @@ $('.dependent-search').each(function() {
 	}).join(' ');
     }
 
+    var inputbox = $(this).attr('id');
+
     $(this).typeahead(null, {
 	displayKey: function(obj) {
 	    return first_three_fields(obj);
 	},
 	templates: {
-	    suggestion: function(obj) { // what's displayed in the dropdown
+	    suggestion: function(obj, inputbox_ = inputbox) { // what's displayed in the dropdown
 		var fields = obj.search.split('\\');
+		var query = $('#' + inputbox_).val().toLowerCase();
 		var response = '<div class="typeahead-wrapper"><div class="typeahead-labels">';
 		response += '<div class="typeahead-primary">' + first_three_fields(obj) + '</div>';
 		for (var i=3; i<fields.length; i++) {
-		    response += '<div class="typeahead-secondary">' + fields[i].replace(':', ': ') + '</div>';
+		    if (fields[i].substring(fields[i].indexOf(':') + 1).toLowerCase().indexOf(query) != -1) {
+			response += '<div class="typeahead-secondary">' + fields[i].replace(':', ': ') + '</div>';
+		    }
 		}
 		response += '</div></div>';
 		

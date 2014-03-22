@@ -99,8 +99,8 @@ class Quote extends ResolvingEloquent
 				       );
 
     public static $search_message = array(
-					  'input_id_responsables_fk' => 'Busca responsable: nom/cognom/mot',
-					  'input_id_beneficiaris_list' =>  'Busca beneficiari: nom/cognom/mot'
+					  'input_id_responsables_fk' => 'Busca responsable...',
+					  'input_id_beneficiaris_list' =>  'Busca beneficiari...'
 					  );
 
     // what will be displayed in the index listing

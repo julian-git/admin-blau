@@ -71,8 +71,8 @@ class Familie extends ResolvingEloquent
 				       );
 
     public static $search_message = array(
-					  'input_id_responsables_list' => 'Busca responsable per nom, cognom o mot...',
-					  'input_id_membres_list' =>  'Busca membre per nom, cognom o mot...'
+					  'input_id_responsables_list' => 'Busca responsable...',
+					  'input_id_membres_list' =>  'Busca membre...'
 					  );
 
     // anytime an entry is added to list $f, it's also added to $slave_list_of[$f]
