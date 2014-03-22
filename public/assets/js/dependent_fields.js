@@ -128,21 +128,23 @@ $('.dependent-search').each(function() {
  
     searchBox.initialize();
 
+    function first_three_fields(obj) {
+	return obj.search.split('\\').slice(0,3).map(function(entry) {
+	    return entry.substring(entry.indexOf(':') + 1);
+	}).join(' ');
+    }
+
     $(this).typeahead(null, {
 	displayKey: function(obj) {
-	    return obj.search.split('\\').slice(0,3).map(function(entry) {
-		return entry.substring(entry.indexOf(':') + 1);
-	    }).join(' ');
+	    return first_three_fields(obj);
 	},
 	templates: {
 	    suggestion: function(obj) { // what's displayed in the dropdown
 		var fields = obj.search.split('\\');
 		var response = '<div class="typeahead-wrapper"><div class="typeahead-labels">';
-		for (var i=0; i<3; i++) {
-		    response += '<div class="typeahead-primary">' + fields[i] + '</div>';
-		}
+		response += '<div class="typeahead-primary">' + first_three_fields(obj) + '</div>';
 		for (var i=3; i<fields.length; i++) {
-		    response += '<div class="typeahead-secondary">' + fields[i] + '</div>';
+		    response += '<div class="typeahead-secondary">' + fields[i].replace(':', ': ') + '</div>';
 		}
 		response += '</div></div>';
 		console.log(response);

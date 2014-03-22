@@ -37,11 +37,12 @@ td.right {
     line-height: 1.33;
 }
 
+
+.typeahead-wrapper { display: block; }
 /*
-.typeahead-wrapper { display: block; height: 30px; }
 .typeahead-photo { float: left; max-width: 30px; max-height: 30px; margin-right: 5px; }
-.typeahead-labels { float: left; height: 30px; }
-*/ 
+*/
+.typeahead-labels { float: left; }
 .typeahead-primary { font-weight: bold; }
 /*
 .typeahead-secondary { font-size: .8em; margin-top: -5px; }
