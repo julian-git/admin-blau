@@ -41,9 +41,9 @@
             </thead>
             <tbody>
                 @foreach($instances as $instance)
-                <tr>
+                <tr class="highlight-row">
                    @foreach(array_keys($fields_in_index) as $field)
-		   <td {{ $DataCSN::is_right_aligned($field) ? 'class="right"' : '' }}>{{ $instance->resolve($field) }}</td>
+		   <td{{ $DataCSN::is_right_aligned($field) ? ' class="right"' : '' }}>{{ $instance->resolve($field) }}</td>
 		   @endforeach
                 </tr>
                 @endforeach
