@@ -23,7 +23,7 @@
     <h1>Llistats de {{ strtolower($CSN::$plural_class_name) }}</h1>
 </div>
 
-{{ Form::open() }}
+    {{ Form::open(array('action' => sizeof($results)>0 ? $CSN . 'sController@export' : $CSN . 'sController@make_list')) }}
 
 <div class="panel panel-primary">
   <div class="panel-heading">
@@ -68,7 +68,7 @@
         </div>
       </div>
     </div> <!-- row -->
-    <button type="submit" class="btn btn-success">Fer llistat</button>
+    <button type="submit" class="btn btn-success{{ sizeof($results) == 0 ? '' : ' disabled' }}">Fer llistat</button>
   </div>
 </div>
 
@@ -78,7 +78,7 @@
   </div>
   <div class="panel-body">
     <div class="form-group">
-      <a href="/{{ strtolower($CSN) }}/export" class="btn btn-success{{ sizeof($results) > 0 ? '' : ' disabled' }}">Desar dades complerts com a</a>
+      <button type="submit" class="btn btn-success{{ sizeof($results) > 0 ? '' : ' disabled' }}">Desar dades complerts com a</button>
 	{{ Form::select('format_input', array('csv' => 'csv', 'xml' => 'xml', 'json' => 'json'), 'json', array( sizeof($results) > 0 ? '' : 'disabled')) }}
     </div>
     <div id="results" class="form-group">

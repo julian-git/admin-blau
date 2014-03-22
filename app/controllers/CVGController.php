@@ -344,13 +344,61 @@ class CVGController extends BaseController
 	$this->layout->content = View::make('generic.list', $extended_layout_data);
     }
 
+    protected function format($fmt, $value)
+    {
+	switch($fmt) 
+	{
+	case 'json':
+	    return $value;
+
+	case 'csv':
+	    $vals = array();
+	    foreach(json_decode($value) as $f => $v)
+	    {	
+		$vals[] = $v;
+	    }
+	    return join(',', $vals);
+
+	case 'xml':
+	    $xml = '<row>';
+	    foreach(json_decode($value) as $f => $v)
+	    {	
+		$xml .= '<' . $f . '>' . $v . '</' . $f . '>';
+	    }
+	    return $xml . '</row>';
+
+	default:
+	    App::abort(403, 'El format ' . $fmt . ' és desconegut');
+	}
+    }
+
     public function export()
     {
-	$tmpfname = tempnam(sys_get_temp_dir(), 'export.');
-	foreach(Input::all() as $field => $value)
+	$fmt = Input::get('format_input');
+	$pathToFile = tempnam(sys_get_temp_dir(), 'export.' . date('Y-m-d') . '.') 
+	    . '.' . $fmt;
+	if (($handle = fopen($pathToFile, 'w')) === false) 
 	{
-	    Log::info($field);
+	    App::abort(403, 'No he pogut obrir el fitxer ' . $tmpfnam);
 	}
+	if ($fmt == 'xml') 
+	{
+	    fwrite($handle, '<dataset>');
+	    fwrite($handle, '<date>' . date('Y-m-d') . '</date>');
+	}
+	foreach (Input::all() as $field => $value)
+	{
+	    if (substr($field, 0, strlen('id-')) == 'id-')
+	    {
+		fwrite($handle, $this->format($fmt, $value));
+	    }
+	}
+	if ($fmt == 'xml') 
+	{
+	    fwrite($handle, '</dataset>');
+	}
+	fclose($handle);
+	return Response::download($pathToFile);
     }
 
     
