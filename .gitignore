@@ -8,4 +8,7 @@ admin_cvg_cat
 codebright/
 docs/*.log
 docs/*.aux
+docs/*.sql
+docs/AdminBlauspecs.pdf
+public/components/jquery/jquery-1.11.0.min.js
 ftp-access

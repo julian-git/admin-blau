@@ -70,6 +70,8 @@ foreach(array('Categorie',
     Route::get("/$csn/edit/{" . $csn . '}', array('uses' => "{$CSN}sController@edit", 'as' => "$csn.edit"));
     Route::get("/$csn/inspect/{" . $csn . '}', array('uses' => "{$CSN}sController@inspect", 'as' => "$csn.inspect"));
     Route::get("/$csn/delete/{" . $csn . '}', "{$CSN}sController@delete");
+    Route::get("/$csn/list", "{$CSN}sController@make_list");
+    Route::get("/$csn/export", "{$CSN}sController@export");
     /*
     Route::get("/$csn/json", function() use ($CSN) {
 	    return Response::json($CSN::all()->toArray());
@@ -81,6 +83,8 @@ foreach(array('Categorie',
     Route::post("/$csn/create/{" . $csn . '}', "{$CSN}sController@handleCrear");
     Route::post("/$csn/edit/{" . $csn . '}', "{$CSN}sController@handleEditar");
     Route::post("/$csn/delete", "{$CSN}sController@handleDelete");
+    Route::post("/$csn/list", "{$CSN}sController@handleList");
+    Route::post("/$csn/export", "{$CSN}sController@handleExport");
 }
 
 Route::get("/esdeveniments/apuntats/{esdeveniment}", 'EsdevenimentsController@apuntats');

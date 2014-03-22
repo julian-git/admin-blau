@@ -317,5 +317,22 @@ class CVGController extends BaseController
 	}
 	return Redirect::action($CSN . 'sController@index');
     }
+
+    public function make_list()
+    {
+	$extended_layout_data = $this->layout_data;
+	$this->layout->content = View::make('generic.list', $extended_layout_data);
+    }
+
+    public function handleList()
+    {
+	$CSN = $this->ClassSingularName;
+	$results = $CSN::where(Input::get('field'), Input::get('operator'), Input::get('value'))
+	    ->get();
+	$extended_layout_data = $this->layout_data;
+	$extended_layout_data['results'] = $results;
+	$this->layout->content = View::make('generic.export', $extended_layout_data);
+    }
+
 }
  ?>
