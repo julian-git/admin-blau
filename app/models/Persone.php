@@ -102,7 +102,6 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
     }
 
     public static $default_values = array(
-					  'numero_soci' => '',
 					  'actiu' => 1,
 					  'poblacio' => 'Barcelona',
 					  'provincia' => 'Barcelona',
@@ -117,7 +116,7 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
     public static $validation_rules = array('nom' => 'required',
 					    'naixement' => 'date',
 					    'dni' => 'alpha_num|max:12',
-					    'email' => 'email',
+					    'email' => 'email|required',
 					    'sexe' => 'in:H,D');
 
     public static $display_size_of_field = array('id' => 4,
@@ -224,6 +223,13 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 					   'mobil' => 'M&ograve;bil'
 					   );					 
 
+    public static function is_creatable($field)
+    {
+	return 
+	    $field != 'numero_soci'
+	    ;
+    }
+
 
     // fields that store an index to (an array of) foreign key values
     // The *_list fields are actually fake, in that they don't correspond to
@@ -267,7 +273,7 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 						    'cognom1');
 
     public static $send_mail_to = array(
-					'id' => 'Destinatari'
+					'short_fields' => 'Destinatari'
 					);
 
     // Now stuff from the UserInterface and the RemindableInterface
@@ -383,15 +389,16 @@ class Persone extends ResolvingEloquent implements UserInterface, RemindableInte
 	}
 	return join(',', $families);
     }
+
+    public function getShortFieldsAttribute($value)
+    {
+	return assemble_identifying_short_fields('Persone', $this);
+    }
 }
 
 // work around the fact that PHP doesn't allow constexpr computations on static variables
 // inside the class body
 
 Persone::$default_values['data_alta'] = date('Y-m-d');
-
-$max_value = DB::table('persones')
-    ->select(DB::raw('max(numero_soci) as max'))->pluck('max');
-Persone::$default_values['numero_soci'] = $max_value + 1;
 
 ?>

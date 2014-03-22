@@ -108,6 +108,10 @@ class CVGController extends BaseController
 	}
     }
 
+    protected function before_save_hook($input, &$class_instance)
+    {
+    }
+
     protected function save_instance($action)
     {
 	$CSN = $this->ClassSingularName;
@@ -142,6 +146,7 @@ class CVGController extends BaseController
 	}
 	
 	//	Log::info("will save $class_instance");
+	$this->before_save_hook($input, $class_instance);
 	$class_instance->save();
 
 	// Log::info("will save dependent fields");
@@ -155,6 +160,8 @@ class CVGController extends BaseController
 		$this->save_dependent_fields_to_pivot_table($class_instance->id, $field, $value);
 	    }
 	}
+
+	return $class_instance;
     }
 
     protected function delete_dependent_fields_from_pivot_table($master_id, $dependent_field)
@@ -219,10 +226,10 @@ class CVGController extends BaseController
 		->withInput();
 	}
 
-	$this->save_instance($action);
+	$class_instance = $this->save_instance($action);
 	
 	return Redirect::to(isset($CSN::$send_mail_to)
-			    ? $csn . '/send-mail/' . Input::get('id')
+			    ? $csn . '/send-mail/' . $class_instance->id
 			    : $csn)
 	    ->with($this->layout_data);
     }

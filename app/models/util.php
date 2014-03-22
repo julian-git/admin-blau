@@ -84,6 +84,11 @@ class ResolvingEloquent extends Eloquent
 	return true;
     }
 
+    public static function is_creatable($field)
+    {
+	return true;
+    }
+
     public static $dropbox_options_of = array();
 
     public static $display_size_of_field = array('default' => 15);

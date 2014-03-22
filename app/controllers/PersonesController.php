@@ -30,6 +30,24 @@ class PersonesController extends CVGController
 	return Esdeveniment::persones_actives();
     }
 
+    protected function fetch_numero_soci()
+    {
+	$max_value = DB::table('persones')
+	    ->select(DB::raw('max(numero_soci) as max'))
+	    ->pluck('max');
+	return $max_value + 1;
+    }
+    
+    protected function before_save_hook($input, &$class_instance)
+    {
+	$class_instance->numero_soci = 
+	    (! isset($class_instance->numero_soci) &&
+	     in_array($class_instance->categories_fk, array(1,2))) 
+	    ? $this->fetch_numero_soci()
+	    : null;
+    }
+
+
     public static function search($search_string)
     {
 	return Persone::where('search', 'like', '%' . $search_string . '%')

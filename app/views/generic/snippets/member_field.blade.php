@@ -2,7 +2,9 @@
 <div class="row">
   <div class="col-md-3">
     <div class="form-group">
-      {{ Form::label($field, $prompt) }} 
+      @if ($action != 'Crear' || $CSN::is_creatable($field))
+        {{ Form::label($field, $prompt) }} 
+      @endif
     </div>
   </div>
   <div class="col-md-9">
@@ -51,7 +53,6 @@
 
 
       @else 
-
         @if (in_array($action, array('Mostrar', 'Enviar correu')) ||
 	     ($action != 'Crear' && ! $CSN::is_editable($field)))
           {{ $$csn->resolve($field) }}
@@ -61,7 +62,7 @@
           {{ Form::text($field, Input::old($field), array('size' => display_size_of($CSN, $field))) }}
         @elseif (isset($CSN::$default_values[$field]))
           {{ Form::text($field, $CSN::$default_values[$field], array('size' => display_size_of($CSN, $field))) }}
-        @else
+        @elseif ($action == 'Crear' && $CSN::is_creatable($field))
           {{ Form::text($field, null, array('size' => display_size_of($CSN, $field))) }}
         @endif
 
