@@ -115,15 +115,7 @@ $('.dependent-search').each(function() {
 	queryTokenizer: Bloodhound.tokenizers.whitespace,
 	remote: {
 	    url: '/' + $(this).attr('dependentClass') + 's/search/%QUERY',
-	},
-/*
-	template: [
-	    '<div class="typeahead-wrapper"><div class="typeahead-labels">',
-	    '<div class="typeahead-primary">{{ id }}</div>',
-	    '<div class="typeahead-secondary">{{ search }}</div>',
-	    '</div></div>'
-	].join(''),
-*/
+	}
     });
  
     searchBox.initialize();
@@ -147,10 +139,13 @@ $('.dependent-search').each(function() {
 		    response += '<div class="typeahead-secondary">' + fields[i].replace(':', ': ') + '</div>';
 		}
 		response += '</div></div>';
-		console.log(response);
+		
 		return response;
 	    }
 	},
+	valueKey: 'id',
+	hint: true,
+	highlight: true,
 	source: searchBox.ttAdapter()
     });
 

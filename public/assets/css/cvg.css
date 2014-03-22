@@ -37,20 +37,17 @@ td.right {
     line-height: 1.33;
 }
 
-
 .typeahead-wrapper { display: block; }
-/*
 .typeahead-photo { float: left; max-width: 30px; max-height: 30px; margin-right: 5px; }
-*/
 .typeahead-labels { float: left; }
 .typeahead-primary { font-weight: bold; }
 /*
-.typeahead-secondary { font-size: .8em; margin-top: -5px; }
+.typeahead-secondary { font-size: smaller; }
 */
 
 .dependent-search .tt-dropdown-menu {
-max-height: 150px;
-overflow-y: auto;
+    max-height: 150px;
+    overflow-y: auto;
 }
 
 .twitter-typeahead {
