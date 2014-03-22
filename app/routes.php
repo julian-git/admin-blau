@@ -71,7 +71,8 @@ foreach(array('Categorie',
     Route::get("/$csn/inspect/{" . $csn . '}', array('uses' => "{$CSN}sController@inspect", 'as' => "$csn.inspect"));
     Route::get("/$csn/delete/{" . $csn . '}', "{$CSN}sController@delete");
     Route::get("/$csn/list", "{$CSN}sController@make_list");
-    Route::get("/$csn/export", "{$CSN}sController@export");
+    Route::get("/$csn/export/{results}", "{$CSN}sController@export");
+
     /*
     Route::get("/$csn/json", function() use ($CSN) {
 	    return Response::json($CSN::all()->toArray());

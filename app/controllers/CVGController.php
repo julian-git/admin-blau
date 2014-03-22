@@ -321,18 +321,37 @@ class CVGController extends BaseController
     public function make_list()
     {
 	$extended_layout_data = $this->layout_data;
+	$extended_layout_data['results'] = array();
 	$this->layout->content = View::make('generic.list', $extended_layout_data);
     }
 
     public function handleList()
     {
 	$CSN = $this->ClassSingularName;
+	$select = isset($CSN::$member_fields['password']) 
+	    ? array_diff_assoc($CSN::$member_fields, array(
+							   'usuari' => 'Usuari',
+							   'password' => 'Password',
+							   'quote' => 'Quota'
+							   )
+			       )
+	    : $CSN::$member_fields;
 	$results = $CSN::where(Input::get('field'), Input::get('operator'), Input::get('value'))
+	    ->select(array_keys($select))
 	    ->get();
 	$extended_layout_data = $this->layout_data;
 	$extended_layout_data['results'] = $results;
+	Log::info($results);
+	$this->layout->content = View::make('generic.list', $extended_layout_data);
+    }
+
+    public function export($results)
+    {
+	$extended_layout_data = $this->layout_data;
+	$extended_layout_data['results'] = explode('\\', $results);
 	$this->layout->content = View::make('generic.export', $extended_layout_data);
     }
 
+    
 }
  ?>

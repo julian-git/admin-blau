@@ -72,6 +72,25 @@
   </div>
 </div>
 
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 id="resultats-trobats" class="panel-title">{{ sizeof($results) > 0 ? sizeof($results) . ' r' : 'R' }}esultats trobats</h3>
+  </div>
+  <div class="panel-body">
+    <div class="form-group">
+      <a href="{{ $CSN }}/export" class="btn btn-success{{ sizeof($results) > 0 ? '' : ' disabled' }}">Desar dades complerts com a</a>
+	{{ Form::select('format', array('csv', 'xml'), 'csv', array( sizeof($results) > 0 ? '' : 'disabled')) }}
+    </div>
+    <div id="results" class="form-group">
+       <?php $i=0 ?>
+       @foreach($results as $result)
+         {{ Form::hidden('id-' . $i++, $result) }}
+         <p>{{ assemble_identifying_fields($CSN, $result) }}</p>
+       @endforeach
+    </div>
+  </div>
+</div>
+
 {{ Form::close() }}
 
 @stop
