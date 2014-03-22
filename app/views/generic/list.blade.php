@@ -78,8 +78,8 @@
   </div>
   <div class="panel-body">
     <div class="form-group">
-      <a href="{{ $CSN }}/export" class="btn btn-success{{ sizeof($results) > 0 ? '' : ' disabled' }}">Desar dades complerts com a</a>
-	{{ Form::select('format', array('csv', 'xml'), 'csv', array( sizeof($results) > 0 ? '' : 'disabled')) }}
+      <a href="/{{ strtolower($CSN) }}/export" class="btn btn-success{{ sizeof($results) > 0 ? '' : ' disabled' }}">Desar dades complerts com a</a>
+	{{ Form::select('format_input', array('csv' => 'csv', 'xml' => 'xml', 'json' => 'json'), 'json', array( sizeof($results) > 0 ? '' : 'disabled')) }}
     </div>
     <div id="results" class="form-group">
        <?php $i=0 ?>

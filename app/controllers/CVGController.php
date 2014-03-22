@@ -341,15 +341,16 @@ class CVGController extends BaseController
 	    ->get();
 	$extended_layout_data = $this->layout_data;
 	$extended_layout_data['results'] = $results;
-	Log::info($results);
 	$this->layout->content = View::make('generic.list', $extended_layout_data);
     }
 
-    public function export($results)
+    public function export()
     {
-	$extended_layout_data = $this->layout_data;
-	$extended_layout_data['results'] = explode('\\', $results);
-	$this->layout->content = View::make('generic.export', $extended_layout_data);
+	$tmpfname = tempnam(sys_get_temp_dir(), 'export.');
+	foreach(Input::all() as $field => $value)
+	{
+	    Log::info($field);
+	}
     }
 
     
