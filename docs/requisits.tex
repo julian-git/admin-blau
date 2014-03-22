@@ -32,11 +32,11 @@
 \section{Descripció de les entitats principals de l'aplicació}
 
 \begin{description}
-\item[Persones] \progres\falta mail
+\item[Persones] \complert
 \item[Categories de persones] \complert
 \item[Rols] \complert; sense funcionalitat
-\item[Famílies] \progres\falta mail
-\item[Quotes] \progres\falta mail
+\item[Famílies] \complert
+\item[Quotes] \complert
 \item[Esdeveniments] \progres \falta preus
 \item[Compte] \falta
 \item[Rebuts] \progres \falta mail, cobrament manual, històric de pagaments
@@ -48,13 +48,15 @@
 \subsection{Versió 0.5}
 \begin{description}
 \setlength{\itemsep}{3ex}
-\item[R01] \progres Alta, baixa i modificació de persones 
+\item[R01] \complert Alta, baixa i modificació de persones 
 
 \begin{itemize}
-\item \complert Un administrador ha de poder accedir a una part privada per afegir, editar i eliminar persones a la base de dades. 
+\item \progres Un administrador ha de poder accedir a una part privada per afegir, editar i eliminar persones a la base de dades. 
 \item \complert Quan es doni d'alta una persona, enviar-li un mail informant-lo de l'alta i se li adjunten les dades per a que les comprovi. 
-\item \falta Quan es doni de baixa algú, enviar també mail informant. 
-\item \complert S'ha de preguntar cada vegada a l'administrador si enviar o no aquests mails.
+\item \complert Quan es doni de baixa algú, enviar també mail informant. 
+\item \complert S'ha de preguntar cada vegada a l'administrador si
+  enviar o no aquests mails.
+\item \falta rols
 \end{itemize}
 
 \item[R02] \progres Agrupar persones per famílies 
@@ -65,19 +67,23 @@ Cada persona només pot pertànyer a una família.
 \begin{itemize}
 \item \progres  L'administrador ha de poder afegir, editar i eliminar famílies. \falta el rol
 \item \complert Quan es doni d'alta una família, avisar a tots els responsables de que se'ls ha agrupat en una família per mail. 
-\item \falta El mateix quan es doni de baixa. 
-\item \complert S'ha de preguntar cada vegada a l'administrador si enviar o no aquests mails.
+\item \complert El mateix quan es doni de baixa. 
+\item \complert S'ha de preguntar cada vegada a l'administrador si
+  enviar o no aquests mails.
+\item \falta rols
 \end{itemize}
 
 
-\item[R03] \complert Alta, baixa i modificació de quotes 
+\item[R03] \progres Alta, baixa i modificació de quotes 
 
 \begin{itemize}
 \item \complert L'administrador ha de poder afegir, editar i eliminar quotes.
 \item \complert Una quota té un responsable (a la taula de persones), que és el titular del compte corrent al que es passa el rebut. 
 \item \complert Cada quota tindrà associat un llistat de un o més castellers als quals ``cobreix''. 
 \item \complert Cada vegada que es dóna d'alta/baixa una quota, enviar un mail al responsable informant-lo.
-\item \complert S'ha de preguntar cada vegada a l'administrador si enviar o no aquests mails.
+\item \complert S'ha de preguntar cada vegada a l'administrador si
+  enviar o no aquests mails.
+\item \falta rols
 \end{itemize}
 
 \item[R04] Generació de rebuts 
