@@ -327,16 +327,9 @@ class CVGController extends BaseController
 
     public function handleList()
     {
-	if (Input::has('list'))
-	{
-	    Log::info("selected list");
-	    Log::info(Input::all());
-	    return $this->list_impl();
-	} else {
-	    Log::info("selected export");
-	    Log::info(Input::all());
-	    return $this->export_impl();
-	}
+	return Input::has('list')
+	    ?  $this->list_impl()
+	    :  $this->export_impl();
     }
 
     protected function list_impl()
@@ -361,31 +354,93 @@ class CVGController extends BaseController
 	$this->layout->content = View::make('generic.list', $extended_layout_data);
     }
 
-    protected function format($fmt, $value)
+    protected function export_entry($fmt, $field, $value)
     {
 	switch($fmt) 
 	{
 	case 'json':
-	    return $value;
+	    return '"' . $field . ':' . $value . '",';
 
 	case 'csv':
-	    $vals = array();
-	    foreach(json_decode($value) as $f => $v)
-	    {	
-		$vals[] = $v;
-	    }
-	    return join(',', $vals);
+	    return $value . ',';
 
 	case 'xml':
-	    $xml = "  <row>\n";
-	    foreach(json_decode($value) as $f => $v)
-	    {	
-		$xml .= '    <' . $f . '>' . $v . '</' . $f . ">\n";
-	    }
-	    return $xml . '  </row>';
+	    return '      <' . $field . '>' . $value . '</' . $field . ">\n";
 
 	default:
 	    App::abort(403, 'El format ' . $fmt . ' és desconegut');
+	}
+    }
+
+    protected function export_header($fmt, $results)
+    {
+	switch($fmt) {
+	case 'csv':
+	    return join(',', array_keys($results[0]->toArray())) . "\n";
+	    
+	case 'xml':
+	    return "<dataset>\n"
+		. "  <metadata>\n"
+		. '    <date>' . date('Y-m-d') . "</date>\n"
+		. '    <time>' . date('H:i:s') . "</time>\n"
+		. "  </metadata>\n";
+
+	case 'json':
+	    return '{';
+
+	default:
+	    return '';
+	}
+    }
+
+    protected function export_footer($fmt)
+    {
+	switch($fmt) {
+	case 'csv':
+	    return '';
+	    
+	case 'xml':
+	    return "</dataset>\n";
+
+	case 'json':
+	    return '}';
+
+	default:
+	    return '';
+	}
+    }
+
+    protected function export_row_prefix($fmt)
+    {
+	switch($fmt) {
+	case 'csv':
+	    return '';
+	    
+	case 'xml':
+	    return "    <row>\n";
+
+	case 'json':
+	    return '{';
+
+	default:
+	    return '';
+	}
+    }
+
+    protected function export_row_suffix($fmt)
+    {
+	switch($fmt) {
+	case 'csv':
+	    return "\n";
+	    
+	case 'xml':
+	    return "    </row>\n";
+
+	case 'json':
+	    return "},\n";
+
+	default:
+	    return "\n";
 	}
     }
 
@@ -406,10 +461,11 @@ class CVGController extends BaseController
 				    Input::get('operator'), 
 				    Input::get('value'))
 	    ->select(array_keys($select))
-	    ->get()
-	    ->toArray();
+	    ->get();
+	Log::info("query_result $query_result");
 
 	$fmt = Input::get('format_input');
+
 	$pathToFile = tempnam(sys_get_temp_dir(), 'export_' . date('Y-m-d') . '_') 
 	    . '.' . $fmt;
 	if (($handle = fopen($pathToFile, 'w')) === false) 
@@ -417,24 +473,20 @@ class CVGController extends BaseController
 	    App::abort(403, 'No he pogut obrir el fitxer ' . $tmpfnam);
 	}
 
-	if ($fmt == 'xml') 
+	Log::info($this->export_header($fmt, $query_result));
+	fwrite($handle, $this->export_header($fmt, $query_result));
+
+	foreach ($query_result as $result)
 	{
-	    fwrite($handle, "<dataset>\n");
-	    fwrite($handle, '  <date>' . date('Y-m-d') . "</date>\n");
+	    fwrite($handle, $this->export_row_prefix($fmt));
+	    foreach ($result->toArray() as $field => $value) 
+	    {
+		fwrite($handle, $this->export_entry($fmt, $field, $value));
+	    }
+	    fwrite($handle, $this->export_row_suffix($fmt));
 	}
 
-	foreach ($query_result as $field => $value)
-	{
-	    if (substr($field, 0, strlen('id-')) == 'id-')
-	    {
-		fwrite($handle, $this->format($fmt, $value));
-		fwrite($handle, "\n");
-	    }
-	}
-	if ($fmt == 'xml') 
-	{
-	    fwrite($handle, '</dataset>');
-	}
+	fwrite($handle, $this->export_footer($fmt));
 	fclose($handle);
 	return Response::download($pathToFile);
     }
