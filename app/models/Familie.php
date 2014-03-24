@@ -108,7 +108,10 @@ class Familie extends ResolvingEloquent
 	    ;
     }
 
-    public static $validation_rules = array('nom' => 'required');
+    public static $validation_rules = array(
+					    'nom' => 'required',
+					    'id_responsables_list' => 'required'
+					    );
 
     public static $default_values = array();
 

@@ -46,7 +46,7 @@
 	       @include('generic/snippets/assemble_dependent_input')
            @endforeach  
            @if ($action == 'Mostrar' && $CSN == 'Persone')
-	    <a class="btn btn-success btn-xs" href="/{{ strtolower($DCL) }}/create/{{ $$csn->id }}">{{ $DCL::$class_name_gender == 'm' ? 'Nou' : 'Nova' }} {{ strtolower($DCL::$singular_class_name) }}</a>
+	    <a class="btn btn-success btn-xs" href="/{{ strtolower($DCL) }}/create/{{ $CSN == 'Quote' ? $$csn->id : '' }}">{{ $DCL::$class_name_gender == 'm' ? 'Nou' : 'Nova' }} {{ strtolower($DCL::$singular_class_name) }}</a>
     @endif      </div>
         {{ $errors->first($field, '<span class="cvg-error">:message</span>') }}
 </div> <!-- form-group -->

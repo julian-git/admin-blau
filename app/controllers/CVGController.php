@@ -211,6 +211,7 @@ class CVGController extends BaseController
 
     protected function handle_create_and_edit_impl($action)
     {
+	Log::info("in impl");
 	$CSN = $this->ClassSingularName;
 	$csn = strtolower($CSN);
 	$validator = Validator::make(Input::all(), $CSN::$validation_rules, $this->custom_validation_messages);
