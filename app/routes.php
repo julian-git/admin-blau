@@ -84,7 +84,6 @@ foreach(array('Categorie',
     Route::post("/$csn/edit/{" . $csn . '}', "{$CSN}sController@handleEditar");
     Route::post("/$csn/delete", "{$CSN}sController@handleDelete");
     Route::post("/$csn/list", "{$CSN}sController@handleList");
-    Route::post("/$csn/export", "{$CSN}sController@export");
 }
 
 Route::get("/esdeveniments/apuntats/{esdeveniment}", 'EsdevenimentsController@apuntats');

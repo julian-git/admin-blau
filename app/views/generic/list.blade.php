@@ -23,7 +23,7 @@
     <h1>Llistats de {{ strtolower($CSN::$plural_class_name) }}</h1>
 </div>
 
-    {{ Form::open(array('action' => sizeof($results)>0 ? $CSN . 'sController@export' : $CSN . 'sController@make_list')) }}
+    {{ Form::open() }}
 
 <div class="panel panel-primary">
   <div class="panel-heading">
@@ -51,7 +51,7 @@
       </div>
       <div class="col-md-9">
         <div class="form-group">
-	    {{ Form::select('operator', array('>=' => '>=', '=' => '=', '<=' => '<=')) }}
+	    {{ Form::select('operator', array('>=' => '>=', '=' => '=', '<=' => '<=', 'like' => 'like')) }}
         </div>
       </div>
     </div> <!-- row -->
@@ -68,7 +68,7 @@
         </div>
       </div>
     </div> <!-- row -->
-    <button type="submit" class="btn btn-success{{ sizeof($results) == 0 ? '' : ' disabled' }}">Fer llistat</button>
+    <button type="submit" name="list" value="1" class="btn btn-success">Fer llistat</button>
   </div>
 </div>
 
@@ -78,14 +78,12 @@
   </div>
   <div class="panel-body">
     <div class="form-group">
-      <button type="submit" class="btn btn-success{{ sizeof($results) > 0 ? '' : ' disabled' }}">Desar dades complerts com a</button>
+      <button type="submit" name="export" value="1" class="btn btn-success{{ sizeof($results) > 0 ? '' : ' disabled' }}">Desar dades complerts com a</button>
 	{{ Form::select('format_input', array('csv' => 'csv', 'xml' => 'xml', 'json' => 'json'), 'json', array( sizeof($results) > 0 ? '' : 'disabled')) }}
     </div>
     <div id="results" class="form-group">
-       <?php $i=0 ?>
        @foreach($results as $result)
-         {{ Form::hidden('id-' . $i++, $result) }}
-         <p>{{ assemble_identifying_fields($CSN, $result) }}</p>
+         <p>{{$result}}</p>
        @endforeach
     </div>
   </div>

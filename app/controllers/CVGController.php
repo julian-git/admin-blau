@@ -327,18 +327,35 @@ class CVGController extends BaseController
 
     public function handleList()
     {
+	if (Input::has('list'))
+	{
+	    Log::info("selected list");
+	    Log::info(Input::all());
+	    return $this->list_impl();
+	} else {
+	    Log::info("selected export");
+	    Log::info(Input::all());
+	    return $this->export_impl();
+	}
+    }
+
+    protected function list_impl()
+    {
 	$CSN = $this->ClassSingularName;
-	$select = isset($CSN::$member_fields['password']) 
-	    ? array_diff_assoc($CSN::$member_fields, array(
-							   'usuari' => 'Usuari',
-							   'password' => 'Password',
-							   'quote' => 'Quota'
-							   )
-			       )
-	    : $CSN::$member_fields;
-	$results = $CSN::where(Input::get('field'), Input::get('operator'), Input::get('value'))
-	    ->select(array_keys($select))
+	$field = Input::get('field');
+	$select = $CSN::$identifying_short_fields;
+	$select[] = $field;
+	$query_result = $CSN::where($field, 
+				    Input::get('operator'), 
+				    Input::get('value'))
+	    ->select($select)
 	    ->get();
+	$results = array();
+	foreach ($query_result as $result)
+	{
+	    $results[] = assemble_identifying_short_fields($CSN, $result) 
+		. ': ' . $result->$field;
+	}
 	$extended_layout_data = $this->layout_data;
 	$extended_layout_data['results'] = $results;
 	$this->layout->content = View::make('generic.list', $extended_layout_data);
@@ -372,21 +389,41 @@ class CVGController extends BaseController
 	}
     }
 
-    public function export()
+    protected function export_impl()
     {
+	$CSN = $this->ClassSingularName;
+	$field = Input::get('field');
+	$select = isset($CSN::$member_fields['password']) 
+	    ? array_diff_assoc($CSN::$member_fields, array(
+							   'usuari' => 'Usuari',
+							   'password' => 'Password',
+							   'quote' => 'Quota'
+							   )
+			       )
+	    : $CSN::$member_fields;
+
+	$query_result = $CSN::where($field, 
+				    Input::get('operator'), 
+				    Input::get('value'))
+	    ->select(array_keys($select))
+	    ->get()
+	    ->toArray();
+
 	$fmt = Input::get('format_input');
-	$pathToFile = tempnam(sys_get_temp_dir(), 'export.' . date('Y-m-d') . '.') 
+	$pathToFile = tempnam(sys_get_temp_dir(), 'export_' . date('Y-m-d') . '_') 
 	    . '.' . $fmt;
 	if (($handle = fopen($pathToFile, 'w')) === false) 
 	{
 	    App::abort(403, 'No he pogut obrir el fitxer ' . $tmpfnam);
 	}
+
 	if ($fmt == 'xml') 
 	{
 	    fwrite($handle, "<dataset>\n");
 	    fwrite($handle, '  <date>' . date('Y-m-d') . "</date>\n");
 	}
-	foreach (Input::all() as $field => $value)
+
+	foreach ($query_result as $field => $value)
 	{
 	    if (substr($field, 0, strlen('id-')) == 'id-')
 	    {
