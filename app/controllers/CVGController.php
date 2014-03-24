@@ -359,13 +359,13 @@ class CVGController extends BaseController
 	switch($fmt) 
 	{
 	case 'json':
-	    return '"' . $field . ':' . $value . '",';
+	    return '"' . $field . ':' . $value . '"';
 
 	case 'csv':
-	    return $value . ',';
+	    return '"' . $value . '"';
 
 	case 'xml':
-	    return '      <' . $field . '>' . $value . '</' . $field . ">\n";
+	    return '      <' . $field . '>' . $value . '</' . $field . '>';
 
 	default:
 	    App::abort(403, 'El format ' . $fmt . ' és desconegut');
@@ -376,14 +376,15 @@ class CVGController extends BaseController
     {
 	switch($fmt) {
 	case 'csv':
-	    return join(',', array_keys($this->export_fields())) . "\n";
+	    return join(',', array_keys($this->fields_to_export())) . "\n";
 	    
 	case 'xml':
 	    return "<dataset>\n"
 		. "  <metadata>\n"
 		. '    <date>' . date('Y-m-d') . "</date>\n"
 		. '    <time>' . date('H:i:s') . "</time>\n"
-		. "  </metadata>\n";
+		. "  </metadata>\n"
+		. "  <rows>\n";
 
 	case 'json':
 	    return '{';
@@ -400,7 +401,8 @@ class CVGController extends BaseController
 	    return '';
 	    
 	case 'xml':
-	    return "</dataset>\n";
+	    return "\n  </rows>\n"
+		. "</dataset>\n";
 
 	case 'json':
 	    return '}';
@@ -431,20 +433,54 @@ class CVGController extends BaseController
     {
 	switch($fmt) {
 	case 'csv':
-	    return "\n";
+	    return '';
 	    
 	case 'xml':
-	    return "    </row>\n";
+	    return "\n    </row>";
 
 	case 'json':
-	    return "},\n";
+	    return '}';
+
+	default:
+	    return '';
+	}
+    }
+
+    protected function export_row_joiner($fmt)
+    {
+	switch($fmt) {
+	case 'csv':
+	    return ',';
+	    
+	case 'xml':
+	    return "\n";
+
+	case 'json':
+	    return ',';
 
 	default:
 	    return "\n";
 	}
     }
 
-    protected function export_fields()
+    protected function export_rows_joiner($fmt)
+    {
+	switch($fmt) {
+	case 'csv':
+	    return "\n";
+	    
+	case 'xml':
+	    return "\n";
+
+	case 'json':
+	    return ",\n";
+
+	default:
+	    return "\n";
+	}
+    }
+
+    protected function fields_to_export()
     {
 	$CSN = $this->ClassSingularName;
 	$bad_fields = array(
@@ -503,19 +539,23 @@ class CVGController extends BaseController
 
 	fwrite($handle, $this->export_header($fmt, $query_results));
 
+	$rows = array();
 	foreach ($query_results as $result)
 	{
 	    Log::info($result->id);
 	    $class_instance = $CSN::findOrFail($result->id);
-
-	    fwrite($handle, $this->export_row_prefix($fmt));
-	    foreach ($this->export_fields() as $field => $prompt) 
+	    
+	    $row = array();
+	    foreach ($this->fields_to_export() as $field => $prompt) 
 	    {
-		fwrite($handle, $this->export_entry($fmt, $prompt, $class_instance->$field));
+		$row[] = $this->export_entry($fmt, $prompt, $class_instance->$field);
 	    }
-	    fwrite($handle, $this->export_row_suffix($fmt));
+	    $rows[] =
+		   $this->export_row_prefix($fmt)
+		   . join($this->export_row_joiner($fmt), $row)
+		   . $this->export_row_suffix($fmt);
 	}
-
+	fwrite($handle, join($this->export_rows_joiner($fmt), $rows));
 	fwrite($handle, $this->export_footer($fmt));
 	fclose($handle);
 	return Response::download($pathToFile);
