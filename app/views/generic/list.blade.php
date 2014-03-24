@@ -74,7 +74,7 @@
 
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 id="resultats-trobats" class="panel-title">{{ sizeof($results) > 0 ? sizeof($results) . ' r' : 'R' }}esultat{{ sizeof($result) == 1 ? '' : 's' }} trobats</h3>
+    <h3 id="resultats-trobats" class="panel-title">{{ sizeof($results) > 0 ? sizeof($results) . ' r' : 'R' }}esultat{{ sizeof($result) == 1 ? '' : 's' }} trobat{{ sizeof($result) == 1 ? '' : 's' }}</h3>
   </div>
   <div class="panel-body">
     <div class="form-group">
