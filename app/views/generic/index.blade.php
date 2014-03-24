@@ -34,7 +34,7 @@
           </a>
           </div>
           <div class="col-md-6">
-	  <a id="list-button" href="{{ action($CSN . 'sController@list') }}" class="btn btn-primary pull-right">
+	  <a id="list-button" href="{{ action($CSN . 'sController@make_list') }}" class="btn btn-primary pull-right">
 	    Fer llistat
           </a>
           </div>
