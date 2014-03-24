@@ -186,13 +186,14 @@ class Quote extends ResolvingEloquent
     public static $identifying_fields = array(
 					      'id_responsables_fk',
 					      'tipus_quotes_fk',
-					      'import'
+					      'import',
+					      'beneficiaris_list'
 					      );
 
     public static $identifying_short_fields = array(
+						    'id_responsables_fk',
 						    'tipus_quotes_fk',
-						    'import',
-						    'beneficiaris_list'
+						    'import'
 						    );
 
     public static $send_mail_to = array(

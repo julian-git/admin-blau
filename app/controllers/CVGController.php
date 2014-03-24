@@ -376,7 +376,7 @@ class CVGController extends BaseController
     {
 	switch($fmt) {
 	case 'csv':
-	    return join(',', array_keys($results[0]->toArray())) . "\n";
+	    return join(',', array_keys($this->export_fields())) . "\n";
 	    
 	case 'xml':
 	    return "<dataset>\n"
@@ -444,25 +444,53 @@ class CVGController extends BaseController
 	}
     }
 
+    protected function export_fields()
+    {
+	$CSN = $this->ClassSingularName;
+	$bad_fields = array(
+			    'usuari' => 'Usuari',
+			    'password' => 'Password'
+			    );
+	$substituted_fields = array();
+
+	foreach ($CSN::$member_fields as $field => $prompt)
+	{
+	    // don't export fake input member fields
+	    if (substr($field, 0, strlen('input_')) == 'input_')
+	    {
+		$bad_fields[$field] = $prompt;
+	    }
+
+	    // convert fields of type 'id_responsables_list' to 'responsables_list'
+	    // so that foreign keys get converted upon exporting
+	    if (substr($field, 0, strlen('id_')) == 'id_' &&
+		substr($field, strrpos($field, '_list')) == '_list')
+	    {
+		$substituted_fields[$field] = substr($field, strlen('id_'));
+	    }
+	}
+	
+	$fields = array_diff_assoc($CSN::$member_fields, $bad_fields);
+	
+	foreach ($substituted_fields as $orig => $subs)
+	{
+	    $fields[$subs] = $fields[$orig];
+	    unset($fields[$orig]);
+	}
+	return $fields;
+    }
+
+
     protected function export_impl()
     {
 	$CSN = $this->ClassSingularName;
 	$field = Input::get('field');
-	$select = isset($CSN::$member_fields['password']) 
-	    ? array_diff_assoc($CSN::$member_fields, array(
-							   'usuari' => 'Usuari',
-							   'password' => 'Password',
-							   'quote' => 'Quota'
-							   )
-			       )
-	    : $CSN::$member_fields;
 
-	$query_result = $CSN::where($field, 
+	$query_results = $CSN::where($field, 
 				    Input::get('operator'), 
 				    Input::get('value'))
-	    ->select(array_keys($select))
+	    ->select('id')
 	    ->get();
-	Log::info("query_result $query_result");
 
 	$fmt = Input::get('format_input');
 
@@ -473,15 +501,17 @@ class CVGController extends BaseController
 	    App::abort(403, 'No he pogut obrir el fitxer ' . $tmpfnam);
 	}
 
-	Log::info($this->export_header($fmt, $query_result));
-	fwrite($handle, $this->export_header($fmt, $query_result));
+	fwrite($handle, $this->export_header($fmt, $query_results));
 
-	foreach ($query_result as $result)
+	foreach ($query_results as $result)
 	{
+	    Log::info($result->id);
+	    $class_instance = $CSN::findOrFail($result->id);
+
 	    fwrite($handle, $this->export_row_prefix($fmt));
-	    foreach ($result->toArray() as $field => $value) 
+	    foreach ($this->export_fields() as $field => $prompt) 
 	    {
-		fwrite($handle, $this->export_entry($fmt, $field, $value));
+		fwrite($handle, $this->export_entry($fmt, $prompt, $class_instance->$field));
 	    }
 	    fwrite($handle, $this->export_row_suffix($fmt));
 	}
